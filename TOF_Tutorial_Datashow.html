@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOF Clinical App — Guide Pratique | CSC Algeria | Présentation</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{
+  width:100%;height:100%;overflow:hidden;
+  background:#000;
+  font-family:'Outfit',sans-serif;
+}
+
+/* ── PRESENTATION WRAPPER ── */
+/* Maintains strict 16:9 ratio, centered on any screen */
+#pres{
+  position:fixed;
+  background:#080F1E;
+  overflow:hidden;
+}
+
+/* ── SLIDES ── */
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.6s ease, transform 0.6s cubic-bezier(.4,0,.2,1);
+  transform:translateX(60px);
+}
+.slide.active{opacity:1;pointer-events:all;transform:translateX(0)}
+.slide.exit{opacity:0;transform:translateX(-60px)}
+
+/* ── NAV BAR (bottom) ── */
+#nav-bar{
+  position:fixed;bottom:0;left:0;right:0;
+  height:52px;
+  background:rgba(8,15,30,0.95);
+  border-top:1px solid rgba(255,255,255,0.08);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 32px;
+  z-index:200;
+  backdrop-filter:blur(10px);
+}
+.nav-dots{display:flex;gap:8px;align-items:center}
+.ndot{
+  width:7px;height:7px;border-radius:50%;
+  background:rgba(255,255,255,0.2);
+  transition:all 0.4s cubic-bezier(.34,1.56,.64,1);
+  cursor:pointer;
+}
+.ndot.active{width:28px;border-radius:4px;background:#00B4A0}
+.ndot.done{background:rgba(0,180,160,0.5)}
+.nav-label{font-size:12px;color:rgba(255,255,255,0.35);letter-spacing:0.5px;font-weight:500}
+.nav-btns{display:flex;gap:8px}
+.nb{
+  height:34px;padding:0 18px;border-radius:8px;
+  border:none;cursor:pointer;font-family:'Syne',sans-serif;
+  font-size:12px;font-weight:700;transition:all 0.2s;
+  display:flex;align-items:center;gap:6px;
+}
+.nb-prev{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.1)}
+.nb-prev:hover{background:rgba(255,255,255,0.12);color:white}
+.nb-next{background:linear-gradient(135deg,#00B4A0,#007A6E);color:white;box-shadow:0 3px 12px rgba(0,180,160,0.3)}
+.nb-next:hover{transform:scale(1.03)}
+.nb-next.fin{background:linear-gradient(135deg,#25D366,#1DA851)}
+
+/* ── SLIDE NUMBER ── */
+.slide-num{
+  font-family:'Syne',sans-serif;font-size:11px;font-weight:600;
+  color:rgba(255,255,255,0.25);letter-spacing:1px;
+}
+
+/* ── GLOBAL BG ORBS ── */
+.orb{
+  position:absolute;border-radius:50%;
+  filter:blur(100px);pointer-events:none;
+  transition:all 1.5s ease;
+}
+
+/* ── LAYOUT HELPERS ── */
+.row{display:flex;align-items:stretch;gap:0;flex:1;overflow:hidden}
+.col{display:flex;flex-direction:column}
+.h100{height:100%}
+.pad{padding:5% 5% 0}
+.pad-sm{padding:3% 4% 0}
+
+/* ── SLIDE 0 : COVER ── */
+.cover-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,#080F1E 0%,#0C2A4A 50%,#0A1F18 100%);
+}
+.cover-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,180,160,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,180,160,0.04) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.cover-content{
+  position:relative;z-index:1;
+  display:flex;height:100%;
+  padding-bottom:52px;
+}
+.cover-left{
+  flex:1.2;display:flex;flex-direction:column;
+  justify-content:center;padding:6% 5% 6% 7%;
+}
+.cover-right{
+  flex:0.8;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  padding:5%;
+  border-left:1px solid rgba(255,255,255,0.06);
+}
+.cover-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(0,180,160,0.12);border:1px solid rgba(0,180,160,0.3);
+  border-radius:20px;padding:5px 16px;margin-bottom:20px;
+  font-size:13px;color:#7FFFF4;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+}
+.cover-title{
+  font-family:'Syne',sans-serif;font-size:52px;font-weight:800;
+  color:white;line-height:1.1;margin-bottom:12px;
+}
+.cover-title em{color:#00B4A0;font-style:normal}
+.cover-sub{
+  font-size:18px;color:rgba(255,255,255,0.5);
+  line-height:1.7;margin-bottom:32px;max-width:500px;
+}
+.cover-pills{display:flex;flex-wrap:wrap;gap:8px}
+.cpill{
+  padding:6px 14px;border-radius:20px;
+  font-size:12px;font-weight:600;
+  border:1px solid;
+}
+.cp-teal{background:rgba(0,180,160,0.12);border-color:rgba(0,180,160,0.3);color:#7FFFF4}
+.cp-red{background:rgba(200,39,63,0.12);border-color:rgba(200,39,63,0.3);color:#FFA0B0}
+.cp-gold{background:rgba(240,160,48,0.12);border-color:rgba(240,160,48,0.3);color:#FCD34D}
+.cp-mint{background:rgba(26,138,104,0.12);border-color:rgba(26,138,104,0.3);color:#6EE7B7}
+.cp-purple{background:rgba(124,58,237,0.12);border-color:rgba(124,58,237,0.3);color:#C4B5FD}
+.logo-circle{
+  width:160px;height:160px;border-radius:32px;
+  background:white;padding:16px;
+  box-shadow:0 16px 64px rgba(0,180,160,0.3);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:20px;overflow:hidden;
+}
+.logo-circle img{width:100%;height:100%;object-fit:contain}
+.cover-org{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:white;text-align:center}
+.cover-org-sub{font-size:13px;color:rgba(255,255,255,0.4);text-align:center;margin-top:4px}
+
+/* ── STANDARD SLIDE LAYOUT ── */
+.slide-header{
+  padding:28px 48px 18px;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.sh-left{display:flex;align-items:center;gap:14px}
+.sh-num{
+  width:40px;height:40px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:white;
+  flex-shrink:0;
+}
+.sh-title{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:white;line-height:1.1}
+.sh-title em{font-style:normal}
+.sh-sub{font-size:13px;color:rgba(255,255,255,0.4);margin-top:2px}
+.sh-badge{
+  padding:5px 14px;border-radius:8px;
+  font-size:11px;font-weight:600;
+  background:rgba(0,180,160,0.12);border:1px solid rgba(0,180,160,0.25);color:#7FFFF4;
+  white-space:nowrap;
+}
+
+/* ── SLIDE BODY ── */
+.slide-body{
+  flex:1;overflow:hidden;
+  display:flex;
+  padding:24px 48px 24px;
+  gap:28px;
+}
+
+/* ── CARDS ── */
+.card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.09);
+  border-radius:16px;padding:20px 22px;
+  position:relative;overflow:hidden;
+  backdrop-filter:blur(8px);
+}
+.card.teal{border-left:3px solid #00B4A0}
+.card.red{border-left:3px solid #C8273F}
+.card.gold{border-left:3px solid #F0A030}
+.card.mint{border-left:3px solid #1A8A68}
+.card.purple{border-left:3px solid #7C3AED}
+.card.sky{border-left:3px solid #0284C7}
+.card-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:white;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.card-body{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7}
+
+/* ── FLOW ── */
+.flow-h{display:flex;align-items:stretch;gap:0}
+.fstep{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  position:relative;
+}
+.fstep::after{
+  content:'→';
+  position:absolute;right:-14px;top:24px;
+  font-size:18px;color:rgba(255,255,255,0.2);
+  z-index:1;
+}
+.fstep:last-child::after{display:none}
+.fstep-icon{
+  width:54px;height:54px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;margin-bottom:12px;
+  border:1px solid rgba(255,255,255,0.1);
+}
+.fstep-num{
+  font-family:'Syne',sans-serif;font-size:11px;font-weight:800;
+  color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;
+  margin-bottom:4px;
+}
+.fstep-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:white;text-align:center;margin-bottom:6px}
+.fstep-desc{font-size:11px;color:rgba(255,255,255,0.5);text-align:center;line-height:1.5;padding:0 6px}
+.fstep-conn{width:40px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.2);font-size:20px;flex-shrink:0;margin-top:-30px}
+
+/* ── MOCKUP PANEL ── */
+.mockup-panel{
+  width:280px;flex-shrink:0;
+  background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.08);
+  border-radius:16px;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.mp-header{
+  background:linear-gradient(135deg,rgba(0,180,160,0.2),rgba(0,120,110,0.15));
+  padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.07);
+}
+.mp-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:white}
+.mp-sub{font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px}
+.mp-body{flex:1;padding:12px;overflow:hidden}
+
+/* ── PHONE FRAME ── */
+.phone{
+  background:rgba(255,255,255,0.03);
+  border:2px solid rgba(255,255,255,0.12);
+  border-radius:24px;padding:12px;
+  width:200px;margin:0 auto;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.phone-notch{width:50px;height:4px;background:rgba(255,255,255,0.1);border-radius:2px;margin:0 auto 10px}
+.phone-screen{background:linear-gradient(160deg,#0C2A4A,#0C1B2E);border-radius:14px;padding:10px}
+
+/* ── TABS ── */
+.tabs-mock{display:flex;gap:3px;margin-bottom:8px}
+.tm-btn{
+  flex:1;padding:5px 2px;border-radius:6px;text-align:center;
+  font-size:8px;font-weight:600;
+}
+.tm-btn.on{background:rgba(0,180,160,0.2);color:#7FFFF4;border:1px solid rgba(0,180,160,0.3)}
+.tm-btn.off{background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.3)}
+.tm-icon{font-size:11px;display:block;margin-bottom:1px}
+
+/* ── RESULT BOX ── */
+.rbox{
+  border-radius:12px;padding:14px 16px;
+  margin-bottom:10px;
+}
+.rb-teal{background:rgba(0,180,160,0.1);border:1px solid rgba(0,180,160,0.25)}
+.rb-red{background:rgba(200,39,63,0.1);border:1px solid rgba(200,39,63,0.25)}
+.rb-gold{background:rgba(240,160,48,0.1);border:1px solid rgba(240,160,48,0.25)}
+.rb-mint{background:rgba(26,138,104,0.1);border:1px solid rgba(26,138,104,0.25)}
+.rb-purple{background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25)}
+.rb-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:6px}
+.rb-teal .rb-title{color:#7FFFF4}
+.rb-red .rb-title{color:#FF8099}
+.rb-gold .rb-title{color:#FCD34D}
+.rb-mint .rb-title{color:#6EE7B7}
+.rb-purple .rb-title{color:#C4B5FD}
+.rb-body{font-size:12px;color:rgba(255,255,255,0.6);line-height:1.65}
+
+/* ── DATA ITEMS ── */
+.di-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.di-row:last-child{border-bottom:none}
+.di-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dd-teal{background:#00B4A0}.dd-red{background:#C8273F}.dd-gold{background:#F0A030}.dd-mint{background:#1A8A68}.dd-purple{background:#7C3AED}
+.di-label{font-size:13px;color:rgba(255,255,255,0.6);flex:1}
+.di-val{font-family:'Syne',sans-serif;font-size:14px;font-weight:700}
+.dv-red{color:#FF6B6B}.dv-gold{color:#FCD34D}.dv-teal{color:#7FFFF4}.dv-green{color:#6EE7B7}.dv-white{color:white}
+
+/* ── CHECKLIST ── */
+.chk{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.chk:last-child{border-bottom:none}
+.chk-box{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:1px}
+.cb-ok{background:#00B4A0;color:white}
+.cb-no{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15)}
+.chk-text{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.5}
+.chk-text strong{color:white}
+
+/* ── BIG METRIC ── */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.metric{
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);
+  border-radius:14px;padding:20px;text-align:center;
+}
+.met-val{font-family:'Syne',sans-serif;font-size:40px;font-weight:800;line-height:1;margin-bottom:6px}
+.met-lbl{font-size:13px;color:rgba(255,255,255,0.4);font-weight:500}
+
+/* ── SCORE DISPLAY ── */
+.score-big{
+  display:flex;flex-direction:column;align-items:center;
+  background:linear-gradient(135deg,rgba(200,39,63,0.12),rgba(200,39,63,0.04));
+  border:1px solid rgba(200,39,63,0.25);border-radius:14px;padding:20px;
+}
+.sb-num{font-family:'Syne',sans-serif;font-size:60px;font-weight:800;color:#FF6B6B;line-height:1}
+.sb-den{font-size:16px;color:rgba(255,255,255,0.3);margin-bottom:8px}
+.sb-level{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#FF8099;margin-bottom:6px}
+.sb-rate{font-size:12px;color:rgba(255,255,255,0.4)}
+.sb-reco{
+  margin-top:12px;padding:10px 14px;
+  background:rgba(200,39,63,0.1);border:1px solid rgba(200,39,63,0.2);border-radius:8px;
+  font-size:12px;color:#FFA0B0;text-align:center;line-height:1.5;
+  width:100%;
+}
+
+/* ── STEP CONNECTOR VERTICAL ── */
+.vflow{display:flex;flex-direction:column;gap:0}
+.vstep{display:flex;gap:14px;align-items:flex-start;padding-bottom:14px;position:relative}
+.vstep::before{content:'';position:absolute;left:18px;top:40px;bottom:0;width:2px;background:linear-gradient(180deg,rgba(255,255,255,0.1),transparent)}
+.vstep:last-child::before{display:none}
+.vstep-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;z-index:1}
+.vstep-body{flex:1;padding-top:8px}
+.vst-title{font-size:14px;font-weight:600;color:white;margin-bottom:3px}
+.vst-desc{font-size:12px;color:rgba(255,255,255,0.5);line-height:1.5}
+
+/* ── WA PREVIEW ── */
+.wa-preview{
+  background:rgba(18,40,18,0.8);border:1px solid rgba(37,211,102,0.2);
+  border-radius:12px;padding:14px 16px;
+  font-family:monospace;font-size:11px;color:rgba(255,255,255,0.65);line-height:2;
+}
+
+/* ── FINAL SLIDE ── */
+.final-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,#080F1E 0%,#0A2518 50%,#0C1B2E 100%);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.slide.active .anim-1{animation:fadeUp 0.5s ease 0.1s both}
+.slide.active .anim-2{animation:fadeUp 0.5s ease 0.2s both}
+.slide.active .anim-3{animation:fadeUp 0.5s ease 0.3s both}
+.slide.active .anim-4{animation:fadeUp 0.5s ease 0.4s both}
+.slide.active .anim-5{animation:fadeUp 0.5s ease 0.5s both}
+
+/* ── KEY HINT ── */
+.key-hint{
+  position:fixed;bottom:64px;right:24px;
+  font-size:11px;color:rgba(255,255,255,0.2);
+  display:flex;align-items:center;gap:6px;
+  pointer-events:none;
+}
+.kh-key{
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);
+  border-radius:4px;padding:2px 7px;font-size:11px;color:rgba(255,255,255,0.3);
+}
+
+/* ── COR BADGES ── */
+.cor{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700;margin-right:4px}
+.c1{background:#d1fae5;color:#065f46}
+.c2a{background:#dbeafe;color:#1e3a8a}
+.c2b{background:#fef9c3;color:#854d0e}
+</style>
+</head>
+<body>
+
+<!-- SLIDES CONTAINER -->
+<div id="pres">
+<div style="position:absolute;inset:0;overflow:hidden" id="slides-wrap">
+
+<!-- ████ SLIDE 0 — COVER ████ -->
+<div class="slide active" id="s0">
+  <div class="cover-bg"></div>
+  <div class="cover-grid"></div>
+  <!-- Orbs -->
+  <div class="orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(0,180,160,0.14),transparent);top:-150px;right:-100px"></div>
+  <div class="orb" style="width:400px;height:400px;background:radial-gradient(circle,rgba(124,58,237,0.1),transparent);bottom:-100px;left:-80px"></div>
+  <div class="cover-content">
+    <div class="cover-left">
+      <div class="cover-tag anim-1">
+        <span style="width:6px;height:6px;border-radius:50%;background:#7FFFF4;animation:float 1.5s infinite"></span>
+        ACC/AHA/HRS/ISACHD/SCAI 2025 · CSC Algeria
+      </div>
+      <div class="cover-title anim-2">
+        Comment évaluer<br>un patient <em>TOF Adulte</em><br>avec l'application ?
+      </div>
+      <div class="cover-sub anim-3">
+        Guide pratique étape par étape — De la première consultation jusqu'à la décision thérapeutique selon les recommandations ACC/AHA 2025
+      </div>
+      <div class="cover-pills anim-4">
+        <span class="cpill cp-teal">🏷️ Stade physiologique AP</span>
+        <span class="cpill cp-red">⚡ Score risque MSC</span>
+        <span class="cpill cp-gold">🩻 Bilan stratifié</span>
+        <span class="cpill cp-mint">💊 Prise en charge</span>
+        <span class="cpill cp-purple">📅 Suivi · Table 34</span>
+      </div>
+    </div>
+    <div class="cover-right anim-5">
+      <div class="logo-circle">
+        <img src="https://amine1515-pixel.github.io/tof-app/CSC-Algeria_png.png" alt="CSC Algeria"
+             onerror="this.parentElement.innerHTML='🫀';this.parentElement.style.fontSize='60px';this.parentElement.style.textAlign='center'">
+      </div>
+      <div class="cover-org">CSC Algeria</div>
+      <div class="cover-org-sub">Cardiopathies Congénitales Adultes<br>Dr. Mohamed Touati</div>
+    </div>
+  </div>
+</div>
+
+<!-- ████ SLIDE 1 — VUE D'ENSEMBLE ████ -->
+<div class="slide" id="s1">
+  <div style="position:absolute;inset:0;background:linear-gradient(135deg,#080F1E,#0C1B2E)"></div>
+  <div class="orb" style="width:350px;height:350px;background:radial-gradient(circle,rgba(0,180,160,0.1),transparent);top:-80px;left:50%;transform:translateX(-50%)"></div>
+
+  <div class="slide-header anim-1">
+    <div class="sh-left">
+      <div class="sh-num" style="background:rgba(0,180,160,0.2);border:1px solid rgba(0,180,160,0.3);color:#7FFFF4;font-size:20px">📱</div>
+      <div>
+        <div class="sh-title">L'application TOF — <em style="color:#00B4A0">5 modules intégrés</em></div>
+        <div class="sh-sub">Une évaluation complète en moins de 5 minutes devant le patient</div>
+      </div>
+    </div>
+    <div class="sh-badge">Vue d'ensemble</div>
+  </div>
+
+  <div class="slide-body" style="flex-direction:column;padding-bottom:32px">
+    <!-- Flow horizontal -->
+    <div style="display:flex;align-items:stretch;gap:12px;flex:1" class="anim-2">
+      <div style="flex:1;background:rgba(0,180,160,0.07);border:1px solid rgba(0,180,160,0.2);border-radius:14px;padding:22px;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative">
+        <div style="font-size:36px;margin-bottom:12px">🏷️</div>
+        <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:white;margin-bottom:6px">Module 1</div>
+        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#7FFFF4;margin-bottom:8px">Stade AP</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6">NYHA · FEVD · IP · Arythmies · Lésions résiduelles → Stade <strong style="color:white">A/B/C/D</strong> automatique + calendrier de suivi</div>
+        <div style="position:absolute;right:-7px;top:50%;transform:translateY(-50%);font-size:20px;color:rgba(255,255,255,0.2);z-index:2">›</div>
+      </div>
+      <div style="flex:1;background:rgba(200,39,63,0.07);border:1px solid rgba(200,39,63,0.2);border-radius:14px;padding:22px;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative">
+        <div style="font-size:36px;margin-bottom:12px">⚡</div>
+        <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:white;margin-bottom:6px">Module 2</div>
+        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#FF8099;margin-bottom:8px">Score MSC</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6">PREVENTION-ACHD + PACES → Risque <strong style="color:white">faible/modéré/élevé</strong> + recommandation <strong style="color:white">EEP / DAI</strong></div>
+        <div style="position:absolute;right:-7px;top:50%;transform:translateY(-50%);font-size:20px;color:rgba(255,255,255,0.2);z-index:2">›</div>
+      </div>
+      <div style="flex:1;background:rgba(240,160,48,0.07);border:1px solid rgba(240,160,48,0.2);border-radius:14px;padding:22px;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative">
+        <div style="font-size:36px;margin-bottom:12px">🩻</div>
+        <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:white;margin-bottom:6px">Module 3</div>
+        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#FCD34D;margin-bottom:8px">Bilan</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6">6 contextes cliniques → <strong style="color:white">Examens ciblés</strong> (routine, pré-RVP, arythmies, grossesse, urgence...)</div>
+        <div style="position:absolute;right:-7px;top:50%;transform:translateY(-50%);font-size:20px;color:rgba(255,255,255,0.2);z-index:2">›</div>
+      </div>
+      <div style="flex:1;background:rgba(26,138,104,0.07);border:1px solid rgba(26,138,104,0.2);border-radius:14px;padding:22px;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative">
+        <div style="font-size:36px;margin-bottom:12px">💊</div>
+        <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:white;margin-bottom:6px">Module 4</div>
+        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#6EE7B7;margin-bottom:8px">Prise en charge</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6">Symptômes cochés → <strong style="color:white">Conduite à tenir</strong> avec COR ACC 2025 pour chaque décision</div>
+        <div style="position:absolute;right:-7px;top:50%;transform:translateY(-50%);font-size:20px;color:rgba(255,255,255,0.2);z-index:2">›</div>
+      </div>
+      <div style="flex:1;background:rgba(124,58,237,0.07);border:1px solid rgba(124,58,237,0.2);border-radius:14px;padding:22px;display:flex;flex-direction:column;align-items:center;text-align:center">
+        <div style="font-size:36px;margin-bottom:12px">📅</div>
+        <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:white;margin-bottom:6px">Module 5</div>
+        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#C4B5FD;margin-bottom:8px">Suivi</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6">Table 34 ACC 2025 · IRM · CPET · Génétique · <strong style="color:white">WhatsApp</strong> centre ACHD</div>
+      </div>
+    </div>
+
+    <!-- Bottom metrics -->
+    <div style="display:flex;gap:14px;margin-top:16px" class="anim-3">
+      <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px">
+        <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#00B4A0">5</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5)">modules<br>intégrés</div>
+      </div>
+      <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px">
+        <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#FCD34D">&lt;5</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5)">minutes<br>par patient</div>
+      </div>
+      <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px">
+        <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#6EE7B7">16</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5)">recommandations<br>Section 4.3.5</div>
+      </div>
+      <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px">
+        <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#C4B5FD">100%</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5)">guidé par<br>ACC 2025</div>
+      </div>
+      <div style="flex:2;background:rgba(0,180,160,0.08);border:1px solid rgba(0,180,160,0.2);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px">
+        <div style="font-size:22px">🔗</div>
+        <div style="font-family:monospace;font-size:12px;color:#7FFFF4;word-break:break-all">amine1515-pixel.github.io/tof-app/</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ████ SLIDE 2 — MODULE STADE ████ -->
+<div class="slide" id="s2">
+  <div style="position:absolute;inset:0;background:linear-gradient(135deg,#080F1E,#0A2030)"></div>
+  <div class="orb" style="width:400px;height:400px;background:radial-gradient(circle,rgba(0,180,160,0.12),transparent);top:-100px;right:-100px"></div>
+
+  <div class="slide-header anim-1">
+    <div class="sh-left">
+      <div class="sh-num" style="background:#00B4A0;font-size:18px">1</div>
+      <div>
+        <div class="sh-title">Module <em style="color:#00B4A0">Stade Physiologique AP</em></div>
+        <div class="sh-sub">Classification anatomico-physiologique ACHD · ACC 2025 · Calcul automatique</div>
+      </div>
+    </div>
+    <div class="sh-badge">Étape 1</div>
+  </div>
+
+  <div class="slide-body">
+    <!-- Left: inputs -->
+    <div style="flex:1;display:flex;flex-direction:column;gap:10px">
+      <div class="card teal anim-2">
+        <div class="card-title">📝 Saisir les données du patient</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px">
+          <div class="chk">
+            <div class="chk-box cb-ok">✓</div>
+            <div class="chk-text"><strong>Symptômes NYHA</strong> — Menu déroulant I/II/III/IV</div>
+          </div>
+          <div class="chk">
+            <div class="chk-box cb-ok">✓</div>
+            <div class="chk-text"><strong>Fonction VD (FEVD)</strong> — Normale/Légère/Modérée/Sévère</div>
+          </div>
+          <div class="chk">
+            <div class="chk-box cb-ok">✓</div>
+            <div class="chk-text"><strong>IP pulmonaire (IRM)</strong> — Absente/Légère/Modérée/Sévère</div>
+          </div>
+          <div class="chk">
+            <div class="chk-box cb-ok">✓</div>
+            <div class="chk-text"><strong>Arythmies</strong> — Aucune/TVNS/TSV/TV soutenue/DAI</div>
+          </div>
+          <div class="chk">
+            <div class="chk-box cb-ok">✓</div>
+            <div class="chk-text"><strong>Dilatation VD</strong> — VTSI indexé (seuil 80 mL/m²)</div>
+          </div>
+          <div class="chk">
+            <div class="chk-box cb-ok">✓</div>
+            <div class="chk-text"><strong>Lésions résiduelles</strong> — Aucune/Légères/Modérées/Sévères</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card anim-3">
+        <div class="card-title" style="color:#FCD34D">💡 Pourquoi c'est essentiel ?</div>
+        <div class="card-body">Le stade AP <strong style="color:white">guide automatiquement</strong> la fréquence de suivi (Table 34), l'urgence de la décision RVP, et l'orientation vers un centre ACHD expert. Un patient qui passe de B → C nécessite une réévaluation immédiate de ses indications thérapeutiques.</div>
+      </div>
+    </div>
+
+    <!-- Middle: result example -->
+    <div style="width:300px;flex-shrink:0;display:flex;flex-direction:column;gap:10px">
+      <div style="background:linear-gradient(135deg,rgba(240,160,48,0.15),rgba(240,160,48,0.05));border:2px solid rgba(240,160,48,0.35);border-radius:16px;padding:20px" class="anim-2">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+          <div style="width:54px;height:54px;border-radius:14px;background:#F0A030;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:white;flex-shrink:0">C</div>
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#FCD34D">⚠️ Stade C</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.45)">Séquelle modérée à sévère</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+          <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#FCD34D">12</div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-top:2px">Consult.</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#FCD34D">12</div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-top:2px">ECG</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#FCD34D">12</div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-top:2px">ETT</div>
+          </div>
+        </div>
+        <div style="margin-top:10px;padding:8px 12px;background:rgba(255,255,255,0.06);border-radius:8px;font-size:11px;color:rgba(255,255,255,0.5);text-align:center">IRM : tous les <strong style="color:white">2–3 ans</strong></div>
+      </div>
+    </div>
+
+    <!-- Right: 4 stages -->
+    <div style="width:220px;flex-shrink:0;display:flex;flex-direction:column;gap:8px" class="anim-3">
+      <div style="font-size:11px;color:rgba(255,255,255,0.35);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">4 stades possibles</div>
+      <div style="background:rgba(0,180,160,0.08);border:1px solid rgba(0,180,160,0.2);border-radius:10px;padding:12px">
+        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#7FFFF4;margin-bottom:2px">A — Stable</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.4)">Asymptomatique · suivi 24 mois</div>
+      </div>
+      <div style="background:rgba(2,132,199,0.08);border:1px solid rgba(2,132,199,0.2);border-radius:10px;padding:12px">
+        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#93C5FD;margin-bottom:2px">B — Léger</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.4)">Légère limitation · suivi 12–24 mois</div>
+      </div>
+      <div style="background:rgba(240,160,48,0.12);border:2px solid rgba(240,160,48,0.3);border-radius:10px;padding:12px">
+        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#FCD34D;margin-bottom:2px">C — Modéré ←</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.4)">Limitation notable · suivi 12 mois</div>
+      </div>
+      <div style="background:rgba(200,39,63,0.08);border:1px solid rgba(200,39,63,0.2);border-radius:10px;padding:12px">
+        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#FF8099;margin-bottom:2px">D — Critique</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.4)">Séquelle sévère · suivi 3 mois · urgence</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ████ SLIDE 3 — MODULE MSC ████ -->
+<div class="slide" id="s3">
+  <div style="position:absolute;inset:0;background:linear-gradient(135deg,#080F1E,#1A0808)"></div>
+  <div class="orb" style="width:400px;height:400px;background:radial-gradient(circle,rgba(200,39,63,0.12),transparent);bottom:-100px;right:-80px"></div>
+
+  <div class="slide-header anim-1">
+    <div class="sh-left">
+      <div class="sh-num" style="background:#C8273F;font-size:18px">2</div>
+      <div>
+        <div class="sh-title">Module <em style="color:#FF8099">Score de Risque MSC</em></div>
+        <div class="sh-sub">Score PREVENTION-ACHD + PACES · Décision EEP / DAI automatique · ACC 2025</div>
+      </div>
+    </div>
+    <div class="sh-badge" style="background:rgba(200,39,63,0.12);border-color:rgba(200,39,63,0.3);color:#FF8099">Étape 2</div>
+  </div>
+
+  <div class="slide-body" style="gap:24px">
+    <!-- Left: PREVENTION items -->
+    <div style="flex:1;display:flex;flex-direction:column;gap:10px">
+      <div class="card red anim-2">
+        <div class="card-title">Score PREVENTION-ACHD — 7 facteurs (1 pt chacun)</div>
+        <div class="di-row"><div class="di-dot dd-red"></div><div class="di-label">Coronaropathie associée</div><div class="di-val dv-white">+1</div></div>
+        <div class="di-row"><div class="di-dot dd-red"></div><div class="di-label">Symptômes NYHA ≥ II</div><div class="di-val dv-white">+1</div></div>
+        <div class="di-row"><div class="di-dot dd-red"></div><div class="di-label">Tachycardie supra-ventriculaire</div><div class="di-val dv-white">+1</div></div>
+        <div class="di-row"><div class="di-dot dd-red"></div><div class="di-label">FEVG systémique &lt; 40%</div><div class="di-val dv-white">+1</div></div>
+        <div class="di-row"><div class="di-dot dd-red"></div><div class="di-label">FEVD sous-pulmonaire &lt; 40%</div><div class="di-val dv-white">+1</div></div>
+        <div class="di-row"><div class="di-dot dd-red"></div><div class="di-label">Durée QRS ≥ 120 ms</div><div class="di-val dv-white">+1</div></div>
+        <div class="di-row"><div class="di-dot dd-red"></div><div class="di-label">Dispersion QT ≥ 70 ms</div><div class="di-val dv-white">+1</div></div>
+      </div>
+    </div>
+
+    <!-- Middle: Score result -->
+    <div style="width:280px;flex-shrink:0;display:flex;flex-direction:column;gap:10px">
+      <div class="score-big anim-2">
+        <div class="sb-num">4</div>
+        <div class="sb-den">/ 7 points</div>
+        <div class="sb-level">🔴 Risque Élevé</div>
+        <div class="sb-rate">Taux d'événement annuel : 3–4%/an</div>
+        <div class="sb-reco">
+          <span class="cor c2a">COR 2a</span>
+          <strong>EEP invasive recommandée</strong><br>
+          Stimulation ventriculaire programmée<br>pour affiner la décision DAI
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px" class="anim-3">
+        <div style="font-size:11px;color:rgba(255,255,255,0.35);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">Niveaux de risque</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:50%;background:#6EE7B7;flex-shrink:0"></div><div style="font-size:12px;color:rgba(255,255,255,0.6);flex:1">Score ≤ 2</div><div style="font-size:12px;font-weight:700;color:#6EE7B7">Faible &lt;1%/an</div></div>
+          <div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:50%;background:#FCD34D;flex-shrink:0"></div><div style="font-size:12px;color:rgba(255,255,255,0.6);flex:1">Score 3</div><div style="font-size:12px;font-weight:700;color:#FCD34D">Modéré 1–2%/an</div></div>
+          <div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:50%;background:#FF8099;flex-shrink:0"></div><div style="font-size:12px;color:rgba(255,255,255,0.6);flex:1">Score 4</div><div style="font-size:12px;font-weight:700;color:#FF8099">Élevé 3–4%/an</div></div>
+          <div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:50%;background:#FF6B6B;flex-shrink:0"></div><div style="font-size:12px;color:rgba(255,255,255,0.6);flex:1">Score 5</div><div style="font-size:12px;font-weight:700;color:#FF6B6B">Élevé 5–10%/an</div></div>
+          <div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:50%;background:#C8273F;flex-shrink:0"></div><div style="font-size:12px;color:rgba(255,255,255,0.6);flex:1">Score 6</div><div style="font-size:12px;font-weight:700;color:#FF4466">Très élevé 11–25%/an</div></div>
+          <div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:50%;background:#7C3AED;flex-shrink:0"></div><div style="font-size:12px;color:rgba(255,255,255,0.6);flex:1">Score ≥ 7</div><div style="font-size:12px;font-weight:700;color:#C4B5FD">Critique &gt;25%/an</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Decision tree -->
+    <div style="width:280px;flex-shrink:0;display:flex;flex-direction:column;gap:10px" class="anim-3">
+      <div class="card">
+        <div class="card-title">🎯 Arbre décisionnel ACC 2025</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
+          <div style="background:rgba(0,180,160,0.08);border:1px solid rgba(0,180,160,0.2);border-radius:8px;padding:10px">
+            <div style="font-size:11px;font-weight:700;color:#7FFFF4;margin-bottom:3px">Score ≤ 2 — Faible</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.5)">Surveillance ECG annuelle · Pas d'EEP systématique</div>
+          </div>
+          <div style="background:rgba(240,160,48,0.08);border:1px solid rgba(240,160,48,0.2);border-radius:8px;padding:10px">
+            <div style="font-size:11px;font-weight:700;color:#FCD34D;margin-bottom:3px">Score 3–4 — Modéré/Élevé</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.5)"><span class="cor c2a">COR 2a</span> EEP invasive → si TV inductible : DAI</div>
+          </div>
+          <div style="background:rgba(200,39,63,0.1);border:1px solid rgba(200,39,63,0.25);border-radius:8px;padding:10px">
+            <div style="font-size:11px;font-weight:700;color:#FF8099;margin-bottom:3px">Score ≥ 5 — Très élevé</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.5)"><span class="cor c2a">COR 2a</span> DAI prévention primaire directement</div>
+          </div>
+        </div>
+      </div>
+      <div class="card red">
+        <div class="card-title">⚠️ Règle d'or</div>
+        <div class="card-body">Ne <strong style="color:white">jamais attendre</strong> la TV soutenue pour stratifier. Le score permet une décision proactive. Le RVP seul ne protège pas contre la MSC.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ████ SLIDE 4 — BILAN + PEC ████ -->
+<div class="slide" id="s4">
+  <div style="position:absolute;inset:0;background:linear-gradient(135deg,#080F1E,#0A1A0C)"></div>
+  <div class="orb" style="width:350px;height:350px;background:radial-gradient(circle,rgba(26,138,104,0.12),transparent);top:-60px;left:50%;transform:translateX(-50%)"></div>
+
+  <div class="slide-header anim-1">
+    <div class="sh-left">
+      <div style="display:flex;gap:6px">
+        <div class="sh-num" style="background:#F0A030;font-size:18px">3</div>
+        <div class="sh-num" style="background:#1A8A68;font-size:18px">4</div>
+      </div>
+      <div>
+        <div class="sh-title">Modules <em style="color:#FCD34D">Bilan</em> et <em style="color:#6EE7B7">Prise en charge</em></div>
+        <div class="sh-sub">Examens ciblés selon le contexte · Conduite à tenir selon les symptômes · COR ACC 2025</div>
+      </div>
+    </div>
+    <div class="sh-badge" style="background:rgba(26,138,104,0.12);border-color:rgba(26,138,104,0.3);color:#6EE7B7">Étapes 3 & 4</div>
+  </div>
+
+  <div class="slide-body" style="gap:24px">
+    <!-- BILAN column -->
+    <div style="flex:1;display:flex;flex-direction:column;gap:10px">
+      <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.8px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,0.06)">🩻 Module Bilan — 6 contextes</div>
+      <div class="anim-2" style="display:flex;flex-direction:column;gap:8px">
+        <div style="background:rgba(0,180,160,0.06);border:1px solid rgba(0,180,160,0.15);border-radius:10px;padding:10px 12px">
+          <div style="font-size:12px;font-weight:600;color:#7FFFF4;margin-bottom:4px">📋 Suivi de routine</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.5)">ETT · ECG · BNP · Créatinine · Saturation O₂</div>
+        </div>
+        <div style="background:rgba(240,160,48,0.08);border:2px solid rgba(240,160,48,0.25);border-radius:10px;padding:10px 12px">
+          <div style="font-size:12px;font-weight:600;color:#FCD34D;margin-bottom:4px">🔧 Pré-RVP ← exemple sélectionné</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.5)"><span class="cor c1">COR 1</span> CT cardiaque (CCVD native) · IRM · ETT · EEP pré-opératoire</div>
+        </div>
+        <div style="background:rgba(200,39,63,0.06);border:1px solid rgba(200,39,63,0.15);border-radius:10px;padding:10px 12px">
+          <div style="font-size:12px;font-weight:600;color:#FF8099;margin-bottom:4px">⚡ Arythmies / MSC</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.5)">ECG + Holter · IRM LGE · Scanner isthmes · Scores PREVENTION-ACHD/PACES</div>
+        </div>
+        <div style="background:rgba(124,58,237,0.06);border:1px solid rgba(124,58,237,0.15);border-radius:10px;padding:10px 12px">
+          <div style="font-size:12px;font-weight:600;color:#C4B5FD;margin-bottom:4px">🤰 Grossesse</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.5)">ETT · IRM · Score CARPREG II · Génétique Del22q11 · Consultation ACHD</div>
+        </div>
+        <div style="background:rgba(200,39,63,0.1);border:1px solid rgba(200,39,63,0.25);border-radius:10px;padding:10px 12px">
+          <div style="font-size:12px;font-weight:600;color:#FF6B6B;margin-bottom:4px">🚨 Urgence / Décompensation</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.5)">ECG urgent · ETT lit · Troponine · BNP · Transfert centre ACHD</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DIVIDER -->
+    <div style="width:1px;background:rgba(255,255,255,0.07);flex-shrink:0"></div>
+
+    <!-- PEC column -->
+    <div style="flex:1;display:flex;flex-direction:column;gap:10px">
+      <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.8px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,0.06)">💊 Module Prise en charge — Symptômes cochés</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px" class="anim-3">
+        <div style="background:rgba(200,39,63,0.08);border:1px solid rgba(200,39,63,0.2);border-radius:8px;padding:8px 10px;display:flex;align-items:center;gap:6px">
+          <div style="width:16px;height:16px;border-radius:4px;background:#C8273F;display:flex;align-items:center;justify-content:center;font-size:9px;color:white;flex-shrink:0">✓</div>
+          <div style="font-size:11px;color:white">😮‍💨 Dyspnée d'effort</div>
+        </div>
+        <div style="background:rgba(200,39,63,0.08);border:1px solid rgba(200,39,63,0.2);border-radius:8px;padding:8px 10px;display:flex;align-items:center;gap:6px">
+          <div style="width:16px;height:16px;border-radius:4px;background:#C8273F;display:flex;align-items:center;justify-content:center;font-size:9px;color:white;flex-shrink:0">✓</div>
+          <div style="font-size:11px;color:white">💓 Palpitations</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:8px 10px;display:flex;align-items:center;gap:6px">
+          <div style="width:16px;height:16px;border-radius:4px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);flex-shrink:0"></div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4)">😵 Syncope</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:8px 10px;display:flex;align-items:center;gap:6px">
+          <div style="width:16px;height:16px;border-radius:4px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);flex-shrink:0"></div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4)">🦵 Œdèmes</div>
+        </div>
+      </div>
+
+      <div style="background:rgba(0,180,160,0.08);border:1px solid rgba(0,180,160,0.2);border-radius:10px;padding:12px" class="anim-4">
+        <div style="font-size:12px;font-weight:700;color:#7FFFF4;margin-bottom:6px">😮‍💨 Dyspnée — CAT générée</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.6);line-height:1.8">
+          <span class="cor c1">COR 1</span> ETT : évaluation IP, VD, pressions<br>
+          <span class="cor c1">COR 1</span> IRM cardiaque : FR, volumes VD, FEVD, LGE<br>
+          CPET : VO₂ peak — déclin progressif = critère RVP<br>
+          Si IP mod + symptômes → RVP recommandé
+        </div>
+      </div>
+      <div style="background:rgba(240,160,48,0.08);border:1px solid rgba(240,160,48,0.2);border-radius:10px;padding:12px" class="anim-4">
+        <div style="font-size:12px;font-weight:700;color:#FCD34D;margin-bottom:6px">💓 Palpitations — CAT générée</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.6);line-height:1.8">
+          ECG + Holter 24–48h · Score PREVENTION-ACHD<br>
+          <span class="cor c2a">COR 2a</span> EEP si TVNS + facteurs risque<br>
+          IRM LGE si substrate arythmique suspecté
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ████ SLIDE 5 — SUIVI + WHATSAPP ████ -->
+<div class="slide" id="s5">
+  <div style="position:absolute;inset:0;background:linear-gradient(135deg,#080F1E,#0C1020)"></div>
+  <div class="orb" style="width:400px;height:400px;background:radial-gradient(circle,rgba(124,58,237,0.12),transparent);bottom:-80px;left:-80px"></div>
+  <div class="orb" style="width:300px;height:300px;background:radial-gradient(circle,rgba(37,211,102,0.08),transparent);top:-60px;right:-60px"></div>
+
+  <div class="slide-header anim-1">
+    <div class="sh-left">
+      <div style="display:flex;gap:6px">
+        <div class="sh-num" style="background:#7C3AED;font-size:18px">5</div>
+        <div class="sh-num" style="background:#25D366;font-size:18px">💬</div>
+      </div>
+      <div>
+        <div class="sh-title">Modules <em style="color:#C4B5FD">Suivi</em> et <em style="color:#6EE7B7">WhatsApp ACHD</em></div>
+        <div class="sh-sub">Table 34 ACC 2025 · Intervalles par stade · Envoi résumé au centre spécialisé</div>
+      </div>
+    </div>
+    <div class="sh-badge" style="background:rgba(124,58,237,0.12);border-color:rgba(124,58,237,0.3);color:#C4B5FD">Étapes 5 & Bonus</div>
+  </div>
+
+  <div class="slide-body" style="gap:24px">
+    <!-- Suivi table -->
+    <div style="flex:1.2;display:flex;flex-direction:column;gap:10px">
+      <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.8px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,0.06)">📅 Table 34 ACC 2025 — Intervalles de suivi</div>
+      <div class="anim-2">
+        <table style="width:100%;border-collapse:collapse;font-size:12px">
+          <thead>
+            <tr style="background:rgba(255,255,255,0.05)">
+              <th style="padding:10px 12px;text-align:left;color:rgba(255,255,255,0.5);font-weight:600;font-size:11px;border-bottom:1px solid rgba(255,255,255,0.08)">Examen</th>
+              <th style="padding:10px 12px;text-align:center;color:#7FFFF4;font-weight:700;border-bottom:1px solid rgba(255,255,255,0.08);background:rgba(0,180,160,0.1)">Stade A</th>
+              <th style="padding:10px 12px;text-align:center;color:#93C5FD;font-weight:700;border-bottom:1px solid rgba(255,255,255,0.08);background:rgba(2,132,199,0.1)">Stade B</th>
+              <th style="padding:10px 12px;text-align:center;color:#FCD34D;font-weight:700;border-bottom:1px solid rgba(255,255,255,0.08);background:rgba(240,160,48,0.1)">Stade C</th>
+              <th style="padding:10px 12px;text-align:center;color:#FF8099;font-weight:700;border-bottom:1px solid rgba(255,255,255,0.08);background:rgba(200,39,63,0.1)">Stade D</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+              <td style="padding:10px 12px;color:white;font-weight:600">🏥 Consultation ACHD</td>
+              <td style="padding:10px 12px;text-align:center;color:#7FFFF4;font-weight:700;font-family:'Syne',sans-serif">24 mois</td>
+              <td style="padding:10px 12px;text-align:center;color:#93C5FD;font-weight:700;font-family:'Syne',sans-serif">12–24 mois</td>
+              <td style="padding:10px 12px;text-align:center;color:#FCD34D;font-weight:700;font-family:'Syne',sans-serif">12 mois</td>
+              <td style="padding:10px 12px;text-align:center;color:#FF8099;font-weight:700;font-family:'Syne',sans-serif">3 mois</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+              <td style="padding:10px 12px;color:white;font-weight:600">📈 ECG 12 dérivations</td>
+              <td style="padding:10px 12px;text-align:center;color:#7FFFF4;font-weight:700;font-family:'Syne',sans-serif">24 mois</td>
+              <td style="padding:10px 12px;text-align:center;color:#93C5FD;font-weight:700;font-family:'Syne',sans-serif">12–24 mois</td>
+              <td style="padding:10px 12px;text-align:center;color:#FCD34D;font-weight:700;font-family:'Syne',sans-serif">12 mois</td>
+              <td style="padding:10px 12px;text-align:center;color:#FF8099;font-weight:700;font-family:'Syne',sans-serif">12 mois</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+              <td style="padding:10px 12px;color:white;font-weight:600">🫀 Échocardiographie</td>
+              <td style="padding:10px 12px;text-align:center;color:#7FFFF4;font-weight:700;font-family:'Syne',sans-serif">24 mois</td>
+              <td style="padding:10px 12px;text-align:center;color:#93C5FD;font-weight:700;font-family:'Syne',sans-serif">12–24 mois</td>
+              <td style="padding:10px 12px;text-align:center;color:#FCD34D;font-weight:700;font-family:'Syne',sans-serif">12 mois</td>
+              <td style="padding:10px 12px;text-align:center;color:#FF8099;font-weight:700;font-family:'Syne',sans-serif">6 mois</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+              <td style="padding:10px 12px;color:white;font-weight:600">🩻 IRM (IP légère)</td>
+              <td colspan="2" style="padding:10px 12px;text-align:center;color:#7FFFF4;font-weight:700;font-family:'Syne',sans-serif;background:rgba(0,180,160,0.06)">Tous les 3–5 ans</td>
+              <td colspan="2" style="padding:10px 12px;text-align:center;color:#FF8099;font-weight:700;font-family:'Syne',sans-serif;background:rgba(200,39,63,0.06)">Tous les 2–3 ans</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 12px;color:white;font-weight:600">🏃 CPET</td>
+              <td style="padding:10px 12px;text-align:center;color:rgba(255,255,255,0.4);font-size:11px">Selon évolution</td>
+              <td style="padding:10px 12px;text-align:center;color:rgba(255,255,255,0.5);font-size:11px">1–2 ans</td>
+              <td style="padding:10px 12px;text-align:center;color:#FCD34D;font-size:11px;font-weight:600">Annuel</td>
+              <td style="padding:10px 12px;text-align:center;color:#FF8099;font-size:11px;font-weight:600">6–12 mois</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- WA column -->
+    <div style="width:340px;flex-shrink:0;display:flex;flex-direction:column;gap:10px">
+      <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.8px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,0.06)">💬 Bouton WhatsApp — Fonction clé</div>
+
+      <div style="background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.2);border-radius:12px;padding:14px" class="anim-3">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+          <div style="width:40px;height:40px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">💬</div>
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:white">Envoyer au Dr. Touati</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4)">+213 540 910 869 · CSC Algeria</div>
+          </div>
+        </div>
+        <div class="wa-preview">
+          🫀 <strong style="color:white">TOF — DEMANDE D'AVIS ACHD</strong><br>
+          📊 Stade : <strong style="color:#FCD34D">C ⚠️</strong> · NYHA II<br>
+          ⚡ PREVENTION-ACHD : <strong style="color:#FF8099">4/7 → Élevé</strong><br>
+          🩺 Symptômes : Dyspnée · Palpitations<br>
+          📅 Suivi actuel : Stade C<br>
+          ━━━━━━━━━━━━━━━━━━━━
+        </div>
+        <div style="margin-top:10px;font-size:11px;color:rgba(255,255,255,0.45);line-height:1.6">Le message est <strong style="color:white">généré automatiquement</strong> avec toutes les données saisies. Un clic → WhatsApp s'ouvre avec le résumé pré-rempli.</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px" class="anim-4">
+        <div style="font-size:12px;font-weight:600;color:white;margin-bottom:6px">🎯 Objectif</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);line-height:1.65">Permettre à tout médecin en Algérie de solliciter un avis ACHD spécialisé même sans centre expert localement. Le résumé structuré permet une réponse rapide et pertinente.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ████ SLIDE 6 — WORKFLOW + FINAL ████ -->
+<div class="slide" id="s6">
+  <div class="final-bg"></div>
+  <div class="orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(0,180,160,0.12),transparent);top:-150px;right:-150px"></div>
+  <div class="orb" style="width:400px;height:400px;background:radial-gradient(circle,rgba(26,138,104,0.1),transparent);bottom:-100px;left:-80px"></div>
+
+  <div class="slide-header anim-1">
+    <div class="sh-left">
+      <div class="sh-num" style="background:linear-gradient(135deg,#00B4A0,#007A6E);font-size:14px">✅</div>
+      <div>
+        <div class="sh-title">Workflow complet — <em style="color:#00B4A0">Devant votre patient TOF</em></div>
+        <div class="sh-sub">Récapitulatif · 5 étapes · En moins de 5 minutes</div>
+      </div>
+    </div>
+    <div class="sh-badge">Synthèse finale</div>
+  </div>
+
+  <div class="slide-body" style="gap:24px;align-items:stretch">
+    <!-- Workflow steps -->
+    <div style="flex:1.5;display:flex;flex-direction:column;justify-content:center;gap:10px">
+      <div style="display:flex;flex-direction:column;gap:8px" class="anim-2">
+        <div style="display:flex;gap:12px;align-items:center;background:rgba(0,180,160,0.08);border:1px solid rgba(0,180,160,0.2);border-radius:12px;padding:12px 16px">
+          <div style="width:36px;height:36px;border-radius:10px;background:#00B4A0;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:white;flex-shrink:0">1</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:600;color:white;margin-bottom:2px">🏷️ Calculer le Stade AP</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.5)">NYHA + FEVD + IP + arythmies → stade A/B/C/D + calendrier automatique</div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#7FFFF4;white-space:nowrap">~1 min</div>
+        </div>
+        <div style="width:2px;height:10px;background:linear-gradient(180deg,#00B4A0,#C8273F);border-radius:1px;margin-left:29px"></div>
+        <div style="display:flex;gap:12px;align-items:center;background:rgba(200,39,63,0.08);border:1px solid rgba(200,39,63,0.2);border-radius:12px;padding:12px 16px">
+          <div style="width:36px;height:36px;border-radius:10px;background:#C8273F;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:white;flex-shrink:0">2</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:600;color:white;margin-bottom:2px">⚡ Score MSC PREVENTION-ACHD</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.5)">Cocher les facteurs → risque automatique → recommandation EEP/DAI</div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#FF8099;white-space:nowrap">~1 min</div>
+        </div>
+        <div style="width:2px;height:10px;background:linear-gradient(180deg,#C8273F,#F0A030);border-radius:1px;margin-left:29px"></div>
+        <div style="display:flex;gap:12px;align-items:center;background:rgba(240,160,48,0.08);border:1px solid rgba(240,160,48,0.2);border-radius:12px;padding:12px 16px">
+          <div style="width:36px;height:36px;border-radius:10px;background:#F0A030;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:white;flex-shrink:0">3</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:600;color:white;margin-bottom:2px">🩻 Sélectionner le contexte → Bilan</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.5)">6 situations → liste d'examens ciblés ACC 2025 avec COR</div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#FCD34D;white-space:nowrap">~30 sec</div>
+        </div>
+        <div style="width:2px;height:10px;background:linear-gradient(180deg,#F0A030,#1A8A68);border-radius:1px;margin-left:29px"></div>
+        <div style="display:flex;gap:12px;align-items:center;background:rgba(26,138,104,0.08);border:1px solid rgba(26,138,104,0.2);border-radius:12px;padding:12px 16px">
+          <div style="width:36px;height:36px;border-radius:10px;background:#1A8A68;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:white;flex-shrink:0">4</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:600;color:white;margin-bottom:2px">💊 Cocher les symptômes → CAT</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.5)">Dyspnée, palpitations, syncope... → conduite à tenir détaillée COR</div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#6EE7B7;white-space:nowrap">~1 min</div>
+        </div>
+        <div style="width:2px;height:10px;background:linear-gradient(180deg,#1A8A68,#25D366);border-radius:1px;margin-left:29px"></div>
+        <div style="display:flex;gap:12px;align-items:center;background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.2);border-radius:12px;padding:12px 16px">
+          <div style="width:36px;height:36px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">💬</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:600;color:white;margin-bottom:2px">📅 Suivi + Envoyer au centre ACHD</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.5)">Calendrier Table 34 + résumé WhatsApp automatique → Dr. Touati</div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#6EE7B7;white-space:nowrap">~30 sec</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: key takeaways + access -->
+    <div style="flex:1;display:flex;flex-direction:column;gap:12px">
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:18px" class="anim-3">
+        <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:white;margin-bottom:14px">🎯 3 messages clés</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:24px;height:24px;border-radius:6px;background:rgba(0,180,160,0.2);border:1px solid rgba(0,180,160,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:1px">1</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.55"><strong style="color:white">Toujours commencer par le stade AP</strong> — il guide la fréquence de suivi et l'urgence thérapeutique</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:24px;height:24px;border-radius:6px;background:rgba(200,39,63,0.2);border:1px solid rgba(200,39,63,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:1px">2</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.55"><strong style="color:white">Calculer le score MSC à chaque consultation</strong> — même sans symptômes arythmiques documentés</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:24px;height:24px;border-radius:6px;background:rgba(37,211,102,0.2);border:1px solid rgba(37,211,102,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:1px">3</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.55"><strong style="color:white">Utiliser WhatsApp</strong> pour référer stades C et D vers le centre ACHD spécialisé</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:rgba(0,180,160,0.08);border:1px solid rgba(0,180,160,0.2);border-radius:14px;padding:18px;flex:1" class="anim-4">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+          <div style="width:54px;height:54px;border-radius:14px;background:white;padding:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 16px rgba(0,180,160,0.3)">
+            <img src="https://amine1515-pixel.github.io/tof-app/CSC-Algeria_png.png" alt="CSC"
+                 style="width:100%;height:100%;object-fit:contain"
+                 onerror="this.parentElement.innerHTML='🫀';this.parentElement.style.fontSize='28px'">
+          </div>
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:white">CSC Algeria</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.4)">Dr. Mohamed Touati</div>
+          </div>
+        </div>
+        <div style="font-family:monospace;font-size:13px;color:#7FFFF4;margin-bottom:8px;word-break:break-all">amine1515-pixel.github.io/tof-app/</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6">WhatsApp : +213 540 910 869<br>Disponible immédiatement sur smartphone</div>
+        <div style="margin-top:10px;padding:8px 12px;background:rgba(255,255,255,0.04);border-radius:8px;font-size:11px;color:rgba(255,255,255,0.35);text-align:center">
+          Gurvitz M, et al. 2025 ACC/AHA/HRS/ISACHD/SCAI Guideline<br>
+          J Am Coll Cardiol. 2025 · DOI: 10.1016/j.jacc.2025.09.006
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /slides-wrap -->
+</div><!-- /pres -->
+
+<!-- NAV BAR -->
+<div id="nav-bar">
+  <div style="display:flex;align-items:center;gap:16px">
+    <div class="nav-dots" id="nav-dots"></div>
+    <div class="nav-label" id="nav-label">Introduction</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <div class="slide-num" id="slide-num">1 / 7</div>
+    <div class="nav-btns">
+      <button class="nb nb-prev" onclick="prev()">← Précédent</button>
+      <button class="nb nb-next" id="btn-next" onclick="next()">Suivant →</button>
+    </div>
+  </div>
+</div>
+
+<!-- KEY HINT -->
+<div class="key-hint">
+  <span class="kh-key">←</span>
+  <span class="kh-key">→</span>
+  Flèches clavier · Clic pour naviguer
+</div>
+
+<script>
+const TOTAL = 7;
+const TITLES = [
+  'Introduction & Couverture',
+  'Vue d\'ensemble — 5 modules',
+  'Module 1 — Stade AP',
+  'Module 2 — Score MSC',
+  'Modules 3 & 4 — Bilan & PEC',
+  'Modules 5 & WhatsApp',
+  'Workflow complet & Synthèse'
+];
+
+let cur = 0;
+let isAnim = false;
+
+// Resize to maintain 16:9
+function resize(){
+  const vw = window.innerWidth;
+  const vh = window.innerHeight - 52; // account for nav bar
+  const ratio = 16/9;
+  let w, h, top = 0, left = 0;
+  if(vw / vh > ratio){
+    h = vh; w = h * ratio;
+    left = (vw - w) / 2;
+  } else {
+    w = vw; h = w / ratio;
+    top = (vh - h) / 2;
+  }
+  const p = document.getElementById('pres');
+  p.style.width = w + 'px';
+  p.style.height = h + 'px';
+  p.style.top = top + 'px';
+  p.style.left = left + 'px';
+  p.style.fontSize = (w / 1400 * 16) + 'px';
+}
+window.addEventListener('resize', resize);
+resize();
+
+// Build dots
+function buildDots(){
+  const dc = document.getElementById('nav-dots');
+  dc.innerHTML = '';
+  for(let i=0;i<TOTAL;i++){
+    const d = document.createElement('div');
+    d.className = 'ndot';
+    d.onclick = () => goTo(i);
+    dc.appendChild(d);
+  }
+}
+
+function updateUI(){
+  const dots = document.querySelectorAll('.ndot');
+  dots.forEach((d,i) => {
+    d.className = 'ndot';
+    if(i < cur) d.classList.add('done');
+    else if(i === cur) d.classList.add('active');
+  });
+  document.getElementById('nav-label').textContent = TITLES[cur];
+  document.getElementById('slide-num').textContent = (cur+1) + ' / ' + TOTAL;
+  const btn = document.getElementById('btn-next');
+  if(cur === TOTAL - 1){
+    btn.textContent = '↗ Ouvrir l\'app';
+    btn.classList.add('fin');
+  } else {
+    btn.textContent = 'Suivant →';
+    btn.classList.remove('fin');
+  }
+}
+
+function goTo(n, dir){
+  if(isAnim || n < 0 || n >= TOTAL || n === cur) return;
+  isAnim = true;
+  const cs = document.getElementById('s'+cur);
+  const ns = document.getElementById('s'+n);
+  const d = (dir !== undefined ? dir : (n > cur ? 1 : -1));
+
+  cs.classList.remove('active');
+  cs.classList.add('exit');
+
+  ns.style.transform = d > 0 ? 'translateX(60px)' : 'translateX(-60px)';
+  ns.style.opacity = '0';
+  ns.classList.add('active');
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      ns.style.transform = '';
+      ns.style.opacity = '';
+      setTimeout(() => {
+        cs.classList.remove('exit');
+        cs.style.transform = '';
+        cs.style.opacity = '';
+        isAnim = false;
+      }, 600);
+    });
+  });
+
+  cur = n;
+  updateUI();
+}
+
+function next(){
+  if(cur === TOTAL - 1){
+    window.open('https://amine1515-pixel.github.io/tof-app/', '_blank');
+    return;
+  }
+  goTo(cur + 1, 1);
+}
+
+function prev(){ goTo(cur - 1, -1); }
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if(e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') next();
+  if(e.key === 'ArrowLeft' || e.key === 'PageUp') prev();
+  if(e.key === 'Home') goTo(0);
+  if(e.key === 'End') goTo(TOTAL-1);
+});
+
+// Touch/swipe
+let tx = 0;
+document.addEventListener('touchstart', e => tx = e.touches[0].clientX, {passive:true});
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if(Math.abs(dx) > 70){ dx < 0 ? next() : prev(); }
+}, {passive:true});
+
+buildDots();
+updateUI();
+</script>
+</body>
+</html>
