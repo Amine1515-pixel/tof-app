@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>TOF Cases — CSC Algeria</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0C1B2E;
+  --navy2: #152540;
+  --teal: #00B4A0;
+  --teal-dk: #007A6E;
+  --teal-lt: #E0F7F5;
+  --crimson: #C8273F;
+  --crimson-lt: #FDEAED;
+  --gold: #F0A030;
+  --gold-lt: #FFF5E0;
+  --mint: #1A8A68;
+  --mint-lt: #E0F5EE;
+  --sky: #0284C7;
+  --sky-lt: #E0F2FE;
+  --purple: #7C3AED;
+  --purple-lt: #EDE9FE;
+  --amber: #D97706;
+  --bg: #F2F6FB;
+  --card: #FFFFFF;
+  --border: #E2EAF4;
+  --text: #1A2840;
+  --text2: #4A6080;
+  --text3: #8AA0BA;
+  --shadow: 0 2px 16px rgba(12,27,46,0.08);
+  --shadow-md: 0 6px 28px rgba(12,27,46,0.13);
+  --r: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ── SPLASH ── */
+#splash {
+  position: fixed; inset: 0; z-index: 999;
+  background: linear-gradient(160deg, var(--navy) 0%, #1A3A5C 60%, var(--teal-dk) 100%);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 16px;
+  animation: splashOut 0.4s ease 2.5s forwards;
+}
+@keyframes splashOut { to { opacity:0; pointer-events:none; } }
+.splash-logo {
+  width: 80px; height: 80px; border-radius: 20px;
+  background: white; padding: 8px;
+  box-shadow: 0 8px 40px rgba(0,180,160,0.4);
+  animation: popIn 0.6s cubic-bezier(.34,1.56,.64,1) 0.3s both;
+  overflow: hidden; display: flex; align-items: center; justify-content: center;
+}
+.splash-logo img { width: 100%; height: 100%; object-fit: contain; }
+@keyframes popIn { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+.splash-title {
+  font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800;
+  color: white; text-align: center;
+  animation: fadeUp 0.5s ease 0.7s both;
+}
+.splash-sub {
+  font-size: 12px; color: rgba(255,255,255,0.5);
+  text-align: center; line-height: 1.6;
+  animation: fadeUp 0.5s ease 0.9s both;
+}
+.splash-badge {
+  background: rgba(0,180,160,0.2); border: 1px solid rgba(0,180,160,0.4);
+  border-radius: 20px; padding: 5px 16px;
+  font-size: 10px; letter-spacing: 1.2px; color: #7FFFF4;
+  text-transform: uppercase; animation: fadeUp 0.5s ease 1.1s both;
+}
+@keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── HEADER ── */
+.app-header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+  padding: 48px 20px 18px; position: relative; overflow: hidden;
+}
+.app-header::before {
+  content:''; position:absolute; top:-40px; right:-40px;
+  width:180px; height:180px;
+  background: radial-gradient(circle, rgba(0,180,160,0.12) 0%, transparent 70%);
+  border-radius:50%;
+}
+.header-top { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.header-logo {
+  width:40px; height:40px; border-radius:10px; background:white;
+  padding:3px; overflow:hidden; display:flex; align-items:center; justify-content:center;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25); flex-shrink:0;
+}
+.header-logo img { width:100%; height:100%; object-fit:contain; }
+.header-org { flex:1; margin-left:4px; }
+.header-org .org { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; color:white; }
+.header-org .sub { font-size:10px; color:rgba(255,255,255,0.4); }
+.header-badge {
+  background:rgba(0,180,160,0.18); border:1px solid rgba(0,180,160,0.35);
+  border-radius:10px; padding:3px 9px; font-size:9px; color:#7FFFF4;
+  letter-spacing:0.8px; text-transform:uppercase; font-weight:600;
+}
+.header-title {
+  font-family:'Syne',sans-serif; font-size:20px; font-weight:800;
+  color:white; line-height:1.2; margin-bottom:3px;
+}
+.header-title em { color:var(--teal); font-style:normal; }
+.header-desc { font-size:11px; color:rgba(255,255,255,0.45); }
+
+/* ── PROGRESS BAR ── */
+.progress-wrap {
+  background: white; padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 90;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.progress-steps {
+  display: flex; align-items: center; gap: 0; margin-bottom: 8px;
+}
+.ps {
+  flex: 1; height: 3px; background: var(--border);
+  transition: background 0.4s; border-radius: 2px;
+  margin: 0 1px;
+}
+.ps.done { background: var(--teal); }
+.ps.active { background: linear-gradient(90deg, var(--teal), var(--gold)); }
+.progress-labels {
+  display: flex; justify-content: space-between;
+  font-size: 9px; color: var(--text3); font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.progress-labels span.active { color: var(--teal); }
+.progress-labels span.done { color: var(--mint); }
+
+/* ── SCREENS ── */
+.screen { display:none; padding:14px 14px 90px; animation: fadeIn 0.3s ease; }
+.screen.active { display:block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── CARDS ── */
+.card {
+  background:var(--card); border-radius:var(--r);
+  box-shadow:var(--shadow); margin-bottom:12px;
+  overflow:hidden; border:1px solid var(--border);
+}
+.card-header {
+  padding:12px 14px 10px; border-bottom:1px solid var(--border);
+  display:flex; align-items:center; gap:8px;
+}
+.ch-icon {
+  width:32px; height:32px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:15px; flex-shrink:0;
+}
+.ch-title { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; color:var(--navy); }
+.ch-sub { font-size:10px; color:var(--text3); }
+.card-body { padding:12px 14px; }
+
+/* ── CAS HEADER ── */
+.cas-hero {
+  background: linear-gradient(135deg, #1A3150 0%, #0C2A4A 100%);
+  border-radius: var(--r); padding: 18px; margin-bottom: 12px;
+  border: 1px solid rgba(0,180,160,0.2);
+  position: relative; overflow: hidden;
+}
+.cas-hero::before {
+  content: '';
+  position: absolute; top: -20px; right: -20px;
+  width: 100px; height: 100px;
+  background: radial-gradient(circle, rgba(0,180,160,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.cas-level {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(240,160,48,0.15); border: 1px solid rgba(240,160,48,0.3);
+  border-radius: 20px; padding: 4px 12px; margin-bottom: 10px;
+  font-size: 10px; color: #FCD34D; font-weight: 600;
+  letter-spacing: 0.8px; text-transform: uppercase;
+}
+.cas-title {
+  font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800;
+  color: white; margin-bottom: 4px;
+}
+.cas-subtitle { font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 14px; }
+.cas-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.cas-tag {
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px; padding: 3px 10px; font-size: 10px;
+  color: rgba(255,255,255,0.7); font-weight: 500;
+}
+
+/* ── CLINICAL DATA ── */
+.data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.data-item {
+  background: var(--bg); border-radius: 10px; padding: 10px 12px;
+  border: 1px solid var(--border);
+}
+.data-label { font-size: 9px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+.data-value { font-size: 13px; font-weight: 600; color: var(--navy); }
+.data-value.highlight { color: var(--crimson); }
+.data-value.ok { color: var(--mint); }
+.data-value.warn { color: var(--amber); }
+
+.findings-list { list-style: none; padding: 0; }
+.findings-list li {
+  display: flex; gap: 8px; padding: 7px 0;
+  border-bottom: 1px solid var(--border); font-size: 12px;
+  color: var(--text); line-height: 1.5; align-items: flex-start;
+}
+.findings-list li:last-child { border-bottom: none; }
+.fi-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  margin-top: 5px; flex-shrink: 0;
+}
+.dot-red { background: var(--crimson); }
+.dot-amber { background: var(--gold); }
+.dot-green { background: var(--mint); }
+.dot-blue { background: var(--sky); }
+
+/* ── CANVA EMBED ── */
+.canva-wrap {
+  position: relative; width: 100%; height: 0;
+  padding-top: 56.25%; overflow: hidden;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0C1B2E 0%, #1A3150 100%);
+  margin-bottom: 4px; border: 1px solid var(--border);
+}
+.canva-wrap::before {
+  content: '🎞️ Chargement de l\'iconographie...';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 12px; color: rgba(255,255,255,0.4);
+  white-space: nowrap; z-index: 0;
+}
+.canva-wrap iframe {
+  position: absolute; width: 100%; height: 100%;
+  top: 0; left: 0; border: none; padding: 0; margin: 0;
+  z-index: 1;
+}
+.canva-label {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 10px; color: var(--text3); margin-bottom: 6px;
+  padding: 0 2px;
+}
+.canva-label span { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: blink 1.8s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+/* ── QCM ── */
+.qcm-num {
+  font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+  color: var(--text3); text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.qcm-question {
+  font-size: 14px; font-weight: 600; color: var(--navy);
+  line-height: 1.5; margin-bottom: 14px;
+}
+.options { display: flex; flex-direction: column; gap: 8px; }
+.option {
+  padding: 12px 14px; border-radius: 10px;
+  border: 2px solid var(--border); background: white;
+  cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: var(--text); line-height: 1.5;
+}
+.option:active { transform: scale(0.99); }
+.option.selected { border-color: var(--sky); background: var(--sky-lt); }
+.option.correct { border-color: var(--mint); background: var(--mint-lt); }
+.option.wrong { border-color: var(--crimson); background: var(--crimson-lt); }
+.option.revealed-correct { border-color: var(--mint); background: var(--mint-lt); opacity: 0.7; }
+.opt-letter {
+  width: 22px; height: 22px; border-radius: 6px;
+  background: var(--border); color: var(--text2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+  transition: all 0.2s;
+}
+.option.selected .opt-letter { background: var(--sky); color: white; }
+.option.correct .opt-letter { background: var(--mint); color: white; }
+.option.wrong .opt-letter { background: var(--crimson); color: white; }
+.option.revealed-correct .opt-letter { background: var(--mint); color: white; }
+
+/* ── FEEDBACK ── */
+.feedback-box {
+  border-radius: 12px; padding: 14px; margin-top: 10px;
+  border-left: 4px solid; display: none;
+}
+.feedback-box.show { display: block; animation: fadeIn 0.3s ease; }
+.fb-correct { background: var(--mint-lt); border-color: var(--mint); }
+.fb-wrong { background: var(--crimson-lt); border-color: var(--crimson); }
+.fb-title {
+  font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700;
+  margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+}
+.fb-correct .fb-title { color: var(--mint); }
+.fb-wrong .fb-title { color: var(--crimson); }
+.fb-content { font-size: 12px; line-height: 1.7; color: var(--text); }
+.fb-content .cor {
+  display: inline-block; padding: 2px 7px; border-radius: 4px;
+  font-size: 10px; font-weight: 700; margin-right: 4px;
+}
+.cor-1 { background: #d1fae5; color: #065f46; }
+.cor-2a { background: #dbeafe; color: #1e3a8a; }
+.cor-2b { background: #fef9c3; color: #854d0e; }
+
+/* ── SCORE ── */
+.score-display {
+  text-align: center; padding: 24px 16px 20px;
+}
+.score-ring {
+  position: relative; width: 130px; height: 130px;
+  margin: 0 auto 16px;
+}
+.score-ring svg { transform: rotate(-90deg); }
+.ring-bg { fill: none; stroke: var(--border); stroke-width: 10; }
+.ring-val { fill: none; stroke-width: 10; stroke-linecap: round; transition: stroke-dashoffset 1s cubic-bezier(.4,0,.2,1); }
+.ring-center {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.ring-center .num {
+  font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800;
+  color: var(--navy); line-height: 1;
+}
+.ring-center .den { font-size: 12px; color: var(--text3); }
+.score-label {
+  font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700;
+  margin-bottom: 4px;
+}
+.score-sub { font-size: 12px; color: var(--text2); margin-bottom: 18px; }
+.score-details { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+.sd-item {
+  background: var(--bg); border-radius: 10px; padding: 10px 8px;
+  text-align: center; border: 1px solid var(--border);
+}
+.sd-num { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; }
+.sd-lbl { font-size: 9px; color: var(--text3); font-weight: 600; text-transform: uppercase; margin-top: 2px; }
+.sd-correct .sd-num { color: var(--mint); }
+.sd-wrong .sd-num { color: var(--crimson); }
+.sd-score .sd-num { color: var(--teal); }
+
+/* ── MESSAGES CLES ── */
+.key-msgs { margin-top: 14px; }
+.km-item {
+  display: flex; gap: 10px; padding: 10px 12px;
+  background: white; border-radius: 10px; margin-bottom: 8px;
+  border: 1px solid var(--border); align-items: flex-start;
+}
+.km-icon { font-size: 16px; flex-shrink: 0; }
+.km-text { font-size: 11px; color: var(--text); line-height: 1.6; }
+.km-text strong { color: var(--navy); display: block; font-size: 12px; margin-bottom: 2px; }
+
+/* ── NAVIGATION BUTTONS ── */
+.nav-btn {
+  width: 100%; padding: 14px;
+  background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dk) 100%);
+  color: white; border: none; border-radius: 12px;
+  font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700;
+  cursor: pointer; margin-top: 14px;
+  box-shadow: 0 4px 14px rgba(0,180,160,0.35);
+  transition: transform 0.15s;
+}
+.nav-btn:active { transform: scale(0.98); }
+.nav-btn.disabled {
+  background: var(--border); color: var(--text3);
+  box-shadow: none; cursor: not-allowed;
+}
+.nav-btn-secondary {
+  width: 100%; padding: 11px;
+  background: transparent; border: 2px solid var(--border);
+  color: var(--text2); border-radius: 10px;
+  font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 500;
+  cursor: pointer; margin-top: 8px;
+}
+.submit-btn {
+  width: 100%; padding: 12px;
+  background: var(--navy); color: white;
+  border: none; border-radius: 10px;
+  font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700;
+  cursor: pointer; margin-top: 12px; opacity: 0.4;
+  transition: opacity 0.2s, transform 0.15s;
+}
+.submit-btn.ready { opacity: 1; }
+.submit-btn:active { transform: scale(0.98); }
+
+/* ── SEC HEADER ── */
+.sec-hdr {
+  font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+  color: var(--text3); text-transform: uppercase;
+  letter-spacing: 1px; padding: 12px 2px 6px;
+}
+
+/* ── INFO BOX ── */
+.info-box {
+  border-radius: 10px; padding: 10px 12px;
+  font-size: 11px; line-height: 1.6; margin-bottom: 10px;
+  border-left: 3px solid;
+}
+.ib-gold { background: var(--gold-lt); border-color: var(--gold); color: var(--text); }
+.ib-teal { background: var(--teal-lt); border-color: var(--teal); color: var(--text); }
+.ib-red  { background: var(--crimson-lt); border-color: var(--crimson); color: var(--text); }
+
+/* ── BOTTOM FIXED ── */
+.bottom-bar {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 480px;
+  background: white; border-top: 1px solid var(--border);
+  padding: 10px 14px 16px;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+  z-index: 80;
+}
+.bb-inner { display: flex; gap: 8px; align-items: center; }
+.bb-progress { flex: 1; }
+.bb-label { font-size: 10px; color: var(--text3); font-weight: 600; margin-bottom: 3px; }
+.bb-bar { height: 4px; background: var(--border); border-radius: 2px; }
+.bb-fill { height: 100%; background: var(--teal); border-radius: 2px; transition: width 0.5s ease; }
+.bb-score-mini {
+  font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800;
+  color: var(--navy); min-width: 50px; text-align: right;
+}
+
+/* ── WA FAB ── */
+.wa-fab {
+  position: fixed; bottom: 70px; right: 14px; z-index: 200;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: #25D366; border: none; cursor: pointer;
+  box-shadow: 0 4px 16px rgba(37,211,102,0.45);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; transition: transform 0.2s;
+}
+.wa-fab:active { transform: scale(0.9); }
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-logo">
+    <img src="https://amine1515-pixel.github.io/tof-app/CSC-Algeria_png.png" alt="CSC Algeria"
+         onerror="this.parentElement.innerHTML='🫀';this.parentElement.style.fontSize='34px'">
+  </div>
+  <div class="splash-title">TOF Cases</div>
+  <div class="splash-sub">Cas Cliniques Interactifs<br>Tétralogie de Fallot — Adulte</div>
+  <div class="splash-badge">ACC/AHA 2025 · CSC Algeria</div>
+</div>
+
+<!-- HEADER -->
+<header class="app-header">
+  <div class="header-top">
+    <div class="header-logo">
+      <img src="https://amine1515-pixel.github.io/tof-app/CSC-Algeria_png.png" alt="CSC"
+           onerror="this.parentElement.innerHTML='🫀';this.parentElement.style.fontSize='20px'">
+    </div>
+    <div class="header-org">
+      <div class="org">CSC Algeria</div>
+      <div class="sub">TOF Cases · Formation ACHD</div>
+    </div>
+    <div class="header-badge">ACC 2025</div>
+  </div>
+  <div class="header-title">Cas Cliniques <em>TOF</em></div>
+  <div class="header-desc">Iconographie · QCM · Feedback · Score</div>
+</header>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-steps">
+    <div class="ps active" id="ps1"></div>
+    <div class="ps" id="ps2"></div>
+    <div class="ps" id="ps3"></div>
+    <div class="ps" id="ps4"></div>
+    <div class="ps" id="ps5"></div>
+  </div>
+  <div class="progress-labels">
+    <span id="lbl1" class="active">Présentation</span>
+    <span id="lbl2">Iconographie</span>
+    <span id="lbl3">QCM</span>
+    <span id="lbl4">Résultats</span>
+    <span id="lbl5">Messages</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SCREEN 1 : PRÉSENTATION       -->
+<!-- ══════════════════════════════ -->
+<section class="screen active" id="s1">
+
+  <div class="cas-hero">
+    <div class="cas-level">⭐⭐ Niveau intermédiaire</div>
+    <div class="cas-title">Cas N°01</div>
+    <div class="cas-subtitle">TOF réparée · Adulte · Suivi long terme</div>
+    <div class="cas-tags">
+      <span class="cas-tag">Insuffisance pulmonaire</span>
+      <span class="cas-tag">Dilatation VD</span>
+      <span class="cas-tag">Timing RVP</span>
+      <span class="cas-tag">Arythmies</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="ch-icon" style="background:#EDE9FE">👤</div>
+      <div>
+        <div class="ch-title">Présentation Clinique</div>
+        <div class="ch-sub">Motif de consultation</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="data-grid">
+        <div class="data-item">
+          <div class="data-label">Âge</div>
+          <div class="data-value">34 ans</div>
+        </div>
+        <div class="data-item">
+          <div class="data-label">Sexe</div>
+          <div class="data-value">Masculin</div>
+        </div>
+        <div class="data-item">
+          <div class="data-label">Chirurgie</div>
+          <div class="data-value warn">Réparation à 18 mois</div>
+        </div>
+        <div class="data-item">
+          <div class="data-label">Suivi ACHD</div>
+          <div class="data-value ok">Régulier</div>
+        </div>
+      </div>
+
+      <div class="info-box ib-teal">
+        <strong>Motif :</strong> Consultation de suivi annuel. Le patient signale une dyspnée progressivement croissante à l'effort depuis 8 mois (NYHA I → II). Auparavant très sportif (football 2×/semaine), il a réduit ses activités de 60%.
+      </div>
+
+      <div class="sec-hdr" style="padding-top:4px">Antécédents & Examen</div>
+      <ul class="findings-list">
+        <li><div class="fi-dot dot-blue"></div><div>Réparation TOF à 18 mois — infundibulotomie + patch transannulaire + fermeture CIV</div></li>
+        <li><div class="fi-dot dot-blue"></div><div>Pas de ré-intervention depuis. Suivi cardiologique annuel régulier</div></li>
+        <li><div class="fi-dot dot-amber"></div><div>Examen : souffle diastolique 2/6 en foyer pulmonaire, éclat du B2 absent, pas de signe d'IC droite</div></li>
+        <li><div class="fi-dot dot-amber"></div><div>FC 68/min, TA 118/74 mmHg, SpO₂ 97% air ambiant</div></li>
+        <li><div class="fi-dot dot-green"></div><div>Pas de syncope, pas de palpitations, pas d'œdèmes</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="ch-icon" style="background:#E0F7F5">📈</div>
+      <div>
+        <div class="ch-title">ECG & Biologie</div>
+        <div class="ch-sub">Données disponibles</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="data-grid">
+        <div class="data-item">
+          <div class="data-label">QRS</div>
+          <div class="data-value highlight">162 ms</div>
+        </div>
+        <div class="data-item">
+          <div class="data-label">Rythme</div>
+          <div class="data-value ok">Sinusal</div>
+        </div>
+        <div class="data-item">
+          <div class="data-label">BNP</div>
+          <div class="data-value warn">94 ng/L</div>
+        </div>
+        <div class="data-item">
+          <div class="data-label">Créatinine</div>
+          <div class="data-value ok">Normal</div>
+        </div>
+      </div>
+      <div class="info-box ib-gold" style="margin-top:8px">
+        <strong>ECG :</strong> Rythme sinusal régulier. QRS élargi à 162 ms, morphologie BBD typique post-réparation. Pas de fragmentation évidente. Pas d'ESV à l'ECG de repos.
+      </div>
+    </div>
+  </div>
+
+  <button class="nav-btn" onclick="goTo(2)">🩻 Voir l'iconographie →</button>
+
+</section>
+
+<!-- ══════════════════════════════ -->
+<!-- SCREEN 2 : ICONOGRAPHIE       -->
+<!-- ══════════════════════════════ -->
+<section class="screen" id="s2">
+
+  <div class="card">
+    <div class="card-header">
+      <div class="ch-icon" style="background:#0C1B2E;font-size:14px">🎞️</div>
+      <div>
+        <div class="ch-title">Iconographie — Boucles Écho</div>
+        <div class="ch-sub">Présentation Canva · Cas N°01</div>
+      </div>
+    </div>
+    <div class="card-body" style="padding-bottom:14px">
+      <div class="canva-label">
+        <span></span>Live · Présentation Canva CSC Algeria
+      </div>
+      <div class="canva-wrap">
+        <iframe
+          src="https://www.canva.com/design/DAHFE7jySmQ/Sf4bia9pzDCwWxs1nRbIrA/view?embed&autoplay=1&loop=1"
+          allow="fullscreen; autoplay"
+          allowfullscreen="allowfullscreen"
+          frameborder="0"
+          scrolling="no"
+          loading="lazy"
+          style="position:absolute;width:100%;height:100%;top:0;left:0;border:none;">
+        </iframe>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; padding:0 2px;">
+        <div style="font-size:10px; color:var(--text3);">Si la vidéo ne charge pas →</div>
+        <a href="https://www.canva.com/design/DAHFE7jySmQ/Sf4bia9pzDCwWxs1nRbIrA/view"
+           target="_blank"
+           style="font-size:11px; color:var(--teal); text-decoration:none; font-weight:600;
+                  background:var(--teal-lt); padding:4px 12px; border-radius:8px; border:1px solid var(--teal);">
+          ↗ Ouvrir sur Canva
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="ch-icon" style="background:var(--sky-lt)">🫀</div>
+      <div>
+        <div class="ch-title">Données Échocardiographiques</div>
+        <div class="ch-sub">ETT + IRM cardiaque</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="data-grid">
+        <div class="data-item">
+          <div class="data-label">FEVD</div>
+          <div class="data-value warn">44%</div>
+        </div>
+        <div class="data-item">
+          <div class="data-label">FEVG</div>
+          <div class="data-value ok">58%</div>
+        </div>
+        <div class="data-item">
+          <div class="data-label">FR pulm. (IRM)</div>
+          <div class="data-value highlight">38%</div>
+        </div>
+        <div class="data-item">
+          <div class="data-label">VTSI-VD indexé</div>
+          <div class="data-value highlight">92 mL/m²</div>
+        </div>
+        <div class="data-item">
+          <div class="data-label">VTD-VD / VTD-VG</div>
+          <div class="data-value warn">× 1.9</div>
+        </div>
+        <div class="data-item">
+          <div class="data-label">IT</div>
+          <div class="data-value ok">Légère</div>
+        </div>
+      </div>
+      <ul class="findings-list" style="margin-top:8px">
+        <li><div class="fi-dot dot-red"></div><div><strong>IP modérée à sévère</strong> — FR IRM 38% (seuil modéré ≥25%). Jet de régurgitation large en CCVD</div></li>
+        <li><div class="fi-dot dot-red"></div><div><strong>Dilatation VD significative</strong> — VTSI indexé 92 mL/m² (seuil RVP asymptomatique : 80 mL/m²)</div></li>
+        <li><div class="fi-dot dot-amber"></div><div>FEVD légèrement réduite à 44% (seuil : 46%)</div></li>
+        <li><div class="fi-dot dot-green"></div><div>FEVG normale à 58%. Pas de CIV résiduelle. LGE absent à l'IRM</div></li>
+        <li><div class="fi-dot dot-blue"></div><div>Pas de sténose AP périphérique. Conduit non calcifié. CCVD native</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="display:flex; gap:8px">
+    <button class="nav-btn-secondary" style="flex:1; margin:0" onclick="goTo(1)">← Retour</button>
+    <button class="nav-btn" style="flex:2; margin:0" onclick="goTo(3)">❓ Répondre aux QCM →</button>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════ -->
+<!-- SCREEN 3 : QCM                -->
+<!-- ══════════════════════════════ -->
+<section class="screen" id="s3">
+
+  <div class="info-box ib-teal">
+    <strong>Instructions :</strong> Répondez aux 5 questions selon les données cliniques et iconographiques du cas. Chaque réponse révèle un feedback immédiat avec les recommandations ACC/AHA 2025.
+  </div>
+
+  <!-- Q1 -->
+  <div class="card" id="q1-card">
+    <div class="card-header">
+      <div class="ch-icon" style="background:var(--purple-lt)">❓</div>
+      <div>
+        <div class="ch-title">Question 1 / 5</div>
+        <div class="ch-sub">Stade physiologique</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="qcm-num">Classification ACHD AP</div>
+      <div class="qcm-question">Selon la classification anatomico-physiologique ACC 2025, quel est le stade physiologique de ce patient ?</div>
+      <div class="options" id="opts1">
+        <div class="option" onclick="selectOpt(1,'A','wrong')">
+          <div class="opt-letter">A</div>
+          <div>Stade A — Asymptomatique, hémodynamique normale</div>
+        </div>
+        <div class="option" onclick="selectOpt(1,'B','correct')">
+          <div class="opt-letter">B</div>
+          <div>Stade B — Séquelle légère à modérée, légère limitation fonctionnelle</div>
+        </div>
+        <div class="option" onclick="selectOpt(1,'C','wrong')">
+          <div class="opt-letter">C</div>
+          <div>Stade C — Séquelle modérée à sévère, limitation notable</div>
+        </div>
+        <div class="option" onclick="selectOpt(1,'D','wrong')">
+          <div class="opt-letter">D</div>
+          <div>Stade D — Séquelle sévère, état critique</div>
+        </div>
+      </div>
+      <div class="feedback-box fb-correct" id="fb1-correct">
+        <div class="fb-title">✅ Bonne réponse — Stade B</div>
+        <div class="fb-content">
+          Ce patient présente une IP modérée (FR 38%), une dilatation VD significative (VTSI 92 mL/m²), une FEVD légèrement réduite (44%) et une dyspnée NYHA II. Ces éléments caractérisent un <strong>stade B</strong> : séquelle modérée avec légère limitation fonctionnelle, sans atteinte sévère.<br><br>
+          Le stade C nécessiterait une limitation plus marquée, des arythmies significatives ou une dysfonction VD/VG plus sévère.
+        </div>
+      </div>
+      <div class="feedback-box fb-wrong" id="fb1-wrong">
+        <div class="fb-title">❌ Réponse incorrecte — La bonne réponse est B</div>
+        <div class="fb-content">
+          <strong>Stade B</strong> : IP modérée (FR 38% ≥ 25%), VTSI-VD 92 mL/m² (élevé), FEVD 44% (légèrement réduite), NYHA II. Ces éléments caractérisent un stade B.<br><br>
+          • Stade A exclu : IP modérée + dilatation VD significative<br>
+          • Stade C exclu : pas d'arythmies, pas de TV, NYHA II seulement<br>
+          • Stade D exclu : pas d'IC avancée, pas de MSC
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="card" id="q2-card">
+    <div class="card-header">
+      <div class="ch-icon" style="background:var(--gold-lt)">❓</div>
+      <div>
+        <div class="ch-title">Question 2 / 5</div>
+        <div class="ch-sub">Indication de remplacement valvulaire</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="qcm-num">Décision thérapeutique</div>
+      <div class="qcm-question">Concernant le remplacement valvulaire pulmonaire (RVP) chez ce patient, quelle est la recommandation ACC/AHA 2025 la plus appropriée ?</div>
+      <div class="options" id="opts2">
+        <div class="option" onclick="selectOpt(2,'A','wrong')">
+          <div class="opt-letter">A</div>
+          <div>Ne pas opérer — le patient est asymptomatique, attendre NYHA III</div>
+        </div>
+        <div class="option" onclick="selectOpt(2,'B','correct')">
+          <div class="opt-letter">B</div>
+          <div>RVP raisonnable (COR 2a) — patient symptomatique + IP modérée sévère</div>
+        </div>
+        <div class="option" onclick="selectOpt(2,'C','wrong')">
+          <div class="opt-letter">C</div>
+          <div>RVP recommandé (COR 1) — IP sévère avec insuffisance cardiaque</div>
+        </div>
+        <div class="option" onclick="selectOpt(2,'D','wrong')">
+          <div class="opt-letter">D</div>
+          <div>Attendre que le VTD-VD indexé dépasse 160 mL/m²</div>
+        </div>
+      </div>
+      <div class="feedback-box fb-correct" id="fb2-correct">
+        <div class="fb-title">✅ Bonne réponse — COR 2a</div>
+        <div class="fb-content">
+          <span class="cor cor-1">COR 1</span> s'applique aux patients <em>symptomatiques</em> avec IP ≥ modérée. Ce patient a une dyspnée NYHA II = symptomatique → <strong>COR 1 RVP recommandé</strong> pour soulager les symptômes.<br><br>
+          De plus, même si on le considérait asymptomatique, il remplit <strong>≥2 critères ACC 2025 (COR 2a)</strong> :<br>
+          ✓ VTSI-VD &gt; 80 mL/m² (92 mL/m²)<br>
+          ✓ FEVD ≤ 46% (44%)<br>
+          ✓ Déclin capacité à l'effort documenté<br><br>
+          <strong>Point clé 2025 :</strong> Le seuil VTDI-VD télédiastolique (ancien ≥160 mL/m²) est abandonné — réponse D incorrecte.
+        </div>
+      </div>
+      <div class="feedback-box fb-wrong" id="fb2-wrong">
+        <div class="fb-title">❌ Réponse incorrecte — La bonne réponse est B</div>
+        <div class="fb-content">
+          Ce patient est <strong>symptomatique</strong> (NYHA II, réduction 60% de ses activités sportives) avec IP modérée à sévère (FR 38%) → <span class="cor cor-1">COR 1</span> RVP recommandé.<br><br>
+          En plus, il remplit ≥2 critères ACC 2025 pour RVP même asymptomatique :<br>
+          ✓ VTSI-VD 92 mL/m² &gt; 80 mL/m²<br>
+          ✓ FEVD 44% ≤ 46%<br>
+          ✓ Déclin objectif à l'effort<br><br>
+          <strong>⚠️ Attention :</strong> Le seuil de VTD-VD ≥160 mL/m² (réponse D) est obsolète depuis ACC 2025 — ne plus l'utiliser.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="card" id="q3-card">
+    <div class="card-header">
+      <div class="ch-icon" style="background:var(--crimson-lt)">❓</div>
+      <div>
+        <div class="ch-title">Question 3 / 5</div>
+        <div class="ch-sub">Stratification du risque MSC</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="qcm-num">Risque arythmique</div>
+      <div class="qcm-question">Concernant le risque de mort subite (MSC) chez ce patient (QRS 162 ms, FEVD 44%, pas de TV), quelle est la meilleure stratégie ?</div>
+      <div class="options" id="opts3">
+        <div class="option" onclick="selectOpt(3,'A','wrong')">
+          <div class="opt-letter">A</div>
+          <div>Implanter directement un DAI — QRS ≥ 150 ms suffit comme indication</div>
+        </div>
+        <div class="option" onclick="selectOpt(3,'B','wrong')">
+          <div class="opt-letter">B</div>
+          <div>Aucune stratification nécessaire — pas de TV documentée</div>
+        </div>
+        <div class="option" onclick="selectOpt(3,'C','correct')">
+          <div class="opt-letter">C</div>
+          <div>Calculer un score formel (PREVENTION-ACHD / PACES) — si risque modéré, EEP invasive à discuter</div>
+        </div>
+        <div class="option" onclick="selectOpt(3,'D','wrong')">
+          <div class="opt-letter">D</div>
+          <div>Attendre la TV soutenue avant toute décision</div>
+        </div>
+      </div>
+      <div class="feedback-box fb-correct" id="fb3-correct">
+        <div class="fb-title">✅ Bonne réponse — Scores formels + EEP si modéré</div>
+        <div class="fb-content">
+          Ce patient a plusieurs facteurs de risque MSC : QRS 162 ms (≥120 ms = 1pt PREVENTION-ACHD), FEVD 44% (légèrement réduite), dyspnée NYHA II (1pt).<br><br>
+          Score PREVENTION-ACHD estimé : ~2-3 pts → <strong>risque modéré (1-2%/an)</strong><br><br>
+          <span class="cor cor-2a">COR 2a</span> <strong>EEP invasive raisonnable</strong> si risque modéré estimé 1-11,5%/an — valeur pronostique indépendante (LR 3,77:1).<br><br>
+          Le DAI en prévention primaire nécessite un risque élevé documenté, pas juste un QRS ≥150 ms. L'attente de la TV soutenue est inacceptable (risque MSC ~1,5/1000 patient-années).
+        </div>
+      </div>
+      <div class="feedback-box fb-wrong" id="fb3-wrong">
+        <div class="fb-title">❌ Réponse incorrecte — La bonne réponse est C</div>
+        <div class="fb-content">
+          La stratification formelle par scores validés est indispensable avant toute décision arythmique.<br><br>
+          <strong>Score PREVENTION-ACHD</strong> de ce patient :<br>
+          • NYHA II : +1 pt<br>
+          • QRS ≥120 ms : +1 pt<br>
+          • FEVD sous-pulmonaire : limite (non &lt;40%)<br>
+          → Score ~2 pts → risque <strong>modéré</strong><br><br>
+          <span class="cor cor-2a">COR 2a</span> : EEP invasive si risque modéré (1-11,5%/an) pour affiner la décision DAI. Le DAI n'est pas indiqué sur le QRS seul.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="card" id="q4-card">
+    <div class="card-header">
+      <div class="ch-icon" style="background:var(--teal-lt)">❓</div>
+      <div>
+        <div class="ch-title">Question 4 / 5</div>
+        <div class="ch-sub">Bilan pré-intervention</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="qcm-num">Imagerie pré-RVP</div>
+      <div class="qcm-question">Avant de planifier un RVP transcathéter (TPVR) sur anatomie CCVD native chez ce patient, quel examen est obligatoire selon l'ACC 2025 ?</div>
+      <div class="options" id="opts4">
+        <div class="option" onclick="selectOpt(4,'A','wrong')">
+          <div class="opt-letter">A</div>
+          <div>IRM cardiaque seule — elle suffit pour guider la décision</div>
+        </div>
+        <div class="option" onclick="selectOpt(4,'B','correct')">
+          <div class="opt-letter">B</div>
+          <div>Scanner cardiaque (CT) — obligatoire pour anatomie CCVD native + évaluation coronaire</div>
+        </div>
+        <div class="option" onclick="selectOpt(4,'C','wrong')">
+          <div class="opt-letter">C</div>
+          <div>Coronarographie seule — pour exclure une anomalie coronaire</div>
+        </div>
+        <div class="option" onclick="selectOpt(4,'D','wrong')">
+          <div class="opt-letter">D</div>
+          <div>Aucun examen supplémentaire — l'écho est suffisant</div>
+        </div>
+      </div>
+      <div class="feedback-box fb-correct" id="fb4-correct">
+        <div class="fb-title">✅ Bonne réponse — CT cardiaque obligatoire (COR 1)</div>
+        <div class="fb-content">
+          <span class="cor cor-1">COR 1 B-NR (NOUVEAU 2025)</span> : Le scanner cardiaque est <strong>recommandé</strong> chez tout adulte avec TOF réparée et CCVD native envisageant un TPVR.<br><br>
+          <strong>Pourquoi le CT est indispensable ?</strong><br>
+          • Évaluation géométrie CCVD en systole ET diastole (valves auto-expansibles)<br>
+          • Au moins 5% des TOF ont une IVA anomale née de la coronaire droite<br>
+          • Test d'occlusion ballon + aortographie simultanée pour risque de compression coronaire<br>
+          • L'IRM seule ne donne pas la résolution spatiale nécessaire pour les coronaires<br><br>
+          Ce point est une <strong>nouveauté ACC 2025</strong> par rapport aux anciens guidelines.
+        </div>
+      </div>
+      <div class="feedback-box fb-wrong" id="fb4-wrong">
+        <div class="fb-title">❌ Réponse incorrecte — La bonne réponse est B</div>
+        <div class="fb-content">
+          <span class="cor cor-1">COR 1 B-NR</span> : Scanner cardiaque <strong>obligatoire</strong> avant TPVR sur CCVD native (nouveauté ACC 2025).<br><br>
+          <strong>Ce que le CT apporte :</strong><br>
+          ✓ Géométrie CCVD (taille, forme, angle) pour choix de la valve<br>
+          ✓ Anatomie coronaire et proximité avec la CCVD<br>
+          ✓ Évaluation calcifications et morphologie<br>
+          ✓ Test de compression coronaire par ballon<br><br>
+          L'IRM est meilleure pour la fonction et les volumes, mais insuffisante pour la planification anatomique du TPVR.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="card" id="q5-card">
+    <div class="card-header">
+      <div class="ch-icon" style="background:var(--mint-lt)">❓</div>
+      <div>
+        <div class="ch-title">Question 5 / 5</div>
+        <div class="ch-sub">Suivi post-décision</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="qcm-num">Surveillance — Table 34 ACC 2025</div>
+      <div class="qcm-question">Si la décision de RVP est retardée (patient en attente), quel rythme de suivi IRM est recommandé chez ce patient (IP modérée, FEVD 44%) ?</div>
+      <div class="options" id="opts5">
+        <div class="option" onclick="selectOpt(5,'A','wrong')">
+          <div class="opt-letter">A</div>
+          <div>IRM tous les 5 ans — patient relativement jeune et stable</div>
+        </div>
+        <div class="option" onclick="selectOpt(5,'B','wrong')">
+          <div class="opt-letter">B</div>
+          <div>IRM tous les 3-5 ans — car IP légère et VD normal</div>
+        </div>
+        <div class="option" onclick="selectOpt(5,'C','correct')">
+          <div class="opt-letter">C</div>
+          <div>IRM tous les 2-3 ans — IP modérée et FEVD légèrement réduite</div>
+        </div>
+        <div class="option" onclick="selectOpt(5,'D','wrong')">
+          <div class="opt-letter">D</div>
+          <div>IRM annuelle — tout patient avec IP > légère doit avoir une IRM annuelle</div>
+        </div>
+      </div>
+      <div class="feedback-box fb-correct" id="fb5-correct">
+        <div class="fb-title">✅ Bonne réponse — IRM tous les 2-3 ans</div>
+        <div class="fb-content">
+          Selon la <strong>Table 34 ACC 2025</strong> :<br><br>
+          • IP légère + VD normal → IRM tous les <strong>3-5 ans</strong><br>
+          • IP <strong>modérée ou plus</strong> et/ou dysfonction VD → IRM tous les <strong>2-3 ans</strong><br><br>
+          Ce patient a : FR 38% (IP modérée) + FEVD 44% (légèrement réduite) + VTSI 92 mL/m² → <strong>IRM tous les 2-3 ans</strong>.<br><br>
+          De plus, l'ETT et la consultation ACHD sont recommandées tous les <strong>12-24 mois</strong> (stade B). La CPET annuelle est utile pour documenter le déclin fonctionnel.
+        </div>
+      </div>
+      <div class="feedback-box fb-wrong" id="fb5-wrong">
+        <div class="fb-title">❌ Réponse incorrecte — La bonne réponse est C</div>
+        <div class="fb-content">
+          <strong>Table 34 ACC 2025 — Rythme IRM :</strong><br><br>
+          • IP légère + FEVD normale → 3-5 ans<br>
+          • IP ≥ modérée OU dysfonction VD → <strong>2-3 ans</strong><br><br>
+          Ce patient (FR 38%, FEVD 44%) entre dans la 2ème catégorie → <strong>IRM tous les 2-3 ans</strong>.<br><br>
+          L'IRM annuelle n'est pas recommandée systématiquement, sauf aggravation rapide ou veille pré-intervention imminente.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="submit-btn" id="submit-btn" onclick="goTo(4)" disabled>
+    📊 Voir mes résultats
+  </button>
+
+</section>
+
+<!-- ══════════════════════════════ -->
+<!-- SCREEN 4 : RÉSULTATS          -->
+<!-- ══════════════════════════════ -->
+<section class="screen" id="s4">
+
+  <div class="card">
+    <div class="score-display">
+      <div class="score-ring">
+        <svg width="130" height="130" viewBox="0 0 130 130">
+          <circle class="ring-bg" cx="65" cy="65" r="55"/>
+          <circle id="score-circle" class="ring-val" cx="65" cy="65" r="55"
+            stroke-dasharray="345.4" stroke-dashoffset="345.4" stroke="var(--teal)"/>
+        </svg>
+        <div class="ring-center">
+          <div class="num" id="score-num">0</div>
+          <div class="den">/ 5</div>
+        </div>
+      </div>
+      <div class="score-label" id="score-label">Calcul...</div>
+      <div class="score-sub" id="score-sub">Cas N°01 · TOF réparée</div>
+
+      <div class="score-details">
+        <div class="sd-item sd-correct">
+          <div class="sd-num" id="sd-correct">0</div>
+          <div class="sd-lbl">Correctes</div>
+        </div>
+        <div class="sd-item sd-wrong">
+          <div class="sd-num" id="sd-wrong">0</div>
+          <div class="sd-lbl">Erreurs</div>
+        </div>
+        <div class="sd-item sd-score">
+          <div class="sd-num" id="sd-pct">0%</div>
+          <div class="sd-lbl">Score</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Review par question -->
+  <div class="sec-hdr">Récapitulatif par question</div>
+  <div id="review-list"></div>
+
+  <button class="nav-btn" onclick="goTo(5)">💡 Messages clés →</button>
+  <button class="nav-btn-secondary" onclick="restart()">🔄 Recommencer le cas</button>
+
+</section>
+
+<!-- ══════════════════════════════ -->
+<!-- SCREEN 5 : MESSAGES CLÉS      -->
+<!-- ══════════════════════════════ -->
+<section class="screen" id="s5">
+
+  <div class="cas-hero" style="background:linear-gradient(135deg,#085041,#0F6E56)">
+    <div class="cas-level" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:white">
+      ✅ Cas N°01 Complété
+    </div>
+    <div class="cas-title">Messages Clés</div>
+    <div class="cas-subtitle">Points essentiels à retenir · ACC/AHA 2025</div>
+  </div>
+
+  <div class="key-msgs">
+    <div class="km-item">
+      <div class="km-icon">🏷️</div>
+      <div class="km-text">
+        <strong>Stade B — Ne pas sous-estimer</strong>
+        Une IP modérée + VTSI-VD &gt;80 mL/m² + FEVD ≤46% = stade B mais avec indication RVP. Le stade B n'est pas synonyme d'abstention thérapeutique.
+      </div>
+    </div>
+    <div class="km-item">
+      <div class="km-icon">⏰</div>
+      <div class="km-text">
+        <strong>Le bon timing du RVP — abandonner le VTD-VD</strong>
+        ACC 2025 abandonne le VTDI-VD télédiastolique ≥160 mL/m² comme critère. Le VTSI-VD (&gt;80 mL/m²) et la FEVD (≤46%) sont les nouveaux critères principaux.
+      </div>
+    </div>
+    <div class="km-item">
+      <div class="km-icon">🩻</div>
+      <div class="km-text">
+        <strong>CT obligatoire avant tout TPVR natif — COR 1 nouveau 2025</strong>
+        Nouveauté absolue : le scanner cardiaque est désormais COR 1 avant TPVR sur CCVD native, pour l'anatomie coronaire et la géométrie CCVD.
+      </div>
+    </div>
+    <div class="km-item">
+      <div class="km-icon">⚡</div>
+      <div class="km-text">
+        <strong>Stratification MSC = toujours obligatoire</strong>
+        Même sans TV documentée, QRS 162 ms + FEVD 44% + NYHA II = risque modéré → Score PREVENTION-ACHD + EEP à discuter (COR 2a). Ne jamais attendre la TV soutenue.
+      </div>
+    </div>
+    <div class="km-item">
+      <div class="km-icon">📅</div>
+      <div class="km-text">
+        <strong>IRM 2-3 ans si IP modérée ou FEVD réduite</strong>
+        Table 34 ACC 2025 : le rythme IRM est guidé par le profil IP/FEVD, pas par l'âge. IP modérée = 2-3 ans. IP légère + VD normal = 3-5 ans.
+      </div>
+    </div>
+    <div class="km-item">
+      <div class="km-icon">🎯</div>
+      <div class="km-text">
+        <strong>Ce patient doit être référé en centre ACHD spécialisé</strong>
+        Discussion heart team : RVP (chirurgical vs TPVR) + EEP pré-intervention + ablation VT préventive si substrat identifié (COR 2b).
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px; padding:14px 16px; background:var(--navy); border-radius:12px; text-align:center;">
+    <div style="font-size:11px; color:rgba(255,255,255,0.4); margin-bottom:10px; line-height:1.6;">
+      Gurvitz M, et al. 2025 ACC/AHA/HRS/ISACHD/SCAI Guideline<br>
+      J Am Coll Cardiol. 2025 · Section 4.3.5
+    </div>
+    <div style="font-size:12px; color:rgba(255,255,255,0.6); font-weight:500;">Prochain cas disponible bientôt !</div>
+  </div>
+
+  <button class="nav-btn" style="background:linear-gradient(135deg,#25D366,#1DA851)" onclick="sendWA()">
+    💬 Envoyer mon score au Dr. Touati
+  </button>
+  <button class="nav-btn-secondary" onclick="restart()">🔄 Recommencer</button>
+
+</section>
+
+<!-- BOTTOM BAR -->
+<div class="bottom-bar">
+  <div class="bb-inner">
+    <div class="bb-progress">
+      <div class="bb-label" id="bb-label">Cas N°01 · Présentation</div>
+      <div class="bb-bar"><div class="bb-fill" id="bb-fill" style="width:20%"></div></div>
+    </div>
+    <div class="bb-score-mini" id="bb-score">0/5</div>
+  </div>
+</div>
+
+<!-- WA FAB -->
+<button class="wa-fab" onclick="sendWA()" title="Contacter le Dr. Touati">💬</button>
+
+<script>
+// ══ STATE ══
+let currentScreen = 1;
+let answers = {};
+let results = {};
+const totalQ = 5;
+
+const correctAnswers = { 1:'B', 2:'B', 3:'C', 4:'B', 5:'C' };
+const qTitles = [
+  'Stade physiologique ACHD AP',
+  'Indication RVP — ACC 2025',
+  'Stratification risque MSC',
+  'Bilan pré-TPVR natif',
+  'Rythme IRM cardiaque'
+];
+
+const stepLabels = ['Présentation','Iconographie','QCM','Résultats','Messages'];
+const progressPcts = ['20%','40%','70%','88%','100%'];
+
+// ══ NAVIGATION ══
+function goTo(n) {
+  document.getElementById('s'+currentScreen).classList.remove('active');
+  currentScreen = n;
+  document.getElementById('s'+n).classList.add('active');
+  window.scrollTo(0,0);
+  updateProgress(n);
+  if (n === 4) buildResults();
+}
+
+function updateProgress(n) {
+  for (let i=1; i<=5; i++) {
+    const ps = document.getElementById('ps'+i);
+    const lbl = document.getElementById('lbl'+i);
+    if (i < n) { ps.className='ps done'; lbl.className='done'; }
+    else if (i === n) { ps.className='ps active'; lbl.className='active'; }
+    else { ps.className='ps'; lbl.className=''; }
+  }
+  document.getElementById('bb-label').textContent = 'Cas N°01 · ' + stepLabels[n-1];
+  const bbf = document.getElementById('bb-fill'); if(bbf) bbf.style.width = progressPcts[n-1];
+}
+
+// ══ QCM ══
+function selectOpt(qNum, letter, result) {
+  if (answers[qNum]) return; // already answered
+  answers[qNum] = letter;
+  results[qNum] = result;
+
+  const opts = document.querySelectorAll('#opts'+qNum+' .option');
+  opts.forEach((opt, i) => {
+    const optLetter = String.fromCharCode(65+i);
+    if (optLetter === letter) {
+      opt.classList.add(result === 'correct' ? 'correct' : 'wrong');
+    }
+    if (result === 'wrong' && optLetter === correctAnswers[qNum]) {
+      opt.classList.add('revealed-correct');
+    }
+    opt.onclick = null; // disable further clicks
+  });
+
+  // Show feedback
+  const fbCorrect = document.getElementById('fb'+qNum+'-correct');
+  const fbWrong = document.getElementById('fb'+qNum+'-wrong');
+  if (result === 'correct') {
+    fbCorrect.classList.add('show');
+  } else {
+    fbWrong.classList.add('show');
+  }
+
+  // Update score display
+  const correct = Object.values(results).filter(r => r === 'correct').length;
+  document.getElementById('bb-score').textContent = correct + '/' + totalQ;
+
+  // Enable submit if all answered
+  if (Object.keys(answers).length === totalQ) {
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = false;
+    btn.classList.add('ready');
+  }
+}
+
+// ══ RESULTS ══
+function buildResults() {
+  const correct = Object.values(results).filter(r => r === 'correct').length;
+  const wrong = totalQ - correct;
+  const pct = Math.round((correct/totalQ)*100);
+
+  // Ring animation — null-safe
+  const circumference = 345.4;
+  const offset = circumference - (pct/100)*circumference;
+  setTimeout(() => {
+    const circle = document.getElementById('score-circle');
+    if (circle) {
+      circle.style.strokeDashoffset = offset;
+      if (pct >= 80) circle.style.stroke = 'var(--mint)';
+      else if (pct >= 60) circle.style.stroke = 'var(--teal)';
+      else if (pct >= 40) circle.style.stroke = 'var(--gold)';
+      else circle.style.stroke = 'var(--crimson)';
+    }
+  }, 300);
+
+  const setEl = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
+  setEl('score-num', correct);
+  setEl('sd-correct', correct);
+  setEl('sd-wrong', wrong);
+  setEl('sd-pct', pct+'%');
+
+  let label, color;
+  if (pct >= 80) { label = '🏆 Excellent !'; color = 'var(--mint)'; }
+  else if (pct >= 60) { label = '👍 Bien !'; color = 'var(--teal)'; }
+  else if (pct >= 40) { label = '📚 À revoir'; color = 'var(--gold)'; }
+  else { label = '🔄 Recommencer'; color = 'var(--crimson)'; }
+
+  const lbl = document.getElementById('score-label');
+  if (lbl) { lbl.textContent = label; lbl.style.color = color; }
+
+  // Review list
+  let html = '';
+  for (let i=1; i<=totalQ; i++) {
+    const isCorrect = results[i] === 'correct';
+    html += `<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:white;border-radius:10px;margin-bottom:8px;border:1px solid var(--border);">
+      <div style="width:28px;height:28px;border-radius:8px;background:${isCorrect?'var(--mint-lt)':'var(--crimson-lt)'};display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">${isCorrect?'✅':'❌'}</div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:2px">Q${i} — ${qTitles[i-1]}</div>
+        <div style="font-size:11px;color:var(--text2)">${isCorrect ? 'Bonne réponse ✓' : 'Votre réponse : '+( answers[i]||'—')+' · Correcte : '+correctAnswers[i]}</div>
+      </div></div>`;
+  }
+  const rl = document.getElementById('review-list');
+  if (rl) rl.innerHTML = html;
+}
+
+function restart() {
+  answers = {}; results = {};
+  // Reset all option styles
+  document.querySelectorAll('.option').forEach(opt => {
+    opt.classList.remove('correct','wrong','selected','revealed-correct');
+  });
+  // Reset feedbacks
+  document.querySelectorAll('.feedback-box').forEach(fb => fb.classList.remove('show'));
+  // Reset submit button
+  const btn = document.getElementById('submit-btn');
+  if (btn) { btn.disabled = true; btn.classList.remove('ready'); }
+  // Reset score display
+  const bbScore = document.getElementById('bb-score');
+  if (bbScore) bbScore.textContent = '0/5';
+  // Reset ring
+  const circle = document.getElementById('score-circle');
+  if (circle) { circle.style.strokeDashoffset = '345.4'; circle.style.stroke = 'var(--teal)'; }
+  goTo(1);
+}
+
+function setupQCM() {
+  const qData = [
+    { q:1, opts:['A','B','C','D'] },
+    { q:2, opts:['A','B','C','D'] },
+    { q:3, opts:['A','B','C','D'] },
+    { q:4, opts:['A','B','C','D'] },
+    { q:5, opts:['A','B','C','D'] }
+  ];
+  qData.forEach(({q, opts}) => {
+    const optEls = document.querySelectorAll('#opts'+q+' .option');
+    optEls.forEach((el, i) => {
+      const letter = opts[i];
+      el.onclick = function() {
+        if (answers[q]) return;
+        const isCorrect = letter === correctAnswers[q] ? 'correct' : 'wrong';
+        selectOpt(q, letter, isCorrect);
+      };
+    });
+  });
+}
+
+// ══ WHATSAPP ══
+function sendWA() {
+  const correct = Object.values(results).filter(r => r === 'correct').length;
+  const pct = Math.round((correct/totalQ)*100);
+  const date = new Date().toLocaleDateString('fr-FR', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+
+  let msg = '🫀 *TOF CASES — RÉSULTAT CAS N°01*\n';
+  msg += '📱 CSC Algeria · TOF Cases App\n';
+  msg += '🗓️ ' + date + '\n';
+  msg += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+  msg += '📊 *SCORE : ' + correct + '/' + totalQ + ' (' + pct + '%)*\n\n';
+  msg += '📋 *Détail par question :*\n';
+  for (let i=1; i<=totalQ; i++) {
+    const ok = results[i] === 'correct';
+    msg += (ok?'✅':'❌') + ' Q' + i + ' — ' + qTitles[i-1] + '\n';
+  }
+  msg += '\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
+  msg += '_TOF Clinical App · ACC/AHA 2025_\n';
+  msg += '_Demande d\'assistance ou discussion du cas ?_';
+
+  window.open('https://wa.me/213540910869?text='+encodeURIComponent(msg), '_blank');
+}
+
+// ══ INIT ══
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const sp = document.getElementById('splash');
+    if (sp) sp.style.display = 'none';
+  }, 2900);
+  updateProgress(1);
+});
+</script>
+</body>
+</html>
