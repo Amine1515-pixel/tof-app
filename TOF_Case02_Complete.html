@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>TOF Case 02 — CSC Algeria</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0C1B2E; --navy2:#152540; --teal:#00B4A0; --teal-dk:#007A6E; --teal-lt:#E0F7F5;
+  --crimson:#C8273F; --crimson-lt:#FDEAED; --gold:#F0A030; --gold-lt:#FFF5E0;
+  --mint:#1A8A68; --mint-lt:#E0F5EE; --sky:#0284C7; --sky-lt:#E0F2FE;
+  --purple:#7C3AED; --purple-lt:#EDE9FE; --amber:#D97706; --amber-lt:#FFFBEB;
+  --bg:#F2F6FB; --card:#FFFFFF; --border:#E2EAF4;
+  --text:#1A2840; --text2:#4A6080; --text3:#8AA0BA;
+  --shadow:0 2px 16px rgba(12,27,46,0.08);
+  --r:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;max-width:480px;margin:0 auto}
+
+/* SPLASH */
+#splash{position:fixed;inset:0;z-index:999;background:linear-gradient(160deg,var(--navy) 0%,#1A3A5C 60%,var(--teal-dk) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;animation:splashOut 0.4s ease 2.8s forwards}
+@keyframes splashOut{to{opacity:0;pointer-events:none}}
+.splash-logo{width:78px;height:78px;border-radius:20px;background:white;padding:7px;box-shadow:0 8px 40px rgba(0,180,160,0.4);animation:popIn 0.6s cubic-bezier(.34,1.56,.64,1) 0.3s both;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.splash-logo img{width:100%;height:100%;object-fit:contain}
+@keyframes popIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.splash-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:white;text-align:center;animation:fadeUp 0.5s ease 0.7s both}
+.splash-sub{font-size:11px;color:rgba(255,255,255,0.5);text-align:center;line-height:1.6;animation:fadeUp 0.5s ease 0.9s both}
+.splash-badge{background:rgba(0,180,160,0.2);border:1px solid rgba(0,180,160,0.4);border-radius:20px;padding:5px 16px;font-size:10px;letter-spacing:1.2px;color:#7FFFF4;text-transform:uppercase;animation:fadeUp 0.5s ease 1.1s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* HEADER */
+.app-header{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);padding:48px 18px 16px;position:relative;overflow:hidden}
+.app-header::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(0,180,160,0.12) 0%,transparent 70%);border-radius:50%}
+.header-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.header-logo{width:38px;height:38px;border-radius:10px;background:white;padding:3px;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,0.25);flex-shrink:0}
+.header-logo img{width:100%;height:100%;object-fit:contain}
+.ho{flex:1;margin-left:4px}
+.ho .org{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:white}
+.ho .sub{font-size:9px;color:rgba(255,255,255,0.4)}
+.hbadge{background:rgba(0,180,160,0.18);border:1px solid rgba(0,180,160,0.35);border-radius:10px;padding:3px 8px;font-size:9px;color:#7FFFF4;letter-spacing:0.8px;text-transform:uppercase;font-weight:600}
+.header-title{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:white;line-height:1.2;margin-bottom:2px}
+.header-title em{color:var(--teal);font-style:normal}
+.header-desc{font-size:10px;color:rgba(255,255,255,0.4)}
+
+/* PROGRESS */
+.progress-wrap{background:white;padding:10px 14px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:90;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+.progress-steps{display:flex;gap:2px;margin-bottom:6px}
+.ps{flex:1;height:3px;background:var(--border);transition:background 0.4s;border-radius:2px}
+.ps.done{background:var(--teal)}
+.ps.active{background:linear-gradient(90deg,var(--teal),var(--gold))}
+.progress-info{display:flex;justify-content:space-between;align-items:center}
+.pi-step{font-size:10px;font-weight:600;color:var(--teal)}
+.pi-score{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--navy)}
+
+/* SCREENS */
+.screen{display:none;padding:12px 12px 100px;animation:fadeIn 0.3s ease}
+.screen.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* CARDS */
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);margin-bottom:10px;overflow:hidden;border:1px solid var(--border)}
+.card-hdr{padding:11px 13px 9px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.chi{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.cht{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--navy)}
+.chs{font-size:10px;color:var(--text3)}
+.card-body{padding:11px 13px}
+
+/* CAS HERO */
+.cas-hero{background:linear-gradient(135deg,#1A3150 0%,#0C2A4A 100%);border-radius:var(--r);padding:16px;margin-bottom:10px;border:1px solid rgba(0,180,160,0.2);position:relative;overflow:hidden}
+.cas-hero::before{content:'';position:absolute;top:-20px;right:-20px;width:90px;height:90px;background:radial-gradient(circle,rgba(0,180,160,0.15) 0%,transparent 70%);border-radius:50%}
+.cas-level{display:inline-flex;align-items:center;gap:6px;background:rgba(240,160,48,0.15);border:1px solid rgba(240,160,48,0.3);border-radius:20px;padding:3px 10px;margin-bottom:8px;font-size:9px;color:#FCD34D;font-weight:600;letter-spacing:0.8px;text-transform:uppercase}
+.cas-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:white;margin-bottom:3px}
+.cas-subtitle{font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:10px}
+.cas-tags{display:flex;flex-wrap:wrap;gap:5px}
+.cas-tag{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;padding:2px 8px;font-size:9px;color:rgba(255,255,255,0.7);font-weight:500}
+
+/* DATA GRID */
+.dg{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}
+.di{background:var(--bg);border-radius:9px;padding:9px 10px;border:1px solid var(--border)}
+.dl{font-size:9px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px}
+.dv{font-size:13px;font-weight:600;color:var(--navy)}
+.dv.red{color:var(--crimson)}
+.dv.ok{color:var(--mint)}
+.dv.warn{color:var(--amber)}
+.dv.big{font-size:18px;font-family:'Syne',sans-serif;font-weight:800}
+
+/* FINDINGS */
+.fl{list-style:none;padding:0}
+.fl li{display:flex;gap:7px;padding:6px 0;border-bottom:1px solid var(--border);font-size:11px;color:var(--text);line-height:1.5;align-items:flex-start}
+.fl li:last-child{border-bottom:none}
+.fd{width:5px;height:5px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.dr{background:var(--crimson)}
+.da{background:var(--gold)}
+.dg2{background:var(--mint)}
+.db{background:var(--sky)}
+.dp{background:var(--purple)}
+
+/* ECHO BLOCK */
+.echo-hero{background:linear-gradient(135deg,#0C1B2E,#1A3150);border-radius:12px;padding:14px;margin-bottom:8px;border:1px solid rgba(0,180,160,0.2)}
+.echo-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:white;margin-bottom:2px;display:flex;align-items:center;gap:6px}
+.echo-sub{font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:12px}
+.echo-params{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ep{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:10px;text-align:center}
+.ep-val{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:2px}
+.ep-lbl{font-size:9px;color:rgba(255,255,255,0.5);font-weight:600;text-transform:uppercase;letter-spacing:0.4px}
+.ep-ref{font-size:9px;color:rgba(255,255,255,0.3);margin-top:1px}
+.ep.critical .ep-val{color:#FF6B6B}
+.ep.warning .ep-val{color:#FCD34D}
+.ep.ok .ep-val{color:#6EE7B7}
+.ep.purple .ep-val{color:#C4B5FD}
+
+/* CORRELATION BOX */
+.corr-box{border-radius:10px;padding:11px 12px;margin-bottom:8px;border-left:3px solid}
+.corr-teal{background:var(--teal-lt);border-color:var(--teal)}
+.corr-red{background:var(--crimson-lt);border-color:var(--crimson)}
+.corr-gold{background:var(--gold-lt);border-color:var(--gold)}
+.corr-purple{background:var(--purple-lt);border-color:var(--purple)}
+.corr-mint{background:var(--mint-lt);border-color:var(--mint)}
+.corr-sky{background:var(--sky-lt);border-color:var(--sky)}
+.corr-title{font-size:11px;font-weight:700;color:var(--navy);margin-bottom:5px;display:flex;align-items:center;gap:5px}
+.corr-content{font-size:11px;color:var(--text);line-height:1.65}
+.corr-content strong{color:var(--navy)}
+
+/* CANVA EMBED */
+.canva-wrap{position:relative;width:100%;height:0;padding-top:56.25%;overflow:hidden;border-radius:10px;background:linear-gradient(135deg,#0C1B2E,#1A3150);margin-bottom:6px;border:1px solid rgba(0,180,160,0.2)}
+.canva-wrap::before{content:'🎞️ Chargement boucles écho...';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;color:rgba(255,255,255,0.35);white-space:nowrap;z-index:0}
+.canva-wrap iframe{position:absolute;width:100%;height:100%;top:0;left:0;border:none;z-index:1}
+.canva-open{display:flex;justify-content:space-between;align-items:center;padding:0 2px;margin-bottom:4px}
+.canva-open a{font-size:10px;color:var(--teal);text-decoration:none;font-weight:600;background:var(--teal-lt);padding:3px 10px;border-radius:6px;border:1px solid rgba(0,180,160,0.3)}
+
+/* STADE VISUAL */
+.stade-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.stade-item{border-radius:10px;padding:10px 6px;text-align:center;border:2px solid transparent;cursor:pointer;transition:all 0.2s}
+.stade-item.sa{background:var(--teal-lt)}
+.stade-item.sb{background:var(--sky-lt)}
+.stade-item.sc{background:var(--gold-lt)}
+.stade-item.sd{background:var(--crimson-lt)}
+.stade-item.active.sa{border-color:var(--teal)}
+.stade-item.active.sb{border-color:var(--sky)}
+.stade-item.active.sc{border-color:var(--amber)}
+.stade-item.active.sd{border-color:var(--crimson)}
+.si-letter{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+.sa .si-letter{color:var(--teal-dk)}
+.sb .si-letter{color:var(--sky)}
+.sc .si-letter{color:var(--amber)}
+.sd .si-letter{color:var(--crimson)}
+.si-lbl{font-size:9px;color:var(--text2);font-weight:600;margin-top:2px}
+
+/* QCM */
+.qcm-q{font-size:13px;font-weight:600;color:var(--navy);line-height:1.5;margin-bottom:12px}
+.qnum{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{padding:11px 12px;border-radius:9px;border:2px solid var(--border);background:white;cursor:pointer;transition:all 0.2s;display:flex;align-items:flex-start;gap:9px;font-size:12px;color:var(--text);line-height:1.5}
+.opt.correct{border-color:var(--mint);background:var(--mint-lt)}
+.opt.wrong{border-color:var(--crimson);background:var(--crimson-lt)}
+.opt.rev{border-color:var(--mint);background:var(--mint-lt);opacity:0.65}
+.ol{width:20px;height:20px;border-radius:5px;background:var(--border);color:var(--text2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;transition:all 0.2s}
+.opt.correct .ol{background:var(--mint);color:white}
+.opt.wrong .ol{background:var(--crimson);color:white}
+.opt.rev .ol{background:var(--mint);color:white}
+
+/* FEEDBACK */
+.fb{border-radius:10px;padding:12px;margin-top:8px;border-left:4px solid;display:none}
+.fb.show{display:block;animation:fadeIn 0.3s ease}
+.fb-ok{background:var(--mint-lt);border-color:var(--mint)}
+.fb-err{background:var(--crimson-lt);border-color:var(--crimson)}
+.fb-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;margin-bottom:6px}
+.fb-ok .fb-title{color:var(--mint)}
+.fb-err .fb-title{color:var(--crimson)}
+.fb-body{font-size:11px;line-height:1.7;color:var(--text)}
+.cor{display:inline-block;padding:1px 6px;border-radius:4px;font-size:9px;font-weight:700;margin-right:3px}
+.c1{background:#d1fae5;color:#065f46}
+.c2a{background:#dbeafe;color:#1e3a8a}
+.c2b{background:#fef9c3;color:#854d0e}
+
+/* SCORE */
+.score-wrap{text-align:center;padding:20px 14px 16px}
+.score-ring{position:relative;width:120px;height:120px;margin:0 auto 12px}
+.score-ring svg{transform:rotate(-90deg)}
+.rb{fill:none;stroke:var(--border);stroke-width:9}
+.rv{fill:none;stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)}
+.rc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.rc .num{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--navy);line-height:1}
+.rc .den{font-size:11px;color:var(--text3)}
+.score-lbl{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:3px}
+.score-sub{font-size:11px;color:var(--text2);margin-bottom:14px}
+.sd-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:14px}
+.sdi{background:var(--bg);border-radius:9px;padding:9px 6px;text-align:center;border:1px solid var(--border)}
+.sdn{font-family:'Syne',sans-serif;font-size:18px;font-weight:800}
+.sdl{font-size:9px;color:var(--text3);font-weight:600;text-transform:uppercase;margin-top:1px}
+.sdi.ok .sdn{color:var(--mint)}
+.sdi.err .sdn{color:var(--crimson)}
+.sdi.sc .sdn{color:var(--teal)}
+
+/* MESSAGES CLES */
+.km{display:flex;gap:9px;padding:10px 11px;background:white;border-radius:9px;margin-bottom:7px;border:1px solid var(--border);align-items:flex-start}
+.km-icon{font-size:15px;flex-shrink:0}
+.km-text{font-size:11px;color:var(--text);line-height:1.6}
+.km-text strong{color:var(--navy);display:block;font-size:12px;margin-bottom:1px}
+
+/* BUTTONS */
+.btn-main{width:100%;padding:13px;background:linear-gradient(135deg,var(--teal) 0%,var(--teal-dk) 100%);color:white;border:none;border-radius:11px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:12px;box-shadow:0 4px 14px rgba(0,180,160,0.35);transition:transform 0.15s}
+.btn-main:active{transform:scale(0.98)}
+.btn-sec{width:100%;padding:10px;background:transparent;border:2px solid var(--border);color:var(--text2);border-radius:9px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;cursor:pointer;margin-top:7px}
+.btn-submit{width:100%;padding:11px;background:var(--navy);color:white;border:none;border-radius:9px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;cursor:pointer;margin-top:10px;opacity:0.4;transition:opacity 0.2s,transform 0.15s}
+.btn-submit.ready{opacity:1}
+.btn-submit:active{transform:scale(0.98)}
+.btn-wa{width:100%;padding:13px;background:linear-gradient(135deg,#25D366,#1DA851);color:white;border:none;border-radius:11px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:8px}
+
+/* SEC HEADER */
+.sh{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;padding:10px 2px 5px}
+
+/* INFO BOX */
+.ib{border-radius:9px;padding:9px 11px;font-size:11px;line-height:1.6;margin-bottom:8px;border-left:3px solid}
+.ib-teal{background:var(--teal-lt);border-color:var(--teal)}
+.ib-gold{background:var(--gold-lt);border-color:var(--gold)}
+.ib-red{background:var(--crimson-lt);border-color:var(--crimson)}
+.ib-purple{background:var(--purple-lt);border-color:var(--purple)}
+
+/* BOTTOM */
+.bottom-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:white;border-top:1px solid var(--border);padding:8px 14px 14px;box-shadow:0 -4px 20px rgba(0,0,0,0.08);z-index:80}
+.bb-inner{display:flex;gap:8px;align-items:center}
+.bb-prog{flex:1}
+.bb-lbl{font-size:9px;color:var(--text3);font-weight:600;margin-bottom:2px}
+.bb-bar{height:3px;background:var(--border);border-radius:2px}
+.bb-fill{height:100%;background:var(--teal);border-radius:2px;transition:width 0.5s ease}
+.bb-score{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--navy);min-width:44px;text-align:right}
+.wa-fab{position:fixed;bottom:68px;right:12px;z-index:200;width:44px;height:44px;border-radius:50%;background:#25D366;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(37,211,102,0.45);display:flex;align-items:center;justify-content:center;font-size:20px;transition:transform 0.2s}
+.wa-fab:active{transform:scale(0.9)}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-logo">
+    <img src="https://amine1515-pixel.github.io/tof-app/CSC-Algeria_png.png" alt="CSC"
+         onerror="this.parentElement.innerHTML='🫀';this.parentElement.style.fontSize='32px'">
+  </div>
+  <div class="splash-title">TOF Cases</div>
+  <div class="splash-sub">Cas Clinique N°02 · Niveau ⭐⭐⭐<br>Évaluation complète · Raisonnement guidé</div>
+  <div class="splash-badge">ACC/AHA 2025 · CSC Algeria</div>
+</div>
+
+<!-- HEADER -->
+<header class="app-header">
+  <div class="header-top">
+    <div class="header-logo">
+      <img src="https://amine1515-pixel.github.io/tof-app/CSC-Algeria_png.png" alt="CSC"
+           onerror="this.parentElement.innerHTML='🫀';this.parentElement.style.fontSize='18px'">
+    </div>
+    <div class="ho">
+      <div class="org">CSC Algeria · TOF Cases</div>
+      <div class="sub">Cardiopathies Congénitales Adultes</div>
+    </div>
+    <div class="hbadge">ACC 2025</div>
+  </div>
+  <div class="header-title">Cas N°02 — <em>Analyse Complète</em></div>
+  <div class="header-desc">Écho · Stade AP · Risque rythmique · CPET · Cathétérisme · Décision</div>
+</header>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-steps">
+    <div class="ps active" id="ps1"></div>
+    <div class="ps" id="ps2"></div>
+    <div class="ps" id="ps3"></div>
+    <div class="ps" id="ps4"></div>
+    <div class="ps" id="ps5"></div>
+    <div class="ps" id="ps6"></div>
+    <div class="ps" id="ps7"></div>
+  </div>
+  <div class="progress-info">
+    <div class="pi-step" id="pi-step">Étape 1/7 — Échocardiographie</div>
+    <div class="pi-score" id="pi-score">0/6</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ -->
+<!-- S1 : ÉCHO (donnée d'emblée)    -->
+<!-- ═══════════════════════════════ -->
+<section class="screen active" id="s1">
+
+  <div class="cas-hero">
+    <div class="cas-level">⭐⭐⭐ Niveau avancé</div>
+    <div class="cas-title">Cas N°02</div>
+    <div class="cas-subtitle">TOF réparée — Évaluation multimodale complète</div>
+    <div class="cas-tags">
+      <span class="cas-tag">IP massive</span>
+      <span class="cas-tag">Strain VD</span>
+      <span class="cas-tag">Corrélation IRM</span>
+      <span class="cas-tag">Risque MSC</span>
+      <span class="cas-tag">CPET</span>
+      <span class="cas-tag">Cathétérisme</span>
+    </div>
+  </div>
+
+  <div class="ib ib-teal">
+    <strong>📌 Méthode pédagogique :</strong> Les boucles échocardiographiques vous sont présentées en premier. Analysez-les, puis la présentation clinique et les examens complémentaires seront révélés progressivement. Raisonnez à chaque étape !
+  </div>
+
+  <!-- Canva embed -->
+  <div class="card">
+    <div class="card-hdr">
+      <div class="chi" style="background:#0C1B2E;font-size:13px">🎞️</div>
+      <div>
+        <div class="cht">Boucles Échocardiographiques</div>
+        <div class="chs">Analyse en aveugle — Cas N°02 · CSC Algeria</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="canva-open">
+        <div style="font-size:10px;color:var(--text3)">Live · Canva CSC Algeria</div>
+        <a href="https://www.canva.com/design/DAHFE7jySmQ/Sf4bia9pzDCwWxs1nRbIrA/view" target="_blank">↗ Plein écran</a>
+      </div>
+      <div class="canva-wrap">
+        <iframe src="https://www.canva.com/design/DAHFE7jySmQ/Sf4bia9pzDCwWxs1nRbIrA/view?embed&autoplay=1&loop=1"
+          allow="fullscreen; autoplay" allowfullscreen frameborder="0" scrolling="no" loading="lazy"
+          style="position:absolute;width:100%;height:100%;top:0;left:0;border:none;z-index:1">
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paramètres écho mesurés -->
+  <div class="card">
+    <div class="card-hdr">
+      <div class="chi" style="background:var(--sky-lt)">📐</div>
+      <div>
+        <div class="cht">Paramètres Échocardiographiques Mesurés</div>
+        <div class="chs">ETT complète — données quantitatives</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="echo-hero">
+        <div class="echo-title">🫀 Analyse quantitative VD</div>
+        <div class="echo-sub">Paramètres clés — corrélation IRM prévue</div>
+        <div class="echo-params">
+          <div class="ep critical">
+            <div class="ep-val">Libre</div>
+            <div class="ep-lbl">Fuite pulmonaire</div>
+            <div class="ep-ref">Massive, sans coaptation</div>
+          </div>
+          <div class="ep critical">
+            <div class="ep-val">–8%</div>
+            <div class="ep-lbl">Strain VD (GLS)</div>
+            <div class="ep-ref">Norme : < –20%</div>
+          </div>
+          <div class="ep warning">
+            <div class="ep-val">Dilaté</div>
+            <div class="ep-lbl">Taille VD</div>
+            <div class="ep-ref">Massive, anévrismale</div>
+          </div>
+          <div class="ep ok">
+            <div class="ep-val">Bonne</div>
+            <div class="ep-lbl">Fonction VG</div>
+            <div class="ep-ref">FEVG visuellement préservée</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sh">Corrélations écho → IRM selon ACC 2025</div>
+
+      <div class="corr-box corr-red">
+        <div class="corr-title">🔴 IP "libre" à l'écho → FR ≥ 40% à l'IRM</div>
+        <div class="corr-content">
+          Une fuite pulmonaire dite "libre" ou "massive" à l'écho, sans coaptation sur patch transannulaire, correspond à une <strong>fraction de régurgitation IRM ≥ 40%</strong> (IP sévère). Le seuil ACC 2025 pour IP modérée est FR ≥ 25%. Ce patient dépasse largement ce seuil.<br>
+          <strong>⚠️ L'écho seule ne quantifie pas la FR</strong> — l'IRM reste indispensable pour la mesure exacte, qui guide le timing du RVP.
+        </div>
+      </div>
+
+      <div class="corr-box corr-purple">
+        <div class="corr-title">🟣 Strain VD –8% → Dysfonction VD sévère à l'IRM</div>
+        <div class="corr-content">
+          Le strain longitudinal global du VD (GLS-VD) normal est <strong>< –20%</strong>. Un strain de –8% indique une <strong>dysfonction systolique VD sévère</strong>.<br>
+          Corrélation IRM : FEVD probablement <strong>≤ 35–38%</strong> (dysfonction sévère). Le strain VD est un marqueur précoce de décompensation qui précède la chute de la FEVD en IRM — il est désormais intégré dans les guidelines ACHD comme paramètre de suivi.<br>
+          <strong>Valeur pronostique :</strong> GLS-VD altéré = facteur de risque indépendant d'arythmies ventriculaires dans le TOF réparé.
+        </div>
+      </div>
+
+      <div class="corr-box corr-teal">
+        <div class="corr-title">🟢 VD dilaté massivement → VTSI-VD &gt;&gt; 80 mL/m² à l'IRM</div>
+        <div class="corr-content">
+          La dilatation VD massive visible à l'écho avec aspect anévrismale de la CCVD correspond à un <strong>VTSI-VD indexé probablement > 120–150 mL/m²</strong> à l'IRM (seuil RVP : 80 mL/m²).<br>
+          <strong>Point ACC 2025 :</strong> Le VTSI-VD (index systolique) a remplacé le VTDI-VD (index diastolique ≥160 mL/m²) comme critère principal — le volume systolique résiduel reflète mieux la dysfonction que le volume total.
+        </div>
+      </div>
+
+      <div class="corr-box corr-gold">
+        <div class="corr-title">🟡 Fonction VG "bonne" à l'écho → Attention à l'interaction VD-VG</div>
+        <div class="corr-content">
+          Bien que la FEVG soit visuellement préservée, la <strong>dilatation massive du VD</strong> comprime le VG (effet Bernheim inverse) et peut masquer une dysfonction VG débutante.<br>
+          L'IRM cardiaque recherchera : FEVG exacte, volumes VG, LGE ventriculaire gauche (présent dans 20% des TOF adultes), et déformation longitudinale VG par strain.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-main" onclick="goTo(2)">📋 Révéler la présentation clinique →</button>
+
+</section>
+
+<!-- ═══════════════════════════════ -->
+<!-- S2 : PRÉSENTATION CLINIQUE     -->
+<!-- ═══════════════════════════════ -->
+<section class="screen" id="s2">
+
+  <div class="ib ib-gold">
+    <strong>💡 Révélation progressive :</strong> Maintenant que vous avez analysé l'écho, voici la présentation clinique. Confrontez vos hypothèses diagnostiques !
+  </div>
+
+  <div class="card">
+    <div class="card-hdr">
+      <div class="chi" style="background:var(--purple-lt)">👤</div>
+      <div><div class="cht">Présentation Clinique</div><div class="chs">Données démographiques & motif</div></div>
+    </div>
+    <div class="card-body">
+      <div class="dg">
+        <div class="di"><div class="dl">Âge</div><div class="dv big">28 ans</div></div>
+        <div class="di"><div class="dl">Sexe</div><div class="dv">Féminin</div></div>
+        <div class="di"><div class="dl">Chirurgie initiale</div><div class="dv warn">Âge 3 mois</div></div>
+        <div class="di"><div class="dl">Type réparation</div><div class="dv warn">Patch transannulaire</div></div>
+        <div class="di"><div class="dl">Suivi ACHD</div><div class="dv red">Irrégulier</div></div>
+        <div class="di"><div class="dl">NYHA actuel</div><div class="dv red">III</div></div>
+      </div>
+      <div class="ib ib-red">
+        <strong>Motif de consultation :</strong> Adressée pour dyspnée d'effort invalidante depuis 14 mois (NYHA II → III progressif). Anciennement athlète (handball), a arrêté toute activité sportive il y a 8 mois. Signale des palpitations épisodiques non documentées depuis 6 mois.
+      </div>
+      <ul class="fl">
+        <li><div class="fd db"></div><div>Réparation à 3 mois : fermeture CIV + patch transannulaire pulmonaire + infundibulotomie. Pas de ré-intervention depuis 28 ans.</div></li>
+        <li><div class="fd da"></div><div>Suivi irrégulier : dernière consultation ACHD il y a <strong>4 ans</strong>. Pas d'IRM depuis 6 ans.</div></li>
+        <li><div class="fd dr"></div><div>Examen : souffle holodiastolique 3/6 en foyer pulmonaire, VD impulse palpable, pas d'œdème, légère hépatomégalie 2 cm.</div></li>
+        <li><div class="fd da"></div><div>FC 78/min, TA 106/68 mmHg, SpO₂ 95% en air ambiant (↓ à 89% à l'effort au test de marche 6 min)</div></li>
+        <li><div class="fd dr"></div><div>Palpitations épisodiques non documentées — durée 10–30 secondes, résolution spontanée</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr">
+      <div class="chi" style="background:var(--teal-lt)">📈</div>
+      <div><div class="cht">ECG 12 Dérivations</div><div class="chs">Paramètres rythmiques et morphologiques</div></div>
+    </div>
+    <div class="card-body">
+      <div class="dg">
+        <div class="di"><div class="dl">Durée QRS</div><div class="dv red">188 ms</div></div>
+        <div class="di"><div class="dl">Rythme</div><div class="dv ok">Sinusal</div></div>
+        <div class="di"><div class="dl">Fragmentation QRS</div><div class="dv red">Présente</div></div>
+        <div class="di"><div class="dl">Dispersion QT</div><div class="dv red">82 ms</div></div>
+        <div class="di"><div class="dl">ESV au repos</div><div class="dv warn">Isolées rares</div></div>
+        <div class="di"><div class="dl">Axe QRS</div><div class="dv warn">Droit +120°</div></div>
+      </div>
+      <div class="corr-box corr-red">
+        <div class="corr-title">🚨 QRS 188 ms — Signification clinique majeure</div>
+        <div class="corr-content">
+          Le QRS ≥ 180 ms est un <strong>facteur de risque majeur validé de MSC</strong> dans le TOF réparé (Gatzoulis et al. Lancet 2000). Ce patient est au-dessus du seuil critique.<br>
+          La fragmentation du QRS (déflexions supplémentaires dans ≥2 dérivations contiguës) est un marqueur de <strong>fibrose myocardique cicatricielle</strong> et est supérieure à la durée QRS seule pour prédire la mortalité (Bokma et al. Heart 2017).<br>
+          La dispersion QT ≥ 70 ms représente une hétérogénéité de repolarisation — incluse dans le score PREVENTION-ACHD.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-main" onclick="goTo(3)">🩻 Révéler les données IRM & biologie →</button>
+  <button class="btn-sec" onclick="goTo(1)">← Retour écho</button>
+
+</section>
+
+<!-- ═══════════════════════════════ -->
+<!-- S3 : IRM + BIOLOGIE            -->
+<!-- ═══════════════════════════════ -->
+<section class="screen" id="s3">
+
+  <div class="ib ib-teal">
+    <strong>🩻 Corrélation écho-IRM :</strong> Comparez maintenant vos estimations IRM basées sur l'écho avec les valeurs réelles mesurées.
+  </div>
+
+  <div class="card">
+    <div class="card-hdr">
+      <div class="chi" style="background:var(--navy2);font-size:13px">🩻</div>
+      <div><div class="cht">IRM Cardiaque — Résultats</div><div class="chs">Gold standard · Quantification précise</div></div>
+    </div>
+    <div class="card-body">
+      <div class="dg">
+        <div class="di"><div class="dl">FR pulm. (IP)</div><div class="dv red big">48%</div></div>
+        <div class="di"><div class="dl">FEVD</div><div class="dv red big">32%</div></div>
+        <div class="di"><div class="dl">VTSI-VD indexé</div><div class="dv red">148 mL/m²</div></div>
+        <div class="di"><div class="dl">VTD-VD/VTD-VG</div><div class="dv red">× 3.1</div></div>
+        <div class="di"><div class="dl">FEVG</div><div class="dv warn">51%</div></div>
+        <div class="di"><div class="dl">LGE VD</div><div class="dv red">Étendu</div></div>
+        <div class="di"><div class="dl">Akinésie CCVD</div><div class="dv red">72 mm</div></div>
+        <div class="di"><div class="dl">LGE VG</div><div class="dv warn">Léger</div></div>
+      </div>
+
+      <div class="corr-box corr-red">
+        <div class="corr-title">✅ Corrélation écho → IRM confirmée</div>
+        <div class="corr-content">
+          • Écho "IP libre" → IRM FR = <strong>48%</strong> (IP sévère, seuil modéré = 25%) ✓<br>
+          • Écho strain VD –8% → IRM FEVD = <strong>32%</strong> (dysfonction sévère) ✓<br>
+          • Écho VD massivement dilaté → IRM VTSI-VD = <strong>148 mL/m²</strong> (seuil RVP = 80) ✓<br>
+          • Écho FEVG "bonne" → IRM FEVG = <strong>51%</strong> (légèrement altérée par effet Bernheim) ✓<br><br>
+          <strong>Point clé :</strong> Le strain VD –8% avait correctement prédit la FEVD sévère avant même l'IRM — valeur diagnostique additive de l'écho de déformation (speckle tracking).
+        </div>
+      </div>
+
+      <div class="corr-box corr-purple">
+        <div class="corr-title">🟣 LGE étendu + Akinésie CCVD 72 mm — Substrat arythmique majeur</div>
+        <div class="corr-content">
+          Le LGE (late gadolinium enhancement) au VD reflète la <strong>fibrose cicatricielle post-chirurgicale</strong>. Son étendue est corrélée au risque de TV soutenue (score Brompton UK — LGE modéré = +22 pts, sévère = +24 pts).<br>
+          L'akinésie de la CCVD ≥ 55 mm est un facteur de risque indépendant dans le score Brompton (= +9 pts). Ici : 72 mm.<br>
+          Ces zones akinétiques/dyskinétiques constituent les <strong>isthmes conducteurs anatomiques</strong> des VT monomorphes réentrantes.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr">
+      <div class="chi" style="background:var(--gold-lt)">🔬</div>
+      <div><div class="cht">Biologie</div><div class="chs">Biomarqueurs & bilan standard</div></div>
+    </div>
+    <div class="card-body">
+      <div class="dg">
+        <div class="di"><div class="dl">BNP</div><div class="dv red">312 ng/L</div></div>
+        <div class="di"><div class="dl">NT-proBNP</div><div class="dv red">Élevé</div></div>
+        <div class="di"><div class="dl">Créatinine</div><div class="dv warn">Limite haute</div></div>
+        <div class="di"><div class="dl">NFS</div><div class="dv ok">Normale</div></div>
+        <div class="di"><div class="dl">Hb</div><div class="dv ok">13.8 g/dL</div></div>
+        <div class="di"><div class="dl">Bilan hépatique</div><div class="dv warn">ASAT ×1.8</div></div>
+      </div>
+      <div class="corr-box corr-gold">
+        <div class="corr-title">🟡 BNP 312 ng/L — Marqueur pronostique clé</div>
+        <div class="corr-content">
+          BNP ≥ 127 ng/L est un <strong>facteur de risque MSC indépendant</strong> dans le score Brompton UK (+9 pts). Ce patient : 312 ng/L = score majoré.<br>
+          Le BNP reflète ici la <strong>surcharge volumique VD</strong> chronique liée à l'IP massive. Son élévation corrèle avec la FEVD abaissée et la dilatation VD.<br>
+          L'élévation des ASAT témoigne d'une <strong>congestion hépatique débutante</strong> par insuffisance VD — stade D proche.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-main" onclick="goTo(4)">⚡ Évaluation du risque rythmique →</button>
+  <button class="btn-sec" onclick="goTo(2)">← Retour</button>
+
+</section>
+
+<!-- ═══════════════════════════════ -->
+<!-- S4 : CPET + CATHÉTÉRISME       -->
+<!-- ═══════════════════════════════ -->
+<section class="screen" id="s4">
+
+  <div class="card">
+    <div class="card-hdr">
+      <div class="chi" style="background:var(--mint-lt)">🏃</div>
+      <div><div class="cht">CPET — Épreuve d'Effort Cardio-Pulmonaire</div><div class="chs">Évaluation fonctionnelle objective</div></div>
+    </div>
+    <div class="card-body">
+      <div class="dg">
+        <div class="di"><div class="dl">VO₂ peak</div><div class="dv red big">13.2</div><div class="dl" style="margin-top:2px">mL/kg/min</div></div>
+        <div class="di"><div class="dl">% prédit</div><div class="dv red">42%</div></div>
+        <div class="di"><div class="dl">Seuil anaérobie</div><div class="dv red">Précoce</div></div>
+        <div class="di"><div class="dl">Pente VE/VCO₂</div><div class="dv red">41</div></div>
+        <div class="di"><div class="dl">Réserve respi.</div><div class="dv ok">Préservée</div></div>
+        <div class="di"><div class="dl">SpO₂ effort</div><div class="dv red">89%</div></div>
+        <div class="di"><div class="dl">Réponse FC</div><div class="dv warn">Atténuée</div></div>
+        <div class="di"><div class="dl">Arrêt test</div><div class="dv red">Dyspnée</div></div>
+      </div>
+
+      <div class="sh">Interprétation CPET — Intérêt de chaque paramètre</div>
+
+      <div class="corr-box corr-red">
+        <div class="corr-title">🔴 VO₂ peak 13.2 mL/kg/min (42% prédit) — Incapacité sévère</div>
+        <div class="corr-content">
+          Valeur normale femme 28 ans : ~31 mL/kg/min. Le VO₂ peak ≤ 17 mL/kg/min est un <strong>facteur de risque MSC indépendant dans le score Brompton (+9 pts)</strong>.<br>
+          Ici : 13.2 mL/kg/min = incapacité sévère, cohérent avec NYHA III.<br>
+          <strong>Intérêt du CPET :</strong> Objectiver le déclin fonctionnel au-delà de la symptomatologie subjective. Documenter le handicap réel avant toute décision de RVP.
+        </div>
+      </div>
+
+      <div class="corr-box corr-gold">
+        <div class="corr-title">🟡 Pente VE/VCO₂ = 41 — Inefficacité ventilatoire</div>
+        <div class="corr-content">
+          La pente VE/VCO₂ normale est < 30. Une valeur > 36 traduit une <strong>inefficacité ventilatoire</strong> liée à l'augmentation de l'espace mort et/ou à une hypertension pulmonaire fonctionnelle.<br>
+          Dans ce contexte : reflet de l'inadéquation ventilation/perfusion par bas débit pulmonaire lié à la dysfonction VD sévère.
+        </div>
+      </div>
+
+      <div class="corr-box corr-sky">
+        <div class="corr-title">🔵 Désaturation à l'effort (SpO₂ 89%) — Shunt résiduel ?</div>
+        <div class="corr-content">
+          La désaturation à l'effort nécessite d'éliminer un <strong>shunt résiduel</strong> (foramen ovale perméable ouvert par HTAP VD, CIV résiduelle).<br>
+          <strong>Cathétérisme indiqué</strong> pour : mesure précise PAP/RVP, satimétrie étagée, et élimination d'une communication interatriale à l'effort.
+        </div>
+      </div>
+
+      <div class="corr-box corr-purple">
+        <div class="corr-title">🟣 Réponse chronotrope atténuée — Dysfonction sinusale ?</div>
+        <div class="corr-content">
+          Une réponse FC insuffisante à l'effort (incompétence chronotrope) est fréquente dans le TOF réparé par atteinte sinusale post-chirurgicale.<br>
+          Elle contribue à la limitation fonctionnelle indépendamment de la FEVD et doit être documentée avant tout traitement bêta-bloquant.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr">
+      <div class="chi" style="background:var(--crimson-lt)">💉</div>
+      <div><div class="cht">Cathétérisme Cardiaque Droit</div><div class="chs">Hémodynamique invasive — Intérêt et résultats</div></div>
+    </div>
+    <div class="card-body">
+      <div class="dg">
+        <div class="di"><div class="dl">PAP moyenne</div><div class="dv warn">28 mmHg</div></div>
+        <div class="di"><div class="dl">RVP</div><div class="dv ok">2.1 WU</div></div>
+        <div class="di"><div class="dl">PTDVD</div><div class="dv red">18 mmHg</div></div>
+        <div class="di"><div class="dl">DC (Fick)</div><div class="dv red">3.1 L/min</div></div>
+        <div class="di"><div class="dl">Qp/Qs</div><div class="dv ok">0.92</div></div>
+        <div class="di"><div class="dl">SaO₂ AP</div><div class="dv ok">68%</div></div>
+        <div class="di"><div class="dl">CIV résiduelle</div><div class="dv ok">Non</div></div>
+        <div class="di"><div class="dl">FOP à l'effort</div><div class="dv warn">Minime</div></div>
+      </div>
+
+      <div class="sh">Intérêt de chaque paramètre hémodynamique</div>
+
+      <div class="corr-box corr-teal">
+        <div class="corr-title">✅ RVP 2.1 WU — Résistances normales, bonne nouvelle</div>
+        <div class="corr-content">
+          Les RVP normales (<3 WU) confirment l'absence d'hypertension artérielle pulmonaire fixée. La PAP élevée à 28 mmHg est donc <strong>réactive/post-capillaire</strong> liée à la dysfonction VD, et non à une vasculopathie pulmonaire irréversible.<br>
+          <strong>Implication thérapeutique majeure :</strong> RVP < 3 WU = patient opérable, le RVP pourra améliorer l'hémodynamique. Une HTAP fixée (RVP > 6-8 WU) contre-indiquerait ou compliquerait le RVP.
+        </div>
+      </div>
+
+      <div class="corr-box corr-red">
+        <div class="corr-title">🔴 PTDVD 18 mmHg — Insuffisance VD décompensée</div>
+        <div class="corr-content">
+          La pression téléd-diastolique VD normale est < 8 mmHg. Une PTDVD à 18 mmHg traduit une <strong>dysfonction diastolique VD sévère</strong> et une défaillance VD débutante.<br>
+          Corrélation écho : les indices diastoliques VD à l'écho ne corrèlent pas bien avec la PTDVD invasive dans le TOF réparé — <strong>seul le cathétérisme mesure précisément la PTDVD</strong> (COR 2a ACC 2025).
+        </div>
+      </div>
+
+      <div class="corr-box corr-gold">
+        <div class="corr-title">🟡 Débit cardiaque 3.1 L/min (bas) — Explique la CPET</div>
+        <div class="corr-content">
+          Le bas débit cardiaque au repos (normal ≥ 4-5 L/min) explique la désaturation à l'effort, la réponse chronotrope atténuée, et la limitation sévère au CPET.<br>
+          Qp/Qs = 0.92 : absence de shunt significatif — le bas débit n'est pas lié à un shunt mais à la dysfonction VD sévère.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-main" onclick="goTo(5)">⚡ Score de risque MSC & décision →</button>
+  <button class="btn-sec" onclick="goTo(3)">← Retour</button>
+
+</section>
+
+<!-- ═══════════════════════════════ -->
+<!-- S5 : QCM                       -->
+<!-- ═══════════════════════════════ -->
+<section class="screen" id="s5">
+
+  <div class="ib ib-teal">
+    <strong>❓ QCM :</strong> 6 questions sur le raisonnement clinique complet. Répondez en intégrant toutes les données révélées progressivement.
+  </div>
+
+  <!-- Q1 -->
+  <div class="card" id="q1c">
+    <div class="card-hdr"><div class="chi" style="background:var(--purple-lt)">❓</div>
+      <div><div class="cht">Question 1/6</div><div class="chs">Stade physiologique</div></div>
+    </div>
+    <div class="card-body">
+      <div class="qnum">Classification ACHD AP — ACC 2025</div>
+      <div class="qcm-q">Quel est le stade physiologique de cette patiente selon la classification anatomico-physiologique ACC 2025 ?</div>
+      <div class="opts" id="o1">
+        <div class="opt" onclick="sel(1,'A','w')"><div class="ol">A</div>Stade A — asymptomatique, hémodynamique normale</div>
+        <div class="opt" onclick="sel(1,'B','w')"><div class="ol">B</div>Stade B — légère limitation, séquelle modérée</div>
+        <div class="opt" onclick="sel(1,'C','w')"><div class="ol">C</div>Stade C — limitation notable, séquelle modérée à sévère</div>
+        <div class="opt" onclick="sel(1,'D','c')"><div class="ol">D</div>Stade D — séquelle sévère, défaillance VD débutante, état critique</div>
+      </div>
+      <div class="fb fb-ok" id="fb1c"><div class="fb-title">✅ Correct — Stade D</div>
+        <div class="fb-body">
+          <strong>Stade D</strong> car : FEVD 32% (sévèrement réduite), NYHA III, BNP 312 ng/L, PTDVD 18 mmHg, hépatomégalie, SpO₂ 95% au repos. Le stade D correspond à une séquelle sévère avec défaillance cardiaque débutante nécessitant une prise en charge urgente.<br><br>
+          <strong>Intérêt du stade AP :</strong> Guide la fréquence de suivi (consultation tous les 3 mois, ETT tous les 6 mois), le niveau d'urgence thérapeutique, et l'orientation vers un centre ACHD expert avec équipe IC/transplantation si nécessaire.
+        </div>
+      </div>
+      <div class="fb fb-err" id="fb1w"><div class="fb-title">❌ Incorrect — La bonne réponse est D</div>
+        <div class="fb-body">FEVD 32% + NYHA III + BNP 312 + PTDVD 18 mmHg + hépatomégalie = <strong>Stade D</strong>. Stade C exclu car la défaillance VD est déjà présente (hépatomégalie, bas débit cardiaque 3.1 L/min, PTDVD élevée).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="card" id="q2c">
+    <div class="card-hdr"><div class="chi" style="background:var(--crimson-lt)">❓</div>
+      <div><div class="cht">Question 2/6</div><div class="chs">Score PREVENTION-ACHD</div></div>
+    </div>
+    <div class="card-body">
+      <div class="qnum">Stratification risque MSC — Score PREVENTION-ACHD</div>
+      <div class="qcm-q">En calculant le score PREVENTION-ACHD pour cette patiente, quel est le niveau de risque de mort subite ?</div>
+      <div class="opts" id="o2">
+        <div class="opt" onclick="sel(2,'A','w')"><div class="ol">A</div>Faible — score ≤ 2 pts (&lt;1%/an)</div>
+        <div class="opt" onclick="sel(2,'B','w')"><div class="ol">B</div>Modéré — score 3-4 pts (1-4%/an)</div>
+        <div class="opt" onclick="sel(2,'C','c')"><div class="ol">C</div>Très élevé — score ≥ 6 pts (&gt;11%/an)</div>
+        <div class="opt" onclick="sel(2,'D','w')"><div class="ol">D</div>Non évaluable sans TV documentée</div>
+      </div>
+      <div class="fb fb-ok" id="fb2c"><div class="fb-title">✅ Correct — Score très élevé ≥ 6 pts</div>
+        <div class="fb-body">
+          <strong>Calcul PREVENTION-ACHD :</strong><br>
+          • NYHA III (≥II) : +1 pt<br>
+          • Palpitations / TSV : +1 pt<br>
+          • FEVG ≤ 55% (51%) : +1 pt (borderline)<br>
+          • FEVD (sous-pulm.) < 40% (32%) : +1 pt<br>
+          • QRS ≥ 120 ms (188 ms) : +1 pt<br>
+          • Dispersion QT ≥ 70 ms (82 ms) : +1 pt<br>
+          → <strong>Score = 6 pts → risque 11–25%/an</strong><br><br>
+          <span class="cor c2a">COR 2a</span> EEP invasive discutable mais le score très élevé oriente directement vers un <span class="cor c2a">COR 2a</span> <strong>DAI en prévention primaire</strong>.
+        </div>
+      </div>
+      <div class="fb fb-err" id="fb2w"><div class="fb-title">❌ Incorrect — La bonne réponse est C</div>
+        <div class="fb-body">Score = 6 pts (NYHA III, palpitations, FEVG limite, FEVD &lt;40%, QRS ≥120, QTd ≥70) → <strong>risque très élevé 11–25%/an</strong>. La TV documentée n'est pas nécessaire pour calculer le score — c'est tout l'intérêt de la prévention primaire.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="card" id="q3c">
+    <div class="card-hdr"><div class="chi" style="background:var(--gold-lt)">❓</div>
+      <div><div class="cht">Question 3/6</div><div class="chs">Indication RVP</div></div>
+    </div>
+    <div class="card-body">
+      <div class="qnum">Décision thérapeutique — Timing RVP</div>
+      <div class="qcm-q">Concernant le remplacement valvulaire pulmonaire (RVP) chez cette patiente, quelle est la recommandation ACC 2025 applicable ?</div>
+      <div class="opts" id="o3">
+        <div class="opt" onclick="sel(3,'A','c')"><div class="ol">A</div>COR 1 — RVP recommandé (symptomatique + IP sévère + dysfonction VD progressive)</div>
+        <div class="opt" onclick="sel(3,'B','w')"><div class="ol">B</div>COR 2a — RVP raisonnable (≥2 critères IRM asymptomatique)</div>
+        <div class="opt" onclick="sel(3,'C','w')"><div class="ol">C</div>Contre-indiqué — FEVD trop basse, risque opératoire excessif</div>
+        <div class="opt" onclick="sel(3,'D','w')"><div class="ol">D</div>Attendre la transplantation cardiaque en premier</div>
+      </div>
+      <div class="fb fb-ok" id="fb3c"><div class="fb-title">✅ Correct — COR 1 RVP recommandé</div>
+        <div class="fb-body">
+          <span class="cor c1">COR 1</span> : Patiente <strong>symptomatique</strong> (NYHA III) + IP sévère (FR 48%) + dysfonction VD progressive (FEVD 32%) → RVP fortement recommandé.<br><br>
+          De plus <span class="cor c2a">COR 2a</span> <strong>RVP raisonnable pour dysfonction ventriculaire progressive</strong> s'applique aussi (FEVD 32%, déclin documenté).<br><br>
+          <strong>⚠️ Attention :</strong> Si FEVD très basse (< 30%) → évaluation conjointe IC/ACHD pour discuter assistance circulatoire vs RVP. Ici 32%, encore opérable avec risque majoré. <strong>Urgence semi-urgente.</strong><br><br>
+          RVP chirurgical préféré ici (anatomie CCVD native anévrismale, correction directe + possibilité ablation intraopératoire VT).
+        </div>
+      </div>
+      <div class="fb fb-err" id="fb3w"><div class="fb-title">❌ Incorrect — La bonne réponse est A</div>
+        <div class="fb-body"><span class="cor c1">COR 1</span> : symptomatique (NYHA III) + IP sévère + dysfonction VD → RVP recommandé. La FEVD à 32% n'est pas une contre-indication mais augmente le risque → nécessite évaluation cardiologique IC/ACHD et centre expert.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="card" id="q4c">
+    <div class="card-hdr"><div class="chi" style="background:var(--purple-lt)">❓</div>
+      <div><div class="cht">Question 4/6</div><div class="chs">Stratégie électrophysiologique</div></div>
+    </div>
+    <div class="card-body">
+      <div class="qnum">Décision arythmique — DAI & EEP</div>
+      <div class="qcm-q">Face au score PREVENTION-ACHD très élevé (6 pts) et à l'absence de TV documentée, quelle est la meilleure stratégie selon ACC 2025 ?</div>
+      <div class="opts" id="o4">
+        <div class="opt" onclick="sel(4,'A','w')"><div class="ol">A</div>Holter 24h seulement — attendre la documentation d'une arythmie</div>
+        <div class="opt" onclick="sel(4,'B','c')"><div class="ol">B</div>DAI + EEP pré-RVP avec cartographie 3D pour ablation préventive VT</div>
+        <div class="opt" onclick="sel(4,'C','w')"><div class="ol">C</div>Amiodarone seule — traitement médical antiarythmique suffisant</div>
+        <div class="opt" onclick="sel(4,'D','w')"><div class="ol">D</div>Aucune action — attendre d'abord le RVP qui va tout résoudre</div>
+      </div>
+      <div class="fb fb-ok" id="fb4c"><div class="fb-title">✅ Correct — DAI + EEP pré-RVP</div>
+        <div class="fb-body">
+          <span class="cor c2a">COR 2a</span> <strong>DAI prévention primaire</strong> chez patient à haut risque (score ≥ 5).<br><br>
+          <span class="cor c2b">COR 2b</span> <strong>EEP pré-RVP avec stimulation programmée + cartographie 3D</strong> : indiqué avant l'implantation de la prothèse car l'accès aux isthmes VT sera plus difficile après le matériel valvulaire.<br><br>
+          <strong>Données récentes :</strong> Waldmann et al. (Circ Arrhythm EP 2023) : EEP pré-RVP actionnable dans ~25% des cas. Si substrate VT trouvé → ablation intraopératoire ou par cathéter avant le RVP.<br><br>
+          <strong>RVP seul ne protège pas de la MSC</strong> — les études montrent un impact limité du RVP sur le risque de TV/MSC (données Bokma et al.)
+        </div>
+      </div>
+      <div class="fb fb-err" id="fb4w"><div class="fb-title">❌ Incorrect — La bonne réponse est B</div>
+        <div class="fb-body">Score très élevé → <span class="cor c2a">COR 2a</span> DAI indiqué. EEP pré-RVP recommandé avant toute implantation valvulaire pour identifier et traiter les substrats VT. Le RVP seul n'est pas protecteur contre la MSC.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="card" id="q5c">
+    <div class="card-hdr"><div class="chi" style="background:var(--teal-lt)">❓</div>
+      <div><div class="cht">Question 5/6</div><div class="chs">Interprétation CPET</div></div>
+    </div>
+    <div class="card-body">
+      <div class="qnum">CPET — Valeur diagnostique et pronostique</div>
+      <div class="qcm-q">Le VO₂ peak à 13.2 mL/kg/min (42% prédit) a quelle signification dans la stratification de cette patiente ?</div>
+      <div class="opts" id="o5">
+        <div class="opt" onclick="sel(5,'A','w')"><div class="ol">A</div>Valeur non significative — la CPET n'est pas utile dans le TOF</div>
+        <div class="opt" onclick="sel(5,'B','c')"><div class="ol">B</div>Facteur de risque MSC indépendant (score Brompton) + critère de décision RVP + évaluation fonctionnelle objective</div>
+        <div class="opt" onclick="sel(5,'C','w')"><div class="ol">C</div>Indique uniquement un déconditionnement musculaire — réhabilitation suffisante</div>
+        <div class="opt" onclick="sel(5,'D','w')"><div class="ol">D</div>Contre-indique le RVP — trop grande limitation fonctionnelle</div>
+      </div>
+      <div class="fb fb-ok" id="fb5c"><div class="fb-title">✅ Correct — Triple valeur de la CPET</div>
+        <div class="fb-body">
+          <strong>1. Facteur de risque MSC :</strong> VO₂ ≤ 17 mL/kg/min = +9 pts dans le score Brompton UK → majore le risque estimé de cette patiente.<br><br>
+          <strong>2. Critère décision RVP :</strong> Déclin progressif de la capacité à l'effort documenté objectivement = critère ACC 2025 COR 2a pour RVP même chez patient "asymptomatique" (ce qui n'est pas le cas ici).<br><br>
+          <strong>3. Évaluation fonctionnelle :</strong> Objectivise le NYHA III, documente la sévérité pour le dossier opératoire, et servira de référence post-RVP pour évaluer la récupération fonctionnelle.<br><br>
+          <strong>Pente VE/VCO₂ = 41</strong> : marqueur d'hypertension pulmonaire fonctionnelle et inefficacité circulatoire → facteur pronostique indépendant dans l'IC.
+        </div>
+      </div>
+      <div class="fb fb-err" id="fb5w"><div class="fb-title">❌ Incorrect — La bonne réponse est B</div>
+        <div class="fb-body">La CPET a une triple valeur dans ce cas : facteur pronostique MSC (Brompton), critère RVP, et documentation fonctionnelle objective. Le VO₂ &lt;17 mL/kg/min est un facteur de risque MSC indépendant validé.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="card" id="q6c">
+    <div class="card-hdr"><div class="chi" style="background:var(--mint-lt)">❓</div>
+      <div><div class="cht">Question 6/6</div><div class="chs">Plan de prise en charge global</div></div>
+    </div>
+    <div class="card-body">
+      <div class="qnum">Synthèse — Plan thérapeutique global ACC 2025</div>
+      <div class="qcm-q">Quelle est la séquence thérapeutique optimale pour cette patiente selon l'ACC 2025 ?</div>
+      <div class="opts" id="o6">
+        <div class="opt" onclick="sel(6,'A','w')"><div class="ol">A</div>RVP seul en urgence → puis réévaluer le risque rythmique après</div>
+        <div class="opt" onclick="sel(6,'B','w')"><div class="ol">B</div>DAI seul → puis RVP dans 6 mois si amélioration</div>
+        <div class="opt" onclick="sel(6,'C','c')"><div class="ol">C</div>EEP + ablation préventive VT → RVP chirurgical → DAI → suivi ACHD stade D toutes les 3 mois + CPET post-RVP à 6 mois</div>
+        <div class="opt" onclick="sel(6,'D','w')"><div class="ol">D</div>Transplantation cardiaque directe — pas de bénéfice attendu du RVP à ce stade</div>
+      </div>
+      <div class="fb fb-ok" id="fb6c"><div class="fb-title">✅ Correct — Plan séquentiel optimal</div>
+        <div class="fb-body">
+          <strong>Séquence recommandée ACC 2025 :</strong><br><br>
+          <span class="cor c2b">COR 2b</span> <strong>1. EEP pré-RVP</strong> avec stimulation programmée + cartographie 3D → si substrate VT : ablation cathéter ou cryo-ablation intraopératoire<br><br>
+          <span class="cor c1">COR 1</span> <strong>2. RVP chirurgical</strong> (CCVD anévrismale native → chirurgie préférée au TPVR) + homogreffe pulmonaire ou bioprothèse + correction IT si ≥ modérée<br><br>
+          <span class="cor c2a">COR 2a</span> <strong>3. DAI</strong> en prévention primaire (score PREVENTION-ACHD 6 pts = très haut risque)<br><br>
+          <strong>4. Suivi post-RVP :</strong> Stade D → consultation ACHD toutes les 3 mois. IRM à 6 mois (réévaluation FEVD post-RVP). CPET à 6 mois (documenter récupération fonctionnelle). Objectif : retour stade C→B si récupération VD.<br><br>
+          <strong>Point clé :</strong> Si FEVD ne récupère pas après RVP (FEVD < 25%) → évaluer assistance circulatoire / transplantation avec l'équipe IC.
+        </div>
+      </div>
+      <div class="fb fb-err" id="fb6w"><div class="fb-title">❌ Incorrect — La bonne réponse est C</div>
+        <div class="fb-body">La séquence optimale est EEP+ablation → RVP → DAI → suivi stade D. Le RVP seul sans protection arythmique est insuffisant. La transplantation n'est pas indiquée en premier recours si la FEVD est encore opérable (32%).</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-submit" id="submit-btn" onclick="goTo(6)" disabled>📊 Voir mes résultats</button>
+
+</section>
+
+<!-- ═══════════════════════════════ -->
+<!-- S6 : RÉSULTATS                 -->
+<!-- ═══════════════════════════════ -->
+<section class="screen" id="s6">
+  <div class="card">
+    <div class="score-wrap">
+      <div class="score-ring">
+        <svg width="120" height="120" viewBox="0 0 120 120">
+          <circle class="rb" cx="60" cy="60" r="50"/>
+          <circle id="rvcircle" class="rv" cx="60" cy="60" r="50"
+            stroke-dasharray="314" stroke-dashoffset="314" stroke="var(--teal)"/>
+        </svg>
+        <div class="rc">
+          <div class="num" id="sc-num">0</div>
+          <div class="den">/ 6</div>
+        </div>
+      </div>
+      <div class="score-lbl" id="sc-lbl">Calcul...</div>
+      <div class="score-sub">Cas N°02 · Évaluation complète TOF</div>
+      <div class="sd-grid">
+        <div class="sdi ok"><div class="sdn" id="sc-ok">0</div><div class="sdl">Correctes</div></div>
+        <div class="sdi err"><div class="sdn" id="sc-err">0</div><div class="sdl">Erreurs</div></div>
+        <div class="sdi sc"><div class="sdn" id="sc-pct">0%</div><div class="sdl">Score</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sh">Récapitulatif</div>
+  <div id="review-list"></div>
+  <button class="btn-main" onclick="goTo(7)">💡 Messages clés →</button>
+  <button class="btn-sec" onclick="restart()">🔄 Recommencer</button>
+</section>
+
+<!-- ═══════════════════════════════ -->
+<!-- S7 : MESSAGES CLÉS             -->
+<!-- ═══════════════════════════════ -->
+<section class="screen" id="s7">
+
+  <div class="cas-hero" style="background:linear-gradient(135deg,#085041,#0F6E56)">
+    <div class="cas-level" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:white">✅ Cas N°02 Complété</div>
+    <div class="cas-title">Messages Clés</div>
+    <div class="cas-subtitle">Synthèse clinique · ACC/AHA 2025 · Section 4.3.5</div>
+  </div>
+
+  <div class="km"><div class="km-icon">🔴</div><div class="km-text">
+    <strong>Strain VD = marqueur précoce critique</strong>
+    GLS-VD –8% (norme &lt;–20%) = dysfonction sévère avérée. Le strain VD détecte la décompensation avant la chute de la FEVD en IRM. À intégrer systématiquement dans le suivi écho du TOF réparé, surtout si IP significative.
+  </div></div>
+
+  <div class="km"><div class="km-icon">🩻</div><div class="km-text">
+    <strong>L'écho prédit l'IRM — mais ne la remplace pas</strong>
+    IP "libre" à l'écho → FR IRM 48%. Strain –8% → FEVD 32%. VD massivement dilaté → VTSI 148 mL/m². L'IRM reste obligatoire pour la quantification précise guidant la décision RVP (COR 1 B-NR ACC 2025).
+  </div></div>
+
+  <div class="km"><div class="km-icon">⚡</div><div class="km-text">
+    <strong>Score PREVENTION-ACHD 6 pts = très haut risque MSC</strong>
+    QRS 188 ms + fragmentation + QTd 82 ms + FEVD 32% + NYHA III + palpitations = 6 facteurs. Risque estimé 11–25%/an. DAI prévention primaire indiqué (COR 2a). Ne jamais attendre la TV soutenue.
+  </div></div>
+
+  <div class="km"><div class="km-icon">💉</div><div class="km-text">
+    <strong>Cathétérisme = seul examen qui mesure PTDVD et RVP</strong>
+    PTDVD 18 mmHg (normale &lt;8) : défaillance VD débutante non mesurable par écho. RVP 2.1 WU : opérabilité confirmée. L'écho ne corrèle pas avec la PTDVD dans le TOF — le cathétérisme reste indispensable (COR 2a C-EO).
+  </div></div>
+
+  <div class="km"><div class="km-icon">🏃</div><div class="km-text">
+    <strong>CPET = triple valeur dans ce cas</strong>
+    VO₂ 13.2 mL/kg/min : (1) facteur pronostique MSC (Brompton +9 pts), (2) critère décision RVP (déclin objectivé), (3) baseline pour évaluer la récupération post-RVP à 6 mois.
+  </div></div>
+
+  <div class="km"><div class="km-icon">🔧</div><div class="km-text">
+    <strong>RVP chirurgical préféré au TPVR ici</strong>
+    CCVD anévrismale (akinésie 72 mm) = anatomie défavorable au TPVR. La chirurgie permet : résection directe de la zone akinétique, ablation intraopératoire VT, correction IT, et meilleur ancrage prothétique.
+  </div></div>
+
+  <div class="km"><div class="km-icon">📅</div><div class="km-text">
+    <strong>Suivi stade D : consultation ACHD toutes les 3 mois</strong>
+    Table 34 ACC 2025. IRM à 6 mois post-RVP (réévaluation FEVD). CPET à 6 mois. Objectif de retour au stade C puis B si récupération VD. Si FEVD post-RVP &lt;25% → évaluer assistance/transplantation.
+  </div></div>
+
+  <div style="margin-top:12px;padding:12px 14px;background:var(--navy);border-radius:10px;text-align:center">
+    <div style="font-size:10px;color:rgba(255,255,255,0.35);margin-bottom:8px;line-height:1.7">
+      Gurvitz M, et al. 2025 ACC/AHA/HRS/ISACHD/SCAI Guideline<br>
+      J Am Coll Cardiol. 2025 · DOI: 10.1016/j.jacc.2025.09.006
+    </div>
+    <div style="font-size:11px;color:rgba(255,255,255,0.55)">Prochain cas : Niveau ⭐⭐⭐⭐ — TV soutenue & ablation</div>
+  </div>
+
+  <button class="btn-wa" onclick="sendWA()">💬 Envoyer mon score au Dr. Touati</button>
+  <button class="btn-sec" onclick="restart()">🔄 Recommencer le cas</button>
+</section>
+
+<!-- BOTTOM -->
+<div class="bottom-bar">
+  <div class="bb-inner">
+    <div class="bb-prog">
+      <div class="bb-lbl" id="bb-lbl">Cas N°02 · Échocardiographie</div>
+      <div class="bb-bar"><div class="bb-fill" id="bb-fill" style="width:14%"></div></div>
+    </div>
+    <div class="bb-score" id="bb-score">0/6</div>
+  </div>
+</div>
+<button class="wa-fab" onclick="sendWA()" title="Contacter Dr. Touati">💬</button>
+
+<script>
+let cur=1, ans={}, res={};
+const tot=6;
+const correct={1:'D',2:'C',3:'A',4:'B',5:'B',6:'C'};
+const qTitles=['Stade physiologique AP','Score PREVENTION-ACHD','Indication RVP','Stratégie DAI & EEP','Interprétation CPET','Plan thérapeutique global'];
+const steps=['Échocardiographie','Présentation clinique','IRM & Biologie','CPET & Cathétérisme','QCM (6 questions)','Résultats','Messages clés'];
+const pcts=['14%','28%','43%','57%','72%','88%','100%'];
+
+function goTo(n){
+  const el=document.getElementById('s'+cur);
+  if(el) el.classList.remove('active');
+  cur=n;
+  const nel=document.getElementById('s'+n);
+  if(nel) nel.classList.add('active');
+  window.scrollTo(0,0);
+  // progress
+  for(let i=1;i<=7;i++){
+    const p=document.getElementById('ps'+i);
+    if(!p) continue;
+    if(i<n) p.className='ps done';
+    else if(i===n) p.className='ps active';
+    else p.className='ps';
+  }
+  const st=document.getElementById('pi-step');
+  if(st) st.textContent='Étape '+n+'/7 — '+steps[n-1];
+  const bf=document.getElementById('bb-fill');
+  if(bf) bf.style.width=pcts[n-1];
+  const bl=document.getElementById('bb-lbl');
+  if(bl) bl.textContent='Cas N°02 · '+steps[n-1];
+  if(n===6) buildResults();
+}
+
+function sel(q,letter,result){
+  if(ans[q]) return;
+  ans[q]=letter; res[q]=result;
+  const opts=document.querySelectorAll('#o'+q+' .opt');
+  opts.forEach((opt,i)=>{
+    const l=String.fromCharCode(65+i);
+    if(l===letter) opt.classList.add(result==='c'?'correct':'wrong');
+    if(result==='w' && l===correct[q]) opt.classList.add('rev');
+    opt.onclick=null;
+  });
+  const fbOk=document.getElementById('fb'+q+'c');
+  const fbErr=document.getElementById('fb'+q+'w');
+  if(result==='c'){ if(fbOk) fbOk.classList.add('show'); }
+  else { if(fbErr) fbErr.classList.add('show'); }
+  const ok=Object.values(res).filter(r=>r==='c').length;
+  const bs=document.getElementById('bb-score');
+  if(bs) bs.textContent=ok+'/'+tot;
+  const ps=document.getElementById('pi-score');
+  if(ps) ps.textContent=ok+'/'+tot;
+  if(Object.keys(ans).length===tot){
+    const btn=document.getElementById('submit-btn');
+    if(btn){btn.disabled=false;btn.classList.add('ready');}
+  }
+}
+
+function buildResults(){
+  const ok=Object.values(res).filter(r=>r==='c').length;
+  const pct=Math.round((ok/tot)*100);
+  setTimeout(()=>{
+    const c=document.getElementById('rvcircle');
+    if(c){
+      c.style.strokeDashoffset=314-(pct/100)*314;
+      c.style.stroke=pct>=80?'var(--mint)':pct>=60?'var(--teal)':pct>=40?'var(--gold)':'var(--crimson)';
+    }
+  },300);
+  const s=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  s('sc-num',ok); s('sc-ok',ok); s('sc-err',tot-ok); s('sc-pct',pct+'%');
+  let lbl,col;
+  if(pct>=80){lbl='🏆 Expert !';col='var(--mint)';}
+  else if(pct>=60){lbl='👍 Très bien !';col='var(--teal)';}
+  else if(pct>=40){lbl='📚 À revoir';col='var(--gold)';}
+  else{lbl='🔄 Recommencer';col='var(--crimson)';}
+  const le=document.getElementById('sc-lbl');
+  if(le){le.textContent=lbl;le.style.color=col;}
+  let html='';
+  for(let i=1;i<=tot;i++){
+    const isOk=res[i]==='c';
+    html+=`<div style="display:flex;gap:9px;align-items:flex-start;padding:9px 11px;background:white;border-radius:9px;margin-bottom:7px;border:1px solid var(--border)">
+      <div style="width:26px;height:26px;border-radius:7px;background:${isOk?'var(--mint-lt)':'var(--crimson-lt)'};display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">${isOk?'✅':'❌'}</div>
+      <div><div style="font-size:11px;font-weight:600;color:var(--navy);margin-bottom:1px">Q${i} — ${qTitles[i-1]}</div>
+      <div style="font-size:10px;color:var(--text2)">${isOk?'Bonne réponse ✓':'Votre réponse : '+(ans[i]||'—')+' · Correcte : '+correct[i]}</div></div></div>`;
+  }
+  const rl=document.getElementById('review-list');
+  if(rl) rl.innerHTML=html;
+}
+
+function restart(){
+  ans={}; res={};
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong','rev'));
+  document.querySelectorAll('.fb').forEach(f=>f.classList.remove('show'));
+  const btn=document.getElementById('submit-btn');
+  if(btn){btn.disabled=true;btn.classList.remove('ready');}
+  const bs=document.getElementById('bb-score');
+  if(bs) bs.textContent='0/6';
+  const ps=document.getElementById('pi-score');
+  if(ps) ps.textContent='0/6';
+  const c=document.getElementById('rvcircle');
+  if(c){c.style.strokeDashoffset='314';c.style.stroke='var(--teal)';}
+  goTo(1);
+}
+
+function sendWA(){
+  const ok=Object.values(res).filter(r=>r==='c').length;
+  const pct=Math.round((ok/tot)*100);
+  const d=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  let msg='🫀 *TOF CASES — RÉSULTAT CAS N°02*\n📱 CSC Algeria · TOF Cases App\n🗓️ '+d+'\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+  msg+='📊 *SCORE : '+ok+'/'+tot+' ('+pct+'%)*\n\n📋 *Détail :*\n';
+  for(let i=1;i<=tot;i++){
+    msg+=(res[i]==='c'?'✅':'❌')+' Q'+i+' — '+qTitles[i-1]+'\n';
+  }
+  msg+='\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n_TOF Cases App · ACC/AHA 2025 · CSC Algeria_\n_Discussion du cas disponible sur demande_';
+  window.open('https://wa.me/213540910869?text='+encodeURIComponent(msg),'_blank');
+}
+
+window.addEventListener('load',()=>{
+  setTimeout(()=>{const s=document.getElementById('splash');if(s)s.style.display='none';},3000);
+  goTo(1);
+});
+</script>
+</body>
+</html>
