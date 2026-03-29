@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ACHD Clinical App — CSC Algeria</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0C1B2E;--navy2:#152540;--teal:#00B4A0;--teal-dk:#007A6E;--teal-lt:#E0F7F5;--crimson:#C8273F;--crimson-lt:#FDEAED;--gold:#F0A030;--gold-lt:#FFF5E0;--mint:#1A8A68;--mint-lt:#E0F5EE;--sky:#0284C7;--sky-lt:#E0F2FE;--purple:#7C3AED;--purple-lt:#EDE9FE;--amber:#D97706;--bg:#F2F6FB;--card:#fff;--border:#E2EAF4;--text:#1A2840;--text2:#4A6080;--text3:#8AA0BA;--shadow:0 2px 16px rgba(12,27,46,.08);--r:16px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;max-width:480px;margin:0 auto}
+#splash{position:fixed;inset:0;z-index:999;background:linear-gradient(160deg,var(--navy) 0%,#1A3A5C 55%,var(--teal-dk) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;transition:opacity .4s ease}
+.spl-logo{width:80px;height:80px;border-radius:20px;background:#fff;padding:8px;box-shadow:0 8px 40px rgba(0,180,160,.4);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.spl-logo img{width:100%;height:100%;object-fit:contain}
+.spl-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;text-align:center}
+.spl-sub{font-size:11px;color:rgba(255,255,255,.5);text-align:center;line-height:1.6}
+.spl-badge{background:rgba(0,180,160,.2);border:1px solid rgba(0,180,160,.4);border-radius:20px;padding:5px 14px;font-size:10px;letter-spacing:1px;color:#7FFFF4;text-transform:uppercase}
+.spl-team{font-size:10px;color:rgba(255,255,255,.4);text-align:center;line-height:1.6;padding:0 20px}
+.app-hdr{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:46px 18px 16px;position:relative;overflow:hidden}
+.app-hdr::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(0,180,160,.12),transparent);border-radius:50%}
+.hdr-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.hdr-logo{width:38px;height:38px;border-radius:10px;background:#fff;padding:3px;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.25);flex-shrink:0}
+.hdr-logo img{width:100%;height:100%;object-fit:contain}
+.hdr-org{flex:1;margin-left:4px}
+.hdr-org .on{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff}
+.hdr-org .os{font-size:9px;color:rgba(255,255,255,.4)}
+.hdr-badge{background:rgba(0,180,160,.18);border:1px solid rgba(0,180,160,.35);border-radius:10px;padding:3px 8px;font-size:9px;color:#7FFFF4;letter-spacing:.8px;text-transform:uppercase;font-weight:600}
+.hdr-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:2px}
+.hdr-title em{color:var(--teal);font-style:normal}
+.hdr-desc{font-size:10px;color:rgba(255,255,255,.4)}
+.screen{display:none;animation:fadeIn .3s ease}
+.screen.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+#home{padding:12px 12px 90px}
+.search-bar{position:relative;margin-bottom:14px}
+.search-bar input{width:100%;padding:11px 14px 11px 38px;border:2px solid var(--border);border-radius:12px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);background:#fff;transition:border-color .2s}
+.search-bar input:focus{outline:none;border-color:var(--teal)}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--text3)}
+.cat-title{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;padding:10px 2px 6px}
+.path-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px}
+.path-card{background:var(--card);border-radius:14px;padding:14px 12px;border:1px solid var(--border);box-shadow:var(--shadow);cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.path-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.path-card:active{transform:scale(.97)}
+.pc-s::before{background:var(--sky)}.pc-l::before{background:var(--crimson)}.pc-r::before{background:var(--purple)}.pc-c::before{background:var(--gold)}.pc-co::before{background:var(--mint)}.pc-v::before{background:var(--teal)}
+.path-icon{font-size:24px;margin-bottom:6px}
+.path-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:3px}
+.path-abbr{font-size:10px;color:var(--text3)}
+.path-tag{position:absolute;top:8px;right:8px;font-size:8px;font-weight:600;padding:2px 6px;border-radius:4px;text-transform:uppercase}
+.pt-s{background:var(--sky-lt);color:var(--sky)}.pt-l{background:var(--crimson-lt);color:var(--crimson)}.pt-r{background:var(--purple-lt);color:var(--purple)}.pt-c{background:var(--gold-lt);color:var(--amber)}.pt-co{background:var(--mint-lt);color:var(--mint)}.pt-v{background:var(--teal-lt);color:var(--teal-dk)}
+#detail{padding:0 0 90px}
+.path-hdr{padding:52px 18px 16px;position:relative;overflow:hidden}
+.ph-back{position:absolute;top:52px;left:16px;width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;z-index:1}
+.ph-content{text-align:center;padding:0 10px}
+.ph-icon{font-size:44px;margin-bottom:8px}
+.ph-name{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:4px}
+.ph-sub{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:10px}
+.ph-tags{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
+.ph-tag{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:5px;padding:2px 8px;font-size:9px;color:rgba(255,255,255,.75);font-weight:500}
+.tab-bar{background:#fff;border-bottom:1px solid var(--border);display:flex;overflow-x:auto;scrollbar-width:none;position:sticky;top:0;z-index:90;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-btn{flex-shrink:0;padding:11px 14px;font-size:10px;font-weight:600;color:var(--text3);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;font-family:'Outfit',sans-serif;border:none;background:none;display:flex;flex-direction:column;align-items:center;gap:2px}
+.tab-btn .ti{font-size:15px}
+.tab-btn.active{color:var(--teal);border-bottom:3px solid var(--teal)}
+.tab-screen{display:none;padding:12px 12px 20px}
+.tab-screen.active{display:block}
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);margin-bottom:10px;overflow:hidden;border:1px solid var(--border)}
+.chdr{padding:11px 13px 9px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.chi{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.cht{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--navy)}
+.chs{font-size:10px;color:var(--text3)}
+.cbody{padding:11px 13px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:10px;font-weight:600;color:var(--text2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+.field select{width:100%;padding:10px 13px;border:2px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);background:#fff;appearance:none;transition:border-color .2s}
+.field select:focus{outline:none;border-color:var(--teal)}
+.ri{display:flex;align-items:center;padding:10px 12px;gap:10px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
+.ri:last-child{border-bottom:none}
+.ri:active{background:#f5f8fc}
+.ri-chk{width:22px;height:22px;border-radius:6px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;font-size:11px;color:transparent}
+.ri.on .ri-chk{background:var(--teal);border-color:var(--teal);color:#fff}
+.ri-txt{flex:1}
+.ri-name{font-size:12px;font-weight:600;color:var(--navy)}
+.ri-sub{font-size:10px;color:var(--text3)}
+.ri-pts{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--teal)}
+.rb{border-radius:12px;padding:14px;margin-bottom:10px;border-left:4px solid}
+.rb-teal{background:var(--teal-lt);border-color:var(--teal)}
+.rb-sky{background:var(--sky-lt);border-color:var(--sky)}
+.rb-gold{background:var(--gold-lt);border-color:var(--gold)}
+.rb-red{background:var(--crimson-lt);border-color:var(--crimson)}
+.rb-mint{background:var(--mint-lt);border-color:var(--mint)}
+.rb-purple{background:var(--purple-lt);border-color:var(--purple)}
+.rb-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--navy);margin-bottom:5px}
+.rb-items{list-style:none;padding:0}
+.rb-items li{font-size:11px;color:var(--text);padding:4px 0;border-bottom:1px solid rgba(0,0,0,.05);display:flex;gap:7px;line-height:1.5;align-items:flex-start}
+.rb-items li:last-child{border-bottom:none}
+.rb-items li::before{content:'›';font-weight:700;font-size:13px;flex-shrink:0}
+.rb-teal .rb-items li::before{color:var(--teal)}.rb-sky .rb-items li::before{color:var(--sky)}.rb-gold .rb-items li::before{color:var(--amber)}.rb-red .rb-items li::before{color:var(--crimson)}.rb-mint .rb-items li::before{color:var(--mint)}.rb-purple .rb-items li::before{color:var(--purple)}
+.symp-item{display:flex;align-items:center;padding:11px 12px;gap:10px;border-bottom:1px solid var(--border);cursor:pointer}
+.symp-item:last-child{border-bottom:none}
+.symp-chk{width:22px;height:22px;border-radius:6px;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:transparent;transition:all .2s}
+.symp-item.on .symp-chk{background:var(--crimson);border-color:var(--crimson);color:#fff}
+.symp-icon{font-size:17px}
+.symp-name{font-size:12px;font-weight:600;color:var(--navy)}
+.symp-sub{font-size:10px;color:var(--text3)}
+.score-wrap{display:flex;flex-direction:column;align-items:center;padding:16px}
+.sring{position:relative;width:110px;height:110px;margin-bottom:10px}
+.sring svg{transform:rotate(-90deg)}
+.sr-bg{fill:none;stroke:var(--border);stroke-width:9}
+.sr-val{fill:none;stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset .8s cubic-bezier(.4,0,.2,1)}
+.sring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.sring-num{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--navy);line-height:1}
+.sring-den{font-size:10px;color:var(--text3)}
+.score-badge{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;font-family:'Syne',sans-serif;margin-bottom:4px}
+.score-rate{font-size:11px;color:var(--text2);text-align:center}
+.ib{border-radius:9px;padding:9px 11px;font-size:11px;line-height:1.6;margin-bottom:8px;border-left:3px solid}
+.ib-teal{background:var(--teal-lt);border-color:var(--teal)}
+.ib-gold{background:var(--gold-lt);border-color:var(--gold)}
+.ib-red{background:var(--crimson-lt);border-color:var(--crimson)}
+.cor{display:inline-block;padding:1px 6px;border-radius:4px;font-size:9px;font-weight:700;margin-right:3px}
+.c1{background:#d1fae5;color:#065f46}.c2a{background:#dbeafe;color:#1e3a8a}.c2b{background:#fef9c3;color:#854d0e}.c3{background:#ffe4e6;color:#9f1239}
+.btn-main{width:100%;padding:13px;background:linear-gradient(135deg,var(--teal),var(--teal-dk));color:#fff;border:none;border-radius:11px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:12px;box-shadow:0 4px 14px rgba(0,180,160,.35);transition:transform .15s}
+.btn-main:active{transform:scale(.98)}
+.btn-sec{width:100%;padding:10px;background:transparent;border:2px solid var(--border);color:var(--text2);border-radius:9px;font-family:'Outfit',sans-serif;font-size:12px;cursor:pointer;margin-top:7px}
+.int-table{width:100%;border-collapse:collapse;font-size:11px}
+.int-table th{padding:8px 10px;text-align:center;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.5px}
+.int-table th:first-child{text-align:left}
+.int-table td{padding:9px 10px;text-align:center;border-bottom:1px solid var(--border)}
+.int-table td:first-child{text-align:left;font-weight:600;color:var(--navy);font-size:11px}
+.int-table tr:last-child td{border-bottom:none}
+.tha{background:#d1fae5;color:#065f46}.thb{background:#dbeafe;color:#1e3a8a}.thc{background:#fef9c3;color:#92400e}.thd{background:#fee2e2;color:#7f1d1d}
+.ib-a{background:#d1fae5;color:#065f46;padding:2px 7px;border-radius:5px;font-weight:700;font-family:'Syne',sans-serif;font-size:11px}
+.ib-b{background:#dbeafe;color:#1e3a8a;padding:2px 7px;border-radius:5px;font-weight:700;font-family:'Syne',sans-serif;font-size:11px}
+.ib-c{background:#fef9c3;color:#92400e;padding:2px 7px;border-radius:5px;font-weight:700;font-family:'Syne',sans-serif;font-size:11px}
+.ib-d{background:#fee2e2;color:#9f1239;padding:2px 7px;border-radius:5px;font-weight:700;font-family:'Syne',sans-serif;font-size:11px}
+.sh{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;padding:10px 2px 5px}
+.bottom-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid var(--border);padding:8px 14px 16px;box-shadow:0 -4px 20px rgba(0,0,0,.08);z-index:80}
+.bb-inner{display:flex;gap:8px;align-items:center}
+.bb-home{width:44px;height:44px;border-radius:11px;background:var(--teal-lt);border:1px solid rgba(0,180,160,.3);display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;flex-shrink:0}
+.bb-info{flex:1}
+.bb-lbl{font-size:9px;color:var(--text3);font-weight:600;margin-bottom:2px}
+.bb-bar{height:3px;background:var(--border);border-radius:2px}
+.bb-fill{height:100%;background:var(--teal);border-radius:2px;transition:width .4s ease}
+.bb-score{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--navy);min-width:40px;text-align:right}
+.wa-fab{position:fixed;bottom:70px;right:12px;z-index:200;width:46px;height:46px;border-radius:50%;background:#25D366;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(37,211,102,.45);display:flex;align-items:center;justify-content:center;font-size:22px;transition:transform .2s}
+.wa-fab:active{transform:scale(.9)}
+.credits{background:var(--navy);border-radius:12px;padding:14px 16px;text-align:center;margin-top:14px;margin-bottom:8px}
+.credits-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:#fff;margin-bottom:4px}
+.credits-body{font-size:10px;color:rgba(255,255,255,.45);line-height:1.7}
+.credits-body a{color:var(--teal);text-decoration:none}
+</style>
+</head>
+<body>
+<div id="splash">
+  <div class="spl-logo"><img src="https://amine1515-pixel.github.io/tof-app/CSC-Algeria_png.png" alt="CSC" onerror="this.parentElement.innerHTML='🫀';this.parentElement.style.fontSize='32px'"></div>
+  <div class="spl-title">ACHD Clinical App</div>
+  <div class="spl-sub">Cardiopathies Congénitales Adultes<br>Guide clinique complet · 25 pathologies</div>
+  <div class="spl-badge">ACC/AHA 2025 · CSC Algeria</div>
+  <div class="spl-team">Conçu et validé par l'ACHD CORE-Team · ACT du CSC-Algérie<br>Pour avis : contact@csc-cardio.com · +213 540 910 869</div>
+</div>
+<header class="app-hdr">
+  <div class="hdr-top">
+    <div class="hdr-logo"><img src="https://amine1515-pixel.github.io/tof-app/CSC-Algeria_png.png" alt="CSC" onerror="this.parentElement.innerHTML='🫀';this.parentElement.style.fontSize='18px'"></div>
+    <div class="hdr-org"><div class="on">CSC Algeria · ACHD App</div><div class="os">Cardiopathies Congénitales Adultes</div></div>
+    <div class="hdr-badge">ACC 2025</div>
+  </div>
+  <div class="hdr-title" id="hdr-title">ACHD <em>Clinical App</em></div>
+  <div class="hdr-desc" id="hdr-desc">25 pathologies · 5 modules · ACC/AHA 2025</div>
+</header>
+<div class="screen active" id="home">
+  <div class="search-bar"><span class="search-icon">🔍</span><input type="text" id="search-input" placeholder="Rechercher une pathologie..." oninput="filterPaths()"></div>
+  <div id="paths-container">
+    <div class="cat-title">🔵 Shunts</div>
+    <div class="path-grid">
+      <div class="path-card pc-s" onclick="openPath('cia')"><div class="path-tag pt-s">Shunt</div><div class="path-icon">🫀</div><div class="path-name">Communication Interauriculaire</div><div class="path-abbr">CIA</div></div>
+      <div class="path-card pc-s" onclick="openPath('civ')"><div class="path-tag pt-s">Shunt</div><div class="path-icon">💙</div><div class="path-name">Communication Interventriculaire</div><div class="path-abbr">CIV</div></div>
+      <div class="path-card pc-s" onclick="openPath('avsd')"><div class="path-tag pt-s">Shunt</div><div class="path-icon">🔄</div><div class="path-name">Canal Atrioventriculaire</div><div class="path-abbr">AVSD / CAV</div></div>
+      <div class="path-card pc-s" onclick="openPath('apvc')"><div class="path-tag pt-s">Shunt</div><div class="path-icon">🔃</div><div class="path-name">Retour Veineux Pulmonaire Anormal</div><div class="path-abbr">RVPA</div></div>
+      <div class="path-card pc-s" onclick="openPath('pda')"><div class="path-tag pt-s">Shunt</div><div class="path-icon">🔗</div><div class="path-name">Canal Artériel Persistant</div><div class="path-abbr">CAP / PDA</div></div>
+    </div>
+    <div class="cat-title">🔴 Lésions côté gauche</div>
+    <div class="path-grid">
+      <div class="path-card pc-l" onclick="openPath('cort')"><div class="path-tag pt-l">Gauche</div><div class="path-icon">🏠</div><div class="path-name">Cor Triatriatum Sinister</div><div class="path-abbr">CTS</div></div>
+      <div class="path-card pc-l" onclick="openPath('cms')"><div class="path-tag pt-l">Gauche</div><div class="path-icon">🚪</div><div class="path-name">Sténose Mitrale Congénitale / Shone</div><div class="path-abbr">Shone Complex</div></div>
+      <div class="path-card pc-l" onclick="openPath('sao')"><div class="path-tag pt-l">Gauche</div><div class="path-icon">⬇️</div><div class="path-name">Sténose Sous-Aortique</div><div class="path-abbr">Sténose sous-Ao</div></div>
+      <div class="path-card pc-l" onclick="openPath('bav')"><div class="path-tag pt-l">Gauche</div><div class="path-icon">🔑</div><div class="path-name">Bicuspidie Aortique Congénitale</div><div class="path-abbr">BAV / Bicuspidie</div></div>
+      <div class="path-card pc-l" onclick="openPath('svas')"><div class="path-tag pt-l">Gauche</div><div class="path-icon">⬆️</div><div class="path-name">Sténose Supra-Valvulaire Aortique</div><div class="path-abbr">SVAS</div></div>
+      <div class="path-card pc-l" onclick="openPath('coarc')"><div class="path-tag pt-l">Gauche</div><div class="path-icon">🩺</div><div class="path-name">Coarctation de l'Aorte</div><div class="path-abbr">CoAo</div></div>
+    </div>
+    <div class="cat-title">🟣 Lésions côté droit</div>
+    <div class="path-grid">
+      <div class="path-card pc-r" onclick="openPath('ebstein')"><div class="path-tag pt-r">Droite</div><div class="path-icon">🦴</div><div class="path-name">Anomalie d'Ebstein</div><div class="path-abbr">Ebstein</div></div>
+      <div class="path-card pc-r" onclick="openPath('svp')"><div class="path-tag pt-r">Droite</div><div class="path-icon">🌬️</div><div class="path-name">Sténose Pulmonaire Valvulaire</div><div class="path-abbr">SVP</div></div>
+      <div class="path-card pc-r" onclick="openPath('dcrv')"><div class="path-tag pt-r">Droite</div><div class="path-icon">🔲</div><div class="path-name">Double Chambre VD</div><div class="path-abbr">DCVD</div></div>
+      <div class="path-card pc-r" onclick="openPath('sbpa')"><div class="path-tag pt-r">Droite</div><div class="path-icon">🌿</div><div class="path-name">Sténose AP Périphérique Isolée</div><div class="path-abbr">Sténose AP</div></div>
+      <div class="path-card pc-r" onclick="openPath('tof')"><div class="path-tag pt-r">Droite</div><div class="path-icon">🫀</div><div class="path-name">Tétralogie de Fallot</div><div class="path-abbr">TOF</div></div>
+      <div class="path-card pc-r" onclick="openPath('paivs')"><div class="path-tag pt-r">Droite</div><div class="path-icon">🚫</div><div class="path-name">Atrésie Pulmonaire à SIV intact</div><div class="path-abbr">AP-SIVI</div></div>
+      <div class="path-card pc-r" onclick="openPath('rvpa')"><div class="path-tag pt-r">Droite</div><div class="path-icon">🔧</div><div class="path-name">Conduit VD-AP</div><div class="path-abbr">Conduit VD-AP</div></div>
+    </div>
+    <div class="cat-title">🟡 Cardiopathies complexes</div>
+    <div class="path-grid">
+      <div class="path-card pc-c" onclick="openPath('dtga')"><div class="path-tag pt-c">Complexe</div><div class="path-icon">🔀</div><div class="path-name">TGV-d (Switch Atrial / Artériel)</div><div class="path-abbr">d-TGA</div></div>
+      <div class="path-card pc-c" onclick="openPath('cctga')"><div class="path-tag pt-c">Complexe</div><div class="path-icon">🔁</div><div class="path-name">TGV Congénitalement Corrigée</div><div class="path-abbr">CCTGA</div></div>
+      <div class="path-card pc-c" onclick="openPath('truncus')"><div class="path-tag pt-c">Complexe</div><div class="path-icon">🌳</div><div class="path-name">Tronc Artériel Commun</div><div class="path-abbr">TAC / Truncus</div></div>
+      <div class="path-card pc-c" onclick="openPath('dorv')"><div class="path-tag pt-c">Complexe</div><div class="path-icon">↗️</div><div class="path-name">Ventricule Droit à Double Issue</div><div class="path-abbr">VDDI / DORV</div></div>
+      <div class="path-card pc-c" onclick="openPath('fontan')"><div class="path-tag pt-c">Complexe</div><div class="path-icon">🔵</div><div class="path-name">Circulation de Fontan</div><div class="path-abbr">Fontan / VU</div></div>
+      <div class="path-card pc-c" onclick="openPath('eisenmenger')"><div class="path-tag pt-c">Complexe</div><div class="path-icon">🟥</div><div class="path-name">Syndrome d'Eisenmenger</div><div class="path-abbr">Eisenmenger</div></div>
+    </div>
+    <div class="cat-title">🟢 Anomalies coronaires</div>
+    <div class="path-grid">
+      <div class="path-card pc-co" onclick="openPath('aaoca')"><div class="path-tag pt-co">Coronaire</div><div class="path-icon">🏹</div><div class="path-name">Origine Aortique Anormale Coronaire</div><div class="path-abbr">AAOCA</div></div>
+      <div class="path-card pc-co" onclick="openPath('acapa')"><div class="path-tag pt-co">Coronaire</div><div class="path-icon">↙️</div><div class="path-name">Coronaire Née de l'AP</div><div class="path-abbr">ACAPA / ALCAPA</div></div>
+      <div class="path-card pc-co" onclick="openPath('fistcor')"><div class="path-tag pt-co">Coronaire</div><div class="path-icon">🌀</div><div class="path-name">Fistule Coronaire</div><div class="path-abbr">Fistule Cor.</div></div>
+    </div>
+    <div class="cat-title">🔵 Anomalies vasculaires</div>
+    <div class="path-grid">
+      <div class="path-card pc-v" onclick="openPath('vasc')"><div class="path-tag pt-v">Vasculaire</div><div class="path-icon">⭕</div><div class="path-name">Anneaux Vasculaires & Slings AP</div><div class="path-abbr">Anneau vasc.</div></div>
+    </div>
+  </div>
+  <div class="credits">
+    <div class="credits-title">🏥 ACHD CORE-Team · ACT du CSC-Algérie</div>
+    <div class="credits-body">Application conçue et validée par l'ACHD CORE-Team · ACT du CSC-Algérie<br>Pour demande d'avis spécialisé :<br><a href="mailto:contact@csc-cardio.com">contact@csc-cardio.com</a> · <a href="https://wa.me/213540910869">+213 540 910 869</a></div>
+  </div>
+</div>
+<div class="screen" id="detail">
+  <div class="path-hdr" id="ph-wrap"><div class="ph-back" onclick="goHome()">←</div><div class="ph-content"><div class="ph-icon" id="ph-icon">🫀</div><div class="ph-name" id="ph-name">Pathologie</div><div class="ph-sub" id="ph-sub">Section ACC 2025</div><div class="ph-tags" id="ph-tags"></div></div></div>
+  <nav class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('t-stade',this)"><span class="ti">🏷️</span>Stade</button>
+    <button class="tab-btn" onclick="showTab('t-risque',this)"><span class="ti">⚡</span>Risque</button>
+    <button class="tab-btn" onclick="showTab('t-bilan',this)"><span class="ti">🩻</span>Bilan</button>
+    <button class="tab-btn" onclick="showTab('t-pec',this)"><span class="ti">💊</span>P.charge</button>
+    <button class="tab-btn" onclick="showTab('t-suivi',this)"><span class="ti">📅</span>Suivi</button>
+  </nav>
+  <div class="tab-screen active" id="t-stade"><div id="stade-content"></div></div>
+  <div class="tab-screen" id="t-risque"><div id="risque-content"></div></div>
+  <div class="tab-screen" id="t-bilan"><div id="bilan-content"></div></div>
+  <div class="tab-screen" id="t-pec"><div id="pec-content"></div></div>
+  <div class="tab-screen" id="t-suivi"><div id="suivi-content"></div></div>
+</div>
+<div class="bottom-bar">
+  <div class="bb-inner">
+    <div class="bb-home" onclick="goHome()">🏠</div>
+    <div class="bb-info"><div class="bb-lbl" id="bb-lbl">ACHD Clinical App · Accueil</div><div class="bb-bar"><div class="bb-fill" id="bb-fill" style="width:0%"></div></div></div>
+    <div class="bb-score" id="bb-score"></div>
+  </div>
+</div>
+<button class="wa-fab" onclick="sendWA()">💬</button>
+<script>
+// ═══════ PATHOLOGIES DATABASE ═══════
+const PATHS={};
+function defPath(id,name,abbr,icon,section,color,bgColor,tags,stadeFields,risqueItems,thresholds,bilanItems,sympItems,catFn,suiviTable,suiviNotes){
+  PATHS[id]={name,abbr,icon,section,color,bgColor,tags,
+    stade:{fields:stadeFields,note:`Stade AP — ${name} · Section ${section} ACC 2025`},
+    risque:{title:`Facteurs de risque — ${name}`,items:risqueItems,thresholds},
+    bilan:{items:bilanItems},
+    pec:{symps:sympItems,catFn},
+    suivi:{table:suiviTable,notes:suiviNotes}
+  };
+}
+const SF_NYHA={id:'nyha',label:'Symptômes NYHA',opts:[['1','NYHA I — Asymptomatique'],['2','NYHA II — Légèrement limité'],['3','NYHA III — Nettement limité'],['4','NYHA IV — Repos']]};
+const SF_FCT={id:'fct',label:'Fonction ventriculaire dominante',opts:[['0','Préservée (>50%)'],['1','Légèrement réduite (40–50%)'],['2','Modérément réduite (30–40%)'],['3','Sévèrement réduite (<30%)']]};
+const SF_HTAP={id:'htap',label:'HTAP / RVP',opts:[['0','Absence (RVP<3 WU)'],['1','Modérée (3–5 WU)'],['2','Sévère (>5 WU)'],['3','Eisenmenger / Fixée']]};
+const SF_ARYT={id:'aryt',label:'Arythmies',opts:[['0','Aucune'],['1','TSV / FA contrôlée'],['2','TV / Arythmie grave']]};
+const SF_COMPL={id:'compl',label:'Lésions résiduelles / Complications',opts:[['0','Aucune'],['1','Légères'],['2','Modérées'],['3','Sévères']]};
+const RI_GEN=[
+  {id:'r1',name:'NYHA ≥ III',sub:'Limitation fonctionnelle majeure'},
+  {id:'r2',name:'Dysfonction ventriculaire modérée–sévère',sub:'FE < 40%'},
+  {id:'r3',name:'HTAP modérée–sévère (RVP > 3 WU)',sub:'Hypertension artérielle pulmonaire'},
+  {id:'r4',name:'Arythmies ventriculaires documentées',sub:'TV / FA symptomatique'},
+  {id:'r5',name:'Lésions résiduelles significatives',sub:'Shunt résiduel, obstruction, régurgitation'}
+];
+const TH_GEN=[{pts:0,label:'Faible',rate:'Surveillance',color:'var(--mint)'},{pts:2,label:'Modéré',rate:'Évaluation interventionnelle',color:'var(--amber)'},{pts:3,label:'Élevé',rate:'Intervention recommandée',color:'var(--crimson)'}];
+const BI_GEN=(abbr,sec)=>[
+  {cls:'rb-teal',title:`Bilan standard — ${abbr}`,items:[`ETT complète + Doppler · Section ${sec} ACC 2025`,'ECG : rythme, intervalles, HV','BNP, NFS, créatinine, SaO₂','IRM cardiaque si évaluation insuffisante']},
+  {cls:'rb-gold',title:'Bilan complémentaire',items:['Cathétérisme si HTAP suspectée (RVP mesure directe)','IRM cardiaque si doute morphologique','CT cardiaque si intervention percutanée envisagée','Consultation ACHD si stade C ou D']}
+];
+const SY_GEN=[
+  {id:'s1',icon:'😮‍💨',name:'Dyspnée d\'effort',sub:'Limitation fonctionnelle'},
+  {id:'s2',icon:'💓',name:'Palpitations',sub:'Arythmies'},
+  {id:'s3',icon:'🦵',name:'Œdèmes / Signes IC',sub:'Défaillance cardiaque'},
+  {id:'s4',icon:'🫁',name:'Cyanose / Désaturation',sub:'Shunt ou HTAP'}
+];
+const SU_GEN=[
+  {exam:'🏥 Cardiologue ACHD',a:'24',b:'12–24',c:'12',d:'3'},
+  {exam:'📈 ECG',a:'24',b:'12–24',c:'12',d:'12'},
+  {exam:'🫀 ETT',a:'24',b:'12–24',c:'12',d:'6'},
+  {exam:'🩻 IRM / Cathé',a:'Selon indication',b:'Tous les 2–3 ans',c:'Annuel',d:'Semestriel'}
+];
+
+// ── TOF ──
+defPath('tof','Tétralogie de Fallot','TOF','🫀','4.3.5','#C8273F','linear-gradient(135deg,#1A0808,#2A0C0C)',
+  ['IP chronique','Anévrysme CCVD','Risque MSC','RVP / TPVR'],
+  [SF_NYHA,
+   {id:'fevd',label:'Fonction VD (FEVD)',opts:[['0','Normale (>55%)'],['1','Légèrement réduite (46–55%)'],['2','Modérément réduite (36–45%)'],['3','Sévèrement réduite (<36%)']]},
+   {id:'ip',label:'Insuffisance Pulmonaire (IRM)',opts:[['0','Absente / Triviale'],['1','Légère (FR<25%)'],['2','Modérée (FR 25–39%)'],['3','Sévère (FR≥40%)']]},
+   {id:'vtsi',label:'VTSI-VD indexé',opts:[['0','Normal (<80 mL/m²)'],['1','Modéré (80–100 mL/m²)'],['2','Sévère (>100 mL/m²)']]},
+   {id:'aryt',label:'Arythmies',opts:[['0','Aucune'],['1','TVNS asymptomatique'],['2','TSV/Flutter'],['3','TV soutenue / MSC réanimée']]},
+   {id:'lesion',label:'Lésions résiduelles',opts:[['0','Aucune'],['1','Légères'],['2','Modérées'],['3','Sévères']]}
+  ],
+  [{id:'r1',name:'Coronaropathie associée',sub:'+1 pt PREVENTION-ACHD'},
+   {id:'r2',name:'NYHA ≥ II',sub:'+1 pt'},
+   {id:'r3',name:'TSV documentée',sub:'+1 pt'},
+   {id:'r4',name:'FEVG systémique < 40%',sub:'+1 pt'},
+   {id:'r5',name:'FEVD sous-pulm. < 40%',sub:'+1 pt'},
+   {id:'r6',name:'QRS ≥ 120 ms',sub:'+1 pt'},
+   {id:'r7',name:'Dispersion QT ≥ 70 ms',sub:'+1 pt'}
+  ],
+  [{pts:0,label:'Faible',rate:'<1%/an',color:'var(--mint)'},{pts:3,label:'Modéré',rate:'1–4%/an · EEP (COR 2a)',color:'var(--amber)'},{pts:5,label:'Très élevé',rate:'>10%/an · DAI (COR 2a)',color:'var(--crimson)'}],
+  [{cls:'rb-teal',title:'Bilan systématique TOF',items:['ETT : IP, FEVD, VTD, pressions, strain VD','ECG : QRS, fragmentation, QTd','IRM cardiaque (COR 1) : FR, VTSI-VD, FEVD, LGE','BNP, NFS, créatinine']},
+   {cls:'rb-red',title:'Pré-RVP — Nouveau ACC 2025',items:['<span class="cor c1">COR 1</span> CT cardiaque si TPVR sur CCVD native','EEP pré-RVP + cartographie 3D (COR 2b)','Cathétérisme si données insuffisantes (COR 2a)','CPET : VO₂ peak — critère RVP + pronostic MSC']}
+  ],
+  [{id:'s1',icon:'😮‍💨',name:'Dyspnée d\'effort',sub:'NYHA ≥ II'},
+   {id:'s2',icon:'💓',name:'Palpitations',sub:'Arythmies VT/TSV'},
+   {id:'s3',icon:'😵',name:'Syncope / lipothymie',sub:'Risque MSC'},
+   {id:'s4',icon:'⚡',name:'Choc DAI reçu',sub:'TV/FV approprié'},
+   {id:'s5',icon:'🦵',name:'Œdèmes',sub:'Insuffisance VD'},
+   {id:'s6',icon:'🫁',name:'Cyanose',sub:'Désaturation O₂'}
+  ],'catTOF',
+  [{exam:'🏥 ACHD',a:'24',b:'12–24',c:'12',d:'3'},
+   {exam:'📈 ECG',a:'24',b:'12–24',c:'12',d:'12'},
+   {exam:'🫀 ETT',a:'24',b:'12–24',c:'12',d:'6'},
+   {exam:'🩻 IRM (IP légère)',a:'36–60',b:'36–60',c:'24',d:'12–24'},
+   {exam:'🏃 CPET',a:'Selon évol.',b:'1–2 ans',c:'Annuel',d:'6 mois'}
+  ],'IRM 2–3 ans si IP modérée ou FEVD réduite. VTSI-VD > 80 mL/m² = seuil RVP (nouveau ACC 2025 — abandonne VTDI ≥160). Strain VD à chaque ETT.'
+);
+
+// ── CIA ──
+defPath('cia','Communication Interauriculaire','CIA','🫀','4.1.1','#0284C7','linear-gradient(135deg,#0C2A4A,#0A3A5C)',
+  ['Shunt G→D','Dilatation VD','HTAP possible','FA / Flutter'],
+  [SF_NYHA,{id:'vd',label:'Dilatation VD',opts:[['0','Absente'],['1','Légère'],['2','Modérée'],['3','Sévère']]},{id:'qpqs',label:'Rapport Qp/Qs',opts:[['0','<1.5 — Petit shunt'],['1','1.5–2.0 — Modéré'],['2','>2.0 — Grand shunt']]},SF_HTAP,SF_ARYT],
+  [{id:'r1',name:'Qp/Qs ≥ 1.5 avec dilatation VD',sub:'Surcharge volumique VD'},{id:'r2',name:'RVP 3–5 WU',sub:'HTAP modérée'},{id:'r3',name:'FA / Flutter atrial',sub:'TSV fréquente CIA non fermée'},{id:'r4',name:'Embolie paradoxale',sub:'AVC/AIT sans autre cause'},{id:'r5',name:'Âge > 40 ans CIA non fermée',sub:'Risque décompensation croissant'}],
+  [{pts:0,label:'Faible',rate:'Surveillance',color:'var(--mint)'},{pts:2,label:'Modéré',rate:'Fermeture à discuter',color:'var(--amber)'},{pts:3,label:'Élevé',rate:'Fermeture recommandée',color:'var(--crimson)'}],
+  [{cls:'rb-teal',title:'Bilan CIA',items:['ETT : shunt, VD, PAP estimée, FEVD','ECG : axe, P, intervalles, FA','BNP, NFS, SaO₂, créatinine']},{cls:'rb-sky',title:'Bilan complémentaire CIA',items:['ETO si CIA mal vue ou ostium primum','<span class="cor c2a">COR 2a</span> Cathétérisme si RVP > 3 WU','IRM si évaluation VD insuffisante','Test occlusion si RVP 5–8 WU avant fermeture']}],
+  [{id:'s1',icon:'😮‍💨',name:'Dyspnée d\'effort',sub:'NYHA ≥ II'},{id:'s2',icon:'💓',name:'Palpitations / FA',sub:'TSV documentée'},{id:'s3',icon:'🧠',name:'AVC / AIT',sub:'Embolie paradoxale'},{id:'s4',icon:'🫁',name:'Cyanose',sub:'Inversion du shunt'}],'catCIA',
+  [{exam:'🏥 ACHD',a:'24',b:'12–24',c:'12',d:'3'},{exam:'🫀 ETT',a:'24',b:'12–24',c:'12',d:'6'},{exam:'📈 ECG',a:'24',b:'12–24',c:'12',d:'12'},{exam:'🩻 IRM/Cathé',a:'Si indication',b:'Selon HTAP',c:'Annuel',d:'Semestriel'}],
+  'Après fermeture : ETT à 1, 6 et 12 mois puis suivi selon évolution. FA résiduelle possible si fermeture tardive ≥ 40 ans.'
+);
+
+// ── CIV ──
+defPath('civ','Communication Interventriculaire','CIV','💙','4.1.2','#0284C7','linear-gradient(135deg,#0C2A4A,#0A3A60)',
+  ['Shunt G→D','Surcharge VG','HTAP / Eisenmenger','Endocardite'],
+  [SF_NYHA,{id:'qpqs',label:'Qp/Qs',opts:[['0','<1.5 — Petit'],['1','1.5–2.0 — Modéré'],['2','>2.0 — Grand']]},SF_HTAP,{id:'vg',label:'Fonction VG',opts:[['0','Normale'],['1','Légèrement réduite'],['2','Modérément réduite'],['3','Sévèrement réduite']]}],
+  [{id:'r1',name:'Qp/Qs > 1.5 + dilatation VG',sub:'Surcharge volumique VG'},{id:'r2',name:'RVP > 3 WU',sub:'HTAP — évaluation obligatoire'},{id:'r3',name:'Dysfonction VG',sub:'FEVG < 40%'},{id:'r4',name:'Endocardite antérieure',sub:'Risque récidive'},{id:'r5',name:'Obstruction RVOT associée',sub:'Double chambre VD'}],
+  [{pts:0,label:'Faible',rate:'Surveillance',color:'var(--mint)'},{pts:2,label:'Modéré',rate:'Fermeture à discuter',color:'var(--amber)'},{pts:3,label:'Élevé',rate:'Fermeture recommandée',color:'var(--crimson)'}],
+  [{cls:'rb-teal',title:'Bilan CIV',items:['ETT : taille CIV, Qp/Qs, VG, PAP','ECG : HVG, axe','BNP, NFS, SaO₂']},{cls:'rb-sky',title:'Complémentaire CIV',items:['<span class="cor c1">COR 1</span> Cathétérisme si PAP élevée','ETO si CIV périmembraneuse','IRM si VG insuffisamment évalué','Coronaires si > 40 ans']}],
+  [{id:'s1',icon:'😮‍💨',name:'Dyspnée / IC gauche',sub:'Surcharge VG'},{id:'s2',icon:'🫁',name:'Cyanose',sub:'Eisenmenger'},{id:'s3',icon:'🦠',name:'Endocardite',sub:'Fièvre + souffle évolutif'},{id:'s4',icon:'💢',name:'Douleur thoracique',sub:'Angor'}],'catCIV',
+  SU_GEN,'COR 3 : pas de fermeture si Qp/Qs < 1.5 sans autre indication. Prophylaxie endocardite si résiduelle + matériel.'
+);
+
+// ── COARCTATION ──
+defPath('coarc','Coarctation de l\'Aorte','CoAo','🩺','4.2.6','#C8273F','linear-gradient(135deg,#1A0808,#2C1010)',
+  ['HTA résiduelle','Anévrysme aortique','Récoarctation','Bicuspidie associée'],
+  [SF_NYHA,{id:'grad',label:'Gradient résiduel',opts:[['0','<20 mmHg — Minime'],['1','20–40 mmHg — Modéré'],['2','>40 mmHg — Sévère']]},{id:'hta',label:'HTA résiduelle',opts:[['0','Absente'],['1','Contrôlée sous traitement'],['2','Réfractaire / non contrôlée']]},{id:'aorte',label:'Aorte thoracique',opts:[['0','Normale'],['1','Dilatation légère (<45mm)'],['2','Dilatation ≥45mm'],['3','Anévrysme / Dissection']]},SF_COMPL],
+  [{id:'r1',name:'HTA non contrôlée > 140/90',sub:'Risque AVC, IC, DTA'},{id:'r2',name:'Gradient > 20 mmHg',sub:'Récoarctation significative'},{id:'r3',name:'Aorte ascendante ≥ 45 mm',sub:'Risque dissection'},{id:'r4',name:'Anévrysme site intervention',sub:'Post-chirurgie / post-stent'},{id:'r5',name:'Bicuspidie + IA/SA significative',sub:'Double lésion aortique'}],
+  [{pts:0,label:'Faible',rate:'Surveillance tensionnelle',color:'var(--mint)'},{pts:2,label:'Modéré',rate:'Traitement médical renforcé',color:'var(--amber)'},{pts:3,label:'Élevé',rate:'Ré-intervention à discuter',color:'var(--crimson)'}],
+  [{cls:'rb-teal',title:'Bilan CoAo',items:['ETT : gradient, VG, valvule aortique, Ao ascendante','PA aux 4 membres — gradient bras-jambe','ECG : HVG, repolarisation','BNP, créatinine']},{cls:'rb-sky',title:'Imagerie aortique',items:['<span class="cor c1">COR 1</span> IRM/AngioScanner aorte thoracique','CT pré-stenting ou pré-chirurgie','Coronarographie si symptômes ischémiques ou > 40 ans']}],
+  [{id:'s1',icon:'🩺',name:'HTA réfractaire',sub:'Gradient ou PA non contrôlée'},{id:'s2',icon:'😮‍💨',name:'Dyspnée / IC gauche',sub:'HVG décompensée'},{id:'s3',icon:'🧠',name:'AVC / AIT',sub:'HTA emboligène'},{id:'s4',icon:'💢',name:'Douleur thoracique',sub:'Dissection / Anévrysme'}],'catCoAo',
+  [{exam:'🏥 ACHD',a:'24',b:'12',c:'12',d:'3'},{exam:'🩺 PA + ETT',a:'12',b:'12',c:'6',d:'3'},{exam:'🩻 IRM/CT Aorte',a:'Tous les 3–5 ans',b:'Tous les 2–3 ans',c:'Annuel',d:'Semestriel'},{exam:'💊 Anti-HTA',a:'Si indiqué',b:'Optimiser',c:'Obligatoire',d:'Urgence'}],
+  'Objectif PA < 130/80 mmHg. Surveillance anévrysme patch. Bicuspidie associée = suivi aortique renforcé.'
+);
+
+// ── EBSTEIN ──
+defPath('ebstein','Anomalie d\'Ebstein','Ebstein','🦴','4.3.1','#7C3AED','linear-gradient(135deg,#1A0A2E,#2A1050)',
+  ['Insuffisance tricuspide','Cyanose','Préexcitation WPW','Arythmies'],
+  [SF_NYHA,{id:'it',label:'Insuffisance tricuspide',opts:[['0','Légère'],['1','Modérée'],['2','Sévère'],['3','Massive']]},{id:'vdf',label:'VD fonctionnel',opts:[['0','Normal (zone atrialis<50%)'],['1','Modéré (50–70%)'],['2','Sévère (>70%)']]},{id:'sat',label:'SaO₂',opts:[['0','Normale (>95%)'],['1','Légèrement réduite (90–95%)'],['2','Cyanose (<90%)']]},{id:'wpw',label:'Préexcitation / Arythmies',opts:[['0','Absente'],['1','WPW asymptomatique'],['2','WPW + TPSV'],['3','FA / Flutter']]}],
+  [{id:'r1',name:'WPW + intervalle RR préexcité <250 ms',sub:'Risque FV sur FA'},{id:'r2',name:'FA / Flutter avec préexcitation',sub:'Urgence EP'},{id:'r3',name:'Cyanose sévère SaO₂ <85%',sub:'Mauvais pronostic'},{id:'r4',name:'VD fonctionnel <30% superficie',sub:'Défaillance VD avancée'},{id:'r5',name:'CIA / FOP avec inversion shunt',sub:'Embolie paradoxale'}],
+  [{pts:0,label:'Faible',rate:'Surveillance',color:'var(--mint)'},{pts:2,label:'Modéré',rate:'EEP + Discussion chirurgie',color:'var(--amber)'},{pts:3,label:'Élevé',rate:'Chirurgie / ablation urgente',color:'var(--crimson)'}],
+  [{cls:'rb-purple',title:'Bilan Ebstein',items:['ETT : IT, zone atrialis/VD fonctionnel, CIA/FOP, PAP','ECG : PR court, delta wave (WPW), FA','SaO₂ repos et effort','BNP, NFS, BNP']},{cls:'rb-gold',title:'Bilan rythmique Ebstein',items:['Holter 24–48h si palpitations','<span class="cor c1">COR 1</span> EEP si WPW symptomatique ou TPSV','IRM cardiaque : VD morphologie, fibrose','Test effort si cyanose à effort']}],
+  [{id:'s1',icon:'💓',name:'TPSV / Palpitations',sub:'WPW ou FA'},{id:'s2',icon:'😮‍💨',name:'Dyspnée / IC droite',sub:'Défaillance VD'},{id:'s3',icon:'🫁',name:'Cyanose',sub:'Inversion shunt'},{id:'s4',icon:'😵',name:'Syncope',sub:'MSC / WPW + FA'}],'catEbstein',
+  [{exam:'🏥 ACHD',a:'24',b:'12',c:'12',d:'3'},{exam:'🫀 ETT',a:'24',b:'12',c:'12',d:'6'},{exam:'📈 ECG + Holter',a:'24',b:'12',c:'6',d:'3'},{exam:'🔬 EEP',a:'Si WPW',b:'Si WPW sympt.',c:'Annuel',d:'Urgent'}],
+  'Ablation WPW avant chirurgie (COR 1). CIA/FOP à fermer si inversion shunt. MSC rare mais risque réel si WPW + FA.'
+);
+
+// ── FONTAN ──
+defPath('fontan','Circulation de Fontan','Fontan / VU','🔵','4.4.5','#F0A030','linear-gradient(135deg,#1A1000,#2A1C00)',
+  ['Ventricule unique','Défaillance Fontan','Foie Fontan','PPLE'],
+  [SF_NYHA,{id:'sat',label:'SaO₂ repos',opts:[['0','Normale (>92%)'],['1','Légèrement réduite (88–92%)'],['2','Cyanose significative (<88%)']]},{id:'foie',label:'Foie Fontan',opts:[['0','Normal'],['1','Fibrose légère–modérée'],['2','Cirrhose / CHC suspecté']]},{id:'effusion',label:'Épanchements / PPLE',opts:[['0','Absent'],['1','Épanchement léger'],['2','PPLE / Entéropathie exsudante']]},SF_FCT],
+  [{id:'r1',name:'Pression Fontan > 15 mmHg',sub:'Hypertension Fontan'},{id:'r2',name:'PPLE ou entéropathie exsudante',sub:'Complication létale'},{id:'r3',name:'CHC (hépatocarcinome)',sub:'Surveillance AFP annuelle'},{id:'r4',name:'Arythmies intra-atriales (TRIA)',sub:'Flutter / FA Fontan'},{id:'r5',name:'SaO₂ < 88% au repos',sub:'Cyanose sévère'}],
+  [{pts:0,label:'Stable',rate:'Surveillance annuelle',color:'var(--mint)'},{pts:2,label:'En échec',rate:'Évaluation transplantation',color:'var(--amber)'},{pts:3,label:'Défaillance',rate:'Transplantation urgente',color:'var(--crimson)'}],
+  [{cls:'rb-gold',title:'Bilan annuel Fontan obligatoire',items:['ETT : VU, valves AV, pression Fontan estimée','IRM cardiaque + foie : volumes, fibrose hépatique','Bilan hépatique complet + AFP (CHC)','SaO₂ repos + effort, BNP, protéines (PPLE)']},{cls:'rb-red',title:'Bilan de défaillance Fontan',items:['<span class="cor c1">COR 1</span> Cathétérisme si symptômes progressifs','Angio-IRM Fontan : thrombus, sténoses','Entéroscopie si PPLE suspectée','<span class="cor c1">COR 1</span> Évaluation transplantation si défaillance']}],
+  [{id:'s1',icon:'😮‍💨',name:'Dyspnée progressive',sub:'Défaillance Fontan'},{id:'s2',icon:'🫁',name:'Cyanose',sub:'SaO₂ < 88%'},{id:'s3',icon:'💧',name:'Œdèmes / Épanchements',sub:'PPLE ou IC'},{id:'s4',icon:'🟡',name:'Hépatomégalie / Ictère',sub:'Foie Fontan — CHC'},{id:'s5',icon:'💓',name:'Palpitations / TSV',sub:'Flutter / FA Fontan'}],'catFontan',
+  [{exam:'🏥 ACHD',a:'12',b:'12',c:'6',d:'3'},{exam:'🫀 ETT + IRM',a:'12',b:'12',c:'6',d:'3'},{exam:'🩸 Bilan hépatique',a:'12',b:'12',c:'6',d:'3'},{exam:'🔍 Écho foie + AFP',a:'12',b:'12',c:'6',d:'3'}],
+  'Bilan hépatique ANNUEL obligatoire (COR 1). Anticoagulation systématique discutée. Référer IC/transplantation si défaillance (COR 1).'
+);
+
+// ── EISENMENGER ──
+defPath('eisenmenger','Syndrome d\'Eisenmenger','Eisenmenger','🟥','4.4.6','#C8273F','linear-gradient(135deg,#1A0808,#2C0808)',
+  ['HTAP fixée','Cyanose','Érythrocytose','Contre-indication fermeture'],
+  [SF_NYHA,{id:'sat',label:'SaO₂ repos',opts:[['0','88–92% — Stable'],['1','80–88% — Cyanose modérée'],['2','<80% — Sévère']]},{id:'hb',label:'Hémoglobine',opts:[['0','<18 g/dL'],['1','18–21 g/dL'],['2','>21 g/dL']]},{id:'rvp',label:'RVP',opts:[['0','5–8 WU'],['1','>8 WU'],['2','>2/3 systémique']]},{id:'hem',label:'Complications',opts:[['0','Absentes'],['1','Hémoptysie légère'],['2','Hémoptysie sévère / AVC / Thrombose']]}],
+  [{id:'r1',name:'SaO₂ < 85% au repos',sub:'Pronostic sévère'},{id:'r2',name:'Hb > 21 g/dL — érythrocytose sévère',sub:'Risque AVC + thrombose'},{id:'r3',name:'Hémoptysie récidivante',sub:'Rupture collatérales AP'},{id:'r4',name:'NYHA III–IV',sub:'Défaillance droite avancée'},{id:'r5',name:'Syncope',sub:'Risque MSC'}],
+  [{pts:0,label:'Stable',rate:'Suivi HTAP + ACHD',color:'var(--mint)'},{pts:2,label:'Progression',rate:'Thérapies HTAP ciblées',color:'var(--amber)'},{pts:3,label:'Sévère',rate:'Transplantation cœur-poumons',color:'var(--crimson)'}],
+  [{cls:'rb-red',title:'Bilan Eisenmenger',items:['ETT : PAP estimée, VD, IT, CIA/CIV','Gazométrie + SaO₂ repos + effort','NFS, Hb, Htc, Ferritine, Bilan coagulation','BNP']},{cls:'rb-gold',title:'Bilan HTAP spécialisé',items:['Cathétérisme droit : RVP, test vasoréactivité','Scanner thoracique : parenchyme, collatérales','Test marche 6 min','Équipe multidisciplinaire HTAP + ACHD']}],
+  [{id:'s1',icon:'🫁',name:'Cyanose progressive',sub:'SaO₂ < 85%'},{id:'s2',icon:'🩸',name:'Hémoptysie',sub:'Rupture vasculaire'},{id:'s3',icon:'🧠',name:'AVC / AIT',sub:'Embolie paradoxale'},{id:'s4',icon:'😮‍💨',name:'Dyspnée NYHA III–IV',sub:'Défaillance VD'}],'catEisenmenger',
+  [{exam:'🏥 ACHD + HTAP',a:'6',b:'6',c:'3',d:'3'},{exam:'🫀 ETT',a:'12',b:'6',c:'3',d:'3'},{exam:'🩸 NFS + Hb',a:'6',b:'6',c:'3',d:'3'},{exam:'🏃 TM6',a:'6',b:'6',c:'3',d:'3'}],
+  'CONTRE-INDICATION ABSOLUE fermeture défect. Thérapies HTAP ciblées (COR 1). Grossesse contre-indiquée. Phlébo-échange si Hb > 21 g/dL + symptômes.'
+);
+
+// ── d-TGA ──
+defPath('dtga','Transposition des Gros Vaisseaux (d-TGA)','d-TGA','🔀','4.4.1','#F0A030','linear-gradient(135deg,#1A1000,#2D1E00)',
+  ['Switch atrial (Mustard/Senning)','Switch artériel (Jatene)','VD systémique','Défaillance VD'],
+  [SF_NYHA,{id:'vds',label:'Fonction VD systémique',opts:[['0','Préservée (FE VD>45%)'],['1','Légèrement réduite (35–45%)'],['2','Modérément réduite (25–35%)'],['3','Sévèrement réduite (<25%)']]},{id:'it',label:'IT systémique',opts:[['0','Légère ou absente'],['1','Modérée'],['2','Sévère']]},SF_ARYT,{id:'type',label:'Type réparation',opts:[['0','Switch artériel (Jatene)'],['1','Switch atrial (Mustard/Senning)'],['2','Rastelli']]}],
+  [{id:'r1',name:'FE VD systémique < 35%',sub:'Défaillance droite'},{id:'r2',name:'IT systémique sévère',sub:'Facteur aggravant'},{id:'r3',name:'Arythmies ventriculaires',sub:'MSC dans switch atrial'},{id:'r4',name:'Sténose baffle veineuse',sub:'Obstruction Mustard/Senning'},{id:'r5',name:'HTAP résiduelle post-Jatene',sub:'Sténose AP périphérique'}],
+  [{pts:0,label:'Stable',rate:'Surveillance',color:'var(--mint)'},{pts:2,label:'Défaillance',rate:'Évaluation IC/transplant',color:'var(--amber)'},{pts:3,label:'Sévère',rate:'Transplantation',color:'var(--crimson)'}],
+  [{cls:'rb-gold',title:'Bilan TGV adulte',items:['ETT : FE VD syst., IT, baffles (Mustard), coronaires (Jatene)','ECG + Holter : arythmies, BAV, dysfonction sinusale','IRM : VD volumes, IT, LGE','BNP, SaO₂, créatinine']},{cls:'rb-red',title:'Bilan switch atrial spécifique',items:['Cathétérisme hémodynamique si progression IC (COR 1)','IRM/CT baffles : sténose, fuite','Satimétrie étagée si shunt baffle suspecté','CPET si symptômes progressifs (COR 1)']}],
+  [{id:'s1',icon:'😮‍💨',name:'Dyspnée progressive',sub:'Défaillance VD systémique'},{id:'s2',icon:'💓',name:'Palpitations / TSV',sub:'Flutter / Dysfonction sinusale'},{id:'s3',icon:'🫁',name:'Cyanose',sub:'Fuite baffle'},{id:'s4',icon:'🦵',name:'Œdèmes',sub:'IC droite avancée'}],'catTGA',
+  [{exam:'🏥 ACHD',a:'12',b:'12',c:'6',d:'3'},{exam:'🫀 ETT',a:'12',b:'12',c:'6',d:'3'},{exam:'📈 ECG + Holter',a:'12',b:'12',c:'6',d:'3'},{exam:'🩻 IRM',a:'Tous les 2–3 ans',b:'Annuel',c:'Semestriel',d:'3 mois'}],
+  'Switch atrial : Holter tous les 3–5 ans (dysfonction sinusale). Coronaire post-Jatene : surveillance annuelle. IC réfractaire → transplantation (COR 1).'
+);
+
+// ── Remaining paths as generic ──
+const GEN_LIST=[
+  ['avsd','Canal Atrioventriculaire','AVSD / CAV','🔄','4.1.3','#0284C7','linear-gradient(135deg,#0C2040,#0A3050)',['CIA ostium primum','CIV inlet','IM / IT','HTAP'],'catCIA'],
+  ['apvc','Retour Veineux Pulmonaire Anormal','RVPA','🔃','4.1.4','#0284C7','linear-gradient(135deg,#0A1E40,#0A3050)',['Shunt G→D','Surcharge VD','HTAP possible'],'catCIA'],
+  ['pda','Canal Artériel Persistant','CAP / PDA','🔗','4.1.5','#0284C7','linear-gradient(135deg,#0C2A4A,#0A3A5C)',['Shunt G→D','Surcharge VG','Endocardite'],'catCIA'],
+  ['cort','Cor Triatriatum Sinister','CTS','🏠','4.2.1','#C8273F','linear-gradient(135deg,#1A0810,#2A0C18)',['Obstruction OG','FA','Thrombus OG'],'catGeneric'],
+  ['cms','Sténose Mitrale Congénitale / Shone','Shone Complex','🚪','4.2.2','#C8273F','linear-gradient(135deg,#1A0808,#2C1010)',['Multi-obstructions gauches','HTAP','Shone'],'catGeneric'],
+  ['sao','Sténose Sous-Aortique','Sténose sous-Ao','⬇️','4.2.3','#C8273F','linear-gradient(135deg,#1A0808,#2A1010)',['Obstruction CCVG','IA secondaire','Récidive fréquente'],'catGeneric'],
+  ['bav','Bicuspidie Aortique Congénitale','BAV','🔑','4.2.4','#C8273F','linear-gradient(135deg,#1A0808,#2C0C0C)',['IA / SA','Dilatation Ao ascendante','Coarctation associée'],'catGeneric'],
+  ['svas','Sténose Supra-Valvulaire Aortique','SVAS','⬆️','4.2.5','#C8273F','linear-gradient(135deg,#1A0A08,#2C1208)',['Syndrome Williams','Obstruction multi-niveau','HVG'],'catGeneric'],
+  ['svp','Sténose Pulmonaire Valvulaire','SVP','🌬️','4.3.2','#7C3AED','linear-gradient(135deg,#1A0A2E,#280C40)',['Gradient VP','HVD','IP post-valvulotomie'],'catGeneric'],
+  ['dcrv','Double Chambre VD','DCVD','🔲','4.3.3','#7C3AED','linear-gradient(135deg,#1A0A2E,#2A1050)',['Obstruction sous-pulmonaire','CIV associée','Évolutive'],'catGeneric'],
+  ['sbpa','Sténose AP Périphérique Isolée','Sténose AP','🌿','4.3.4','#7C3AED','linear-gradient(135deg,#1A0A2E,#281050)',['Branche AP','HTAP réactive'],'catGeneric'],
+  ['paivs','Atrésie Pulmonaire à SIV Intact','AP-SIVI','🚫','4.3.6','#7C3AED','linear-gradient(135deg,#1A0A30,#280C4A)',['VD hypoplasique','Fistule ventriculo-coronaire','Cyanose'],'catGeneric'],
+  ['rvpa','Conduit VD-AP','Conduit VD-AP','🔧','4.3.7','#7C3AED','linear-gradient(135deg,#1A0A2E,#2A1050)',['Sténose / IP conduit','TPVR','Post-TOF'],'catGeneric'],
+  ['cctga','TGV Congénitalement Corrigée','CCTGA','🔁','4.4.2','#F0A030','linear-gradient(135deg,#1A1000,#2D1E00)',['VD systémique','IT','Bloc AV complet'],'catTGA'],
+  ['truncus','Tronc Artériel Commun','TAC','🌳','4.4.3','#F0A030','linear-gradient(135deg,#1A1000,#2C1800)',['Conduit VD-AP','HTAP','Valve troncale'],'catGeneric'],
+  ['dorv','Ventricule Droit à Double Issue','VDDI / DORV','↗️','4.4.4','#F0A030','linear-gradient(135deg,#1A1200,#2C1C00)',['CIV sous-aortique','HTAP','Cyanose'],'catGeneric'],
+  ['aaoca','Origine Aortique Anormale Coronaire','AAOCA','🏹','4.5.1','#1A8A68','linear-gradient(135deg,#0A1A10,#0C2A18)',['Mort subite sport','Trajet inter-artériel','Chirurgie préventive'],'catGeneric'],
+  ['acapa','Coronaire Née de l\'AP','ACAPA / ALCAPA','↙️','4.5.2','#1A8A68','linear-gradient(135deg,#0A1A10,#0A2A18)',['Ischémie myocardique','IC précoce','Revascularisation'],'catGeneric'],
+  ['fistcor','Fistule Coronaire','Fistule Cor.','🌀','4.5.3','#1A8A68','linear-gradient(135deg,#0A1810,#0A2C1A)',['Vol coronaire','Endocardite','Fermeture cathéter'],'catGeneric'],
+  ['vasc','Anneaux Vasculaires & Slings AP','Anneau vasc.','⭕','4.6','#00B4A0','linear-gradient(135deg,#001A18,#002A26)',['Compression trachée','Dysphagie','Chirurgie élective'],'catGeneric']
+];
+GEN_LIST.forEach(([id,name,abbr,icon,section,color,bgColor,tags,catFn])=>{
+  defPath(id,name,abbr,icon,section,color,bgColor,tags,
+    [SF_NYHA,SF_FCT,SF_HTAP,SF_ARYT,SF_COMPL],
+    RI_GEN,TH_GEN,BI_GEN(abbr,section),SY_GEN,catFn,SU_GEN,
+    `${name} · Section ${section} · Référer au centre ACHD CSC Algeria si stade C ou D · contact@csc-cardio.com`
+  );
+});
+
+// ═══════════════════════════════
+// STATE & NAV
+// ═══════════════════════════════
+let curPath=null,riskChecked={},sympChecked={};
+function goHome(){
+  document.getElementById('home').classList.add('active');
+  document.getElementById('detail').classList.remove('active');
+  document.getElementById('hdr-title').innerHTML='ACHD <em>Clinical App</em>';
+  document.getElementById('hdr-desc').textContent='25 pathologies · 5 modules · ACC/AHA 2025';
+  document.getElementById('bb-lbl').textContent='ACHD Clinical App · Accueil';
+  document.getElementById('bb-fill').style.width='0%';
+  document.getElementById('bb-score').textContent='';
+  window.scrollTo(0,0);
+  curPath=null;riskChecked={};sympChecked={};
+}
+function openPath(id){
+  const p=PATHS[id];if(!p)return;
+  curPath=id;riskChecked={};sympChecked={};
+  document.getElementById('home').classList.remove('active');
+  document.getElementById('detail').classList.add('active');
+  const hdr=document.getElementById('ph-wrap');
+  hdr.style.background=p.bgColor;
+  document.getElementById('ph-icon').textContent=p.icon;
+  document.getElementById('ph-name').textContent=p.name;
+  document.getElementById('ph-sub').textContent=`Section ${p.section} · ACC/AHA 2025`;
+  document.getElementById('ph-tags').innerHTML=p.tags.map(t=>`<span class="ph-tag">${t}</span>`).join('');
+  document.getElementById('hdr-title').innerHTML=`${p.icon} <em>${p.abbr}</em>`;
+  document.getElementById('hdr-desc').textContent=`Section ${p.section} · 5 modules · ACC 2025`;
+  document.getElementById('bb-lbl').textContent=`${p.abbr} · Stade AP`;
+  document.getElementById('bb-fill').style.width='20%';
+  document.getElementById('bb-score').textContent='';
+  const firstTab=document.querySelector('.tab-btn');
+  showTab('t-stade',firstTab);
+  renderAll();
+  window.scrollTo(0,0);
+}
+function showTab(id,btn){
+  document.querySelectorAll('.tab-screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(btn)btn.classList.add('active');
+  const labels={'t-stade':'Stade AP','t-risque':'Score Risque','t-bilan':'Bilan','t-pec':'Prise en charge','t-suivi':'Suivi'};
+  const pcts={'t-stade':'20%','t-risque':'40%','t-bilan':'60%','t-pec':'80%','t-suivi':'100%'};
+  document.getElementById('bb-lbl').textContent=`${PATHS[curPath]?.abbr} · ${labels[id]||''}`;
+  document.getElementById('bb-fill').style.width=pcts[id]||'20%';
+}
+function filterPaths(){
+  const q=document.getElementById('search-input').value.toLowerCase();
+  document.querySelectorAll('.path-card').forEach(card=>{
+    const n=card.querySelector('.path-name').textContent.toLowerCase();
+    const a=card.querySelector('.path-abbr').textContent.toLowerCase();
+    card.style.display=(n.includes(q)||a.includes(q)||q==='')?'':'none';
+  });
+}
+
+// ═══════════════════════════════
+// RENDER ALL
+// ═══════════════════════════════
+function renderAll(){renderStade();renderRisque();renderBilan();renderPEC();renderSuivi();}
+
+function renderStade(){
+  const p=PATHS[curPath];if(!p)return;
+  let h=`<div class="ib ib-teal"><strong>📌 ${p.stade.note}</strong></div>`;
+  h+=`<div class="card"><div class="chdr"><div class="chi" style="background:var(--teal-lt)">🔍</div><div><div class="cht">Évaluer le stade physiologique</div><div class="chs">Sélectionnez les critères présents</div></div></div><div class="cbody">`;
+  p.stade.fields.forEach(f=>{
+    h+=`<div class="field"><label>${f.label}</label><select id="sf-${f.id}" onchange="calcStade()"><option value="">-- Sélectionner --</option>`;
+    f.opts.forEach(o=>{h+=`<option value="${o[0]}">${o[1]}</option>`;});
+    h+=`</select></div>`;
+  });
+  h+=`</div></div><div id="stade-res"></div>`;
+  h+=`<div class="sh">Les 4 stades ACHD · ACC 2025</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">`;
+  [['A','#d1fae5','#065f46','Stable','Asymptomatique · 24 mois'],['B','#dbeafe','#1e3a8a','Léger','Légère limitation · 12–24 mois'],['C','#fef9c3','#92400e','Modéré','Limitation notable · 12 mois'],['D','#fee2e2','#9f1239','Critique','Séquelle sévère · 3 mois']].forEach(([l,bg,col,n,d])=>{
+    h+=`<div style="background:${bg};border-radius:12px;padding:12px;border:1px solid ${col}30"><div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:${col}">${l}</div><div style="font-size:11px;font-weight:700;color:${col};margin-bottom:2px">${n}</div><div style="font-size:10px;color:var(--text2)">${d}</div></div>`;
+  });
+  h+=`</div>`;
+  document.getElementById('stade-content').innerHTML=h;
+}
+
+function calcStade(){
+  const p=PATHS[curPath];if(!p)return;
+  let score=0,hasD=false,hasC=false,hasB=false;
+  p.stade.fields.forEach(f=>{
+    const el=document.getElementById('sf-'+f.id);if(!el||!el.value)return;
+    const v=parseInt(el.value)||0;score+=v;
+    if(f.id==='nyha'&&v>=4)hasD=true;
+    if(f.id==='nyha'&&v>=3)hasC=true;
+    if(f.id==='nyha'&&v>=2)hasB=true;
+    if((f.id==='fct'||f.id==='vds'||f.id==='fevd')&&v>=3)hasD=true;
+    if((f.id==='fct'||f.id==='vds'||f.id==='fevd')&&v>=2)hasC=true;
+    if((f.id==='htap'||f.id==='rvp')&&v>=3)hasD=true;
+    if((f.id==='htap'||f.id==='rvp')&&v>=2)hasC=true;
+    if(f.id==='aryt'&&v>=2)hasC=true;
+    if(f.id==='effusion'&&v>=2)hasD=true;
+  });
+  let stade='A',col='#065f46',bg='#d1fae5',cons='24',ecg='24',ett='24',desc='Hémodynamique stable. Surveillance de routine.';
+  if(hasD||score>=10){stade='D';col='#9f1239';bg='#fee2e2';cons='3';ecg='12';ett='6';desc='Séquelle sévère. Prise en charge urgente. Référer ACHD expert — CSC Algeria.';}
+  else if(hasC||score>=6){stade='C';col='#92400e';bg='#fef9c3';cons='12';ecg='12';ett='12';desc='Séquelle modérée à sévère. Discussion interventionnelle. Suivi rapproché.';}
+  else if(hasB||score>=2){stade='B';col='#1e3a8a';bg='#dbeafe';cons='12–24';ecg='12–24';ett='12–24';desc='Séquelle légère à modérée. Légère limitation fonctionnelle.';}
+  const res=document.getElementById('stade-res');if(!res)return;
+  res.innerHTML=`<div style="background:${bg};border-radius:14px;padding:16px;border:2px solid ${col}30;margin-bottom:10px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+      <div style="width:48px;height:48px;border-radius:12px;background:${col};display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:white;flex-shrink:0">${stade}</div>
+      <div><div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:${col}">Stade ${stade}</div><div style="font-size:11px;color:var(--text2)">${desc}</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+      <div style="background:rgba(255,255,255,.6);border-radius:8px;padding:8px;text-align:center"><div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:${col}">${cons}</div><div style="font-size:9px;color:var(--text3);text-transform:uppercase">Consult. mois</div></div>
+      <div style="background:rgba(255,255,255,.6);border-radius:8px;padding:8px;text-align:center"><div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:${col}">${ecg}</div><div style="font-size:9px;color:var(--text3);text-transform:uppercase">ECG mois</div></div>
+      <div style="background:rgba(255,255,255,.6);border-radius:8px;padding:8px;text-align:center"><div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:${col}">${ett}</div><div style="font-size:9px;color:var(--text3);text-transform:uppercase">ETT mois</div></div>
+    </div>
+  </div>`;
+}
+
+function renderRisque(){
+  const p=PATHS[curPath];if(!p)return;
+  let h=`<div class="ib ib-red"><strong>⚡ ${p.risque.title}</strong></div>`;
+  h+=`<div class="card"><div class="chdr"><div class="chi" style="background:var(--crimson-lt)">⚡</div><div><div class="cht">Facteurs de risque</div><div class="chs">Cochez les critères présents</div></div></div>`;
+  p.risque.items.forEach(item=>{
+    h+=`<div class="ri" id="ri-${item.id}" onclick="toggleRisk('${item.id}')"><div class="ri-chk" id="rc-${item.id}">✓</div><div class="ri-txt"><div class="ri-name">${item.name}</div><div class="ri-sub">${item.sub}</div></div><div class="ri-pts">+1</div></div>`;
+  });
+  h+=`</div><div class="card"><div class="score-wrap"><div class="sring"><svg width="110" height="110" viewBox="0 0 110 110"><circle class="sr-bg" cx="55" cy="55" r="46"/><circle id="risk-circle" class="sr-val" cx="55" cy="55" r="46" stroke-dasharray="289" stroke-dashoffset="289" stroke="var(--teal)"/></svg><div class="sring-center"><div class="sring-num" id="risk-num">0</div><div class="sring-den">/ ${p.risque.items.length}</div></div></div><div class="score-badge" id="risk-badge" style="background:#e5e7eb;color:#6b7280">Cochez les facteurs</div><div class="score-rate" id="risk-rate"></div></div></div>`;
+  h+=`<div id="risk-reco"></div><button class="btn-sec" onclick="resetRisk()">🔄 Réinitialiser</button>`;
+  document.getElementById('risque-content').innerHTML=h;
+}
+
+function toggleRisk(id){
+  riskChecked[id]=!riskChecked[id];
+  document.getElementById('ri-'+id)?.classList.toggle('on',riskChecked[id]);
+  updateRiskScore();
+}
+function resetRisk(){riskChecked={};document.querySelectorAll('.ri').forEach(e=>e.classList.remove('on'));updateRiskScore();}
+function updateRiskScore(){
+  const p=PATHS[curPath];if(!p)return;
+  const score=Object.values(riskChecked).filter(Boolean).length;
+  const max=p.risque.items.length;
+  const pct=score/max;
+  const c=document.getElementById('risk-circle');
+  if(c)c.style.strokeDashoffset=289-(pct*289);
+  const numEl=document.getElementById('risk-num');
+  if(numEl)numEl.textContent=score;
+  const thresholds=p.risque.thresholds;
+  let level=thresholds[0];
+  thresholds.forEach(t=>{if(score>=t.pts)level=t;});
+  const badge=document.getElementById('risk-badge');
+  const rate=document.getElementById('risk-rate');
+  const recoEl=document.getElementById('risk-reco');
+  if(badge){badge.style.background=level.color+'22';badge.style.color=level.color;badge.textContent=`${score} pt${score>1?'s':''} — ${level.label}`;}
+  if(rate)rate.textContent=level.rate;
+  if(c)c.style.stroke=level.color;
+  if(recoEl){
+    let reco='';
+    if(score===0)reco=`<div class="rb rb-mint"><div class="rb-title">✅ Risque faible</div><ul class="rb-items"><li>Surveillance selon stade AP</li><li>Pas d'intervention urgente</li></ul></div>`;
+    else if(score<=2)reco=`<div class="rb rb-gold"><div class="rb-title">⚠️ Risque modéré — ${level.rate}</div><ul class="rb-items"><li>Évaluation spécialisée ACHD recommandée</li><li>Discuter indication interventionnelle</li><li>Optimiser traitement médical</li></ul></div>`;
+    else reco=`<div class="rb rb-red"><div class="rb-title">🚨 Risque élevé — ${level.rate}</div><ul class="rb-items"><li>Intervention à discuter en urgence</li><li>Référer centre ACHD — CSC Algeria</li><li>WhatsApp : +213 540 910 869</li><li>contact@csc-cardio.com</li></ul></div>`;
+    recoEl.innerHTML=reco;
+  }
+}
+
+function renderBilan(){
+  const p=PATHS[curPath];if(!p)return;
+  let h=`<div class="ib ib-gold"><strong>🩻 Bilan stratifié · Section ${p.section} ACC 2025</strong></div>`;
+  p.bilan.items.forEach(item=>{
+    h+=`<div class="rb ${item.cls}"><div class="rb-title">${item.title}</div><ul class="rb-items">`;
+    item.items.forEach(i=>{h+=`<li>${i}</li>`;});
+    h+=`</ul></div>`;
+  });
+  h+=`<div class="card"><div class="chdr"><div class="chi" style="background:var(--sky-lt)">📋</div><div><div class="cht">Contexte clinique</div><div class="chs">Adapter le bilan à la situation</div></div></div><div class="cbody"><div class="field"><label>Situation clinique</label><select id="ctx-sel" onchange="updateCtx()"><option value="">-- Sélectionner --</option><option value="routine">Suivi de routine</option><option value="symp">Nouveaux symptômes</option><option value="preop">Pré-intervention</option><option value="aryt">Arythmies / Risque MSC</option><option value="gros">Grossesse / Contraception</option><option value="urgence">Urgence / Décompensation</option></select></div><div id="ctx-res"></div></div></div>`;
+  document.getElementById('bilan-content').innerHTML=h;
+}
+function updateCtx(){
+  const ctx=document.getElementById('ctx-sel')?.value;
+  const map={
+    routine:`<div class="rb rb-teal"><div class="rb-title">📋 Bilan routine</div><ul class="rb-items"><li>ETT complète + Doppler</li><li>ECG 12 dérivations</li><li>BNP, NFS, créatinine, SaO₂</li></ul></div>`,
+    symp:`<div class="rb rb-gold"><div class="rb-title">⚠️ Nouveaux symptômes</div><ul class="rb-items"><li>ETT urgente + Doppler</li><li>ECG + Holter 24–48h</li><li>BNP, troponine hs, NFS</li><li>Consultation ACHD dans les 4 semaines</li></ul></div>`,
+    preop:`<div class="rb rb-sky"><div class="rb-title">🔧 Pré-intervention</div><ul class="rb-items"><li><span class="cor c1">COR 1</span> ETT + IRM cardiaque</li><li><span class="cor c1">COR 1</span> CT cardiaque si TPVR sur CCVD native</li><li>Cathétérisme droit si HTAP suspectée</li><li>Coronarographie si > 40 ans</li><li>EEP si substrat arythmique (COR 2b)</li><li>CPET baseline</li></ul></div>`,
+    aryt:`<div class="rb rb-red"><div class="rb-title">⚡ Arythmies / MSC</div><ul class="rb-items"><li>ECG + Holter 48h + enregistreur implantable</li><li>Score PREVENTION-ACHD (onglet Risque)</li><li>IRM LGE : substrat fibrose</li><li><span class="cor c2a">COR 2a</span> EEP si risque modéré–élevé</li><li><span class="cor c2a">COR 2a</span> DAI si risque très élevé</li></ul></div>`,
+    gros:`<div class="rb rb-purple"><div class="rb-title">🤰 Grossesse</div><ul class="rb-items"><li>Score CARPREG II avant conception</li><li>ETT basale + suivi trimestriel</li><li><span class="cor c1">COR 1</span> Consultation ACHD + obstétricien avant grossesse</li><li>Génétique si syndrome associé</li><li>Accouchement maternité niveau III</li></ul></div>`,
+    urgence:`<div class="rb rb-red"><div class="rb-title">🚨 Urgence</div><ul class="rb-items"><li>ECG immédiat + monitoring</li><li>ETT au lit urgente</li><li>Troponine, BNP, NFS, gazométrie</li><li>SaO₂ + voie veineuse</li><li><strong>CSC Algeria : +213 540 910 869</strong></li></ul></div>`
+  };
+  const el=document.getElementById('ctx-res');
+  if(el)el.innerHTML=map[ctx]||'';
+}
+
+function renderPEC(){
+  const p=PATHS[curPath];if(!p)return;
+  let h=`<div class="ib ib-red"><strong>💊 Cochez les symptômes présents</strong></div><div class="card">`;
+  p.pec.symps.forEach(s=>{
+    h+=`<div class="symp-item" id="si-${s.id}" onclick="toggleSymp('${s.id}')"><div class="symp-chk" id="sc-${s.id}">✓</div><div class="symp-icon">${s.icon}</div><div><div class="symp-name">${s.name}</div><div class="symp-sub">${s.sub}</div></div></div>`;
+  });
+  h+=`</div><div id="pec-res"></div><button class="btn-sec" onclick="resetSymp()">🔄 Réinitialiser</button>`;
+  document.getElementById('pec-content').innerHTML=h;
+}
+function toggleSymp(id){sympChecked[id]=!sympChecked[id];document.getElementById('si-'+id)?.classList.toggle('on',sympChecked[id]);updatePEC();}
+function resetSymp(){sympChecked={};document.querySelectorAll('.symp-item').forEach(e=>e.classList.remove('on'));const el=document.getElementById('pec-res');if(el)el.innerHTML='';}
+function updatePEC(){
+  const p=PATHS[curPath];if(!p)return;
+  const active=Object.keys(sympChecked).filter(k=>sympChecked[k]);
+  if(!active.length){const el=document.getElementById('pec-res');if(el)el.innerHTML='';return;}
+  const fn=p.pec.catFn;
+  let html='';
+  if(fn==='catTOF')html=catTOF(active);
+  else if(fn==='catCIA')html=catCIA(active);
+  else if(fn==='catCIV')html=catCIV(active);
+  else if(fn==='catCoAo')html=catCoAo(active);
+  else if(fn==='catEbstein')html=catEbstein(active);
+  else if(fn==='catFontan')html=catFontan(active);
+  else if(fn==='catEisenmenger')html=catEisenmenger(active);
+  else if(fn==='catTGA')html=catTGA(active);
+  else html=catGeneric(active);
+  const el=document.getElementById('pec-res');if(el)el.innerHTML=html;
+}
+
+function catTOF(a){let h='<div class="sh">TOF réparée · ACC 2025</div>';if(a.includes('s1'))h+=`<div class="rb rb-teal"><div class="rb-title">😮‍💨 Dyspnée</div><ul class="rb-items"><li><span class="cor c1">COR 1</span> ETT + IRM : IP, FEVD, VTSI-VD</li><li>Si IP mod + sympt → RVP recommandé</li><li>VTSI-VD > 80 mL/m² + ≥2 critères → RVP (COR 2a)</li><li>CPET : VO₂ peak</li></ul></div>`;if(a.includes('s2'))h+=`<div class="rb rb-gold"><div class="rb-title">💓 Palpitations</div><ul class="rb-items"><li>ECG + Holter 48h</li><li>Score PREVENTION-ACHD (onglet Risque)</li><li><span class="cor c2a">COR 2a</span> EEP si score 3–4 pts</li><li><span class="cor c2a">COR 2a</span> DAI si score ≥ 5 pts</li></ul></div>`;if(a.includes('s3'))h+=`<div class="rb rb-red"><div class="rb-title">😵 Syncope</div><ul class="rb-items"><li>Urgence : ECG, Holter, ETT immédiate</li><li>EEP invasive urgente (COR 1 si TV)</li><li>DAI si TV inductible (COR 1)</li></ul></div>`;if(a.includes('s4'))h+=`<div class="rb rb-red"><div class="rb-title">⚡ Choc DAI</div><ul class="rb-items"><li>Consultation urgente rythmologie ACHD</li><li>Analyse : approprié ou inapproprié</li><li>Si approprié → EEP + ablation (COR 2a)</li></ul></div>`;if(a.includes('s5'))h+=`<div class="rb rb-sky"><div class="rb-title">🦵 Œdèmes</div><ul class="rb-items"><li>ETT : FEVD, IT, PAP, VCI</li><li>Diurétiques si IC droite</li><li>Si stade D → évaluation IC/transplantation</li></ul></div>`;if(a.includes('s6'))h+=`<div class="rb rb-purple"><div class="rb-title">🫁 Cyanose</div><ul class="rb-items"><li>SaO₂ + gazométrie</li><li>ETT : shunt résiduel, HTAP</li></ul></div>`;return h;}
+function catCIA(a){let h='<div class="sh">CIA · ACC 2025</div>';if(a.includes('s1'))h+=`<div class="rb rb-teal"><div class="rb-title">😮‍💨 Dyspnée</div><ul class="rb-items"><li>ETT : Qp/Qs, VD, PAP</li><li>Si Qp/Qs ≥ 1.5 + VD dilaté → fermeture (COR 1)</li><li>Cathétérisme si RVP > 3 WU</li></ul></div>`;if(a.includes('s2'))h+=`<div class="rb rb-gold"><div class="rb-title">💓 FA / Palpitations</div><ul class="rb-items"><li>ECG + Holter 24h</li><li>Anticoagulation si FA (COR 1)</li><li>Fermeture CIA réduit risque FA si avant 40 ans</li></ul></div>`;if(a.includes('s3'))h+=`<div class="rb rb-red"><div class="rb-title">🧠 AVC / AIT</div><ul class="rb-items"><li>Urgence neurologique + bilan embolique</li><li>ETT + Bulle de contraste</li><li><span class="cor c1">COR 1</span> Fermeture CIA/FOP si embolie paradoxale</li></ul></div>`;if(a.includes('s4'))h+=`<div class="rb rb-red"><div class="rb-title">🫁 Cyanose</div><ul class="rb-items"><li>Inversion shunt → CONTRE-INDICATION fermeture si RVP > 2/3 sys</li><li>Thérapies HTAP ciblées si Eisenmenger</li></ul></div>`;return h;}
+function catCIV(a){let h='<div class="sh">CIV · ACC 2025</div>';if(a.includes('s1'))h+=`<div class="rb rb-teal"><div class="rb-title">😮‍💨 Dyspnée / IC gauche</div><ul class="rb-items"><li>ETT : VG, Qp/Qs, PAP</li><li>Si Qp/Qs > 1.5 + VG dilaté → fermeture (COR 1)</li><li>Traitement IC si FEVG réduite</li></ul></div>`;if(a.includes('s2'))h+=`<div class="rb rb-red"><div class="rb-title">🫁 Cyanose — Eisenmenger</div><ul class="rb-items"><li>Cathétérisme : RVP mesure directe</li><li>Si RVP > 2/3 sys → COR 3 fermeture CONTRE-INDIQUÉE</li><li>Thérapies HTAP ciblées (COR 1)</li></ul></div>`;if(a.includes('s3'))h+=`<div class="rb rb-red"><div class="rb-title">🦠 Endocardite</div><ul class="rb-items"><li>Hémocultures x3 avant antibiotiques</li><li>ETO urgente : végétations, abcès</li><li>Antibiothérapie IV 4–6 semaines</li></ul></div>`;if(a.includes('s4'))h+=`<div class="rb rb-gold"><div class="rb-title">💢 Douleur thoracique</div><ul class="rb-items"><li>ECG + troponine</li><li>Coronarographie si angor</li></ul></div>`;return h;}
+function catCoAo(a){let h='<div class="sh">CoAo · ACC 2025</div>';if(a.includes('s1'))h+=`<div class="rb rb-red"><div class="rb-title">🩺 HTA réfractaire</div><ul class="rb-items"><li>PA aux 4 membres + gradient IRM/CT</li><li>Si gradient > 20 mmHg → ré-intervention (COR 1)</li><li>IEC/ARA2 + BB : objectif PA < 130/80</li></ul></div>`;if(a.includes('s2'))h+=`<div class="rb rb-gold"><div class="rb-title">😮‍💨 Dyspnée / IC gauche</div><ul class="rb-items"><li>ETT : FEVG, HVG, valvule aortique</li><li>Optimiser anti-HTA</li></ul></div>`;if(a.includes('s3'))h+=`<div class="rb rb-red"><div class="rb-title">🧠 AVC / AIT</div><ul class="rb-items"><li>Urgence neurologique + contrôle tensionnel strict</li><li>Bilan embolique : ETO, Holter</li></ul></div>`;if(a.includes('s4'))h+=`<div class="rb rb-red"><div class="rb-title">💢 Douleur thoracique</div><ul class="rb-items"><li>CT aorte urgence : dissection / anévrysme</li><li>Si dissection → chirurgie urgente (COR 1)</li><li>Anévrysme > 55 mm → chirurgie élective (COR 1)</li></ul></div>`;return h;}
+function catEbstein(a){let h='<div class="sh">Ebstein · ACC 2025</div>';if(a.includes('s1'))h+=`<div class="rb rb-red"><div class="rb-title">💓 TPSV / WPW</div><ul class="rb-items"><li><span class="cor c1">COR 1</span> EEP + ablation WPW avant chirurgie</li><li>Adénosine IV si TPSV — éviter vérapamil si préexcitation</li></ul></div>`;if(a.includes('s2'))h+=`<div class="rb rb-gold"><div class="rb-title">😮‍💨 IC droite</div><ul class="rb-items"><li>ETT : VD fonctionnel, IT, CIA/FOP</li><li>Diurétiques si surcharge</li><li>Si IT sévère + VD fonctionnel > 30% → chirurgie (COR 1)</li></ul></div>`;if(a.includes('s3'))h+=`<div class="rb rb-purple"><div class="rb-title">🫁 Cyanose</div><ul class="rb-items"><li>ETT bulle : CIA/FOP patent</li><li>Fermeture CIA/FOP si cyanose significative (COR 1)</li></ul></div>`;if(a.includes('s4'))h+=`<div class="rb rb-red"><div class="rb-title">😵 Syncope</div><ul class="rb-items"><li>ECG urgent : WPW + FA → urgence EP</li><li>Choc électrique si instabilité hémodynamique</li></ul></div>`;return h;}
+function catFontan(a){let h='<div class="sh">Fontan · ACC 2025</div>';if(a.includes('s1'))h+=`<div class="rb rb-gold"><div class="rb-title">😮‍💨 Dyspnée</div><ul class="rb-items"><li>ETT + cathétérisme Fontan : PFE, RVP</li><li>Si PFE > 15 mmHg → évaluation transplantation (COR 1)</li></ul></div>`;if(a.includes('s2'))h+=`<div class="rb rb-red"><div class="rb-title">🫁 Cyanose</div><ul class="rb-items"><li>SaO₂ + gazométrie urgente</li><li>Cathétérisme : fistule, thrombus, fenestration</li></ul></div>`;if(a.includes('s3'))h+=`<div class="rb rb-red"><div class="rb-title">💧 PPLE / Œdèmes</div><ul class="rb-items"><li>Protéines sériques urgentes</li><li>Sildenafil + Bosentan (COR 2a)</li><li>Transplantation si réfractaire (COR 1)</li></ul></div>`;if(a.includes('s4'))h+=`<div class="rb rb-gold"><div class="rb-title">🟡 Foie Fontan</div><ul class="rb-items"><li>Bilan hépatique + AFP + écho foie (COR 1)</li><li>Biopsie si CHC suspecté</li></ul></div>`;if(a.includes('s5'))h+=`<div class="rb rb-gold"><div class="rb-title">💓 TSV / Flutter</div><ul class="rb-items"><li>Cardioversion si instabilité</li><li>Anticoagulation systématique</li><li>Ablation cathéter Fontan (COR 2a)</li></ul></div>`;return h;}
+function catEisenmenger(a){let h='<div class="sh">Eisenmenger · ACC 2025</div>';if(a.includes('s1'))h+=`<div class="rb rb-red"><div class="rb-title">🫁 Cyanose progressive</div><ul class="rb-items"><li>Bosentan / Macitentan (COR 1)</li><li>Sildenafil / Tadalafil (COR 1)</li><li><span class="cor c3">COR 3</span> CONTRE-INDICATION fermeture défect</li><li>Transplantation cœur-poumons si NYHA IV</li></ul></div>`;if(a.includes('s2'))h+=`<div class="rb rb-red"><div class="rb-title">🩸 Hémoptysie</div><ul class="rb-items"><li>CT thorax urgence</li><li>Embolisation collatérales si massive (COR 1)</li></ul></div>`;if(a.includes('s3'))h+=`<div class="rb rb-red"><div class="rb-title">🧠 AVC / AIT</div><ul class="rb-items"><li>Imagerie cérébrale urgente</li><li>Supplémentation Fer si carence (COR 1)</li></ul></div>`;if(a.includes('s4'))h+=`<div class="rb rb-red"><div class="rb-title">😮‍💨 NYHA III–IV</div><ul class="rb-items"><li>Évaluation transplantation cœur-poumons (COR 1)</li><li>Optimiser thérapies HTAP combinées</li></ul></div>`;return h;}
+function catTGA(a){let h='<div class="sh">TGV adulte · ACC 2025</div>';if(a.includes('s1'))h+=`<div class="rb rb-gold"><div class="rb-title">😮‍💨 Défaillance VD systémique</div><ul class="rb-items"><li>IRM + cathétérisme : FE VD, IT, baffles</li><li>IEC/ARA2 si FEVD < 40% (COR 2b)</li><li>Si FEVD < 25% → évaluation IC/transplantation (COR 1)</li></ul></div>`;if(a.includes('s2'))h+=`<div class="rb rb-gold"><div class="rb-title">💓 Flutter / Arythmies</div><ul class="rb-items"><li>Cardioversion si instabilité</li><li>Anticoagulation FA/Flutter (COR 1)</li><li>Ablation flutter (COR 2a)</li></ul></div>`;if(a.includes('s3'))h+=`<div class="rb rb-purple"><div class="rb-title">🫁 Cyanose / Fuite baffle</div><ul class="rb-items"><li>ETT bulle + ETO + IRM/CT baffles</li><li>Intervention percutanée ou chirurgicale</li></ul></div>`;if(a.includes('s4'))h+=`<div class="rb rb-red"><div class="rb-title">🦵 Œdèmes</div><ul class="rb-items"><li>BNP, cathétérisme, CPET</li><li>Référer IC avancée / transplantation</li></ul></div>`;return h;}
+function catGeneric(a){
+  const p=PATHS[curPath];
+  let h=`<div class="sh">${p?.abbr||'Pathologie'} · ACC 2025</div>`;
+  if(a.includes('s1'))h+=`<div class="rb rb-teal"><div class="rb-title">😮‍💨 Dyspnée</div><ul class="rb-items"><li>ETT urgente + Doppler complet</li><li>BNP, SaO₂, ECG</li><li>Optimiser traitement selon étiologie</li><li>Si progression → discussion interventionnelle ACHD</li></ul></div>`;
+  if(a.includes('s2'))h+=`<div class="rb rb-gold"><div class="rb-title">💓 Palpitations</div><ul class="rb-items"><li>ECG + Holter 48h</li><li>Score PREVENTION-ACHD si cardiopathie complexe</li></ul></div>`;
+  if(a.includes('s3'))h+=`<div class="rb rb-sky"><div class="rb-title">🦵 Œdèmes / IC</div><ul class="rb-items"><li>Diurétiques + bilan volumique</li><li>IRM cardiaque : évaluation complète</li><li>Si NYHA III–IV réfractaire → référer IC/ACHD</li></ul></div>`;
+  if(a.includes('s4'))h+=`<div class="rb rb-purple"><div class="rb-title">🫁 Cyanose</div><ul class="rb-items"><li>SaO₂ + gazométrie urgente</li><li>ETT : shunt, HTAP</li><li>Contacter CSC Algeria : +213 540 910 869</li></ul></div>`;
+  return h;
+}
+
+function renderSuivi(){
+  const p=PATHS[curPath];if(!p)return;
+  const s=p.suivi;
+  let h=`<div class="ib ib-teal"><strong>📅 Table 34 ACC 2025 — Intervalles de suivi par stade</strong></div>`;
+  h+=`<div class="card"><div class="cbody" style="padding:8px 0 0"><table class="int-table"><thead><tr><th style="padding:10px 12px">Examen</th><th class="tha">A</th><th class="thb">B</th><th class="thc">C</th><th class="thd">D</th></tr></thead><tbody>`;
+  s.table.forEach(r=>{h+=`<tr><td>${r.exam}</td><td><span class="ib-a">${r.a}</span></td><td><span class="ib-b">${r.b}</span></td><td><span class="ib-c">${r.c}</span></td><td><span class="ib-d">${r.d}</span></td></tr>`;});
+  h+=`</tbody></table></div></div>`;
+  h+=`<div class="ib ib-gold"><strong>📌 Notes cliniques :</strong> ${s.notes}</div>`;
+  h+=`<div class="rb rb-mint"><div class="rb-title">✅ Points clés suivi ACHD</div><ul class="rb-items"><li>Suivi dans un centre ACHD agréé pour toute cardiopathie complexe</li><li>Conseil génétique en âge de procréer (COR 1)</li><li>Consultation ACHD obligatoire avant grossesse (COR 1)</li><li>Prophylaxie endocardite selon indications ESC/AHA</li><li>Test d'effort avant reprise sportive si cardiopathie modérée–sévère</li></ul></div>`;
+  h+=`<div class="credits"><div class="credits-title">🏥 ACHD CORE-Team · ACT du CSC-Algérie</div><div class="credits-body">Application conçue et validée par l'ACHD CORE-Team · ACT du CSC-Algérie<br><a href="mailto:contact@csc-cardio.com">contact@csc-cardio.com</a> · <a href="https://wa.me/213540910869">+213 540 910 869</a></div></div>`;
+  document.getElementById('suivi-content').innerHTML=h;
+}
+
+// ═══════════════════════════════
+// WHATSAPP
+// ═══════════════════════════════
+function sendWA(){
+  const d=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  let msg='🫀 *ACHD CLINICAL APP — CSC ALGERIA*\n';
+  msg+=`📱 Application ACHD · ACC/AHA 2025\n🗓️ ${d}\n`;
+  msg+='━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+  if(curPath){
+    const p=PATHS[curPath];
+    msg+=`📋 *PATHOLOGIE : ${p.name} (${p.abbr})*\n`;
+    msg+=`📖 Section ${p.section} · ACC/AHA 2025\n\n`;
+    const stadeEl=document.querySelector('#stade-res [style*="border-radius:14px"]');
+    if(stadeEl){
+      const n=stadeEl.querySelector('[style*="font-size:24px"]');
+      const desc=stadeEl.querySelectorAll('[style*="font-size:11px"]')[0];
+      if(n)msg+=`📊 *STADE : ${n.textContent}*\n`;
+      if(desc)msg+=`${desc.textContent}\n\n`;
+    }
+    const riskN=document.getElementById('risk-num')?.textContent;
+    const riskB=document.getElementById('risk-badge')?.textContent;
+    if(riskN&&parseInt(riskN)>0)msg+=`⚡ *SCORE RISQUE : ${riskB||riskN+' pts'}*\n\n`;
+    const active=Object.keys(sympChecked).filter(k=>sympChecked[k]);
+    if(active.length){
+      msg+='🩺 *SYMPTÔMES :*\n';
+      active.forEach(id=>{const el=document.getElementById('si-'+id);if(el)msg+=`• ${el.querySelector('.symp-name')?.textContent}\n`;});
+      msg+='\n';
+    }
+  }else{msg+='📋 Consultation générale ACHD\n\n';}
+  msg+='━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
+  msg+='_Conçu et validé par l\'ACHD CORE-Team · ACT du CSC-Algérie_\n';
+  msg+='_contact@csc-cardio.com_';
+  window.open('https://wa.me/213540910869?text='+encodeURIComponent(msg),'_blank');
+}
+
+window.addEventListener('load',()=>{
+  setTimeout(()=>{const s=document.getElementById('splash');if(s){s.style.opacity='0';setTimeout(()=>{s.style.display='none';},400);}},3200);
+});
+</script>
+</body>
+</html>
