@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ACHD Grossesse · CSC Algeria</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07101E;--bg2:#0D1B30;--bg3:#112040;--bg4:#152545;
+  --teal:#00C4AE;--teal-lt:rgba(0,196,174,0.12);
+  --red:#E03050;--red-lt:rgba(224,48,80,0.12);
+  --gold:#F0A030;--gold-lt:rgba(240,160,48,0.12);
+  --sky:#38BDF8;--sky-lt:rgba(56,189,248,0.12);
+  --mint:#34D399;--mint-lt:rgba(52,211,153,0.12);
+  --rose:#FB7185;--rose-lt:rgba(251,113,133,0.10);
+  --amber:#F59E0B;
+  --w1:#E8F0FC;--w2:rgba(232,240,252,0.6);--w3:rgba(232,240,252,0.3);
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);
+  --who1:#22c55e;--who2:#84cc16;--who3:#f59e0b;--who4:#ef4444;
+  --radius:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{height:100%}
+body{height:100%;background:var(--bg);color:var(--w1);font-family:"DM Sans",sans-serif;font-size:15px;overflow:hidden}
+/* ─── SCREENS ─── */
+.screen{position:fixed;inset:0;display:flex;flex-direction:column;overflow:hidden;transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .35s;will-change:transform}
+.screen.hidden{transform:translateX(100%);opacity:0;pointer-events:none}
+.screen.out{transform:translateX(-30%);opacity:0;pointer-events:none}
+/* ─── HEADER ─── */
+.hdr{display:flex;align-items:center;gap:12px;padding:16px 18px 12px;background:linear-gradient(180deg,rgba(7,16,30,1) 60%,rgba(7,16,30,0));position:relative;z-index:10;flex-shrink:0}
+.hdr-logo{width:38px;height:38px;border-radius:10px;background:#fff;padding:3px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.hdr-logo img{width:100%;height:100%;object-fit:contain}
+.hdr-title{font-family:"Syne",sans-serif;font-size:16px;font-weight:700;line-height:1.2}
+.hdr-sub{font-size:11px;color:var(--w3);margin-top:1px}
+.hdr-back{width:36px;height:36px;border-radius:10px;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:16px}
+.scroll-area{flex:1;overflow-y:auto;overflow-x:hidden;padding:0 16px 100px;-webkit-overflow-scrolling:touch}
+.scroll-area::-webkit-scrollbar{display:none}
+/* ─── HOME ─── */
+.home-hero{background:linear-gradient(135deg,rgba(0,196,174,.12),rgba(59,130,246,.08));border:1px solid rgba(0,196,174,.25);border-radius:20px;padding:20px;margin-bottom:16px;text-align:center}
+.home-hero h1{font-family:"Syne",sans-serif;font-size:22px;font-weight:800;line-height:1.3;margin-bottom:8px}
+.home-hero h1 em{font-style:normal;color:var(--teal)}
+.home-hero p{font-size:12px;color:var(--w2);line-height:1.6}
+.home-badges{display:flex;gap:6px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.badge{padding:3px 10px;border-radius:12px;font-size:10px;font-weight:700;letter-spacing:.5px}
+.badge-teal{background:rgba(0,196,174,.15);color:var(--teal);border:1px solid rgba(0,196,174,.3)}
+.badge-sky{background:rgba(56,189,248,.15);color:var(--sky);border:1px solid rgba(56,189,248,.3)}
+.badge-gold{background:rgba(240,160,48,.15);color:var(--gold);border:1px solid rgba(240,160,48,.3)}
+.section-title{font-family:"Syne",sans-serif;font-size:13px;font-weight:700;color:var(--w3);text-transform:uppercase;letter-spacing:.8px;margin:18px 0 10px}
+.tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px}
+.tool-card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:16px 14px;cursor:pointer;active:scale(.97);transition:all .15s}
+.tool-card:active{transform:scale(.97);opacity:.85}
+.tc-icon{font-size:26px;margin-bottom:8px}
+.tc-title{font-family:"Syne",sans-serif;font-size:13px;font-weight:700;margin-bottom:4px}
+.tc-sub{font-size:11px;color:var(--w3);line-height:1.4}
+.tool-card.teal{border-color:rgba(0,196,174,.3);background:rgba(0,196,174,.06)}
+.tool-card.gold{border-color:rgba(240,160,48,.3);background:rgba(240,160,48,.06)}
+.tool-card.rose{border-color:rgba(251,113,133,.3);background:rgba(251,113,133,.06)}
+.tool-card.sky{border-color:rgba(56,189,248,.3);background:rgba(56,189,248,.06)}
+.tool-card.mint{border-color:rgba(52,211,153,.3);background:rgba(52,211,153,.06)}
+.tool-card.full{grid-column:1/-1}
+/* ─── CARPREG ─── */
+.step-bar{display:flex;gap:4px;margin-bottom:20px}
+.step-dot{flex:1;height:4px;border-radius:2px;background:var(--border2);transition:background .3s}
+.step-dot.done{background:var(--teal)}.step-dot.active{background:var(--gold)}
+.step-label{font-size:11px;color:var(--w3);margin-bottom:14px;text-align:center}
+.q-card{background:var(--bg2);border-radius:var(--radius);padding:18px;border:1px solid var(--border);margin-bottom:12px}
+.q-text{font-family:"Syne",sans-serif;font-size:15px;font-weight:700;margin-bottom:14px;line-height:1.4}
+.opt-btn{width:100%;padding:13px 16px;border-radius:12px;border:2px solid var(--border2);background:transparent;color:var(--w1);font-family:"DM Sans",sans-serif;font-size:14px;text-align:left;cursor:pointer;margin-bottom:8px;transition:all .15s;display:flex;align-items:center;gap:10px}
+.opt-btn:active{transform:scale(.98)}
+.opt-btn.selected{border-color:var(--teal);background:rgba(0,196,174,.08)}
+.opt-btn .opt-pts{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--teal);background:rgba(0,196,174,.12);padding:2px 7px;border-radius:6px;flex-shrink:0}
+.opt-btn .opt-txt{flex:1}
+/* ─── SCORE RESULT ─── */
+.score-hero{background:var(--bg2);border-radius:20px;padding:24px;text-align:center;margin-bottom:16px;border:2px solid}
+.score-num{font-family:"Syne",sans-serif;font-size:52px;font-weight:800;line-height:1}
+.score-label{font-family:"Syne",sans-serif;font-size:18px;font-weight:700;margin:8px 0 4px}
+.score-sub{font-size:12px;color:var(--w2);line-height:1.5}
+.risk-bar{display:flex;height:8px;border-radius:4px;overflow:hidden;margin:12px 0}
+.risk-fill{border-radius:4px;transition:width 1s ease}
+.rec-card{background:var(--bg2);border-radius:14px;padding:14px;border-left:4px solid;margin-bottom:10px}
+.rec-title{font-family:"Syne",sans-serif;font-size:13px;font-weight:700;margin-bottom:6px}
+.rec-body{font-size:12px;color:var(--w2);line-height:1.65}
+.rec-body strong{color:var(--w1)}
+/* ─── WHO ─── */
+.who-grid{display:flex;flex-direction:column;gap:10px}
+.who-card{border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .15s;border:2px solid;active:scale(.97)}
+.who-card:active{transform:scale(.97)}
+.who-1{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.3)}
+.who-2{background:rgba(132,204,22,.08);border-color:rgba(132,204,22,.3)}
+.who-3{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.3)}
+.who-4{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.3)}
+.who-badge{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:9px;font-family:"Syne",sans-serif;font-size:16px;font-weight:800;margin-bottom:8px}
+.who-1 .who-badge{background:rgba(34,197,94,.2);color:var(--who1)}
+.who-2 .who-badge{background:rgba(132,204,22,.2);color:var(--who2)}
+.who-3 .who-badge{background:rgba(245,158,11,.2);color:var(--who3)}
+.who-4 .who-badge{background:rgba(239,68,68,.2);color:var(--who4)}
+.who-title{font-family:"Syne",sans-serif;font-size:14px;font-weight:700;margin-bottom:4px}
+.who-sub{font-size:11px;color:var(--w2);line-height:1.5}
+/* ─── PATHOLOGIES ─── */
+.path-search{width:100%;padding:12px 16px;border-radius:12px;background:var(--bg2);border:1px solid var(--border2);color:var(--w1);font-family:"DM Sans",sans-serif;font-size:14px;margin-bottom:14px;outline:none}
+.path-search::placeholder{color:var(--w3)}
+.path-cat{font-family:"Syne",sans-serif;font-size:11px;font-weight:700;color:var(--w3);text-transform:uppercase;letter-spacing:.7px;margin:14px 0 8px}
+.path-item{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;margin-bottom:8px;display:flex;align-items:center;gap:12px;transition:all .15s}
+.path-item:active{transform:scale(.98);opacity:.85}
+.pi-who{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:"Syne",sans-serif;font-size:12px;font-weight:800;flex-shrink:0}
+.pi-who.w1{background:rgba(34,197,94,.2);color:var(--who1)}
+.pi-who.w2{background:rgba(132,204,22,.2);color:var(--who2)}
+.pi-who.w3{background:rgba(245,158,11,.2);color:var(--who3)}
+.pi-who.w4{background:rgba(239,68,68,.2);color:var(--who4)}
+.pi-name{font-family:"Syne",sans-serif;font-size:13px;font-weight:700;flex:1}
+.pi-sub{font-size:11px;color:var(--w3);margin-top:2px}
+.pi-arrow{color:var(--w3);font-size:14px}
+/* ─── PATHOLOGY DETAIL ─── */
+.pd-who-banner{border-radius:14px;padding:16px;margin-bottom:14px;border:2px solid}
+.pd-who-title{font-family:"Syne",sans-serif;font-size:20px;font-weight:800;margin-bottom:6px}
+.pd-who-sub{font-size:12px;line-height:1.6}
+.detail-section{background:var(--bg2);border-radius:14px;padding:14px;border:1px solid var(--border);margin-bottom:10px}
+.ds-title{font-family:"Syne",sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--w3);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.ds-item{padding:7px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start}
+.ds-item:last-child{border-bottom:none}
+.ds-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.ds-txt{font-size:12px;color:var(--w2);line-height:1.55;flex:1}
+.ds-txt strong{color:var(--w1)}
+.pill-inline{display:inline-block;padding:1px 7px;border-radius:5px;font-size:10px;font-weight:700}
+.pi-c1{background:rgba(52,211,153,.2);color:var(--mint)}
+.pi-c2{background:rgba(245,158,11,.2);color:var(--amber)}
+.pi-c3{background:rgba(239,68,68,.15);color:var(--red)}
+/* ─── RÉSUMÉ WA ─── */
+.summary-box{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:16px;margin-bottom:12px;font-size:13px;line-height:1.7;color:var(--w2)}
+.wa-send-btn{width:100%;padding:16px;border-radius:14px;background:#25D366;border:none;color:#fff;font-family:"Syne",sans-serif;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;transition:all .15s}
+.wa-send-btn:active{transform:scale(.97);opacity:.9}
+/* ─── FAB ─── */
+.fab{position:fixed;bottom:24px;right:18px;z-index:200;width:52px;height:52px;border-radius:50%;background:#25D366;border:none;cursor:pointer;box-shadow:0 6px 20px rgba(37,211,102,.45);display:flex;align-items:center;justify-content:center;font-size:24px;transition:transform .2s}
+.fab:active{transform:scale(.9)}
+/* ─── PRECAUTIONS ─── */
+.prec-grid{display:flex;flex-direction:column;gap:10px}
+.prec-card{border-radius:14px;padding:14px;border:1px solid}
+.prec-icon{font-size:22px;margin-bottom:6px}
+.prec-title{font-family:"Syne",sans-serif;font-size:13px;font-weight:700;margin-bottom:6px}
+.prec-body{font-size:12px;color:var(--w2);line-height:1.6}
+.prec-body strong{color:var(--w1)}
+/* ─── ACC 2025 ─── */
+.acc-section{background:var(--bg2);border-radius:14px;padding:14px;border:1px solid var(--border);margin-bottom:10px}
+.acc-title{font-family:"Syne",sans-serif;font-size:14px;font-weight:700;margin-bottom:10px;color:var(--teal)}
+.acc-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.acc-row:last-child{border-bottom:none}
+.acc-cor{width:36px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+.cor1{background:rgba(52,211,153,.2);color:var(--mint)}.cor2a{background:rgba(56,189,248,.2);color:var(--sky)}.cor2b{background:rgba(240,160,48,.2);color:var(--gold)}.cor3{background:rgba(224,48,80,.15);color:var(--red)}
+.acc-txt{font-size:12px;color:var(--w2);line-height:1.55;flex:1}
+.acc-txt strong{color:var(--w1)}
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .4s ease forwards}
+.fade-up-2{animation:fadeUp .4s .1s ease both}
+.fade-up-3{animation:fadeUp .4s .2s ease both}
+</style>
+</head>
+<body>
+
+<!-- ══ SCREEN 0: HOME ══ -->
+<div class="screen" id="s-home">
+  <div class="hdr">
+    <div class="hdr-logo"><img src="data:image/png;base64,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" alt="CSC"></div>
+    <div>
+      <div class="hdr-title" style="color:var(--teal)">ACHD · Grossesse</div>
+      <div class="hdr-sub">CSC Algeria · ACHD CORE-Team</div>
+    </div>
+  </div>
+  <div class="scroll-area">
+    <div class="home-hero fade-up">
+      <h1>Conduite à Tenir<br><em>Grossesse ACHD</em></h1>
+      <p>Évaluation complète · Toutes pathologies · ACC 2025<br>Score CARPREG II · Classification WHO mEC</p>
+      <div class="home-badges">
+        <span class="badge badge-teal">ACC 2025</span>
+        <span class="badge badge-sky">WHO mEC</span>
+        <span class="badge badge-gold">CARPREG II</span>
+        <span class="badge badge-teal">ESC 2020</span>
+      </div>
+    </div>
+    <div class="section-title">Outils d'évaluation</div>
+    <div class="tool-grid fade-up-2">
+      <div class="tool-card teal" onclick="showScreen('s-carpreg')">
+        <div class="tc-icon">🎯</div>
+        <div class="tc-title">Score CARPREG II</div>
+        <div class="tc-sub">Calculez le risque maternel personnalisé</div>
+      </div>
+      <div class="tool-card gold" onclick="showScreen('s-who')">
+        <div class="tc-icon">🌍</div>
+        <div class="tc-title">WHO mEC</div>
+        <div class="tc-sub">Classes I–IV par pathologie</div>
+      </div>
+      <div class="tool-card sky" onclick="showScreen('s-path')">
+        <div class="tc-icon">🫀</div>
+        <div class="tc-title">Par Pathologie</div>
+        <div class="tc-sub">Toutes les ACHD · CAT détaillée</div>
+      </div>
+      <div class="tool-card rose" onclick="showScreen('s-prec')">
+        <div class="tc-icon">⚕️</div>
+        <div class="tc-title">Précautions</div>
+        <div class="tc-sub">Médicaments · Monitoring · Accouchement</div>
+      </div>
+      <div class="tool-card mint full" onclick="showScreen('s-acc')">
+        <div class="tc-icon">📋</div>
+        <div class="tc-title">Recommandations ACC 2025</div>
+        <div class="tc-sub">COR I / IIa / IIb / III par indication · Niveau de preuve</div>
+      </div>
+    </div>
+    <div class="section-title">À propos</div>
+    <div style="background:var(--bg2);border-radius:14px;padding:14px;border:1px solid var(--border);font-size:12px;color:var(--w2);line-height:1.7;margin-bottom:10px">
+      <strong style="color:var(--w1)">ACHD CORE-Team · ACT du CSC-Algérie</strong><br>
+      Dr. Mohamed Touati · contact@csc-cardio.com<br>
+      Application basée sur : ACC/AHA 2025 ACHD Guidelines · ESC 2020 ACHD Guidelines · WHO Medical Eligibility Criteria · Score CARPREG II (Silversides 2018)
+    </div>
+  </div>
+  <button class="fab" onclick="goWA()">💬</button>
+</div>
+
+<!-- ══ SCREEN 1: CARPREG II ══ -->
+<div class="screen hidden" id="s-carpreg">
+  <div class="hdr">
+    <div class="hdr-back" onclick="goHome()">←</div>
+    <div>
+      <div class="hdr-title">Score CARPREG II</div>
+      <div class="hdr-sub">Risque d'événement cardiaque maternel</div>
+    </div>
+  </div>
+  <div class="scroll-area" id="carpreg-content">
+    <!-- injected by JS -->
+  </div>
+</div>
+
+<!-- ══ SCREEN 2: WHO ══ -->
+<div class="screen hidden" id="s-who">
+  <div class="hdr">
+    <div class="hdr-back" onclick="goHome()">←</div>
+    <div>
+      <div class="hdr-title">Classification WHO mEC</div>
+      <div class="hdr-sub">Risque de grossesse par cardiopathie</div>
+    </div>
+  </div>
+  <div class="scroll-area">
+    <p style="font-size:13px;color:var(--w2);margin-bottom:14px;line-height:1.6">La classification WHO (mEC) stratifie le risque de mortalité et morbidité maternelle sévère selon la pathologie cardiaque.</p>
+    <div class="who-grid">
+      <div class="who-card who-1" onclick="showWhoDetail(1)">
+        <div class="who-badge">I</div>
+        <div class="who-title" style="color:var(--who1)">WHO Classe I — Risque faible</div>
+        <div class="who-sub">Pas de risque détectable. Prise en charge habituelle. Consultation cardiaque recommandée mais non obligatoire à chaque trimestre.</div>
+      </div>
+      <div class="who-card who-2" onclick="showWhoDetail(2)">
+        <div class="who-badge">II</div>
+        <div class="who-title" style="color:var(--who2)">WHO Classe II — Risque léger à modéré</div>
+        <div class="who-sub">↑ Léger du risque maternel. Surveillance cardiologique 2–3 consultations par trimestre. Centre spécialisé recommandé.</div>
+      </div>
+      <div class="who-card who-3" onclick="showWhoDetail(3)">
+        <div class="who-badge">III</div>
+        <div class="who-title" style="color:var(--who3)">WHO Classe III — Risque élevé</div>
+        <div class="who-sub">↑↑ Risque maternel significatif. Consultation mensuelle cardiologue ACHD + obstétricien. Centre expert universitaire obligatoire.</div>
+      </div>
+      <div class="who-card who-4" onclick="showWhoDetail(4)">
+        <div class="who-badge">IV</div>
+        <div class="who-title" style="color:var(--who4)">WHO Classe IV — Contre-indication</div>
+        <div class="who-sub">Risque de mortalité maternelle très élevé ou morbidité sévère. Grossesse contre-indiquée. Conseil génétique + contraception efficace obligatoires.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SCREEN 3: WHO DETAIL ══ -->
+<div class="screen hidden" id="s-who-detail">
+  <div class="hdr">
+    <div class="hdr-back" onclick="showScreen('s-who')">←</div>
+    <div id="who-detail-hdr">
+      <div class="hdr-title">WHO Classe —</div>
+      <div class="hdr-sub">Pathologies concernées</div>
+    </div>
+  </div>
+  <div class="scroll-area" id="who-detail-content"></div>
+</div>
+
+<!-- ══ SCREEN 4: PATHOLOGIES ══ -->
+<div class="screen hidden" id="s-path">
+  <div class="hdr">
+    <div class="hdr-back" onclick="goHome()">←</div>
+    <div>
+      <div class="hdr-title">Pathologies ACHD</div>
+      <div class="hdr-sub">CAT Grossesse · Toutes cardiopathies</div>
+    </div>
+  </div>
+  <div class="scroll-area">
+    <input class="path-search" id="path-search" type="search" placeholder="🔍 Rechercher une pathologie..." oninput="filterPaths(this.value)">
+    <div id="path-list"></div>
+  </div>
+</div>
+
+<!-- ══ SCREEN 5: PATHOLOGY DETAIL ══ -->
+<div class="screen hidden" id="s-path-detail">
+  <div class="hdr">
+    <div class="hdr-back" onclick="showScreen('s-path')">←</div>
+    <div id="pd-hdr-content">
+      <div class="hdr-title">—</div>
+      <div class="hdr-sub">Conduite à tenir</div>
+    </div>
+  </div>
+  <div class="scroll-area" id="path-detail-content"></div>
+</div>
+
+<!-- ══ SCREEN 6: PRÉCAUTIONS ══ -->
+<div class="screen hidden" id="s-prec">
+  <div class="hdr">
+    <div class="hdr-back" onclick="goHome()">←</div>
+    <div>
+      <div class="hdr-title">Précautions Grossesse ACHD</div>
+      <div class="hdr-sub">Médicaments · Monitoring · Accouchement</div>
+    </div>
+  </div>
+  <div class="scroll-area">
+    <div class="prec-grid">
+      <div class="prec-card" style="background:rgba(224,48,80,.06);border-color:rgba(224,48,80,.3)">
+        <div class="prec-icon">💊</div>
+        <div class="prec-title" style="color:var(--red)">Médicaments contre-indiqués</div>
+        <div class="prec-body">
+          <strong>IECA / ARA II :</strong> CI absolue (fœtotoxique — dysplasie rénale, oligohydramnios). Remplacer par bêta-bloquants (labétalol, métoprolol) ou méthyldopa pour HTA.<br><br>
+          <strong>Warfarine (1er trimestre) :</strong> Embryopathie. Passer aux HBPM poids-ajusté entre SA 6–12. Reprendre warfarine au 2e trimestre si valve mécanique.<br><br>
+          <strong>Amiodarone :</strong> CI sauf exception vitale — hypothyroïdie fœtale, RCIU. Utiliser sotalol ou flécaïnide si arythmie ventricuaire.<br><br>
+          <strong>Spironolactone :</strong> Anti-androgène → féminisation fœtus mâle. Arrêter avant conception.<br><br>
+          <strong>Tolvaptan / Sacubitril-Valsartan :</strong> CI — données insuffisantes, effets tératogènes potentiels.
+        </div>
+      </div>
+      <div class="prec-card" style="background:rgba(240,160,48,.06);border-color:rgba(240,160,48,.3)">
+        <div class="prec-icon">✅</div>
+        <div class="prec-title" style="color:var(--gold)">Médicaments autorisés</div>
+        <div class="prec-body">
+          <strong>Bêta-bloquants :</strong> Métoprolol, bisoprolol, labétalol — à préférer (risque RCIU faible). Surveiller FC fœtale et croissance.<br><br>
+          <strong>Digoxine :</strong> Autorisée. Fenêtre thérapeutique étroite. Monitoring concentration plasmatique.<br><br>
+          <strong>Furosémide :</strong> Prudence au 1er trimestre. Autorisé si IC symptomatique. Surveillance électrolytes.<br><br>
+          <strong>Héparine (HBPM) :</strong> Traitement de référence anticoagulant. Enoxaparine poids-ajustée + contrôle activité anti-Xa.<br><br>
+          <strong>Aspirine 75–150 mg :</strong> Autorisée pour prévention prééclampsie (indication spécifique).
+        </div>
+      </div>
+      <div class="prec-card" style="background:rgba(56,189,248,.06);border-color:rgba(56,189,248,.3)">
+        <div class="prec-icon">🏥</div>
+        <div class="prec-title" style="color:var(--sky)">Monitoring pendant la grossesse</div>
+        <div class="prec-body">
+          <strong>WHO I–II :</strong> ETT trimestrielle + consultation cardio 2–3×/trimestre + obstétricien expérimenté.<br><br>
+          <strong>WHO III :</strong> ETT mensuelle + monitoring cardio mensuel + doppler ombilical + Holter si arythmie. Accouchement prévu en centre universitaire.<br><br>
+          <strong>WHO IV (si grossesse maintenue) :</strong> Hospitalisation au 3e trimestre systématique. Monitorage continu. Équipe multidisciplinaire ACHD + obstétrique + anesthésiologie cardiaque.<br><br>
+          <strong>Tous :</strong> NFS + BNP + troponine à chaque trimestre. Echo fœtale à 20–22 SA (risque malformation cardiaque 3–10%).
+        </div>
+      </div>
+      <div class="prec-card" style="background:rgba(52,211,153,.06);border-color:rgba(52,211,153,.3)">
+        <div class="prec-icon">🍼</div>
+        <div class="prec-title" style="color:var(--mint)">Accouchement & Post-partum</div>
+        <div class="prec-body">
+          <strong>Voie vaginale préférée</strong> pour la majorité. Péridurale recommandée (évite poussées Valsalva). Césarienne pour indication obstétricale ou hémodynamique grave.<br><br>
+          <strong>WHO III–IV :</strong> Déclenchement programmé à 37–38 SA. Éviter les prostaglandines (effet vasodilatateur, risque chute TA). Ocytocine en débit lent.<br><br>
+          <strong>Post-partum précoce :</strong> Période la plus à risque. Retour veineux brutal + chute vasomotrice. Hospitalisation ≥ 48–72h. Monitoring cardiaque continu. Anticoagulation maintenue.<br><br>
+          <strong>Allaitement :</strong> Contre-indiqué si Warfarine IV ou Amiodarone. HBPM autorisée. Bêta-bloquants : présents dans lait maternel mais généralement tolérés.
+        </div>
+      </div>
+      <div class="prec-card" style="background:rgba(167,139,250,.06);border-color:rgba(167,139,250,.3)">
+        <div class="prec-icon">🛡️</div>
+        <div class="prec-title" style="color:#A78BFA">Contraception post-grossesse</div>
+        <div class="prec-body">
+          <strong>DIU au levonorgestrel (Mirena) :</strong> Recommandé WHO I–III. Efficace, pas d'effet systémique estrogénique.<br><br>
+          <strong>Contraceptifs estro-progestatifs :</strong> CI chez cyanose, HTAP, risque thromboembolique élevé (Fontan, valves mécaniques).<br><br>
+          <strong>Progestatifs seuls :</strong> Alternative acceptable. Attention interaction Warfarine (↓ effet).<br><br>
+          <strong>Stérilisation tubaire :</strong> Discuter si WHO IV — risque anesthésie à pondérer.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SCREEN 7: ACC 2025 ══ -->
+<div class="screen hidden" id="s-acc">
+  <div class="hdr">
+    <div class="hdr-back" onclick="goHome()">←</div>
+    <div>
+      <div class="hdr-title">ACC/AHA 2025 · Grossesse ACHD</div>
+      <div class="hdr-sub">Recommandations par indication · COR + LOE</div>
+    </div>
+  </div>
+  <div class="scroll-area">
+    <div class="acc-section">
+      <div class="acc-title">🫀 Évaluation pré-conceptionnelle</div>
+      <div class="acc-row"><div class="acc-cor cor1">COR I</div><div class="acc-txt"><strong>Consultation pré-conceptionnelle obligatoire</strong> pour toute femme ACHD souhaitant une grossesse. Évaluation cardiologique complète (ETT, ECG, BNP) + conseil des risques maternels et fœtaux.</div></div>
+      <div class="acc-row"><div class="acc-cor cor1">COR I</div><div class="acc-txt"><strong>Optimisation cardiopathie</strong> avant conception : correction chirurgicale ou percutanée des lésions réparables. FE VG &gt; 40% recommandée avant grossesse.</div></div>
+      <div class="acc-row"><div class="acc-cor cor2a">COR 2a</div><div class="acc-txt"><strong>Test d'effort sous-maximal</strong> pré-conceptionnel recommandé si capacité fonctionnelle incertaine (WHO III). Orienter la décision sur VO₂ peak.</div></div>
+    </div>
+    <div class="acc-section">
+      <div class="acc-title">💊 Anticoagulation en grossesse (Valves mécaniques)</div>
+      <div class="acc-row"><div class="acc-cor cor1">COR I</div><div class="acc-txt"><strong>HBPM poids-ajustée</strong> avec contrôle activité anti-Xa ++ (cible 0.8–1.2 UI/mL) aux SA 6–12 pour éviter embryopathie à la warfarine.</div></div>
+      <div class="acc-row"><div class="acc-cor cor1">COR I</div><div class="acc-txt"><strong>Warfarine</strong> recommandée au 2e et 3e trimestre (si dose ≤ 5 mg/j) — moindre risque thrombotique valvulaire. Passer à HBPM ≥ SA 36.</div></div>
+      <div class="acc-row"><div class="acc-cor cor2a">COR 2a</div><div class="acc-txt"><strong>Warfarine</strong> à faible dose (≤ 5 mg/j) peut être envisagée dès le 1er trimestre après discussion risque-bénéfice si HBPM insuffisante.</div></div>
+    </div>
+    <div class="acc-section">
+      <div class="acc-title">🏥 Prise en charge pendant la grossesse</div>
+      <div class="acc-row"><div class="acc-cor cor1">COR I</div><div class="acc-txt"><strong>Centre expert ACHD</strong> avec équipe pluridisciplinaire (cardiologue ACHD + obstétricien + anesthésiste cardiaque) pour toutes WHO ≥ III.</div></div>
+      <div class="acc-row"><div class="acc-cor cor1">COR I</div><div class="acc-txt"><strong>Echo fœtale</strong> entre SA 20–22 recommandée pour toutes les ACHD (risque 3–10% de malformation cardiaque congénitale fœtale).</div></div>
+      <div class="acc-row"><div class="acc-cor cor2a">COR 2a</div><div class="acc-txt"><strong>BNP et troponine</strong> à chaque trimestre pour dépister la décompensation silencieuse chez les formes à risque élevé.</div></div>
+    </div>
+    <div class="acc-section">
+      <div class="acc-title">⚠️ Contre-indications (ACC 2025)</div>
+      <div class="acc-row"><div class="acc-cor cor3">COR III</div><div class="acc-txt"><strong>Grossesse formellement contre-indiquée</strong> : HTAP (PAP moy &gt; 25 mmHg + RVP &gt; 3 WU), syndrome d'Eisenmenger, FE VG &lt; 25%, WHO IV.</div></div>
+      <div class="acc-row"><div class="acc-cor cor3">COR III</div><div class="acc-txt"><strong>Contre-indication</strong> si: Cyanose sévère (Sat &lt; 85%), cardiopathie coarctée non réparée et sévère, cardiomyopathie post-partum avec FE &lt; 30% antérieure.</div></div>
+    </div>
+    <div class="acc-section">
+      <div class="acc-title">🍼 Accouchement</div>
+      <div class="acc-row"><div class="acc-cor cor1">COR I</div><div class="acc-txt"><strong>Voie vaginale préférée</strong> avec analgésie péridurale. Péridurale recommandée pour toutes WHO ≥ III (évite Valsalva et tachycardie).</div></div>
+      <div class="acc-row"><div class="acc-cor cor2a">COR 2a</div><div class="acc-txt"><strong>Déclenchement programmé</strong> 37–38 SA envisageable chez les hauts risques pour réduire le risque d'urgence obstétricale non préparée.</div></div>
+      <div class="acc-row"><div class="acc-cor cor2b">COR 2b</div><div class="acc-txt"><strong>Césarienne élective</strong> peut être envisagée chez patients Marfan (aorte &gt; 40 mm), valvulopathie sévère non corrigée, ou instabilité hémodynamique.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SCREEN 8: RÉSUMÉ WA ══ -->
+<div class="screen hidden" id="s-summary">
+  <div class="hdr">
+    <div class="hdr-back" onclick="goHome()">←</div>
+    <div>
+      <div class="hdr-title">Résumé pour Avis</div>
+      <div class="hdr-sub">ACHD CORE-Team Algérie · WhatsApp</div>
+    </div>
+  </div>
+  <div class="scroll-area">
+    <div style="background:rgba(0,196,174,.08);border:1px solid rgba(0,196,174,.3);border-radius:14px;padding:14px;margin-bottom:14px">
+      <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--teal);margin-bottom:6px">📋 Remplissez le résumé du cas</div>
+      <div style="font-size:12px;color:var(--w2);line-height:1.6">Ce résumé sera envoyé au CORE-Team ACHD CSC Algérie pour avis spécialisé via WhatsApp.</div>
+    </div>
+    <div id="summary-form">
+      <div style="margin-bottom:12px">
+        <label style="font-size:11px;color:var(--w3);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px">Pathologie cardiaque</label>
+        <input id="f-path" style="width:100%;padding:12px;border-radius:10px;background:var(--bg2);border:1px solid var(--border2);color:var(--w1);font-family:'DM Sans';font-size:14px;outline:none" placeholder="Ex: Valvulopathie mitrale sévère...">
+      </div>
+      <div style="margin-bottom:12px">
+        <label style="font-size:11px;color:var(--w3);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px">Âge de la patiente</label>
+        <input id="f-age" type="number" style="width:100%;padding:12px;border-radius:10px;background:var(--bg2);border:1px solid var(--border2);color:var(--w1);font-family:'DM Sans';font-size:14px;outline:none" placeholder="Âge en années">
+      </div>
+      <div style="margin-bottom:12px">
+        <label style="font-size:11px;color:var(--w3);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px">Terme de grossesse (SA)</label>
+        <input id="f-sa" type="number" style="width:100%;padding:12px;border-radius:10px;background:var(--bg2);border:1px solid var(--border2);color:var(--w1);font-family:'DM Sans';font-size:14px;outline:none" placeholder="Semaines d'aménorrhée">
+      </div>
+      <div style="margin-bottom:12px">
+        <label style="font-size:11px;color:var(--w3);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px">Score CARPREG II (si calculé)</label>
+        <input id="f-carpreg" type="number" style="width:100%;padding:12px;border-radius:10px;background:var(--bg2);border:1px solid var(--border2);color:var(--w1);font-family:'DM Sans';font-size:14px;outline:none" placeholder="Score total en points">
+      </div>
+      <div style="margin-bottom:12px">
+        <label style="font-size:11px;color:var(--w3);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px">Classe WHO</label>
+        <select id="f-who" style="width:100%;padding:12px;border-radius:10px;background:var(--bg2);border:1px solid var(--border2);color:var(--w1);font-family:'DM Sans';font-size:14px;outline:none">
+          <option value="">Sélectionner la classe WHO</option>
+          <option value="WHO I">WHO Classe I — Faible risque</option>
+          <option value="WHO II">WHO Classe II — Modéré</option>
+          <option value="WHO III">WHO Classe III — Élevé</option>
+          <option value="WHO IV">WHO Classe IV — Contre-indication</option>
+        </select>
+      </div>
+      <div style="margin-bottom:16px">
+        <label style="font-size:11px;color:var(--w3);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px">Données cliniques complémentaires</label>
+        <textarea id="f-notes" style="width:100%;padding:12px;border-radius:10px;background:var(--bg2);border:1px solid var(--border2);color:var(--w1);font-family:'DM Sans';font-size:14px;outline:none;min-height:100px;resize:vertical" placeholder="FE VG, PAP, traitement en cours, antécédents, question posée..."></textarea>
+      </div>
+      <button class="wa-send-btn" onclick="sendSummaryWA()">
+        <span style="font-size:22px">💬</span>
+        Envoyer pour Avis · CORE-Team ACHD
+      </button>
+      <div style="font-size:11px;color:var(--w3);text-align:center;line-height:1.5">Envoyé à : ACHD CORE-Team CSC Algérie<br>+213 540 910 869 · contact@csc-cardio.com</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────
+const CARPREG_QUESTIONS = [
+  {
+    id:"prev",q:"Événement cardiaque antérieur ?",sub:"Arythmie, AVC/AIT, IC, EP avant la grossesse actuelle",
+    opts:[{t:"Oui",p:3},{t:"Non",p:0}]
+  },
+  {
+    id:"nyha",q:"Classe fonctionnelle NYHA ou cyanose ?",sub:"",
+    opts:[{t:"NYHA I",p:0},{t:"NYHA II",p:0},{t:"NYHA III",p:3},{t:"NYHA IV ou cyanose",p:3}]
+  },
+  {
+    id:"comp",q:"Cardiopathie de haute complexité ?",sub:"",
+    opts:[
+      {t:"Non — Simple (CIV isolé réparé, CIA fermée...)",p:0},
+      {t:"Modérée (CoA, TOF réparée, Ebstein, prothèse bio...)",p:1},
+      {t:"Haute (VU-Fontan, TGV, Eisenmenger, Marfan...)",p:3}
+    ]
+  },
+  {
+    id:"htap",q:"HTAP (PAP moy > 25 mmHg) ou obstruction gauche sévère ?",sub:"RA sévère, RM sévère, coarctation non réparée",
+    opts:[{t:"Oui",p:2},{t:"Non",p:0}]
+  },
+  {
+    id:"mecval",q:"Prothèse valvulaire mécanique ?",sub:"",
+    opts:[{t:"Oui",p:3},{t:"Non",p:0}]
+  },
+  {
+    id:"fe",q:"FE VG < 40% ?",sub:"",
+    opts:[{t:"Oui",p:2},{t:"Non",p:0}]
+  },
+  {
+    id:"age",q:"Âge de la patiente",sub:"",
+    opts:[{t:"< 25 ans",p:0},{t:"25–35 ans",p:0},{t:"35–40 ans",p:1},{t:"> 40 ans",p:2}]
+  },
+  {
+    id:"cardiac",q:"Anomalie rythme ou conduction ?",sub:"FA, TSV, BAV, QRS > 120 ms",
+    opts:[{t:"Oui",p:1},{t:"Non",p:0}]
+  }
+];
+
+const WHO_CLASSES = {
+  1: {
+    color:"var(--who1)",border:"rgba(34,197,94,.3)",bg:"rgba(34,197,94,.06)",
+    title:"WHO Classe I — Risque faible",
+    risk:"Pas de risque détectable de mortalité maternelle et faible morbidité",
+    followup:"Consultation cardio 1–2× par grossesse suffit.",
+    conditions:[
+      "CIV, CIA isolée réparée et sans HTAP",
+      "Ductus artériosus fermé (ligature ou Amplatzer)",
+      "Prolapsus valvulaire mitral sans fuite",
+      "Lésions minimes (RA, RM, IM légères) sans symptômes",
+      "Extrasystoles isolées bénignes",
+      "Coarctation réparée sans séquelles",
+      "TOF réparée sans dysfonction VD ni arythmie"
+    ]
+  },
+  2: {
+    color:"var(--who2)",border:"rgba(132,204,22,.3)",bg:"rgba(132,204,22,.06)",
+    title:"WHO Classe II — Risque légèrement augmenté",
+    risk:"Légère augmentation de la mortalité ou de la morbidité modérée",
+    followup:"Consultation cardio 2–3× par trimestre en centre spécialisé.",
+    conditions:[
+      "Défects non opérés non complexes (petite CIV résiduelle)",
+      "Tétralogie de Fallot réparée sans complications significatives",
+      "Valve prothétique biologique bien fonctionnelle",
+      "Cardiopathie non HTAP légère-modérée, FE > 50%",
+      "Marfan sans dilatation aortique (Ao < 40 mm)",
+      "BAV congénital asymptomatique",
+      "Tachycardies supraventriculaires contrôlées"
+    ]
+  },
+  3: {
+    color:"var(--who3)",border:"rgba(245,158,11,.3)",bg:"rgba(245,158,11,.06)",
+    title:"WHO Classe III — Risque élevé",
+    risk:"Risque significatif de mortalité ou morbidité grave. Suivi mensuel expert requis.",
+    followup:"Consultation mensuelle cardiologue ACHD + obstétricien. Accouchement centre tertiaire.",
+    conditions:[
+      "Prothèse valvulaire mécanique (anticoagulation complexe)",
+      "Ventricule unique après Fontan (si bien compensé)",
+      "Cardiomyopathie dilatée FE 30–45%",
+      "Marfan avec Ao 40–45 mm",
+      "HTAP légère (PAP moy 25–40 mmHg sous traitement)",
+      "Bicuspidie aortique avec Ao 40–45 mm",
+      "Coarctation aortique non réparée modérée",
+      "Tachycardies ventriculaires documentées contrôlées",
+      "Syndrome de Turner"
+    ]
+  },
+  4: {
+    color:"var(--who4)",border:"rgba(239,68,68,.3)",bg:"rgba(239,68,68,.06)",
+    title:"WHO Classe IV — Contre-indication formelle",
+    risk:"Risque de mortalité maternelle très élevé (15–50%) ou morbidité sévère invalidante",
+    followup:"Grossesse formellement déconseillée. Conseil génétique + contraception efficace obligatoires.",
+    conditions:[
+      "HTAP sévère (PAP moy > 40 mmHg, RVP > 8 WU)",
+      "Syndrome d'Eisenmenger (shunt inversé)",
+      "Dysfonction VG ou VU sévère (FE < 25–30%)",
+      "Marfan avec Ao > 45 mm ou autre syndrome avec dilatation extrême",
+      "Coarctation sévère non réparée",
+      "Cardiomyopathie post-partum avec FE < 30% antérieure",
+      "Bicuspidie avec Ao > 50 mm",
+      "VU + Fontan + cyanose sévère (Sat < 85%)",
+      "Cardiopathie congénitale non opérable complexe",
+      "Syndrome de Noonan avec cardiomyopathie obstructive sévère"
+    ]
+  }
+};
+
+const PATHOLOGIES = [
+  {cat:"Cardiopathies gauches",items:[
+    {n:"Sténose Aortique (RA)",who:2,sub:"Non sévère",
+      risk:"Risque IC augmenté si surface ≤ 1 cm². Éviter effort, surveiller gradient.",
+      suivi:"ETT mensuelle. NYHA, TA. Valvuloplastie percutanée si décompensation.",
+      cat_detail:"Grossesse possible si RA légère-modérée (surface > 1.2 cm²) et NYHA ≤ II. CI si RA sévère symptomatique.",
+      acc:"Correction chirurgicale ou TAVI avant grossesse si RA sévère (COR I). Valvuloplastie ballon pendant grossesse si décompensation sévère (COR 2a).",
+      meds:"Éviter vasodilatateurs (chute PA). Bêta-bloquants prudents.",extra:[]},
+    {n:"Sténose Aortique Sévère",who:3,sub:"Surface ≤ 1 cm²",
+      risk:"Risque élevé IC, mort subite, RCIU. Réserve hémodynamique nulle.",
+      suivi:"Mensuel. BNP, ETT. Hospitalisation si décompensation.",
+      cat_detail:"Grossesse déconseillée. Si désir grossesse : correction avant conception (chirurgie / TAVI). Si accidentelle : surveillance extrême, repos, hospitalisée T3.",
+      acc:"Correction avant conception COR I. Valvuloplastie pendant grossesse si décompensation COR 2a.",
+      meds:"Repos strict. Bêta-bloquants prudents si FC rapide.",extra:[]},
+    {n:"Insuffisance Mitrale",who:2,sub:"Légère-modérée",
+      risk:"Bien tolérée en général. Dilatation physiologique augmente la régurgitation.",
+      suivi:"ETT trimestrielle. Surveiller FA.",
+      cat_detail:"IM légère-modérée : grossesse habituellement bien tolérée. IM sévère avec FE ≤ 50% : risque élevé — discuter correction avant conception.",
+      acc:"Correction avant grossesse si IM sévère + FE < 50% (COR 2a).",
+      meds:"IECA CI — remplacer par béta-bloquants si IC.",extra:[]},
+    {n:"Sténose Mitrale",who:3,sub:"RM > modéré",
+      risk:"Pathologie la plus dangereuse en grossesse ! ↑ DC → ↑ pression OG → OAP.",
+      suivi:"Mensuel. PA, FC, saturation. Éviter tachycardie (bêta-bloquants).",
+      cat_detail:"RM sévère (surface ≤ 1.5 cm²) = WHO III–IV. Corriger avant conception si possible. Commissurotomie mitrale percutanée possible pendant grossesse si urgence.",
+      acc:"Commissurotomie percutanée si RM serré + décompensation (COR 2a). Préférer avant conception.",
+      meds:"Bêta-bloquants indiqués (contrôle FC). Diurétiques si surcharge. Anticoagulation si FA.",extra:[]},
+    {n:"Insuffisance Aortique",who:2,sub:"Légère-modérée",
+      risk:"Généralement bien tolérée. Vasodilatation physiologique réduit la régurgitation.",
+      suivi:"ETT trimestrielle.",
+      cat_detail:"IA sévère avec symptômes ou FE ≤ 45% → correction avant grossesse. IA chronique bien tolérée : grossesse habituellement possible.",
+      acc:"COR 2a : correction avant grossesse si IA sévère symptomatique.",
+      meds:"Vasodilatateurs autrefois utilisés mais IECA CI. Digoxine si IC systolique.",extra:[]}
+  ]},
+  {cat:"Cardiopathies congénitales opérées",items:[
+    {n:"TOF réparée (sans complications)",who:1,sub:"Bonne fonction VD",
+      risk:"Risque IC droite si IP sévère. Arythmies possibles.",
+      suivi:"ETT trimestrielle. Holter si symptômes.",
+      cat_detail:"TOF réparée sans séquelles majeures : grossesse généralement bien tolérée (WHO I). Risque accru si: IP sévère, VD dilaté, PREVENTION score élevé, dysfonction VD.",
+      acc:"RVP avant grossesse si IP sévère + dysfonction VD (COR 2a ACC 2025). ETT préconceptionnelle systématique (COR I).",
+      meds:"Bêta-bloquants si arythmie.",extra:[]},
+    {n:"TOF réparée (complications : IP sévère, dysf. VD)",who:3,sub:"VTSI-VD > 80, FEVD < 46%",
+      risk:"Risque élevé IC droite, arythmies, décompensation. RCIU possible.",
+      suivi:"Mensuel. BNP, ETT, Holter. Envisager RVP avant conception.",
+      cat_detail:"IP sévère + dysfonction VD → WHO III. Recommander RVP avant grossesse si VTSI-VD > 80 mL/m² ou FEVD ≤ 46%. Grossesse possible après correction en centre expert.",
+      acc:"RVP pré-conceptionnelle COR 2a si 2 critères ACC 2025 remplis. Contre-indiquée si FEVD < 30% ou arythmie ventriculaire non contrôlée.",
+      meds:"Bêta-bloquants. Anticoagulation si FA. DAI à discuter.",extra:[]},
+    {n:"CIV / CIA réparées sans HTAP",who:1,sub:"Bien fermées",
+      risk:"Risque maternel faible si réparation complète sans HTAP résiduelle.",
+      suivi:"ETT trimestrielle.",
+      cat_detail:"Grossesse habituelle si réparation complète et absence d'HTAP. Vérifier echo pré-conceptionnel (absence de shunt résiduel, PAP).",
+      acc:"Consultation pré-conceptionnelle COR I. ETT de contrôle.",
+      meds:"Pas de traitement spécifique.",extra:[]},
+    {n:"Coarctation aortique réparée",who:2,sub:"Surveillance HTA",
+      risk:"Risque HTA ++ (40% des grossesses), re-coarctation, dissection (si Marfan associé).",
+      suivi:"Mesure TA 4 membres. ETT mensuelle. Doppler aortique.",
+      cat_detail:"Grossesse généralement possible si réparation complète et absence de gradient résiduel. Contrôle TA strict impératif (labétalol de choix).",
+      acc:"Correction re-coarctation (stenting) avant grossesse si gradient > 20 mmHg (COR 2a).",
+      meds:"Labétalol, méthyldopa (anti-HTA de choix).",extra:[]},
+    {n:"Ventricule Unique / Fontan",who:3,sub:"Pression Fontan, Sat O₂",
+      risk:"Risque très élevé. Fausse couche 27–55%. Naissance vivante 42%. IC, arythmie, thrombose Fontan.",
+      suivi:"Mensuel. Saturation, ETT, bilan hépatique, Holter. Anticoagulation.",
+      cat_detail:"WHO III si Sat > 85% + Pression Fontan < 15 mmHg + FE VU > 50% + pas de complication. WHO IV si Sat < 85%. CARPREG II souvent > 7 pts.",
+      acc:"Optimisation pré-conceptionnelle: fermeture fenestration si tolérée, embolisation FAVP. Grossesse centre expert uniquement.",
+      meds:"Anticoagulants (thrombose Fontan). Prudence diurétiques (précharge VU).",extra:[]}
+  ]},
+  {cat:"Cardiomyopathies",items:[
+    {n:"Cardiomyopathie hypertrophique (CMH)",who:3,sub:"Gradient CCVG, FA",
+      risk:"Risque IC, arythmie, MSC. ↑ Gradient CCVG avec ↑ FC.",
+      suivi:"Mensuel. Holter. Éviter tachycardie.",
+      cat_detail:"CMH avec gradient CCVG > 30 mmHg ou FA = WHO III. CMH légère : WHO II. Risque MSC surtout en post-partum.",
+      acc:"Bêta-bloquants maintenir pendant grossesse (COR I). Défibrillateur si antécédent arrêt cardiaque (COR I).",
+      meds:"Bêta-bloquants (métoprolol). Éviter vasodilatateurs.",extra:[]},
+    {n:"Cardiomyopathie post-partum antérieure",who:3,sub:"Si FE récupérée",
+      risk:"Récidive 30–50% à chaque grossesse. Décompensation possible même si FE normalisée.",
+      suivi:"Mensuel. BNP, ETT mensuelle.",
+      cat_detail:"FE normalisée > 50% → grossesse possible mais risque élevé récidive (WHO III). FE < 50% ou FE < 30% ancienne → WHO IV.",
+      acc:"Déconseiller si FE jamais < 30% (COR III). Bromocriptine post-partum si CMPP confirmée (COR 2a).",
+      meds:"Si CMPP active : bêta-bloquants + diurétiques. IECA CI (remplacer).",extra:[]},
+    {n:"Cardiomyopathie dilatée (CMD)",who:3,sub:"FE 35–50%",
+      risk:"Décompensation IC durant grossesse. RCIU, prématurité.",
+      suivi:"Mensuel. BNP, ETT, bilan rénal.",
+      cat_detail:"FE > 45% : WHO II–III. FE < 35% : WHO III–IV. FE < 25% : WHO IV.",
+      acc:"COR I : optimisation médicale avant conception. COR III si FE < 25%.",
+      meds:"Remplacer IECA par bêta-bloquants. Conserver bêta-bloquants + diurétiques si indiqués.",extra:[]}
+  ]},
+  {cat:"HTAP et vasculopathies",items:[
+    {n:"HTAP légère (PAP moy 25–40 mmHg)",who:3,sub:"Sous traitement",
+      risk:"Décompensation, OAP, mort subite. Risque post-partum ++ (chute vasodilatation).",
+      suivi:"Mensuel. ETT, doppler AP, SpO₂. BNP.",
+      cat_detail:"WHO III si légère et sous traitement stable. Discuter arrêt des triptans PAH (bosentan CI en grossesse). Sildenafil : données limitées.",
+      acc:"WHO III. Centre expert. Anticoagulation discutée.",
+      meds:"Bosentan CI. Sildenafil autorisé (données limitées). Envisager prostacyclines IV.",extra:[]},
+    {n:"HTAP sévère (PAP moy > 40 mmHg)",who:4,sub:"Contre-indication absolue",
+      risk:"Mortalité maternelle 30–50%. Contre-indication absolue.",
+      suivi:"N/A — grossesse contre-indiquée.",
+      cat_detail:"WHO IV. Grossesse formellement contre-indiquée. Conseil génétique + contraception efficace (DIU levonorgestrel). Si grossesse accidentelle : discuter IVG médicale.",
+      acc:"COR III : contre-indication absolue à la grossesse.",
+      meds:"Maintenir traitement PAH. IECA CI.",extra:[]},
+    {n:"Syndrome d'Eisenmenger",who:4,sub:"Contre-indication absolue",
+      risk:"Mortalité maternelle 50%. Cyanose. RCIU. Contre-indication absolue.",
+      suivi:"N/A.",
+      cat_detail:"WHO IV. La vasodilatation systémique de la grossesse majore le shunt D→G → cyanose aggravée → mort fœtale fréquente.",
+      acc:"COR III : grossesse contre-indiquée.",
+      meds:"Maintenir traitement. IECA CI.",extra:[]},
+    {n:"Syndrome de Marfan (Ao < 40 mm)",who:2,sub:"Aorte < 40 mm",
+      risk:"Risque dissection aortique faible mais non nul.",
+      suivi:"ETT trimestrielle. IRM/ETO si Ao > 38 mm.",
+      cat_detail:"Ao < 40 mm : WHO II. Ao 40–45 mm : WHO III. Ao > 45 mm : WHO IV. Bêta-bloquants obligatoires.",
+      acc:"COR I : bêta-bloquants pendant toute la grossesse. COR I : ETT trimestrielle.",
+      meds:"Bêta-bloquants obligatoires (réduire contrainte aortique).",extra:[]},
+    {n:"Marfan / Bicuspidie Ao > 45 mm",who:4,sub:"Contre-indication",
+      risk:"Risque dissection A > 10%. CI formelle.",
+      suivi:"N/A.",
+      cat_detail:"WHO IV. Correction chirurgicale aortique avant grossesse impérative.",
+      acc:"COR III si Ao > 45 mm sans correction préalable.",
+      meds:"Bêta-bloquants si grossesse poursuivie malgré avis.",extra:[]}
+  ]},
+  {cat:"Arythmies",items:[
+    {n:"TSV contrôlées",who:2,sub:"Sans cardiopathie structurelle",
+      risk:"Risque récidive. Généralement bien toléré.",
+      suivi:"Holter 2× par trimestre. ECG si palpitations.",
+      cat_detail:"TSV bénignes sans cardiopathie = WHO II. Traitement: adénosine (épisode aigu), métoprolol ou digoxine (prophylaxie).",
+      acc:"COR 2a : bêta-bloquants si TSV fréquentes.",
+      meds:"Adénosine aiguë. Métoprolol / digoxine prophylaxie.",extra:[]},
+    {n:"Fibrillation Auriculaire",who:3,sub:"Surtout sur cardiopathie",
+      risk:"Décompensation IC, AVC (thrombus OG), hypotension.",
+      suivi:"Holter mensuel. INR si warfarine.",
+      cat_detail:"FA sur cardiopathie structurelle = WHO III. Anticoagulation HBPM ou warfarine T2-T3 obligatoire si FA valvulaire.",
+      acc:"COR I : anticoagulation. COR 2a : cardioversion électrique si instabilité.",
+      meds:"Anticoagulation. Digoxine + bêta-bloquants contrôle fréquence. Amiodarone CI.",extra:[]},
+    {n:"Tachycardie Ventriculaire",who:3,sub:"Selon cardiopathie sous-jacente",
+      risk:"Risque MSC. Cardiopathie sous-jacente détermine le pronostic.",
+      suivi:"Holter mensuel. DAI si indiqué.",
+      cat_detail:"TV idiopathique sans cardiopathie = WHO II. TV sur cardiopathie structurelle = WHO III. DAI si TV soutenue avec cardiopathie.",
+      acc:"COR I : DAI si TV soutenue + cardiopathie structurelle. Bêta-bloquants prophylaxie.",
+      meds:"Bêta-bloquants. Sotalol / Flécaïnide si échec. Amiodarone en dernier recours.",extra:[]}
+  ]}
+];
+
+// ─── STATE ───────────────────────────────────────────────────
+let carpregAnswers = {};
+let carpregStep = 0;
+let currentScreen = 's-home';
+
+// ─── NAVIGATION ─────────────────────────────────────────────
+function showScreen(id, fromBack=false){
+  document.getElementById(currentScreen).classList.add(fromBack?'hidden':'out');
+  const next = document.getElementById(id);
+  next.classList.remove('hidden','out');
+  currentScreen = id;
+  setTimeout(()=>{
+    document.querySelectorAll('.screen').forEach(s=>{
+      if(s.id!==id){s.classList.add('hidden');s.classList.remove('out');}
+    });
+  },400);
+}
+function goHome(){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));
+  document.getElementById('s-home').classList.remove('hidden');
+  currentScreen='s-home';
+}
+function goWA(){
+  showScreen('s-summary');
+}
+
+// ─── CARPREG II ──────────────────────────────────────────────
+function initCarpreg(){
+  carpregAnswers={};carpregStep=0;
+  renderCarpregStep();
+}
+function renderCarpregStep(){
+  const content=document.getElementById('carpreg-content');
+  const totalQ=CARPREG_QUESTIONS.length;
+  if(carpregStep>=totalQ){renderCarpregResult(content);return;}
+  const q=CARPREG_QUESTIONS[carpregStep];
+  let dots='';
+  for(let i=0;i<totalQ;i++)dots+=`<div class="step-dot ${i<carpregStep?'done':i===carpregStep?'active':''}"></div>`;
+  let opts='';
+  q.opts.forEach((o,i)=>{
+    const sel=carpregAnswers[q.id]===i?'selected':'';
+    opts+=`<button class="opt-btn ${sel}" onclick="selectCarpreg('${q.id}',${i},${o.p})">
+      <span class="opt-txt">${o.t}</span>
+      ${o.p>0?`<span class="opt-pts">+${o.p} pts</span>`:''}
+    </button>`;
+  });
+  content.innerHTML=`
+    <div class="step-bar">${dots}</div>
+    <div class="step-label">Question ${carpregStep+1} / ${totalQ}</div>
+    <div class="q-card fade-up">
+      <div class="q-text">${q.q}</div>
+      ${q.sub?`<div style="font-size:12px;color:var(--w3);margin-bottom:12px">${q.sub}</div>`:''}
+      ${opts}
+    </div>
+    <div style="display:flex;gap:10px;margin-top:8px">
+      ${carpregStep>0?`<button class="opt-btn" onclick="carpregBack()" style="flex:1">← Précédent</button>`:''}
+      ${carpregAnswers[q.id]!==undefined?`<button class="opt-btn" onclick="carpregNext()" style="flex:2;border-color:var(--teal);color:var(--teal)">Suivant →</button>`:''}
+    </div>
+  `;
+}
+function selectCarpreg(qid,idx,pts){
+  carpregAnswers[qid]={idx,pts};
+  renderCarpregStep();
+  setTimeout(()=>carpregNext(),300);
+}
+function carpregNext(){
+  const q=CARPREG_QUESTIONS[carpregStep];
+  if(carpregAnswers[q.id]===undefined)return;
+  carpregStep++;renderCarpregStep();
+}
+function carpregBack(){
+  if(carpregStep>0){carpregStep--;renderCarpregStep();}
+}
+function calcCarpregScore(){
+  return Object.values(carpregAnswers).reduce((a,v)=>a+(v.pts||0),0);
+}
+function renderCarpregResult(content){
+  const score=calcCarpregScore();
+  let risk,color,border,bg,recs,eventRate;
+  if(score<=1){risk="Faible";color="var(--mint)";border="rgba(52,211,153,.3)";bg="rgba(52,211,153,.08)";eventRate="5%";recs=[
+    {c:"var(--mint)",t:"Grossesse possible en centre spécialisé",b:"Consultation cardio 2–3× par grossesse selon pathologie. ETT trimestrielle."},
+    {c:"var(--teal)",t:"Suivi obstétrical standard",b:"Échographie fœtale à 20 SA. BNP et troponine chaque trimestre."},
+    {c:"var(--sky)",t:"Accouchement centre de niveau 2 acceptable",b:"Analgésie péridurale recommandée."}
+  ]}
+  else if(score<=3){risk="Modéré";color="var(--sky)";border="rgba(56,189,248,.3)";bg="rgba(56,189,248,.08)";eventRate="10–15%";recs=[
+    {c:"var(--sky)",t:"Grossesse possible — centre expert recommandé",b:"Consultation cardio mensuelle T2-T3. ETT mensuelle."},
+    {c:"var(--gold)",t:"Surveillance renforcée",b:"BNP mensuel. Holter si arythmie. Echo fœtale étendue."},
+    {c:"var(--teal)",t:"Accouchement centre tertiaire universitaire",b:"Anesthésiste cardiaque présent. Monitoring per-partum."}
+  ]}
+  else if(score<=7){risk="Élevé";color="var(--gold)";border="rgba(240,160,48,.3)";bg="rgba(240,160,48,.08)";eventRate="20–30%";recs=[
+    {c:"var(--gold)",t:"Grossesse à très haut risque — discussion multidisciplinaire",b:"Équipe ACHD + obstétrique + anesthésiologie. Hospitalisation envisageable T3."},
+    {c:"var(--red)",t:"Surveillance mensuelle cardiologique obligatoire",b:"BNP, ETT, Holter. Paramètres hémodynamiques continus."},
+    {c:"var(--amber)",t:"Déclenchement programmé 37–38 SA envisageable",b:"Éviter urgence obstétricale. Péridurale obligatoire."}
+  ]}
+  else{risk="Très élevé";color="var(--red)";border="rgba(224,48,80,.3)";bg="rgba(224,48,80,.08)";eventRate=">40%";recs=[
+    {c:"var(--red)",t:"Grossesse fortement déconseillée",b:"Discussion de l'IVG médicale si désir maintenu. Conseil génétique."},
+    {c:"var(--rose)",t:"Si grossesse maintenue : hospitalisation T3 systématique",b:"Monitoring continu. Réanimation cardiaque sur place."},
+    {c:"var(--red)",t:"Post-partum = période la plus risquée",b:"Hospitalisation ≥ 72h post-partum obligatoire. Monitoring cardiaque continu."}
+  ]}
+  const pct=Math.min(score/12*100,100);
+  content.innerHTML=`
+    <div class="score-hero fade-up" style="border-color:${border};background:${bg}">
+      <div class="score-num" style="color:${color}">${score}</div>
+      <div style="font-size:12px;color:var(--w3);margin:4px 0">points / 12</div>
+      <div class="score-label" style="color:${color}">Risque ${risk}</div>
+      <div class="score-sub">Risque d'événement cardiaque maternel : <strong style="color:${color}">${eventRate}</strong></div>
+      <div class="risk-bar" style="margin-top:16px"><div class="risk-fill" style="width:${pct}%;background:${color}"></div></div>
+    </div>
+    ${recs.map(r=>`<div class="rec-card fade-up-2" style="border-color:${r.c}"><div class="rec-title" style="color:${r.c}">${r.t}</div><div class="rec-body">${r.b}</div></div>`).join('')}
+    <button class="opt-btn fade-up-3" onclick="sendCarpregWA(${score},'${risk}','${eventRate}')" style="border-color:#25D366;color:#25D366;justify-content:center;margin-top:8px">
+      💬 Envoyer résultat au CORE-Team ACHD
+    </button>
+    <button class="opt-btn" onclick="initCarpreg()" style="margin-top:8px;justify-content:center">🔄 Recommencer le calcul</button>
+  `;
+}
+function sendCarpregWA(score,risk,rate){
+  const msg=`🎯 *CARPREG II — RÉSULTAT*\n📱 CSC Algeria · ACHD CORE-Team\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n📊 *Score : ${score}/12*\n⚠️ *Risque : ${risk}*\n📈 *Événement cardiaque : ${rate}*\n\n📋 Détails réponses:\n${Object.entries(carpregAnswers).map(([k,v])=>CARPREG_QUESTIONS.find(q=>q.id===k)?.q.substring(0,40)+'... → '+v.pts+' pts').join('\n')}\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n_ACHD CORE-Team · CSC Algérie · contact@csc-cardio.com_`;
+  window.open('https://wa.me/213540910869?text='+encodeURIComponent(msg));
+}
+
+// ─── WHO DETAIL ──────────────────────────────────────────────
+function showWhoDetail(cls){
+  const d=WHO_CLASSES[cls];
+  document.getElementById('who-detail-hdr').innerHTML=`<div class="hdr-title" style="color:${d.color}">WHO Classe ${cls}</div><div class="hdr-sub">Pathologies concernées</div>`;
+  document.getElementById('who-detail-content').innerHTML=`
+    <div style="background:${d.bg};border:2px solid ${d.border};border-radius:14px;padding:16px;margin-bottom:14px">
+      <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:${d.color};margin-bottom:6px">${d.title}</div>
+      <div style="font-size:12px;color:var(--w2);margin-bottom:8px;line-height:1.5">${d.risk}</div>
+      <div style="font-size:12px;color:var(--w1);font-weight:600">📅 ${d.followup}</div>
+    </div>
+    <div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--w3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Pathologies classées WHO ${cls}</div>
+    ${d.conditions.map(c=>`<div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start"><div style="width:8px;height:8px;border-radius:50%;background:${d.color};flex-shrink:0;margin-top:5px"></div><div style="font-size:13px;color:var(--w1)">${c}</div></div>`).join('')}
+  `;
+  showScreen('s-who-detail');
+}
+
+// ─── PATHOLOGIES ─────────────────────────────────────────────
+function renderPaths(filter=''){
+  const list=document.getElementById('path-list');
+  let html='';
+  const f=filter.toLowerCase();
+  PATHOLOGIES.forEach(cat=>{
+    const items=cat.items.filter(p=>!f||p.n.toLowerCase().includes(f)||p.sub.toLowerCase().includes(f));
+    if(!items.length)return;
+    html+=`<div class="path-cat">${cat.cat}</div>`;
+    items.forEach(p=>{
+      const wc=`w${p.who}`;
+      html+=`<div class="path-item" onclick="showPathDetail('${encodeURIComponent(p.n)}')">
+        <div class="pi-who ${wc}">${p.who}</div>
+        <div><div class="pi-name">${p.n}</div><div class="pi-sub">${p.sub}</div></div>
+        <div class="pi-arrow">›</div>
+      </div>`;
+    });
+  });
+  list.innerHTML=html||`<div style="text-align:center;padding:40px;color:var(--w3)">Aucun résultat trouvé</div>`;
+}
+function filterPaths(v){renderPaths(v);}
+function showPathDetail(encoded){
+  const name=decodeURIComponent(encoded);
+  let p;
+  for(const cat of PATHOLOGIES){p=cat.items.find(i=>i.n===name);if(p)break;}
+  if(!p)return;
+  const wcolors={1:'var(--who1)',2:'var(--who2)',3:'var(--who3)',4:'var(--who4)'};
+  const wbg={1:'rgba(34,197,94,.06)',2:'rgba(132,204,22,.06)',3:'rgba(245,158,11,.06)',4:'rgba(239,68,68,.06)'};
+  const wborder={1:'rgba(34,197,94,.3)',2:'rgba(132,204,22,.3)',3:'rgba(245,158,11,.3)',4:'rgba(239,68,68,.3)'};
+  const wlabel={1:'WHO I — Faible risque',2:'WHO II — Risque modéré',3:'WHO III — Risque élevé',4:'WHO IV — Contre-indication'};
+  document.getElementById('pd-hdr-content').innerHTML=`<div class="hdr-title">${p.n}</div><div class="hdr-sub">${p.sub}</div>`;
+  document.getElementById('path-detail-content').innerHTML=`
+    <div style="background:${wbg[p.who]};border:2px solid ${wborder[p.who]};border-radius:14px;padding:16px;margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <div style="width:36px;height:36px;border-radius:9px;background:rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:${wcolors[p.who]}">${p.who}</div>
+        <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:${wcolors[p.who]}">${wlabel[p.who]}</div>
+      </div>
+      <div style="font-size:12px;color:var(--w2);line-height:1.6">${p.cat_detail}</div>
+    </div>
+    <div class="detail-section">
+      <div class="ds-title">⚠️ Risque principal</div>
+      <div style="font-size:13px;color:var(--w2);line-height:1.6">${p.risk}</div>
+    </div>
+    <div class="detail-section">
+      <div class="ds-title">📅 Surveillance recommandée</div>
+      <div style="font-size:13px;color:var(--w2);line-height:1.6">${p.suivi}</div>
+    </div>
+    <div class="detail-section">
+      <div class="ds-title">📋 Recommandations ACC 2025</div>
+      <div style="font-size:12px;color:var(--w2);line-height:1.65">${p.acc}</div>
+    </div>
+    <div class="detail-section">
+      <div class="ds-title">💊 Traitement / Précautions</div>
+      <div style="font-size:12px;color:var(--w2);line-height:1.65">${p.meds}</div>
+    </div>
+    <button class="opt-btn" onclick="sendPathWA('${encodeURIComponent(p.n)}',${p.who})" style="border-color:#25D366;color:#25D366;justify-content:center;margin-top:6px">
+      💬 Envoyer résumé au CORE-Team ACHD
+    </button>
+  `;
+  showScreen('s-path-detail');
+}
+function sendPathWA(encoded,who){
+  const name=decodeURIComponent(encoded);
+  let p;for(const cat of PATHOLOGIES){p=cat.items.find(i=>i.n===name);if(p)break;}
+  if(!p)return;
+  const msg=`🫀 *ACHD GROSSESSE — RÉSUMÉ PATHOLOGIE*\n📱 CSC Algeria · ACHD CORE-Team\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n📌 *Pathologie :* ${p.n}\n🌍 *WHO Classe ${who}* — ${['','Faible','Modéré','Élevé','Contre-indication'][who]}\n\n⚠️ *Risques :*\n${p.risk}\n\n📅 *Suivi recommandé :*\n${p.suivi}\n\n📋 *ACC 2025 :*\n${p.acc}\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n_ACHD CORE-Team · CSC Algérie · contact@csc-cardio.com_`;
+  window.open('https://wa.me/213540910869?text='+encodeURIComponent(msg));
+}
+function sendSummaryWA(){
+  const path=document.getElementById('f-path').value||'Non précisée';
+  const age=document.getElementById('f-age').value||'—';
+  const sa=document.getElementById('f-sa').value||'—';
+  const carpreg=document.getElementById('f-carpreg').value||'Non calculé';
+  const who=document.getElementById('f-who').value||'Non renseigné';
+  const notes=document.getElementById('f-notes').value||'—';
+  const d=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  const msg=`🫀 *DEMANDE D'AVIS — ACHD GROSSESSE*\n📱 CSC Algeria · ACHD CORE-Team\n🗓️ ${d}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n👤 *Âge :* ${age} ans\n🫀 *Pathologie :* ${path}\n🤰 *Terme :* ${sa} SA\n🎯 *CARPREG II :* ${carpreg} pts\n🌍 *WHO :* ${who}\n\n📝 *Données cliniques :*\n${notes}\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n_Application ACHD Grossesse · CSC Algérie_\n_ACHD CORE-Team · contact@csc-cardio.com_`;
+  window.open('https://wa.me/213540910869?text='+encodeURIComponent(msg));
+}
+
+// ─── INIT ─────────────────────────────────────────────────────
+window.addEventListener('load',()=>{
+  renderPaths();
+  document.getElementById('carpreg-content').innerHTML='';
+  document.getElementById('s-carpreg').querySelector('.scroll-area').addEventListener('scroll',()=>{},{passive:true});
+});
+// Auto-init carpreg when screen shown
+const origShow=window.showScreen;
+window.showScreen=function(id){
+  if(id==='s-carpreg')initCarpreg();
+  origShow(id);
+};
+</script>
+</body>
+</html>
