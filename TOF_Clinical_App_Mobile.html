@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>TOF Clinical App · CSC Algeria</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06101E;--bg2:#0C1A2E;--bg3:#102040;--bg4:#152848;
+  --teal:#00C4AE;--teal2:rgba(0,196,174,.13);
+  --red:#E03050;--red2:rgba(224,48,80,.13);
+  --gold:#F0A030;--gold2:rgba(240,160,48,.13);
+  --sky:#38BDF8;--sky2:rgba(56,189,248,.13);
+  --mint:#34D399;--mint2:rgba(52,211,153,.13);
+  --purple:#A78BFA;--purple2:rgba(167,139,250,.13);
+  --w:#EEF4FF;--w2:rgba(238,244,255,.6);--w3:rgba(238,244,255,.3);--w4:rgba(238,244,255,.12);
+  --brd:rgba(255,255,255,.09);--brd2:rgba(255,255,255,.16);
+  --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--bg);color:var(--w);font-family:"DM Sans",sans-serif;font-size:14px;overflow:hidden}
+/* ── LAYOUT ── */
+#app{display:flex;flex-direction:column;height:100%;max-width:430px;margin:0 auto;position:relative}
+#header{flex-shrink:0;background:rgba(6,16,30,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--brd);padding:10px 14px 8px;z-index:50}
+.hdr-row{display:flex;align-items:center;gap:10px}
+.hdr-logo{width:34px;height:34px;border-radius:9px;background:#fff;padding:2px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.hdr-logo img{width:100%;height:100%;object-fit:contain}
+.hdr-title{font-family:"Syne",sans-serif;font-size:15px;font-weight:700;color:var(--teal);flex:1;line-height:1.2}
+.hdr-sub{font-size:10px;color:var(--w3)}
+.hdr-badge{background:var(--teal2);border:1px solid rgba(0,196,174,.3);border-radius:8px;padding:2px 7px;font-size:9px;font-weight:700;color:var(--teal);letter-spacing:.5px}
+#content{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
+#content::-webkit-scrollbar{display:none}
+#navbar{flex-shrink:0;background:rgba(6,16,30,.97);backdrop-filter:blur(14px);border-top:1px solid var(--brd);display:flex;z-index:50}
+.nb-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:7px 2px 6px;cursor:pointer;transition:all .2s;border:none;background:transparent;color:var(--w3);font-family:"DM Sans",sans-serif;gap:3px;position:relative}
+.nb-btn.active{color:var(--teal)}
+.nb-btn.active::after{content:'';position:absolute;top:0;left:20%;right:20%;height:2px;background:var(--teal);border-radius:0 0 2px 2px}
+.nb-icon{font-size:20px;line-height:1}
+.nb-label{font-size:9px;font-weight:600;letter-spacing:.3px}
+/* ── SECTIONS ── */
+.section{display:none;padding:14px 14px 24px;animation:fadeIn .3s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+/* ── COMMON ── */
+.card{background:var(--bg2);border-radius:var(--r);padding:14px;border:1px solid var(--brd);margin-bottom:12px}
+.card-title{font-family:"Syne",sans-serif;font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.section-head{font-family:"Syne",sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--w3);margin:16px 0 8px}
+label{display:block;font-size:11px;color:var(--w3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+input[type=text],input[type=number],select,textarea{width:100%;padding:11px 13px;border-radius:10px;background:var(--bg3);border:1px solid var(--brd2);color:var(--w);font-family:"DM Sans",sans-serif;font-size:14px;outline:none;transition:border .2s;-webkit-appearance:none}
+input:focus,select:focus,textarea:focus{border-color:var(--teal)}
+textarea{min-height:90px;resize:vertical;line-height:1.55}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2338BDF8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:13px;border-radius:12px;border:none;cursor:pointer;font-family:"Syne",sans-serif;font-size:14px;font-weight:700;transition:all .15s;margin-bottom:8px}
+.btn:active{transform:scale(.97)}
+.btn-teal{background:var(--teal);color:#06101E}
+.btn-red{background:var(--red);color:#fff}
+.btn-green{background:#25D366;color:#fff}
+.btn-outline{background:transparent;border:2px solid var(--brd2);color:var(--w2)}
+.btn-gold{background:var(--gold);color:#06101E}
+/* ── PILLS / TAGS ── */
+.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;border:1px solid}
+.tag-teal{background:var(--teal2);border-color:rgba(0,196,174,.3);color:var(--teal)}
+.tag-red{background:var(--red2);border-color:rgba(224,48,80,.3);color:var(--red)}
+.tag-gold{background:var(--gold2);border-color:rgba(240,160,48,.3);color:var(--gold)}
+.tag-mint{background:var(--mint2);border-color:rgba(52,211,153,.3);color:var(--mint)}
+.tag-sky{background:var(--sky2);border-color:rgba(56,189,248,.3);color:var(--sky)}
+.tag-purple{background:var(--purple2);border-color:rgba(167,139,250,.3);color:var(--purple)}
+/* ── COR CHIPS ── */
+.cor{display:inline-flex;align-items:center;justify-content:center;padding:2px 8px;border-radius:5px;font-family:"JetBrains Mono",monospace;font-size:9px;font-weight:700}
+.cor1{background:rgba(52,211,153,.2);color:var(--mint)}
+.cor2a{background:rgba(56,189,248,.2);color:var(--sky)}
+.cor2b{background:rgba(240,160,48,.2);color:var(--gold)}
+.cor3{background:rgba(224,48,80,.15);color:var(--red)}
+/* ── RESULT BOXES ── */
+.result-box{border-radius:12px;padding:14px;border:2px solid;margin-bottom:10px}
+.rb-title{font-family:"Syne",sans-serif;font-size:14px;font-weight:800;margin-bottom:6px}
+.rb-body{font-size:12px;color:var(--w2);line-height:1.65}
+.rb-body strong{color:var(--w)}
+.ib{border-radius:9px;padding:9px 12px;font-size:12px;line-height:1.6;border-left:3px solid;margin-bottom:8px}
+.ib-teal{background:var(--teal2);border-color:var(--teal)}
+.ib-gold{background:var(--gold2);border-color:var(--gold)}
+.ib-red{background:var(--red2);border-color:var(--red)}
+.ib-mint{background:var(--mint2);border-color:var(--mint)}
+.ib-sky{background:var(--sky2);border-color:var(--sky)}
+.ib-purple{background:var(--purple2);border-color:var(--purple)}
+/* ── STADE CARDS ── */
+.stade-card{border-radius:12px;padding:12px 14px;border:2px solid;margin-bottom:8px;cursor:pointer;transition:all .15s}
+.stade-card:active{transform:scale(.98)}
+/* ── EXAM ITEM ── */
+.exam-item{padding:9px 0;border-bottom:1px solid var(--brd);display:flex;gap:10px;align-items:flex-start}
+.exam-item:last-child{border-bottom:none}
+.exam-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.exam-txt{font-size:12px;color:var(--w2);line-height:1.55;flex:1}
+.exam-txt strong{color:var(--w)}
+/* ── PREVENTION ── */
+.prev-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg3);border-radius:9px;margin-bottom:6px;border:1px solid var(--brd)}
+.prev-check{width:22px;height:22px;border-radius:6px;border:2px solid var(--brd2);background:transparent;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all .15s}
+.prev-check.checked{background:var(--teal);border-color:var(--teal);color:#06101E}
+.prev-label{font-size:12px;color:var(--w2);flex:1;line-height:1.4}
+.prev-pts{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;color:var(--teal)}
+/* ── SCORE DISPLAY ── */
+.score-big{font-family:"Syne",sans-serif;font-size:54px;font-weight:800;line-height:1;text-align:center}
+/* ── MODAL OVERLAY ── */
+#modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:999;overflow-y:auto;padding:16px}
+#modal.show{display:block}
+#modal-content{background:var(--bg2);border-radius:18px;border:1px solid var(--brd2);padding:18px;max-width:420px;margin:0 auto}
+#modal-close{float:right;background:var(--bg3);border:1px solid var(--brd2);border-radius:8px;padding:4px 10px;color:var(--w2);cursor:pointer;font-size:12px}
+/* ── PRINT ── */
+@media print{
+  #navbar,#header,#modal .btn{display:none!important}
+  #modal-content{border:none!important;padding:0!important}
+  body{background:#fff!important;color:#000!important}
+}
+/* ── VALIDATED BANNER ── */
+.validated-banner{background:linear-gradient(90deg,rgba(0,196,174,.1),rgba(52,211,153,.08));border:1px solid rgba(0,196,174,.25);border-radius:10px;padding:10px 13px;display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.vb-icon{font-size:20px;flex-shrink:0}
+.vb-txt{font-size:11px;color:var(--w2);line-height:1.55}
+.vb-txt strong{color:var(--teal);display:block;font-size:12px}
+/* ── COMPLEXITY ── */
+.complex-badge{background:linear-gradient(135deg,rgba(167,139,250,.15),rgba(56,189,248,.1));border:2px solid rgba(167,139,250,.35);border-radius:12px;padding:12px 14px;text-align:center;margin-bottom:14px}
+.cb-title{font-family:"Syne",sans-serif;font-size:13px;font-weight:700;color:var(--purple);margin-bottom:4px}
+.cb-body{font-size:11px;color:var(--w2);line-height:1.55}
+</style>
+</head>
+<body>
+<div id="app">
+<!-- HEADER -->
+<div id="header">
+  <div class="hdr-row">
+    <div class="hdr-logo"><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAH0AfQDASIAAhEBAxEB/8QAHQABAAAHAQEAAAAAAAAAAAAAAAMEBQYHCAkCAf/EAFUQAAEDAgMDBQkNBQQIBQUAAAABAgMEBQYHERIhMUFRYYHREyI2cXWRkqGzCBQXGCMyQlJUV5WxwRUzQ2JyJFOCohYlY3OywuHwJjREZaN0g5O08f/EABwBAQABBQEBAAAAAAAAAAAAAAADAQQFBgcCCP/EADcRAQACAQIEAggFBAICAwAAAAABAgMEEQUSITFBUQYTImFxgaHRFDKRscEzQuHwI1IHFXKi8f/aAAwDAQACEQMRAD8A0yAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABFo6aesq4aSlidLPPI2OJjeLnOXRETxqpkf4As5Pu9vPoN7QMZgyZ8AWcn3e3n0G9o+ALOT7vbz6De0DGYMmfAFnJ93t59BvaPgCzk+728+g3tAxmDJnwBZyfd7efQb2j4As5Pu9vPoN7QMZgyZ8AWcn3e3n0G9o+ALOT7vbz6De0DGYMmfAFnJ93t59BvaPgCzk+728+g3tAxmDJnwBZyfd7efQb2j4As5Pu9vPoN7QMZgyZ8AWcn3e3n0G9o+ALOT7vbz6De0DGYMmfAFnJ93t59BvaPgCzk+728+g3tAxmDJnwBZyfd7efQb2j4As5Pu9vPoN7QMZgyZ8AWcn3e3n0G9o+ALOT7vbz6De0DGYMmfAFnJ93t59BvaPgCzk+728+g3tAxmDJnwBZyfd7efQb2j4As5Pu9vPoN7QMZgyZ8AWcn3e3n0G9o+ALOT7vbz6De0DGYMmfAFnJ93t59BvaPgCzk+728+g3tAxmDJnwBZyfd7efQb2j4As5Pu9vPoN7QMZgyZ8AWcn3e3n0G9o+ALOT7vbz6De0DGYMmfAFnJ93t59BvaPgCzk+728+g3tAxmDJnwBZyfd7efQb2j4As5Pu9vPoN7QMZgyPWZFZu0dJNV1WArxFBBG6SV7mN0a1qaqq7+REMcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVzL/w9w95UpvatOvZyEy/8PcPeVKb2rTr2AAAAAAAfHORrVc5URE4qpZmJMycNWZ7oGVXv6obuWOm75EXpdwKxWbdltqdZg0tOfNeKx716Awfec4LzUKrLXRU1Gz60msj/ANE9RbVXjfFVYvy17qU15I1Rif5UQljBbxa1qPTPQY52xxNvhG0fX7NlAavLfLy9dXXatd453dpGgxBe4lRY7vXNX/fu7R6n3rSPTjBv/Sn9YbOA16oMfYrpFTYuz5Wp9GZjXovnTUu2zZtTpssu1tY/nkp3af5V7TzOOYZHTel3D807Wma/GPtuywCh4dxXY76mzQ1rO7csMnevTqXj1FcI5jZseHPjz158domPOAABKAAAAAAAAAAAAAAAAAAAAAAAAAACh5geAWIfJdT7JxyEOveYHgFiHyXU+ycchAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAK5l/4e4e8qU3tWnXs5CZf+HuHvKlN7Vp17AAAAWtjjHFmwrDs1Uvdqxyax00a6vXpX6qeMtrNbMqOxLJZ7K5styVNJJeLYNfzd0chgiqqqisqX1NXM+aaRdp73rqrlLjFg5utuzTePelNdJM4NN1v4z4R95XVi7Hl/xJK9k1StNRr82mhXRunSvF3WWy0gtUiNUu4iIjaHNdTqc2pvOTNabT70ZFPbVILVJS6XejtzPl5NXrwY3e5TzKPHjvlty0jeVWa4PnjjTV8jGJzuXQsOuxRV1Cq2BUgZ/LxXrKa6qkldtSSOevOq6niWZxcEyz1yTt9WR1u9uYujqyHqXX8iLDdbdIujayHXpdp+ZjZkhFa7U8SnnhFI/ullOnm75skMm9N6OY7h1oX7hHMa5W1W010V1dS8NpV+UYnQvL1mu9NUTwOR0Ez41TlauhcVpxNI1WxV7dpOHdGpvTxoR2jdXBXV8Pv6zT3+Xn8vFuHZbrQXihbWW+obNE7m3K1eZU5FJ41qwriOss1YyuttQitX5zddWSJzKhnrCGI6LEdtSpplRkrd00Kr3zF7OkhmNm/8F49j4jHq7+zkjw8/h9lbABRsAAAAAAAEncbnQW6JZK2rihTmc7eviTipSZiO6tazadqxvKcBZFxzDt8Sq2ippZ+Zzu9TtKDW5gXiXXuDaenToZtL6yG2oxx4sli4RqsnXl2+LKoMKT4tv8irrdJk/p0T8kJV+KL6i6pdarX+sjnV18l3X0fzz/dH1Z0PpguPG+JIHatukjkTkexrk/IqVFmndoFRKykpalvKrUVi9gjWY/FS/o9q4jeu0/P7sxAsOy5oYerXtirVlt8i7tZU1Z6ScOsvalqaeqhbNTTxzRu4PjcjkXrQuKZK3/LLF6jR59NO2WswjAA9rYAAFDzA8AsQ+S6n2TjkIde8wPALEPkup9k45CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVzL/w9w95UpvatOvZyEy/8PcPeVKb2rTr2AMaZz4+TD1L+x7XLrdKhnfPT+AxeX+peTzl1ZgYlp8K4anuk2y6X5kEar8+ReCfqviNUrlX1d0uM9wrplmqZ3q+R68qr+hc6fDzTzT2al6UcbnR4/w+Gfbt4+UfeXxXvke6SR7nvcurnOXVVXnPSKQWqe0UvtnLJjdGa49tUgIpQ8aYgSzUPc4HNWsmRUjTjsJ9Zf0KSm0ulyarLXDijeZfcX4phtTVpaZ7X1apv039z/6mOqq7VE8rpFcqucuqudvUp8sj5JHSSOVz3Lq5yrqqqedTxy+bqnDOB6fQ4+WI3t4z5/4TLq2qVf3z08W4+sr6xi6tqH9e8W623G4v2KChqap3NDE5/wCRctDlnjusajo8PVEaLwWZ7I/Uq6jesd2W/D45jblj9FIpr7OxUSaNsic6blK5brnS1e6OTR/1HblI0mUmPms2v2PG7obVR6/mUe44HxjbUV9Vh64MRv02M20TrbqeJrS3aVlqOE4skezG0rkjUmI0RSz7ZeqijlSmuDJNE3auaqOb40Lto5o5o2yRPa9juCopBek1lrWr0WTTztaPmrNkuEtBLsqqugcvfN5ulDIeFb/U2a4w3GhkRdPnN172RvKimMokRUK5Y6pYl97vXvV3t6F5iPuweox3x2jPina0dW3WHrtS3u0w3GkdrHIm9q8WO5Wr0oVAwPlFidbRfUoKiXSirXIxdpdzH/Rd+imeDxau0uj8F4nXiOmjJ/dHSY9/+QAHllwkrvdaC00jqq4VLII04bS73LzInKpb2P8AHFvwxB3Fqtqbi9O8gRfm/wAzuZPzMI3i/XC9Vzqy4VDpXuXcmvetTmRORC1z6quPpHWWd4ZwPLrI9Zf2afWfh92Q8R5j1dXtQWlnvWFd3dXb5FTo5ELOmrJqiRZZ5nyvXi57lVVKK2fdrruIM12oYP31bTx/1SIhYTktknr1bbh0GHTV2xxsr3duk8um6S2nYosbV0W7Uuv9Z6ZiOzy7o7pSuX/eIg5beSSK181efNu4kCSYkGV0MyawzxyJ/K9F/IhyT9JHMrimLdMyzdJKzTdJAlnJWSbpI5ld48SNLN0kzYsT3iwVSVFrrpIVRe+Zrqx/QreClFlm6SVll6SPnms7wu/w1MleW8bxPm2Oy8zTteIZWW65Iy33JU0ajnfJyr/KvIvQpkU0ifIuuqLoqcFM2ZL5pudJBhzEtQi66MpKyReK8jHr+S+cyWl13NPJk7+bTOO+ivqqzqNJHSO9fL3x9mcgfEXVNUPpk2jKHmB4BYh8l1PsnHIQ695geAWIfJdT7JxyEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAArmX/h7h7ypTe1adezkJl/4e4e8qU3tWnVXM6+/6O4KuFya5GzJH3OH/eO3J29RWI3naEWbLXDjtkt2iN2Cs9sU/t7GD6Gnl2qK2qsLNF3Of9N3nTTqLBapBRyq5XOVXKq6qq8VU9oplq1isRWHFNdqb6vPbNfvaUZFPaKQUU9op6lZbPtVVQ0dJLVTu2Yomq5ymHrxcJrncZqyZV2pF3J9VORC8sy7j3Olgtkbl2pV7pL/AEpw866+YtXC1iuGJL3T2m2Rbc8zt6r81jeVzl5kI7Ts6H6J8OjFgnU2j2rdvh/mXjD1kuuILky32ijkqqh3I3g1OdyruRDP2BMjrVRNiqcRP/adUmirC1VbA1fFxd17ugv7LfA1swlaGUdFEj5naLPUOb38rudejmTkL5p6ZERNxZ5M0z0hulce3dRLbY6SjhbDSUsNPE1NEZFGjWp1IVBlA36vqKtHCichFSHoIJlLCj+8G/VPD7c1U+ahXu49BIXe52m0R7d0uNJRp/tpUaq9XFSm6lrRWN5WZinAdgxBTuiudrgnVeEmzsyN8Tk3oYcxPlLecMukrsNSvuNEi6yUcn71E52rwX1L4zNNwzPwLTqrUuz6hyckFM9yefTQpj81cFSrsq64tTnWkXT8yStrR08GP1GfRZazTJevX3wwbb52Ts1RHNc1dl7HJo5q8qKnIpVqduunIpeGL4cE4nkdc7LeIKO7I3RUmY6JtQicGv1TTXmcWnTsex6skbsvbuVNdfyKW84afrtJXBb2LRas9pjqqkEyq1FVdHdHObMZbXv9vYSpKt79qdidym/qbu1600XrNYlRWsRydZlX3PN2dHda+0PcuxPGk0aczm7l9Sp5j3Pt03Wvo7qJ0XEvUz+W/wD+x9mbCxs18eQYStyQUyslutQi9xjXekafXcnNzc5cOMsQUeGMO1V4rd7IGd6xOMj1+a1PGpppjnGFXcLvU3GrkSavqXbSpr3sacieJE4IY/Pkt+TH+aXb+A8KpqbTqNR/Tr9Z8vurF3vyd3lr7pWK+aVyuc566ucpbFwxtUuVW2+FsTeR8iar5uBatRPNUyulnkV714qqn2kp6irnSClglnlXgyNiuXzIMOhpTrfrLadRr5t0p7NYTNbdblWu2qmunk1+jtqjfMm4lF38S8rJljiq5bLpKeKhjXlnf33ot1Xz6F4UGSmqItXdah68qRQI1PWql7FYrG0MHl4ppqT7V95/Vh0+aIZ5hyXsrW/KyXGRf94jfyQjfA1hzTclei//AFH/AEKrf/3Wn97ATHyRrrHI9i87XKi+oqtBiW8UaI1KpZ2J9GVNr18TLtVktaVT5Ctr4l6Va79ChXPJauY1VoLxE9eRs8Kt9bdfyPFqUv0tG6bFxnTxO8WmFvW/F1NOqMrI1p3r9JN7O1Cre+WSsR8b2vavBWrqhbF6wHiq1I509qkmjb/Ep17onmTf6ig0dbWW6Ze5PczRdHxu4L40LDPw6LRvjnaWxaHjNLfmmLR5x3X/ACS9JAe/pKZbLvBXt2f3c3KxV4+LnJ1d5hclLUty2jaW04L0yV5qTvA5VU+a9R9PikUriGyGQWPHX62/sC6Sa3KiYnc5HLvniTl/qTgvUplY0ow5eKywXyku9C9Wz00iPTmcnK1ehU1Q3Iw/c6e82SjutK7WGqhbI3o1Th1LuM9odROWnLbvDlXpXwiNFqIzYo2pf6T4/r3j5pLMDwCxD5LqfZOOQh17zA8AsQ+S6n2TjkIXzUwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFcy/8AD3D3lSm9q06D+6jvLtq02GN2je+qpUReK/Nb/wAxz4y/8PMPeVKb2rTc7Pm4+/8AM64tR20ylRlO3oVGpr61UuNLXfJv5Nc9KdROLQTWP7piP5/hZTVPaKQkU9Ipk3LJhGRT21dVIKKfJ5m09NNO7hGxXr1JqUUik2mIjxYzxdV+/MQ1Uu1q1ju5t8Td3abGe5zwQyy4bbequL/WFxaj9XJvji+i1PHxXq5jX/LuyOxRji22uVFdHPPt1Gn92nfP86IqdZu/bKZsUTI2NRrWoiNROCInAstRfaNna9HgjBirjjtWIhM00GiJuJ2OPoELNyEyxpZyu3ljCSxDerVh+3OuF3q2U0DdyKvznLzNTiq9BCxhiK24Wskt0uL+9b3sUTfnSv5Gp28iGsGLsRXbFl3dcLrMqomqQwN+ZC36rU/NeKnqtd2H4rxemhryx1vPh914Yzzgvl1klpsPsW00eqtbLuWd6c+vBnVv6S3cJYFxTjWqWopIJJWOd8pW1Ui7GvL3y6qq9CF0ZK5cJiqsW53Rrm2indpspuWd6fR15k5V6jZmjpaejpY6WlhjhgiajI42N0a1E4IiHqbRXpVidFodRxP/AJ9VaeXwj/e0MLWf3PltZC111vlTNLp3zadiMani11VSfnyEwz3NUgr7ix3OsjV/5TMAPHPMs9XhOjrG3q4a04uybvFmY6ptcyXOnamqs2dmVE8XB3V5ix6aNWO2VarVauioqaaG5jmtc3ZciKhhjPDBkVO7/SW3Ro1HO0q2InFV4P8AHyL1FJndg+KcEpipObB4d4+zFzWbdO9OXZK/k5WLT5g2zRdEle6Jf8TVKPSN3omm5TzgOuhtuMrdWzuVIaao7pIqfVbqq/kS4Z9m0S1Xlt+M09q9+aI+sK57qjG6yXiPD1K9FhoU2pERdz5nJwXoanrVTXeSVXudJI7VyrqqqVLG15mvOIK251UmqyzPeu/lVdVLTqql067LdUj5uci02KZjnnvP+7PpWeXDjrp6dq/WfGf1+i4qOrw/TM7vc5amrf8AQpaTRuv9ci7k8SIqlaps0bhbaf3thyxWm0xc/c1lkXpc53Feox81qJvXcVCgttfWae86CrqemGBz/wAkLrkiEE6XHk65evx7fouKrzIx3Wa7WJa6FF+jTqkKf5UQkHYmxRKusuJLw9edayTtCYYxG1u07D92RvP7yk7CUlpp6Z+xUwSwP+rKxWL5lG0L3BptP2rWPoqFPibFELkdFiS8MXnbWydpW7dmTj6iVFjxRcJUTkqHJMn+ZFLWawiNYUmIX0aHBePapE/KGULRnniymVqXCittxYnHWNYnL1t3eoyNhXOHCF6RkVySazVS7tJ02olXoen6ohrYjD1sIeJpC2z+j2jzx0ryz7v92box09LV07KimlinhemrXxuRzXJ0Kha2LcAWG/sctbQRpPpuniTYkTrTj1mveCsZYhwjUbdornJTquslLJ30L/8ADyL0popsdlxmDZcaUzYm7NHdGt1lo3u486sX6SesjmJhqvEOB6nh/wDy0nevnHePiwVjbK292Bzqy1ufX0je+1YmksfjROPjTzFDsl298r73qu9nTci/W/6m3VVRo7XcYkzRytprs2W6WSNlNc075WouyyZenmd0+cg1GCuortPddcH9I8mlyRGXt/vf7sbnxVJK3z1DZZaC4RPhrYF2ZGPTRdxOmuZcdsdprbu6ngz0z44yUneJfFQ2B9zBf31FmrsPVEm0tG/u1OirwjfxTxI7Ves1+UvrIi7/ALKzLt7XO2Yq3apX/wCJNW/5kQl0eTkzR7+jFekOjjVcOyV26xHNHxjr+28NkcwPALEPkup9k45CHXrMBf8AwFiHyXU+ycchTYnGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFcy/8PMPeVKb2rTaXF1W6uxdeKxy6rNXTP8AO9TVjAa6Y4sK81yp/atNk6l6vrZ3rxdK9f8AMpfaKO8tN9MLf8eKvvn+HtqnpFIKKe0UvmgTCM1SRxK/ueHa92v8FU8+79SbRSm4tX/w3Wf0p/xIUnsuNDTfVY4n/tH7q97k61e+cU3S6vZqlJTMiYv80jl19TfWbTUrNGoYO9yZQJFgmtrdO+qa9ya9DGNT9VM8UzdyGLzzveXZqdkxG0iuc2ON0kjkaxqK5zl4IiJqqnxibjH2ft+ktODf2dTS7FRc39xVUXekSb3+fcnWQxG87IdXqK6bDbLbtEMQ5n4rnxdiaSZr1S3UyrHRx8mzyvXpdpr4tCh2mhkrrhTUUKayTytiYnS5URPzJaBiIiaF8ZL0rKjMqztemrWSOk0Xnaxyp6yaekOXVyX12rjnnraY+stm8N2mlsdio7VRxoyGmiRiaJxXlVelV1UqJ8Q+kDrFaxSsVjtAAA9BTcS0EdzsNdQSN2kmgc3r03esqRDne2OF8jl0a1qqviQPN6xasxLVKmRY/n7lb87q4lnXWtWlttTUtXRUaui+Mum91LYqaoe1d8r3IzrVf0MXZiXBIqGK3Md38q7b05mpw86/kXGHHzUt7+jnnCMU5+M6bHXry2i0/Lr/AAs6vqlneqI75NPX0mUcpckMRYz7jXV/dLVanojmyOZrLK3+Rq8E/mXq1Lz9zXkr+0Vp8V4opGuhXR9FRyt1RU5JXovJzN61NsKSmipYkZE1E515yt8kUjlq7FrOJTSZpi7+bG2Csj8BYdjjetkgrqlui92q2pM7Xn3ponUiGSaSkpqSNI6aCOFiJoiMbohHBbzaZ7sLfJfJO953fNOlfOSlztVsukDoLlb6Wsicmisnha9F6lQnAUeYmYneGK8XZD4CvcT3UVAtmqF4SUS6NReli7vNoa/5kZOYpwYktX3NLpa2Lr76p2rq1P528W+PenSbqHmRjZGKx7Uc1U0VFTVFQ9ReYZnQ8d1WltG881fKfu50o3VD0jTYvPjJqKKGfE2EaVGIzV9XQxpu04q+NPzb5jXpGksW3dH4brcOvxesxT8Y8YQ0aRaOoqaGsirKOeSnqYXI+OSN2jmqnKijZCtDI+riY2ls7k5mBDjG2+8a9zI7zTM1lam5Jm/Xb+qche9TToqLuNOLBda2w3mlu9vk2Kimej28zudq9CpuNwcLXilxJh2kvNGvydTHtK3Xex30mr4l3Ecxs5n6ScGjQ5Yy4o9i30ny+zGmbWA0vMH7XtMbI7xTpq1U3d3an0HfopiCnl7rGjla5jkVUc1yaK1yblRelFNrquBHNXcYQzcwwluuX7co41bBVO2alqJubJyO/wAXBelOkx/EMHrKc8d4/ZfeiPGJw5o0mSfZt290/wCViKTNmqnUV5oaxi6Op6mOVF/pci/oSup5V2zvTkMFE7Tu6ZasWiaz4ty8dvSTL6/PTg61VCp/+JxyHOtuIZO7ZS3KXjt2KV3ngU5JG1Q4DevLaY8gAB5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAFZwKmuN7En/uVP7VpsfNq2pmavJI5PWprngBNceYfT/3Sm9q02Sv0K0uIblTOTRYquVip4nqX2i/uaf6W03pin4/whIp7apAap7a4v2i2ojoSOJW7eHq1vNHr5l1JxFPNXF74oaiD+8ic3zoUV09/V5qX8pifqzH7mOFGZXUSonz55nL6Wn6GYIE3IYj9zK9HZW0CcrZpWr49v8A6mXoOCGHy/ml2avaEwzga9e6Aui1+PW0DXax26mZHpybbu/d6lanUbDN4GqeO6hazHd7qFXXarZGp4mrs/oMfdrXpZnnHo4pH90/spcTS7cqaxluzBs1TIujPfCRuX+tFb+aoWtCm8moHPhlZLGqtexyOaqcioe3PtNnnDlrkjwmJ/Rueh9KBgLEFPiXDFLcoXJ3RWoydnKyRE75P16yvkDsuLLXLSL0neJ6gACQLWzTvUdjwVX1LpEY+RncY9/0nbvy1KxiG9W2wWuW5XWqZT08fFzl3qvIiJyqvMavZr5gVGMrkitRaa10yr3CJy7153u6fyJceKck9OzC8a4pj0eGaxO97do/lat4uDFR08r9iCFq6a8ic5MZB5cVOYuL34nvFKq2Kll7xkid7UObwZ0tTl8xW8A5TXzMGpp6q5smteF2uR75HJsy1iczEXejf5l6tTanD9ntthtNParTSx0tHTsRkcbE3IiE2TJFK8tUXo3wy+gpbUZf6t//AKx95+iapKeOmgbFE1ERE5E0IwBaM+AAAAAAAA+ORFTRd6GpfujsCR4XxO2622Dudsuaq5GtTvYpeLmpzIvFOs21LNznw8zEmXd0othHTRRrUQbt6PYmqaeNNU6xE7SzPAeIW0Osrbf2bdJ+E+PyaT7I2SLs7tT4rSTd19CVpmz3L1/e2ouOGZ36xualVTIvIqbnp/wr5zC6oXdkvWLQ5n2R6O0bNMsDvE9qt/NUKbsXxvS11OgyUnwjePjHVtVOzVC3cTWqC6WuooahusczFavRzKnSi7y6ZW7in1ceqKee/SXHKXtS0WrO0w1Ur6WWhrp6OdNJIXqx3jRSVeu5fEXznJbEosVJVsboysiR6/1J3q/opZDW7T0anKuhrObH6vJNPJ3Th2rjV6XHn/7R9fH6tvLqipk3WovFLBJ/+upyXOuGKI+45W3WLT5lkmb5oFOR5skdnDss82S0+8ABVGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAK5l/4eYe8qU3tWm1+dFEttzTv0OmiS1K1DfFIiO/U1Qy/8PcPeVKb2rTdv3VttWkxzRXJG6MraNEVedzF0X1Khd6O219vNr/pJh9ZpObyn/DE7XEVriUa4itcZJz+1E4xdUIsa6KS0LtU0IzVKLK9dp2Zb9zLKjcJ3G3676S6Spp0ORrkM0QLuQ1/9z3UrTYqvdA5dI6yCGqjT+diqx/qVhn2mXchitRXbJLr3Dc8ajSY8nnEfr4p1nIajXlyvxBcXrxWrlVfTU24YvA1JvzFixJc414trJU/zqecfi1v0y/o4/jKHFuchNtQk2k/FvailbOfVld2WeMKnCd221RZaCdUSoh/5k6U9ZshZrpQXi3x11uqWTwSJqjmrw6FTkXoNR2JvK/hfEF2sFWk9sq3xa/OYu9j/GhHLZ+CekNtDHqssb0+sfD7Npin3193bQuSzQUstUu5q1MitY3pXRFVfFuLDw/mvSTsay70L4H8skPfNXq4p6y97TiGzXRqLRXCCRy/QV2y7zLvKQ33BxHS6uu2LJ3+U/Viq9ZUYwxZc0rMU4tp9lq97FTwuc1iczUVURPHvLuwnlThCwbEvvJbhVN392q9H7+hvzU8xfaKin092y3tG3gph4VpcWT1sV3t5z1n6vjURqaImiIfQCNkQAAAAAAAAAADzI1r2OY5NWuTRU50PR8A0RxJQpb8Q3Khane09XLE3xNeqJ6kKarS4ccyNnxpe5W72uuE6ov/ANxxQ1aUiXcsEzOKsz32hLqhWMAK5uO7CreKXGHT00KY5pcmUtItZmXYYkTVG1bZV8TNXL+RWJedbaK6bJafCs/s23kTiSdS3cpOu4EtOm5SrhzD+fNIi22hqtN8cys16HJ/0MW4cplrsR2yiamq1FZFF1K9EX1GZ884kdg1z9N7KiNfXp+pYWQ1t/aeZ9sVzdY6TbqX7vqtXT1qhh9XTfUxHns6h6O6v1XBL5J/s5vv/LZbHqI3AGIGpwS1VKf/ABOOQx17zA8AsQ+S6n2TjkIZdzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABXMv8Aw9w95UpvatOjXurLGtfgOC7xM1ltlSjnKn92/vXevZU5y5f+HuHvKlN7Vp1mxZaIb9hu4WedE2KuB8Wq8iqm5epdCTFfkvFlvq8Hr8NsfnDRBjyKxxDr6WottxqbfVsWOoppXQytVODmrov5HhrjNOaZMU1naU9A/v06SbaUtj9/EqEL9piKUY/UY9p3XVlnX+8Mc2uVXaNkkWncvQ9NE/zI02XpH6ohqLDI+ORksbla9jkc1U5FTehtDg+6x3exUdxYv76NFd0O4Knn1LDWU6xZunonq+bDbTz3jrHwn/P7rnjXcatZgQe9cwL5AqaaVj3J4nd9+ptDE7VOJr1nxQrR5jS1CJoytpopkXpRFYv/AAlrj7yk9LcXPo4tHhKz2KT1GurNOZSnMcTlC/5TZ50Pdo6OZ9pT7SPEu8gohFYRPcSqVI7gVijfoqKi6KUCmfopU4aqGFqOmlZG3nc5ET1nnZkNLebTEV7r4sWI7vQK3uNY9zE/hyd81fOX7ZMY0tXsx10fvaRd20m9i9hhOnxFZI10ddaPVOaVF/Irdtv9mnVGxXWjcq8ndkT8zzNojxbpob8Sw1i3Jaa++J2Z5Y9kjUexyOavBUXVFPRjfD94qaNWup5kkhXixV1avi5i+7Xcaevh2o12Xp85i8UPTY9LraZ427T5J0ABegAAAAAAABTcT3KKz4fr7nKqI2mgfJv50Tcnn0KkYX90ziptPaocK0j/AJaqVJapUX5saLub1rv6jza3LG6+4bo7azVUwx4z1+Hi11mc+WR8r11e9yucvOqrqpCc0mXNIbkIos7PCWchlD3NVndV4wq7s5i9yoKfZR3Jtv3J6kcYyc1ddERVVeCIbTZQYcXDWCqanmj2Kup/tFRqm9HOTc1fEmiEtWv+lGujTaGaR+a/SPh4/b5rwcQJuBH0IM3A9OUsbZ5KiYGn1/v4k/zEl7lO1K+pu97c3vWI2mjXpXvnf8p790DOkeEIotd8tUz1IqmRslrE2wZc2unVmzPUM98z86vfv9SbKdRZWpzarfyht2PU/h/R6aeOS8x8o23/AG2VjMDwCxD5LqfZOOQp17zA8AsQ+S6n2TjkIXrUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFcy/8PcPeVKb2rTr0pyFy/8AD3D3lSm9q069gao+6pwy60Y3iv0ESpS3Zmr3Im5JmoiORelU0XzmIGvN2848JNxlgSttTGotW1O70irySt10Tr3p1mkD0khlfDMx0ckbla9jk0VqpuVFMtpcnPTbxhpvGNH6rPzx2t1+6Za8nKKXvtheXgU1riKyRUVFRd6FwwGXDzVmFbaplbIe/rHUT2Cd/eP1mp9V4L9JP16lMSwSJJGjk5SdtdbUW64U9fSvVk0D0exelP0IstOeswtuG6y2h1Ncnl3+Hi24p36ohiz3SFu27baru1u+GV0D16HJqnrRfOXxhG9U97stNcqdU2ZW98n1XJxb1Ke8eWZuIsHXG16fKSRK+FeaRvfN9aadZiY9m3V0fiOGNbor1p15o3j94awxO3EzTv2ZWr0lPjc5rlY9Fa5q6Ki8ikwx5PMOQWxzE7LgauqCeeGmp31E8jY4mJq5zl3IhCpZNuFjudCw8zLu+StbaYnqkcKI6XRfnOVNyL4kLaejOejPAcnHOIV0lZ2jvafKI7/Pwj3vd/xzWTPdBadaeJd3dFTV7uwobVnqH91r6iWd68j3qpTaVEb368eQmkl9ZBes2fT3B+BcP4RiimlxxX3+M/Ge8qrFMjU0aiInMhGbUJzkexYRxRedlaCz1Kxu/iyJ3Nnndpr1al82nJi/zta6tuVJTa8WxtdIqfkhFOmlf5uMaPBO18kb/r+y0rRiG62uVJLfcKincn1H7utOCmUcF50TU00TL7Bvav8A5qnTRydKt4L1eY+0ORlNu983qrdz7ETW9pV4Mi7Avz665KvRI1P0K1wZKfllr/EOIcD1v9am8+cRtP69GasKYutOIKFtTRVcU6Km90a6p5uKeJS4GSxv+a9FMK4UyppsOXNlwst9ulNIi98xzmvZInM5qpvMox6oiarvLmvNt7TT9TTDS+2C82r742n5q4Clx1ErODtU6d5HZW/XZ5iqBOgl21kK8VVPGh9WqgT+InmAjgk5bhAxFVNXacumiGPMe5rWyyxvpbe+Otrl3bETtWx/1O/RN5S1orG8rjS6TNq7+rw13n/e658xMZW7CFlfVVD2SVb00p6dF76R3YnKpqffrlW3q61N0uMyzVNQ9XvcvJzInMicEQm8Q3m4365yXG51Dppnru5GtTkRqciFLehZXy88+507gnBqcOx7263nvP8AEf71S7kIL0JhyFy5eYLrsXXVI2NfFQRLrUVGm5qfVTncp7rvPSGYz6jHpsc5cs7RCtZGYKfer02/V8P+rqJ6LGjk3TSpwTpROK9RsOpLWq30dqt0FvoIWw00DEYxicifqpNImq6F3EbRs5Jxjid+I6ics9IjpEeUPmnekCbgpMv4EtNwUMWxtmBanYox3hjDLdViWR9XVackTdNfPoqdZm6NrWMaxjUa1qaIiciFj4AtTqjEd3xVUJ+9VKKi15IY/nO637XmL6Qix162t5slrs++PFp47Uj6z1n7fJRMwPALEPkup9k45CHXvMDwCxD5LqfZOOQhKxwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACuZf8Ah7h7ypTe1adezkJl/wCHuHvKlN7Vp17AGqPup8EPsmJ0xVQwf6vujv7QrU3Rz8uv9Sb/ABoptcUfGWHqDFOHKyx3Jm1T1UatVyJvYvI5OlF3kuHL6u+601uljU4pp4+DQJryK1xP4zw7cMJ4mrLDc26T0z9EenzZGfRenQqFKa4zUTExvDScmKazMT3hUrfPsSbDl713qUqzV1Laa4rNuqEmj2VXv2+s8zDEa3Bt7cfNknJ7FKWW8LbayVW0VY5ERVXdHJwRehF4L1GwNPLqiKagopnXJ3GH7WoEtNdInv6laiMVV3yxpy+NOUsNVi/vhsno1xTp+EyT/wDH7fZjzOTD7sP40mmibpRXDWohVE3Ncq9+3qXf4lQtBjzZDNPDSYpwlLDCie/qbWelXncib29abvHoazNe5rlY9Fa5q6Ki8UUipPNDEce4d+G1M2rHs26x/K4rNLtRqxV+apiS8zOqbzWTOVVWSd7uraXT1GSrNUbFaxqr3r+9X9DGNzYsVzqo1TeyZ7fM5UIske03f/xVjrTVamZ78tf03nf+FYwfh254ou7LdbItV4yyu+ZE3nVf05TYvAOWFiw+xs7oG11dpvqJ2o7Rf5UXc38+kiZKYSZYMI0vdI0Stq2tnqHab9XJqjepNE85kumgRE4FJ6Nw4txjLqMk48c7Uj6pWloGNRERqFShpWppuQjwxJpwJpkaaHndgkGOBE5CYjiROQiNaUu/YlsFgYrrvd6Sj0+jJIm2v+FN/qKPePHbJblpG8+5V2tRD0hiS/574YpFdHaKKuucifTVqQx9Srq5fMhZtyz2xNUqqUFvt9E3kVWrK5PPu9RSZ2ZzT+jXEc8b8nLHvnb6d/o2O48N5Bq6qmpI1fVVMMDU4rI9Gp6zVO55jY2uiK2oxDVxsX6FOqQp/l0UoE1TVVT1fVVM8714ulkV6+dVI5ybeDL4fQvLP9bLEfCN/s2muuYeDrcju7X2nlen0KdFlcvm3essy8510abTLPaJ5V5JKpyMT0W6r6zB0aEdhDbNfwZjT+iehw9b72+M9PourE2OsS4hRY6uvdDTr/Ap/k2L49N7uvUttEPjT2hb2mZneWfw4MWCvJirER7nlUIbyYghmqJ2QQRPlleujGMTVVXoQyvgDKdXpHcMUNVqa7TKJF4/1r+iHvHSbdltr+JafQU580/CPGVnZeYAuOKqhs8rXUtravfzqm9/QznXp4IbDWS1UNmtsVutsDYKeJNGonFelV5V6Sbghip4WQwRsiiYmjWMbo1qcyIh70L2lIrDmfFuM5uJX9rpWO0f73l5U9tTROk+NTlPqqe2HeH8CVnjmm+Rp/3r+9aq8G9K+LiTL13FTtdKkTO6vT5R3qQKx3RbdSRUNDDSQJpHCxGt6iZACszMzvKh5geAWIfJdT7JxyEOveYHgFiHyXU+ycchAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAArmX/h7h7ypTe1adezkJl/4e4e8qU3tWnXsAAAMVe6Gy2ZjTDy3K2QN/btAxVhVNyzs4rGv5p0+M06ekkUjo5WOY9iq1zXJoqKnFFQ6Mqa3e6dysVrpsb4fgVdV2rlTsb/8qf8AN5+cvtJn29izCcU0PPHraR18WvLXEamndFIj28U9ZKIp7RxkZhrdscTG0rop5WTRI9i7lJ2111VbLhDXUcrop4Xo5jk/74Fr2yr7hLo5fk3cejpK81UVEVF1Q8TDAZ8NtPk3r8pbNYDxPS4js0dZC5Gzt72eLlY/sXkMR584T/Y95TEFBFpQ17vlkRN0c3L4kdx8epbuDMR1eGrzHW06q6JVRs8Wu6RnbzGwj22nGOFXwPVtRQ10PHirV5F6HIvrQx2Snqbbx2luem1FONaOcV/6lf8Ad/n4tVYplRyOau9F1Qo1woWVWPqONqfJV1RC7T+pyI5PPqV/E9mrcN3+ptFe1Ukhd3ruSRn0XJ0KhJUqtS/WStX/ANPXRbS8zVen6/mecld43h69D9TPDuK8t+nPE1+fePrG3zbb22FrI2tamiImiFXgYmhIUCJsoVSFNxbzLaEeNu4oGOscYcwXQpUXqs0lcmsVLFo6aXxN5E6V0QoWc2Y1JgKwJ3Luc95q0VKOnXgnPI7+VPWu41Ju11uV8uk10u9ZLWVk7tqSWRdVXoTmRORE4HutN+ss/wAH4LOtn1mTpT6yyfjLO7Fd+dJBanJZKJ2qI2BdZlTpk5OrQx4+WWeV008sksjl1c97lc5V6VXepJwoTLOB6mrpOh0eDS05cNYhHj5CZjJZhHjUitDIplhMMJZikdikFoUlMxkZqksx2hXcMYdvOIqpILVRSTaLo6RdzGeN3BCCazM9EGXJTFWb3naI81PRS7sGYEvmJZGSRQrS0Sr31TMiomn8qfSUybgrKm02lI6q8Obc6xNF2Fb8ixehPpdfmMjMa1jUa1qNaiaIiJoiElNP42aXxP0srXemkjef+0/xH3W3g7BVlwxGjqSHu1UqaPqZURXr4vqp4i5QC4iIjpDR8+fJnvOTLbeZ8wImq9ARNT6pVEKeFU+qRKSB1RLpvRifOUCLbqbur+6vTvG8OlSqnljWsajWpoicD0FQAAUPMDwCxD5LqfZOOQh17zA8AsQ+S6n2TjkIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABXMv/D3D3lSm9q069nITL/w9w95UpvatOvYAAADzI1r2Kx7Uc1yaKipqioegBqJ7ofKiXCde/EVigV9iqHayxtT/AMo9V4f0LyLycOYw4i6nRa4UdLX0U1FWwR1FNOxY5YpG6te1dyoqGnOe+VVXgW5vuduY6bD9Q/5J/Fady/w3dHMvL4zJ6XUc3sW7td4joPVz6zH28fcxii6FWs9bppBK7d9BV/IoyKekdou4vJhgs+CuanLK7kL2ytxg7DtySkq3qttqHd//ALJ310/Uxzaa3u8fc5F+Ub60KgRXpFo2lg8OXNoc8Xr0tDOmc2EWYrw0lztyNfc6JndIVbv7tHxVnm3p0+M1rSRVarF1R3rRf/6Z3yaxp3N0eHrnN3vCjkcvD/Zqv5eYs/3QWDW2K8JiK2w7Fur36TNam6KZdVXxI7evj1LKsTS3JZuGSceux11uDpMd/OJhnDAV2ZecM264sVFWeBrn9D9NHJ6SKXO6eKnppKid6MiiYr3uXg1qJqqmv3ub8VsSWbDFVKiK7Wak1Xj9Zv6+cyPnhdHWzKW+1Ebtl8kCQIqf7RyN/JVLe9Ji2zZ9Ff8AFRXbvPT5tXcxcU1GM8aV99mVyRSPVlLGq/u4W7mJ5t69KqUmHgSFOT0JPs6zosdcdIpXtCdiJhhLREwwjlnMPZHYRmLvJdikVriK0LhNNUnrXR1lyrI6SgpZamokXRscbVcq+YuvLnLG94rWKsmR1vtSrqtRI3vpE/kby+PgbEYPwlY8K0fve00jWPcmkk798knjd+nAimu7W+Lekmn0O+PH7d/Lwj4z/DGeAsm1VGVuKpdF4to4Xf8AG79E85mG3UNHbqOOjoaaKmgjTRscbdEQmUPpWIiOznOv4nqdffmzW393hHyfAocuh411XeVY97CIfGpr4j0oBVPKqFUiU8L537LU0TlXmA+U8Lp5NlvDlXmKxDG2KNGMTREPkETIWIxibvzIgVAAAAAFDzA8AsQ+S6n2TjkIde8wPALEPkup9k45CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVzL/w9w95UpvatOvZyEy/8PcPeVKb2rTr2AAAAAACTvNtobvbKi23KmjqaSoYrJYpE1RyKTgCkxv0lpRnjlbXYBui1lKjqiw1MmlPNxWJV/hv6eZeUxsinRK92ugvNrqLZc6WOqpKhiskjemqKn/fKaaZ35XV+ALotVTbdTYql/wDZ59N8Sr/Df08y8plNNqef2bd2va7Qeqnnp+X9mPIpHRva9i6ORdUUuS31TKqFHJucm5ycylrIpHo6l9NMkjOtOdC6mGv6zSRnrvHeF2Mc5j2vY5WuauqKnFFM04QvFHj/AAhV4bvey6qWDYl53t+jInSi6a9PjMI08zJ4WyMXVqlQstxqrTdILjRP2JoXbScypyovQqEGXHzx72P4Zr76DPvb8s9LR/vjC2LpTXfA+Mn00irFXW6dHxvTg9OLXJ0Kn5mY84MS02KPc/uu1HubNPTpMzXfG9HptNXxL+hIZz22lxpgqDGtoZ/bKBuxVxJ87ufKi9LV3p0KpiO0YifBg2+4bqHa0tcxk0Wv0Jo3IqdSoip5i3tXnrzeMOjcJtXFqaTWd6WmJhb1OvAnoV4FOp13E/Cp5l2LTSnolJhikpGpP0FPUVtXFSUkL56iZ6MjjYmrnuXgiIRzDM4rREbyiUsU1RUR09PE+WWRyNYxiaucq8EROU2Aypybio+53bFsTZqjc6KhXe2Ppfzr0cPGV/J3LKkwnSsudza2ovcjdVcu9tOi/Rb086mSkIrS0TjvpPbLM4NJO1fG3jPw937vsbWsYjGNRrWpo1qJoiJzIejyfUPDSnrU8SPRqacp5lkRidPIQU1VdV4gRNVXep7Ymu9eB5jbrvXgRNQo+66HxVPiqTNJSumXaduZ+ZRV4pad87t25qcVKtFG2JiMYmiH1jGsajWpoich6CoAAAAAAACh5geAWIfJdT7JxyEOveYHgFiHyXU+ycchAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAK5l/wCHuHvKlN7Vp17OQmX/AIe4e8qU3tWnXsAAAAAAAAASN7tVBerVUWy50sdVSVDFZJHImqKn/fKTwHbspMb9JaTZ4ZWV+ALotXSpJU2Kof8A2efTVYlX+G/p5l5TGyKdFb3a6C82ue2XOljqqSoYrJIpE1RyGmOeGVtfgC6rVUyPqbFUyL73n03xLx7m/p5l5TJ6bU8/s27sBrdD6qeenb9ljWqtWll2X/unLv6OkuNrkVEci6opZpV7HXaKlNK7cvzFX8i7mGr8R0fNHrad/FkDAWIf2Jc3RVad1tlW3uVXEu9Fau7XTo/LUxzmXh3/AEXxZVW+J3dKKTSejkTej4Xb27+XTh1Fwop6xds3rBjIpdVrrQqyUzl+nTr8+PqXRydG0QzXltzQu/R/iPLaNNknpP5fdPl8/wB2NY+9doT0LiQVeCkzA4t8ldpd74JrfxGCJt3jpKpRONmPc85fMtNujxRdoVW4VTNaWN6fuI1+l/UvqQxDkLhJMWYzjWqh7pbreiT1Oqd65de9YvjVPMim3rNyIiIiIm4tsk7dFt6ScVtSv4XHPf8AN8PL7oyKfUPDT0ikLSXtDxLIkbdeK8iB70YxXKu4knPWR6uUoIiKrl1XipHiZu1d5jxAz6Tk8SEfUqo+qfNT5xXRN6lSoqLZ0kmTfyN5gqh0dGr9JJUVG8ic5UkRETRAfSioAAAAAAAAAAKHmB4BYh8l1PsnHIQ695geAWIfJdT7JxyEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAArmX/h7h7ypTe1adezkJl/4e4e8qU3tWnXsAAAAAAAAAAABI3y10F6tk9sudLHVUlQxWSRyJqip/3yk8fB2UmN+ktIc7sr7hl9d+7Qq+pslS9fe1RpvYv92/pTn5THTXKioqLoqcp0UxBZ7dfrPU2m60zKmkqWKyRjk5OdOZU5FNJs5ctrjl7fu5OV9TaahyrR1WzxT6juZyeviZPTajn9m3dgNbovVTz0/L+yj2it98w7D1+VYm/p6SopoqK1eDkVFTnReJZ9NM+CZsrF3ovnLppKhlRC2Vi7l4pzKXUw03XaWcF+enafpKxbzROt9e+ndvZxY5eVq8CDA8vLFNAldbVkY3WeDvm6cVTlQtTDVC664goLYxNVqqiOLqc5EX1Fvmjo6x6EcYjUY55p6xHX4x4/OG3vud8PssWXFHM6PZqbl/a5VVN+i/MRfE381MlNUkKGOOnp46eFEbFE1GMRORqJohOMUxtp3ndTUZrZ8tslu8yjop6RSEikGsm2W9zau93HxHlC8zy90fonzU4EWnj+k5N3IhApY9reqd6hOage9T61HOcjWpqq8EPMbXSPRjEVVXkQrVFSNgbqvfPXioHmio2xIj5NFf+ROAFFQAAAAAAAAAAAABQ8wPALEPkup9k45CHXvMDwCxD5LqfZOOQgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFcy/8AD3D3lSm9q069nITL/wAPcPeVKb2rTr2AAAAAAAAAAAAAACjYxw5a8VYfqrJd6dJqaobprp3zHcjmryKi8pWT4Inad4UmImNpaD5pYFumAcSyWuvRZad+r6SqRNGzM/RU4KhQbRWLTT7Ll+TfuXo6Te3M3BVrx1hiezXFiNf8+mqETvoJE4OT8lTlQ0bxnhu64SxFVWO8QLHUQOVEcnzZG8j2ryopltPn9ZG092s8R0EViY/tlXY3cqEnl1bG0+dljjRmkL6hZ2JyJo1V06lQlLDWbcfvd6981O915ULuwR73Zjey1kzkZ3CoXR68iOardPWh7y13pLDcD1duF8Q5bdrbxPz7T/vvbP0zu9QnGKUykfuQqEamIb+juejGK5V3IhIx7U8yqvLx6EPtdL82JvFd6kenYkcaJ9JeIUTDdGojU4Ie4mvlejGIrnLyEONHSPRjEVXKu5Cv2+kbTR6rosi8V/Qoq+0NI2nZzvXipNAFFQAAAAAAAAAAAAAAAFDzA8AsQ+S6n2TjkIde8wPALEPkup9k45CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVzL/AMPcPeVKb2rTr2chMv8Aw9w95UpvatOvYAAAAAAAAAAAAAAAAHxTG2e+WlLj/Dm3TsZFe6JrnUc3Db543dC+pesyUfCtbTWd4eMlK5KzW3Zzinhq7ZcZKaphkp6qmkVkkb26OY5F3oqFzUFSk8DJmKrV6OKKZ291Nlf+06STG9jg/t1Oz+3wsb++jT+In8zeXnTxGtNkrO4VCRud8nJ6l5FMxiyRkrvDTOL8PmO3eO3vhtnl3eP2xhqjrHuRZdjYl/rbuXz8esu6J24wjkPdlZV1tnkdueiTxJ0pud+nmMxySaU6onF25DG5qct5hsvC9T+J0tMk9+0/GESl1mndMvDXcTzVVVRERVVeQladEjiRvMXDYaHREqpU3r8xF/MhlfwmrTRJTs7pImsrk9HoJ8Ao9AAAAAAAAAAAAAAAAAAAoeYHgFiHyXU+ycchDr3mB4BYh8l1PsnHIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACuZf8Ah7h7ypTe1adezkJl/wCHuHvKlN7Vp17AAAAAAAAAAAAAAAAAAADxI1r2q17Uc1U0VFTVFQ0z90jls7BmJv2ta6bYsVxero0Yne08vFY+hOVOtOQ3OKLjXDluxZhqssNzZtU9SzTaRN7HfRcnSi7yXDlnHbdb6nBGam3j4NN8o7v73xPbZXP0XuqQyb+R27sNmmO2pGJyN75TUW72m54Fx1PaLkmzPSTom2iaNkai6tenQu5TbSzI+tWFsKbT5kTTrQudVETMWhi+EY5wzkxeG+/69/2XHYaNayo23p8iz53SvMXWiIiaImiIQKCmZSUrII+DU3rzrzkwWLOAAAAAAAAAAAAAAAAAAAAACh5geAWIfJdT7JxyEOveYHgFiHyXU+ycchAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAK5l/4e4e8qU3tWnXo4+YTrYLbiq03GqVyQUtdDNKrU1XZa9HLoniQ6B/G6ya+23r8Od2gbADVOc1/+N1k19tvX4c7tHxucmvtt6/DndoGwGqc41TnNfvjc5N/brz+HO7R8bnJv7devw53aBsBtINpDX/43OTf268/hzu0fG5yb+3Xn8Od2gbAbSDaQ1/+Nzk39uvP4c7tHxucm/t15/DndoGwG0g20Nf/AI3OTf268/hzu0fG5yb+3Xn8Od2gbAbaDbQ1++Nxk39uvP4c7tHxuMmvt15/DndoGwO2nONtOc1++Nxk19uvP4c7tHxt8mvtt5/DndoGwG23nG03nNfvjbZM/bbz+HO7QvutcmF41l5/DndoFX91Nl9HibC7sR2yDW72uNVcjE76aBN7m9Kt3qnXzl5ZP0a/6J2661H7yekjWPXkbspv6zGbvdZZLORUdVXhUXntru08w+6uyThibFDUXaNjE0a1ttciInMiakk5JmkVlFGKIyTePFsNtt50G23nQ19T3WuTCf8ArLz+HO7T78bbJn7befw53aRpWwW2nONtOc1++Nvk19tvP4c7tHxuMmvt15/DndoGwO0g2k5zX743GTX268/hzu0+/G5yb+3Xn8Od2gbAbSc591TnNfvjc5N/brz+HO7R8bnJv7devw53aBsDqnONUNf/AI3OTX269fhzu0fG6ya+23r8Od2gbAH01++N1k39uvX4c7tPvxusm/tt6/DndoGwANf/AI3eTf229fhzu0+/G8yb+23n8Od2gZ/BgD43mTf228/hzu0fG8yb+23n8Od2gZ/BgD43mTf228/hzu0fG8yb+23n8Od2gZjzA8AsQ+S6n2TjkIdBMWe6vyiuWFbvbqWsvCz1VDNDEjre5E2nMVqarru3qc+wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//9k=" alt="CSC"></div>
+    <div style="flex:1">
+      <div class="hdr-title">TOF Clinical App</div>
+      <div class="hdr-sub">CSC Algeria · ACHD CORE-Team · ACC/AHA 2025</div>
+    </div>
+    <div class="hdr-badge">ACHD II</div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div id="content">
+
+<!-- ══ SEC 1: PATIENT ══ -->
+<div class="section active" id="sec-patient">
+  <div class="validated-banner">
+    <div class="vb-icon">✅</div>
+    <div class="vb-txt">
+      <strong>Validé par le CORE-TEAM ACHD-Algérie · CSC</strong>
+      Application clinique TOF selon ACC/AHA 2025 Guidelines · Section 4.3.5
+    </div>
+  </div>
+  <div class="complex-badge">
+    <div class="cb-title">🫀 Tétralogie de Fallot — Complexité Anatomique Classe II</div>
+    <div class="cb-body">Cardiopathie congénitale de complexité modérée-élevée (ACC/AHA 2018 Classification). Suivi ACHD obligatoire dans un centre expert. Réévaluation au moins tous les 1–2 ans.</div>
+  </div>
+  <div class="section-head">Identité du patient</div>
+  <div class="card">
+    <div class="row2" style="margin-bottom:10px">
+      <div><label>Nom</label><input type="text" id="p-nom" placeholder="Nom de famille"></div>
+      <div><label>Prénom</label><input type="text" id="p-prenom" placeholder="Prénom"></div>
+    </div>
+    <div class="row3" style="margin-bottom:10px">
+      <div><label>Âge (ans)</label><input type="number" id="p-age" placeholder="—" min="0" max="99"></div>
+      <div><label>Poids (kg)</label><input type="number" id="p-poids" placeholder="—"></div>
+      <div><label>Taille (cm)</label><input type="number" id="p-taille" placeholder="—"></div>
+    </div>
+    <div class="row2">
+      <div><label>Saturation O₂ (%)</label><input type="number" id="p-sato2" placeholder="95–100" min="50" max="100"></div>
+      <div><label>Sexe</label><select id="p-sexe"><option value="">—</option><option>Masculin</option><option>Féminin</option></select></div>
+    </div>
+  </div>
+  <div class="section-head">Antécédents & Histoire de la maladie</div>
+  <div class="card">
+    <div style="margin-bottom:10px">
+      <label>Date de la chirurgie initiale</label>
+      <input type="text" id="p-date-chir" placeholder="Ex: 2005 — correction complète à 3 ans">
+    </div>
+    <div style="margin-bottom:10px">
+      <label>Type de réparation</label>
+      <select id="p-reparation">
+        <option value="">Sélectionner...</option>
+        <option>Correction complète (fermeture CIV + CCVD)</option>
+        <option>Correction avec patch transannulaire</option>
+        <option>Correction sans patch transannulaire</option>
+        <option>Tube valvé VD-AP implanté</option>
+        <option>Conduit VD-AP (Homograft)</option>
+        <option>Conduit biologique VD-AP</option>
+        <option>Palliation antérieure (Blalock)</option>
+        <option>Autre</option>
+      </select>
+    </div>
+    <div>
+      <label>Histoire de la maladie & ATCD complets</label>
+      <textarea id="p-atcd" placeholder="Décrivez l'histoire complète : interventions antérieures, hospitalisations, traitements, résultats des examens précédents, symptômes évolutifs, comorbidités, traitements en cours..."></textarea>
+    </div>
+  </div>
+  <div class="section-head">Traitements en cours</div>
+  <div class="card">
+    <textarea id="p-traitements" placeholder="Médicaments, posologies, observance..." style="min-height:70px"></textarea>
+  </div>
+  <button class="btn btn-teal" onclick="savePatient()">💾 Enregistrer les données patient</button>
+</div>
+
+<!-- ══ SEC 2: BILAN ══ -->
+<div class="section" id="sec-bilan">
+  <div class="section-head">Type de consultation</div>
+  <div class="card">
+    <label>Sélectionner le contexte</label>
+    <select id="bilan-type" onchange="renderBilan()">
+      <option value="">— Choisir le type de consultation —</option>
+      <option value="syst">Visite systématique — Suivi programmé</option>
+      <option value="symp">Apparition de symptômes</option>
+      <option value="urg">Consultation urgence / Décompensation</option>
+      <option value="preop">Bilan pré-opératoire</option>
+    </select>
+  </div>
+  <div id="bilan-content"></div>
+</div>
+
+<!-- ══ SEC 3: LÉSIONS ══ -->
+<div class="section" id="sec-lesions">
+  <div class="section-head">Lésion anatomique principale</div>
+  <div class="card">
+    <label>Sélectionner la lésion</label>
+    <select id="lesion-type" onchange="renderLesion()">
+      <option value="">— Choisir la lésion —</option>
+      <option value="ip">Insuffisance Pulmonaire (IP) — Fuite valve native ou conduit</option>
+      <option value="sp">Sténose Pulmonaire / CCVD résiduelle ou infundibulaire</option>
+      <option value="civ">CIV résiduelle ou Fuite patch</option>
+      <option value="tube">Dysfonction tube valvé VD-AP (sténose ± fuite)</option>
+      <option value="vd">Dysfonction VD isolée (surcharge chronique)</option>
+      <option value="vg">Dysfonction VG</option>
+      <option value="ap">Sténose artères pulmonaires périphériques</option>
+      <option value="ao">Dilatation / Anomalie aortique (racine)</option>
+      <option value="it">Insuffisance Tricuspide significative</option>
+      <option value="arythmie">Arythmie (TSV / TV / FA)</option>
+    </select>
+  </div>
+  <div id="lesion-content"></div>
+</div>
+
+<!-- ══ SEC 4: ÉVALUATION ══ -->
+<div class="section" id="sec-eval">
+  <div class="section-head">Choisir l'évaluation</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+    <div class="stade-card" style="border-color:rgba(56,189,248,.4);background:rgba(56,189,248,.06)" onclick="showEval('stade')">
+      <div style="font-size:22px;margin-bottom:6px">📊</div>
+      <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--sky)">Stade Physiologique</div>
+      <div style="font-size:11px;color:var(--w3);margin-top:4px">A → B → C → D<br>Table 4 ACC 2025</div>
+    </div>
+    <div class="stade-card" style="border-color:rgba(224,48,80,.4);background:rgba(224,48,80,.06)" onclick="showEval('prevention')">
+      <div style="font-size:22px;margin-bottom:6px">⚡</div>
+      <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--red)">Score PREVENTION</div>
+      <div style="font-size:11px;color:var(--w3);margin-top:4px">Risque MSC<br>7 facteurs</div>
+    </div>
+  </div>
+  <div id="eval-content"></div>
+</div>
+
+<!-- ══ SEC 5: AVIS & SUIVI ══ -->
+<div class="section" id="sec-avis">
+  <div class="section-head">Récapitulatif & Plan de suivi</div>
+  <div id="avis-summary" class="card">
+    <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:8px;color:var(--teal)">📋 Récapitulatif du dossier</div>
+    <div id="avis-recap" style="font-size:12px;color:var(--w2);line-height:1.7">Complétez les sections précédentes pour générer le récapitulatif.</div>
+  </div>
+  <div class="section-head">Plan de suivi recommandé ACC 2025</div>
+  <div id="avis-plan" class="card">
+    <div id="avis-plan-content" style="font-size:12px;color:var(--w2);line-height:1.7">Basé sur les données saisies.</div>
+  </div>
+  <button class="btn btn-teal" onclick="generateRecap()" style="margin-top:4px">📄 Générer le compte rendu complet</button>
+  <button class="btn btn-green" onclick="sendWhatsApp()">💬 Demander Avis — CORE-ACHD Team Algérie</button>
+  <div style="text-align:center;font-size:10px;color:var(--w3);margin-top:4px">+213 540 910 869 · ACHD CORE-Team CSC-Algérie</div>
+</div>
+
+</div><!-- /content -->
+
+<!-- NAVBAR -->
+<div id="navbar">
+  <button class="nb-btn active" data-sec="sec-patient" onclick="switchSec('sec-patient',this)">
+    <span class="nb-icon">👤</span><span class="nb-label">Patient</span>
+  </button>
+  <button class="nb-btn" data-sec="sec-bilan" onclick="switchSec('sec-bilan',this)">
+    <span class="nb-icon">🔬</span><span class="nb-label">Bilan</span>
+  </button>
+  <button class="nb-btn" data-sec="sec-lesions" onclick="switchSec('sec-lesions',this)">
+    <span class="nb-icon">🫀</span><span class="nb-label">Lésions</span>
+  </button>
+  <button class="nb-btn" data-sec="sec-eval" onclick="switchSec('sec-eval',this)">
+    <span class="nb-icon">📊</span><span class="nb-label">Évaluation</span>
+  </button>
+  <button class="nb-btn" data-sec="sec-avis" onclick="switchSec('sec-avis',this);buildAvis()">
+    <span class="nb-icon">📋</span><span class="nb-label">Avis</span>
+  </button>
+</div>
+</div><!-- /app -->
+
+<!-- MODAL -->
+<div id="modal">
+  <div id="modal-content">
+    <button id="modal-close" onclick="closeModal()">✕ Fermer</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────────────────────────
+function switchSec(id, btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  document.getElementById('content').scrollTop=0;
+}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+function showModal(html){
+  document.getElementById('modal-body').innerHTML=html;
+  document.getElementById('modal').classList.add('show');
+}
+function savePatient(){
+  showModal('<div style="text-align:center;padding:20px"><div style="font-size:40px;margin-bottom:10px">✅</div><div style="font-family:Syne,sans-serif;font-size:18px;font-weight:700;color:var(--teal)">Données enregistrées</div><div style="font-size:13px;color:var(--w2);margin-top:8px">Informations patient sauvegardées avec succès</div></div>');
+  setTimeout(closeModal,1800);
+}
+
+// ─────────────────────────────────────────────────────────────
+// SECTION 2 — BILAN
+// ─────────────────────────────────────────────────────────────
+function renderBilan(){
+  const v=document.getElementById('bilan-type').value;
+  const c=document.getElementById('bilan-content');
+  if(!v){c.innerHTML='';return;}
+  
+  const bilanData={
+    syst:`
+<div class="section-head">Stade Physiologique du patient</div>
+<div class="card">
+<label>Stade actuel (Table 4 ACC 2025)</label>
+<select id="bilan-stade" onchange="renderStadeBilan()">
+  <option value="">— Sélectionner —</option>
+  <option value="A">Stade A — Asymptomatique, anatomie favorable</option>
+  <option value="B">Stade B — Asymptomatique, anomalies hémodynamiques</option>
+  <option value="C">Stade C — Symptômes légers à modérés, NYHA I–II</option>
+  <option value="D">Stade D — Symptômes sévères, défaillance cardiaque</option>
+</select>
+</div>
+<div id="stade-bilan-result"></div>`,
+
+    symp:`
+<div class="section-head">Symptôme principal</div>
+<div class="card">
+<label>Symptôme rapporté</label>
+<select id="bilan-symp" onchange="renderSympBilan()">
+  <option value="">— Sélectionner —</option>
+  <option value="dyspnee">Dyspnée d'effort progressive</option>
+  <option value="palpit">Palpitations / arythmies</option>
+  <option value="syncope">Syncope ou lipothymie</option>
+  <option value="oedeme">Œdèmes / signes IC droite</option>
+  <option value="douleur">Douleur thoracique</option>
+  <option value="cyanose">Cyanose progressive</option>
+  <option value="fatigue">Fatigue invalidante / intolérance effort</option>
+</select>
+</div>
+<div id="symp-bilan-result"></div>`,
+
+    urg:`
+<div class="section-head">Situation d'urgence</div>
+<div class="card">
+<label>Type d'urgence</label>
+<select id="bilan-urg" onchange="renderUrgBilan()">
+  <option value="">— Sélectionner —</option>
+  <option value="ica">Décompensation IC aiguë / OAP</option>
+  <option value="aryt">Arythmie instable (TV soutenue, FA rapide)</option>
+  <option value="syncope_urg">Syncope inexpliquée récente</option>
+  <option value="endo">Suspicion endocardite infectieuse</option>
+  <option value="thrombus">Suspicion thrombose / AVC</option>
+  <option value="choc">Choc cardiogénique</option>
+</select>
+</div>
+<div id="urg-bilan-result"></div>`,
+
+    preop:`
+<div class="section-head">Type d'intervention planifiée</div>
+<div class="card">
+<label>Intervention envisagée</label>
+<select id="bilan-preop" onchange="renderPreopBilan()">
+  <option value="">— Sélectionner —</option>
+  <option value="rvp_chir">RVP chirurgicale (remplacement valve pulmonaire)</option>
+  <option value="tpvr">TPVR percutanée (Melody / Sapien)</option>
+  <option value="resection">Résection infundibulaire / plastie CCVD</option>
+  <option value="tube_chir">Remplacement conduit VD-AP chirurgical</option>
+  <option value="civ_resid">Fermeture CIV résiduelle (chirurgicale / percutanée)</option>
+  <option value="dai">Implantation DAI / resynchronisation</option>
+  <option value="ap_perc">Angioplastie / stenting AP périphériques</option>
+  <option value="coarct">Stenting re-coarctation aortique</option>
+</select>
+</div>
+<div id="preop-bilan-result"></div>`
+  };
+  c.innerHTML=bilanData[v]||'';
+}
+
+// ── Stade A-B-C-D examens
+function renderStadeBilan(){
+  const s=document.getElementById('bilan-stade')?.value;
+  const r=document.getElementById('stade-bilan-result');
+  if(!s||!r)return;
+  
+  const data={
+    A:{color:'var(--mint)',border:'rgba(52,211,153,.35)',bg:'rgba(52,211,153,.06)',
+      titre:'Stade A — Suivi annuel programmé',
+      sub:'Patient asymptomatique sans anomalie hémodynamique significative',
+      examens:[
+        {cor:'COR I',txt:'<strong>ECG 12 dérivations</strong> — Durée QRS (seuil alerte > 180 ms), fragmentation, dispersion QT, arythmie'},
+        {cor:'COR I',txt:'<strong>ETT 2D + Doppler complet</strong> — IP (FR), SP (gradient CCVD), FEVD, FEVG, CIV résiduel, PAP (IT), dilatation aortique'},
+        {cor:'COR I',txt:'<strong>Saturation O₂</strong> repos et effort (test 6 minutes de marche si NYHA ≥ II)'},
+        {cor:'COR 2a',txt:'<strong>IRM cardiaque</strong> tous les 2–3 ans — VTSI-VD (seuil > 80 mL/m²), FEVD, FR-IP, masse VD, LGE'},
+        {cor:'COR 2a',txt:'<strong>Holter 48h</strong> — Si QRS > 150 ms ou antécédent arythmie : recherche TV, TSV, FA'},
+        {cor:'COR 2b',txt:'<strong>BNP / NT-proBNP</strong> — Baseline, corrélation avec charge volumique VD'},
+        {cor:'COR 2b',txt:'<strong>CPET (Épreuve cardio-pulmonaire)</strong> — VO₂ peak, pente VE/VCO₂ : tous les 2–3 ans si bon état général'},
+      ]},
+    B:{color:'var(--sky)',border:'rgba(56,189,248,.35)',bg:'rgba(56,189,248,.06)',
+      titre:'Stade B — Anomalies hémodynamiques sans symptômes',
+      sub:'IP sévère, VD dilaté (VTSI > 80), dysfonction débutante — suivi tous les 6–12 mois',
+      examens:[
+        {cor:'COR I',txt:'<strong>IRM cardiaque</strong> obligatoire — VTSI-VD, FEVD, FR-IP, LGE, masse VD. Paramètres décisionnels RVP'},
+        {cor:'COR I',txt:'<strong>ETT + Doppler</strong> — FEVD, gradient CCVD/tube, PAP estimée, IT, dilatation aortique'},
+        {cor:'COR I',txt:'<strong>ECG</strong> — QRS > 160 ms, fragmentation, axe, HVD'},
+        {cor:'COR I',txt:'<strong>CPET</strong> — VO₂ peak (seuil déclin > 10%/2ans), VE/VCO₂, capacité fonctionnelle objectivée'},
+        {cor:'COR I',txt:'<strong>Holter 48h</strong> — PREVENTION score, TV non soutenue, ESV > 1000/24h'},
+        {cor:'COR I',txt:'<strong>BNP</strong> — Évolution sérielle, corrélation avec dilation VD'},
+        {cor:'COR 2a',txt:'<strong>Scanner cardiaque (CT)</strong> — Si TPVR envisagée: anatomie CCVD, Agatston, distances coronaires'},
+        {cor:'COR 2a',txt:'<strong>Cathétérisme diagnostique</strong> — Si discordance écho/IRM, mesure RVP distales si HTAP suspectée'},
+      ]},
+    C:{color:'var(--gold)',border:'rgba(240,160,48,.35)',bg:'rgba(240,160,48,.06)',
+      titre:'Stade C — Symptômes légers à modérés (NYHA I–II)',
+      sub:'Indication d\'intervention à évaluer — bilan complet systématique',
+      examens:[
+        {cor:'COR I',txt:'<strong>IRM cardiaque urgente</strong> — VTSI-VD, FEVD, FEVG, LGE étendu (fibrose = substrat TV)'},
+        {cor:'COR I',txt:'<strong>CPET complet</strong> — VO₂ peak < 65% prédit = forte indication interventionnelle'},
+        {cor:'COR I',txt:'<strong>Holter 48–72h</strong> — TV soutenue ? ESV fréquentes ? Substrat arythmique'},
+        {cor:'COR I',txt:'<strong>BNP + Troponine hs</strong> — Évaluation de la surcharge et de la cytolyse'},
+        {cor:'COR I',txt:'<strong>ETT complète + Doppler tissulaire</strong> — Strain VD, FEVD, fonction diastolique VD'},
+        {cor:'COR I',txt:'<strong>Scanner cardiaque</strong> — Anatomie CCVD, calcifications, distances coronaires (pré-TPVR)'},
+        {cor:'COR I',txt:'<strong>Cathétérisme droit</strong> — RVP, PAP, PTDVD, DC (Fick), test ballon si TPVR'},
+        {cor:'COR 2a',txt:'<strong>Étude électrophysiologique (EEP)</strong> — Si TV documentée ou QRS > 180 ms ou syncope'},
+        {cor:'COR 2a',txt:'<strong>Angioscan AP</strong> — Branches AP, sténoses périphériques si PVD haute inexpliquée'},
+      ]},
+    D:{color:'var(--red)',border:'rgba(224,48,80,.35)',bg:'rgba(224,48,80,.06)',
+      titre:'Stade D — Défaillance cardiaque / Symptômes sévères',
+      sub:'Urgence diagnostique et thérapeutique — équipe multidisciplinaire ACHD',
+      examens:[
+        {cor:'COR I',txt:'<strong>Bilan biologique complet urgent</strong> — BNP/NT-proBNP, troponine, NFS, ionogramme, créatinine, bilan hépatique, coagulation'},
+        {cor:'COR I',txt:'<strong>ETT urgente</strong> — FEVD, FEVG, pression de remplissage, valvulopathies, épanchement péricardique'},
+        {cor:'COR I',txt:'<strong>Monitoring continu</strong> — ECG continu, SpO₂, PA, diurèse'},
+        {cor:'COR I',txt:'<strong>IRM cardiaque</strong> dès stabilisation — FEVD/VG, LGE étendu, VTSI-VD'},
+        {cor:'COR I',txt:'<strong>Cathétérisme droit complet</strong> — DC, RVP, PTDVD, PCWP, test réversibilité'},
+        {cor:'COR I',txt:'<strong>Holter / Monitoring télémétrique</strong> — Substrat arythmique, TV soutenue'},
+        {cor:'COR I',txt:'<strong>Échocardiographie 3D / ETO</strong> — Si ETT insuffisante, évaluation valve, thrombus'},
+        {cor:'COR 2a',txt:'<strong>Test de réversibilité VG</strong> au cathé — Si FEVG < 40%: test occlusion ballon AP'},
+        {cor:'COR 2a',txt:'<strong>Consultation multidisciplinaire</strong> — ACHD + IC avancée + chirurgie cardiaque + transplantation'},
+      ]}
+  };
+  
+  const d=data[s];
+  if(!d)return;
+  r.innerHTML=`
+    <div class="result-box" style="border-color:${d.border};background:${d.bg}">
+      <div class="rb-title" style="color:${d.color}">${d.titre}</div>
+      <div class="rb-body">${d.sub}</div>
+    </div>
+    <div class="section-head">Examens recommandés — Stade ${s}</div>
+    <div class="card">${d.examens.map(e=>`
+      <div class="exam-item">
+        <div class="exam-dot" style="background:${d.color}"></div>
+        <div class="exam-txt"><span class="cor ${e.cor.replace(' ','').toLowerCase()}">${e.cor}</span> ${e.txt}</div>
+      </div>`).join('')}
+    </div>
+    ${s==='C'||s==='D'?`<div class="ib ib-red"><strong>⚠️ Discussion indispensable :</strong> Ce stade requiert la présentation en réunion multidisciplinaire ACHD pour décision d'intervention (chirurgie / TPVR / DAI). Délai de décision < 4 semaines.</div>`:''}
+    ${s==='B'?`<div class="ib ib-sky"><strong>📋 Critères ACC 2025 pour intervention :</strong> Si VTSI-VD > 80 mL/m² + ≥ 2 critères parmi {FEVD ≤ 46%, FEVG ≤ 50%, déclin VO₂ > 10%/an} → COR 2a RVP même asymptomatique.</div>`:''}
+  `;
+}
+
+// ── Symptômes
+function renderSympBilan(){
+  const v=document.getElementById('bilan-symp')?.value;
+  const r=document.getElementById('symp-bilan-result');
+  if(!v||!r)return;
+  
+  const sympData={
+    dyspnee:{title:'Dyspnée d\'effort progressive',color:'var(--gold)',examens:[
+      {cor:'COR I',txt:'<strong>CPET</strong> — VO₂ peak (seuil < 65% prédit = indication), pente VE/VCO₂, AT'},
+      {cor:'COR I',txt:'<strong>IRM cardiaque</strong> — VTSI-VD, FEVD, LGE (fibrose = cause restrictive)'},
+      {cor:'COR I',txt:'<strong>ETT + Doppler</strong> — IP quantitative, gradient CCVD, PTDVD estimée'},
+      {cor:'COR I',txt:'<strong>BNP + NFS</strong> — Surcharge, anémie aggravante'},
+      {cor:'COR 2a',txt:'<strong>Cathé droit</strong> — Si HTAP suspectée ou discordance écho/IRM'},
+    ],note:'La dyspnée dans le TOF réparé = IP progressive jusqu\'à preuve du contraire. IRM urgente.'},
+    palpit:{title:'Palpitations / arythmies',color:'var(--orange)',examens:[
+      {cor:'COR I',txt:'<strong>Holter 48–72h</strong> — Qualification (TSV/TV), charge ESV, TVNS, corrélation symptômes'},
+      {cor:'COR I',txt:'<strong>ECG 12D</strong> — QRS durée, fragmentation, axe, QTc, intervalle HV'},
+      {cor:'COR I',txt:'<strong>ETT</strong> — FEVD, IP, gradient, dilatation aortique'},
+      {cor:'COR I',txt:'<strong>Score PREVENTION-ACHD</strong> — Quantification risque MSC'},
+      {cor:'COR 2a',txt:'<strong>Étude électrophysiologique (EEP)</strong> — Si QRS > 180 ms + ESV fréquentes ou TVNS'},
+      {cor:'COR 2a',txt:'<strong>IRM cardiaque</strong> — LGE étendu = substrat arythmique fibreux'},
+    ],note:'TV soutenue = urgence absolue. Hospitalisation immédiate + évaluation DAI.'},
+    syncope:{title:'Syncope ou lipothymie',color:'var(--red)',examens:[
+      {cor:'COR I',txt:'<strong>Monitoring ECG continu 48–72h</strong> — TV, bloc, pause'},
+      {cor:'COR I',txt:'<strong>ETT en urgence</strong> — Gradient CCVD sévère, FEVD, obstruction'},
+      {cor:'COR I',txt:'<strong>EEP</strong> — Si QRS > 160 ms : induction TV, mesure intervalles'},
+      {cor:'COR I',txt:'<strong>IRM cardiaque</strong> — LGE, FEVD, substrat'},
+      {cor:'COR I',txt:'<strong>Score PREVENTION-ACHD</strong> — Urgence si ≥ 4/7'},
+      {cor:'COR 2a',txt:'<strong>DAI immédiat</strong> si TV induite, syncope inexpliquée + FEVD < 35%'},
+    ],note:'🚨 Syncope inexpliquée dans le TOF = urgence. Risque MSC élevé. Hospitalisation systématique.'},
+    oedeme:{title:'Œdèmes / IC droite',color:'var(--sky)',examens:[
+      {cor:'COR I',txt:'<strong>Bilan biologique complet</strong> — BNP, bilan hépatique, rénal, ionogramme'},
+      {cor:'COR I',txt:'<strong>ETT urgente</strong> — FEVD, FEVG, IT, épanchement'},
+      {cor:'COR I',txt:'<strong>Cathétérisme droit</strong> — DC, PTDVD, PAP, PCWP'},
+      {cor:'COR I',txt:'<strong>Bilan hépatique complet</strong> — Congestion hépatique chronique'},
+    ],note:'Défaillance IC droite dans le TOF = indication d\'intervention urgente à évaluer.'},
+    douleur:{title:'Douleur thoracique',color:'var(--crimson)',examens:[
+      {cor:'COR I',txt:'<strong>ECG 12D + troponines</strong> — Éliminer ischémie'},
+      {cor:'COR I',txt:'<strong>Angioscanner coronarien</strong> — Si pas d\'IRM, éliminer compression coronaire'},
+      {cor:'COR I',txt:'<strong>IRM cardiaque</strong> — LGE ischémique, perfusion'},
+      {cor:'COR 2a',txt:'<strong>Coronarographie</strong> si ischémie prouvée'},
+    ],note:'Douleur thoracique + TOF → éliminer compression coronaire par CCVD dilatée.'},
+    cyanose:{title:'Cyanose progressive',color:'var(--purple)',examens:[
+      {cor:'COR I',txt:'<strong>Satimétrie étagée au cathé</strong> — Qp/Qs, recherche shunt résiduel'},
+      {cor:'COR I',txt:'<strong>ETT + ETO</strong> — CIV résiduelle, CIA, FOP'},
+      {cor:'COR I',txt:'<strong>Scanner thoracique</strong> — Fistules A-V pulmonaires'},
+      {cor:'COR I',txt:'<strong>Angiographie AP</strong> — Sténoses branches AP'},
+    ],note:'Cyanose progressive = shunt résiduel ou HTAP avancée. Cathéterisme diagnostique urgent.'},
+    fatigue:{title:'Fatigue / Intolérance à l\'effort',color:'var(--teal)',examens:[
+      {cor:'COR I',txt:'<strong>CPET</strong> — VO₂ peak, déclin sériel'},
+      {cor:'COR I',txt:'<strong>NFS + fer + ferritine</strong> — Anémie ferriprive aggravante'},
+      {cor:'COR I',txt:'<strong>IRM cardiaque</strong> — FEVD, IP, LGE'},
+      {cor:'COR I',txt:'<strong>TSH + bilan thyroïdien</strong> — Hypothyroïdie (si amiodarone antérieure)'},
+    ],note:'Fatigue isolée dans le TOF : toujours objectiver par CPET avant de minimiser.'}
+  };
+  
+  const d=sympData[v];
+  r.innerHTML=`
+    <div class="result-box" style="border-color:rgba(240,160,48,.35);background:rgba(240,160,48,.06)">
+      <div class="rb-title" style="color:${d.color}">${d.title}</div>
+      <div class="rb-body">${d.note}</div>
+    </div>
+    <div class="section-head">Bilan à réaliser</div>
+    <div class="card">${d.examens.map(e=>`
+      <div class="exam-item">
+        <div class="exam-dot" style="background:${d.color}"></div>
+        <div class="exam-txt"><span class="cor ${e.cor.replace(' ','').toLowerCase()}">${e.cor}</span> ${e.txt}</div>
+      </div>`).join('')}
+    </div>`;
+}
+
+// ── Urgences
+function renderUrgBilan(){
+  const v=document.getElementById('bilan-urg')?.value;
+  const r=document.getElementById('urg-bilan-result');
+  if(!v||!r)return;
+  
+  const urgData={
+    ica:{title:'🚨 Décompensation IC aiguë',color:'var(--red)',examens:[
+      {cor:'COR I',txt:'BNP/NT-proBNP + troponines en urgence'},
+      {cor:'COR I',txt:'ETT urgente — FEVD, FEVG, valvulopathies, épanchement'},
+      {cor:'COR I',txt:'Bilan biologique complet (rénal, hépatique, ionogramme)'},
+      {cor:'COR I',txt:'Monitoring continu : ECG, SpO₂, PA, diurèse'},
+      {cor:'COR I',txt:'Rx thorax + Écho pleuropulmonaire'},
+      {cor:'COR 2a',txt:'Cathétérisme droit dès stabilisation — DC, RVP, PTDVD'},
+    ],note:'Hospitalisation immédiate. Diurétiques IV. Équipe ACHD + réanimation cardiaque.'},
+    aryt:{title:'⚡ Arythmie instable / TV soutenue',color:'var(--crimson)',examens:[
+      {cor:'COR I',txt:'ECG 12D + monitoring continu + défibrillateur prêt'},
+      {cor:'COR I',txt:'Cardioversion électrique si TV avec instabilité hémodynamique'},
+      {cor:'COR I',txt:'ETT urgente — Fonction VD/VG, gradient'},
+      {cor:'COR I',txt:'Ionogramme + Mg²⁺ + K⁺ (facteur déclenchant)'},
+      {cor:'COR I',txt:'EEP en urgence semi-programmée — Induction, cartographie'},
+      {cor:'COR 2a',txt:'DAI si TV documentée + cardiopathie structurelle (COR I si arrêt cardiaque récupéré)'},
+    ],note:'🔴 Urgence vitale. TV soutenue = indication DAI secondaire COR I.'},
+    syncope_urg:{title:'⚠️ Syncope inexpliquée',color:'var(--orange)',examens:[
+      {cor:'COR I',txt:'Monitoring ECG 72h minimum'},
+      {cor:'COR I',txt:'ETT urgente'},
+      {cor:'COR I',txt:'Score PREVENTION-ACHD immédiat'},
+      {cor:'COR I',txt:'EEP si QRS > 160 ms ou score ≥ 4/7'},
+      {cor:'COR 2a',txt:'IRM cardiaque — LGE substrat arythmique'},
+    ],note:'Syncope + TOF = hospitalisation systématique. Risque MSC élevé.'},
+    endo:{title:'🦠 Suspicion Endocardite',color:'var(--gold)',examens:[
+      {cor:'COR I',txt:'Hémocultures x3 avant tout ATB — 3 paires espacées 30 min'},
+      {cor:'COR I',txt:'ETO urgente — Végétations, abcès, lésion valvulaire'},
+      {cor:'COR I',txt:'Bilan biologique : NFS, CRP, PCT, créatinine'},
+      {cor:'COR I',txt:'Scanner thoraco-abdomino-pelvien — Embolies septiques'},
+      {cor:'COR I',txt:'PET-CT si ETO douteuse'},
+      {cor:'COR 2a',txt:'Avis cardiochirurgical si critères chirurgicaux (végétation > 10 mm, IC réfractaire)'},
+    ],note:'Critères de Duke. ATB probabiliste après hémocultures (pas avant!).'},
+    thrombus:{title:'🧠 Suspicion AVC / Thrombose',color:'var(--purple)',examens:[
+      {cor:'COR I',txt:'IRM cérébrale en urgence'},
+      {cor:'COR I',txt:'ETO — Thrombus intracardiaque, FOP, végétation'},
+      {cor:'COR I',txt:'ETT + contraste — Shunt D→G'},
+      {cor:'COR I',txt:'Bilan thrombophilie si 1er événement'},
+      {cor:'COR I',txt:'Anticoagulation après exclusion hémorragie céréb.'},
+    ],note:'AVC cryptogénique + TOF = chercher shunt résiduel ou thrombus sur matériel.'},
+    choc:{title:'🚨 Choc cardiogénique',color:'var(--red)',examens:[
+      {cor:'COR I',txt:'Swan-Ganz ou monitoring hémodynamique invasif immédiat'},
+      {cor:'COR I',txt:'ETT urgente au lit'},
+      {cor:'COR I',txt:'Bilan biologique critique (acide lactique, gazométrie)'},
+      {cor:'COR I',txt:'Cathétérisme diagnostique + possibilité intervention simultanée'},
+      {cor:'COR 2a',txt:'Assistance circulatoire (IABP, Impella) si instabilité'},
+    ],note:'🔴 Urgence vitale maximale. Activation protocole choc cardiogénique.'}
+  };
+  
+  const d=urgData[v];
+  r.innerHTML=`
+    <div class="result-box" style="border-color:rgba(224,48,80,.4);background:rgba(224,48,80,.07)">
+      <div class="rb-title" style="color:${d.color}">${d.title}</div>
+      <div class="rb-body">${d.note}</div>
+    </div>
+    <div class="card">${d.examens.map(e=>`
+      <div class="exam-item">
+        <div class="exam-dot" style="background:${d.color}"></div>
+        <div class="exam-txt"><span class="cor ${e.cor.replace(' ','').toLowerCase()}">${e.cor}</span> ${e.txt}</div>
+      </div>`).join('')}
+    </div>`;
+}
+
+// ── Préop
+function renderPreopBilan(){
+  const v=document.getElementById('bilan-preop')?.value;
+  const r=document.getElementById('preop-bilan-result');
+  if(!v||!r)return;
+  
+  const preData={
+    rvp_chir:{title:'Bilan pré-RVP chirurgicale',examens:[
+      {cor:'COR I',txt:'IRM cardiaque — VTSI-VD, FEVD, LGE, FEVG, FR-IP (données décisionnelles)'},
+      {cor:'COR I',txt:'CPET — VO₂ peak, VE/VCO₂ (évaluation risque opératoire)'},
+      {cor:'COR I',txt:'Cathétérisme droit — RVP distales, PAP, DC, PTDVD'},
+      {cor:'COR I',txt:'Angiographie coronarienne ou Angioscanner — Chez > 40 ans ou facteurs risque CV'},
+      {cor:'COR I',txt:'Holter 48h + EEP si TV ou QRS > 180 ms — Décision DAI simultané'},
+      {cor:'COR I',txt:'ETT + ETO préop — Anatomie valvulaire, IT associée, taille anneau'},
+      {cor:'COR I',txt:'Bilan biologique complet + groupe sanguin + RAI'},
+      {cor:'COR 2a',txt:'PET-CT cardiaque si endocardite récente ou matériel infecté'},
+    ]},
+    tpvr:{title:'Bilan pré-TPVR (Melody / Sapien)',examens:[
+      {cor:'COR I',txt:'Scanner cardiaque (CT angio) — OBLIGATOIRE : anatomie CCVD, score Agatston calcifications, distances coronaires IVA/CD'},
+      {cor:'COR I',txt:'Test ballon coronaire per-procédure — Occlusion provisoire AP sous scopie + ECG'},
+      {cor:'COR I',txt:'IRM cardiaque — VTSI-VD, FEVD, diamètre conduit'},
+      {cor:'COR I',txt:'Cathétérisme droit + angiographie AP — Gradient valve/conduit, morphologie AP, taille CCVD'},
+      {cor:'COR I',txt:'ETT — Gradient, IP, fonction VD, IT'},
+      {cor:'COR 2a',txt:'Pré-stenting si Agatston > 200 UA (risque fracture stent)'},
+    ]},
+    resection:{title:'Bilan pré-résection infundibulaire',examens:[
+      {cor:'COR I',txt:'ETT + Doppler — Gradient pic CCVD/infundibulum (localisation précise)'},
+      {cor:'COR I',txt:'IRM cardiaque — Morphologie CCVD, masse VD, LGE, FEVD'},
+      {cor:'COR I',txt:'Scanner cardiaque — Anatomie 3D CCVD, distances coronaires'},
+      {cor:'COR I',txt:'Cathétérisme droit — Gradient pic-à-pic confirmé, PAP post-sténose'},
+      {cor:'COR I',txt:'Coronarographie si > 40 ans'},
+      {cor:'COR 2a',txt:'EEP préopératoire si PREVENTION ≥ 4 — Décision DAI simultané'},
+    ]},
+    tube_chir:{title:'Bilan pré-remplacement conduit VD-AP',examens:[
+      {cor:'COR I',txt:'Scanner cardiaque — Calcifications conduit (Agatston), anatomie, distances coronaires, sternum-conduit'},
+      {cor:'COR I',txt:'IRM cardiaque — Fonction VD, volume, LGE'},
+      {cor:'COR I',txt:'Cathétérisme droit + angiographie — Gradient, PAP, DC, branches AP'},
+      {cor:'COR I',txt:'Coronarographie (si > 40 ans ou si conduit calcifié proche coronaires)'},
+      {cor:'COR I',txt:'Holter + EEP si TV ou PREVENTION ≥ 4'},
+      {cor:'COR I',txt:'Bilan infectieux + Hémocultures (matériel potentiellement infecté)'},
+    ]},
+    civ_resid:{title:'Bilan pré-fermeture CIV résiduelle',examens:[
+      {cor:'COR I',txt:'ETT + ETO — Localisation précise du défect, taille, direction du shunt, distances bords'},
+      {cor:'COR I',txt:'Cathétérisme — Qp/Qs (significatif si > 1.5), mesure précise du défect, éligibilité percutanée'},
+      {cor:'COR I',txt:'Scanner cardiaque — Si fermeture percutanée envisagée (anatomie et faisabilité)'},
+      {cor:'COR I',txt:'IRM — FEVD, FEVG, impact du shunt'},
+    ]},
+    dai:{title:'Bilan pré-DAI / Resynchronisation',examens:[
+      {cor:'COR I',txt:'EEP complète — Induction TV, mesure intervalles, évaluation site stimulation'},
+      {cor:'COR I',txt:'IRM cardiaque — LGE étendu (substrat arythmique), FEVD/VG, anatomie veineuse'},
+      {cor:'COR I',txt:'Holter 48h + enregistrement HS-QRS — Qualification arythmie'},
+      {cor:'COR I',txt:'ETT + fonction VD — FEVD, dyssynchronie (si resync)'},
+      {cor:'COR I',txt:'Scanner thoracique — Anatomie veineuse (voie d\'accès), rapports anatomiques'},
+    ]},
+    ap_perc:{title:'Bilan pré-angioplastie AP périphériques',examens:[
+      {cor:'COR I',txt:'Angioscan AP (CT angio thoracique) — Diamètres branches, localisation sténose, longueur'},
+      {cor:'COR I',txt:'Cathétérisme droit avec angiographie AP sélective — Gradient de branche, pressions distales'},
+      {cor:'COR I',txt:'IRM phase-contraste — Flux AP G/D asymétriques'},
+      {cor:'COR I',txt:'Scintigraphie pulmonaire de perfusion — Asymétrie perfusion (confirme sténose significative)'},
+    ]},
+    coarct:{title:'Bilan pré-stenting re-coarctation',examens:[
+      {cor:'COR I',txt:'Mesure gradient tensionnel 4 membres — Confirmation clinique (seuil > 20 mmHg)'},
+      {cor:'COR I',txt:'Angioscanner aortique — Anatomie, longueur sténose, diamètre aorte, stent résiduel'},
+      {cor:'COR I',txt:'Cathétérisme — Gradient pic-à-pic invasif (seuil ≥ 20 mmHg = intervention COR 2a)'},
+      {cor:'COR 2a',txt:'IRM aortique — Si allergie iode ou enfant'},
+    ]}
+  };
+  
+  const d=preData[v];
+  if(!d)return;
+  r.innerHTML=`
+    <div class="ib ib-teal"><strong>📋 ${d.title}</strong></div>
+    <div class="card">${d.examens.map(e=>`
+      <div class="exam-item">
+        <div class="exam-dot" style="background:var(--teal)"></div>
+        <div class="exam-txt"><span class="cor ${e.cor.replace(' ','').toLowerCase()}">${e.cor}</span> ${e.txt}</div>
+      </div>`).join('')}
+    </div>
+    <div class="ib ib-gold"><strong>🔑 Bilan pré-opératoire standard :</strong> Groupe + RAI, NFS, bilan complet, ECG, Rx thorax, consultation anesthésie cardiaque, consultation dentaire obligatoire (prophylaxie endocardite).</div>`;
+}
+
+// ─────────────────────────────────────────────────────────────
+// SECTION 3 — LÉSIONS
+// ─────────────────────────────────────────────────────────────
+function renderLesion(){
+  const v=document.getElementById('lesion-type').value;
+  const c=document.getElementById('lesion-content');
+  if(!v){c.innerHTML='';return;}
+  
+  const lesionData={
+    ip:{
+      title:'Insuffisance Pulmonaire (IP)',icon:'🫁',color:'var(--sky)',
+      physio:'IP sévère = surcharge volumique VD chronique. Fuite pulmonaire (FR) mesurée à l\'IRM. Entraîne dilatation VD progressive → fibrose → dysfonction → risque TV / MSC.',
+      criteres:[
+        'IRM : FR ≥ 25% = modérée | FR ≥ 40% = sévère',
+        'IRM : VTSI-VD > 80 mL/m² (nouveau seuil ACC 2025 — remplace VTDI ≥ 160)',
+        'ETT : coaptation valvulaire absente ou incomplète, flux diastolique inverse',
+        'CPET : VO₂ peak déclin > 10%/2 ans',
+      ],
+      indications:[
+        {cor:'COR I',txt:'RVP si IP sévère + symptômes (NYHA ≥ II) + FEVD ≤ 46% ou VTSI-VD > 80'},
+        {cor:'COR 2a',txt:'RVP si asymptomatique + ≥ 2 critères : {VTSI-VD > 80, FEVD ≤ 46%, FEVG ≤ 50%, déclin VO₂ > 10%/an}'},
+        {cor:'COR 2a',txt:'TPVR percutanée (Melody/Sapien) si anatomie CCVD favorable — CT cardiaque COR I avant'},
+        {cor:'COR 2b',txt:'RVP préventive si VTSI-VD en progression rapide (+5 mL/m²/an) même sans critères atteints'},
+      ],
+      examens_cles:'IRM cardiaque (gold standard), CPET, Holter, ETT, CT cardiaque pré-TPVR',
+    },
+    sp:{
+      title:'Sténose Pulmonaire / CCVD résiduelle',icon:'🔧',color:'var(--red)',
+      physio:'Sténose sous-valvulaire (muscle infundibulaire hypertrophié) ou valvulaire résiduelle. Crée une surcharge barométrique VD : PVD haute, hypertrophie VD concentrique, masse VD augmentée, risque TV.',
+      criteres:[
+        'PVD systolique ≥ 2/3 TA systémique = sténose sévère',
+        'Gradient VD→AP : > 50 mmHg = sévère, 30–50 = modéré',
+        'ETT : Vmax > 3.5 m/s sur CCVD',
+        'IRM : masse VD > 80 g/m² = hypertrophie sévère',
+      ],
+      indications:[
+        {cor:'COR I',txt:'Intervention si gradient VD→AP > 50 mmHg + symptômes (NYHA ≥ II)'},
+        {cor:'COR 2a',txt:'Intervention si gradient > 50 mmHg asymptomatique + PVD ≥ 2/3 TA systémique'},
+        {cor:'COR 2a',txt:'Résection infundibulaire + patch péricardique si sténose musculaire pure (valve compétente)'},
+        {cor:'COR 2b',txt:'Valvuloplastie ballon si sténose valvulaire pure sans sous-valvulaire'},
+      ],
+      examens_cles:'ETT Doppler (gradient), IRM (masse VD, FEVD), Cathétérisme (gradient invasif), Scanner (anatomie CCVD)',
+    },
+    civ:{
+      title:'CIV résiduelle / Fuite patch',icon:'🔵',color:'var(--teal)',
+      physio:'CIV résiduelle ou déhiscence du patch de fermeture. Shunt G→D si non-restrictive → surcharge volumique VG + VD. Qp/Qs > 1.5 = shunt significatif.',
+      criteres:[
+        'Qp/Qs > 1.5 = shunt hémodynamiquement significatif',
+        'Dilatation VG/OG associée',
+        'ETT/ETO : localisation précise, taille du défect',
+      ],
+      indications:[
+        {cor:'COR I',txt:'Fermeture CIV résiduelle si Qp/Qs > 1.5 + dilatation VG'},
+        {cor:'COR 2a',txt:'Fermeture percutanée si anatomie favorable (distance bords adéquate)'},
+        {cor:'COR 2b',txt:'Fermeture chirurgicale si anatomie complexe ou multifocale'},
+        {cor:'COR 3',txt:'Fermeture contre-indiquée si HTAP sévère fixée (RVP > 8 WU)'},
+      ],
+      examens_cles:'ETT + ETO (gold standard localisation), Cathétérisme (Qp/Qs, RVP), Scanner (faisabilité percutanée)',
+    },
+    tube:{
+      title:'Dysfonction conduit / Tube valvé VD-AP',icon:'🔩',color:'var(--orange)',
+      physio:'Double dysfonction possible : sténose (↑ postcharge) + fuite (↑ précharge). Surcharge mixte VD plus délétère que chacune isolément. Calcifications → pré-stenting si Agatston > 200.',
+      criteres:[
+        'Sténose : gradient conduit > 35 mmHg moyen / > 50 mmHg max',
+        'Fuite : FR ≥ 25% IRM',
+        'VTSI-VD > 80 mL/m² IRM',
+        'Agatston CT : < 200 → TPVR directe | 200–500 → pré-stenting probable | > 500 → pré-stenting obligatoire',
+      ],
+      indications:[
+        {cor:'COR I',txt:'TPVR si anatomie favorable — CT cardiaque COR I obligatoire avant'},
+        {cor:'COR I',txt:'Chirurgie remplacement conduit si anatomie défavorable à TPVR'},
+        {cor:'COR 2a',txt:'Pré-stenting obligatoire si Agatston > 200 UA'},
+        {cor:'COR I',txt:'Test ballon coronaire per-procédure OBLIGATOIRE avant déploiement valve'},
+      ],
+      examens_cles:'Scanner cardiaque (COR I), IRM, ETT Doppler, Cathétérisme + angiographie AP',
+    },
+    vd:{
+      title:'Dysfonction VD isolée',icon:'🫀',color:'var(--purple)',
+      physio:'Résultat d\'une surcharge chronique non traitée (IP ou SP). Fibrose progressive (LGE). Strain VD reflet fidèle : –19% = fenêtre ouverte, –10% = urgence, –5% = probable irréversible.',
+      criteres:[
+        'FEVD < 46% IRM = dysfonction significative',
+        'Strain VD GLS < –20% = normal | –15 à –20% = débutant | < –10% = sévère',
+        'LGE VD : > 5% masse = fibrose significative (risque TV)',
+        'VTSI-VD > 80 mL/m² = dilatation pathologique',
+      ],
+      indications:[
+        {cor:'COR I',txt:'Traiter la cause (IP → RVP, SP → résection) avant dysfonction irréversible'},
+        {cor:'COR 2a',txt:'DAI si FEVD < 35% + TV non soutenue + LGE étendu'},
+        {cor:'COR 2a',txt:'RVP même asymptomatique si FEVD ≤ 46% + VTSI-VD > 80 (critère ACC 2025)'},
+      ],
+      examens_cles:'IRM cardiaque (gold standard), ETT strain, Holter, CPET, BNP',
+    },
+    vg:{
+      title:'Dysfonction VG',icon:'💙',color:'var(--rose)',
+      physio:'Rare mais grave dans le TOF. Causes : interdépendance VD-VG (Bernheim inverse), fibrose myocardique, ischémie coronaire. FEVG < 35% = territoire de transplantation potentielle.',
+      criteres:[
+        'FEVG < 50% = dysfonction débutante',
+        'FEVG < 35% = sévère → discussion transplantation',
+        'Test interdépendance au cathé : occlusion ballon AP → si FEVG ↑ = Bernheim',
+        'LGE VG sous-endocardique = fibrose/ischémie vraie',
+      ],
+      indications:[
+        {cor:'COR I',txt:'Test interdépendance VD-VG au cathé avant toute décision'},
+        {cor:'COR 2a',txt:'RVP si Bernheim → FEVG peut récupérer après décharge VD'},
+        {cor:'COR 3',txt:'RVP isolé contre-indiqué si FEVG < 25% sans Bernheim'},
+        {cor:'COR 2a',txt:'Transplantation cardiaque si FEVG < 30% + VO₂ < 12 mL/kg/min'},
+      ],
+      examens_cles:'IRM cardiaque (LGE VG), Cathétérisme (test Bernheim), CPET, Coronarographie',
+    },
+    ap:{
+      title:'Sténose artères pulmonaires périphériques',icon:'🌿',color:'var(--mint)',
+      physio:'Séquelle chirurgicale (ligature, distorsion lors fermeture CIV) ou congénitale. Fréquence 10–25% des TOF. Explique PVD élevée malgré valve fonctionnelle. Traitement percutané de référence.',
+      criteres:[
+        'Gradient de branche > 20 mmHg au cathé',
+        'Réduction diamètre > 50% à l\'angioscan',
+        'Asymétrie flux AP G/D à l\'IRM phase-contraste',
+        'Scintigraphie perfusion : asymétrie distribution',
+      ],
+      indications:[
+        {cor:'COR I',txt:'Angioplastie + stenting si gradient > 20 mmHg + branches développées'},
+        {cor:'COR 2a',txt:'Stent couvert si recoil > 30%'},
+        {cor:'COR 2b',txt:'Chirurgie si anatomie défavorable à percutané (branche ostiale courte)'},
+      ],
+      examens_cles:'Angioscan AP (COR I), Cathétérisme + angiographie sélective, IRM phase-contraste, Scintigraphie perfusion',
+    },
+    ao:{
+      title:'Dilatation aortique / Anomalie racine',icon:'🔴',color:'var(--crimson)',
+      physio:'Dilatation aortique post-sténotique fréquente dans le TOF (endommagement paroi aortique par jet systolique + bicuspidie associée). Seuils de surveillance et intervention selon diamètre.',
+      criteres:[
+        'Ao > 50 mm = seuil d\'intervention chirurgicale',
+        'Ao > 45 mm + Marfan ou mutation TGFBR = seuil 45 mm',
+        'Progression > 3 mm/an = intervention accélérée',
+        'Bicuspidie aortique associée : seuil 50 mm (ou 45 mm si HTA/FA)',
+      ],
+      indications:[
+        {cor:'COR I',txt:'Chirurgie aortique si Ao > 55 mm (populaire générale)'},
+        {cor:'COR 2a',txt:'Chirurgie si Ao > 50 mm + facteurs risque (bicuspidie, Marfan, HTA, progression)'},
+        {cor:'COR I',txt:'Chirurgie si Ao > 45 mm + syndrome Marfan confirmé'},
+        {cor:'COR 2a',txt:'Bêta-bloquants si Ao 40–50 mm pour réduire contrainte pariétale'},
+      ],
+      examens_cles:'IRM aortique (gold standard), Scanner aortique, ETT (mesures standardisées), Génétique si Marfan',
+    },
+    it:{
+      title:'Insuffisance Tricuspide significative',icon:'🔺',color:'var(--gold)',
+      physio:'IT modérée-sévère = conséquence directe de la surcharge VD chronique (dilatation anneau tricuspidien). Traitée en corrigeant la cause. IT primitive (rhumatismale, Ebstein) = autre prise en charge.',
+      criteres:[
+        'IT fonctionnelle : anneau > 40 mm → annuloplastie concomitante',
+        'IT sévère avec FEVD préservée → traitement cause (IP/SP)',
+        'IT primitive sévère : indication chirurgie valvulaire isolée si symptômes',
+      ],
+      indications:[
+        {cor:'COR 2a',txt:'Annuloplastie tricuspide concomitante si anneau > 40 mm lors RVP/chirurgie VD'},
+        {cor:'COR 2a',txt:'Chirurgie TV isolée si IT sévère symptomatique + FEVD > 35%'},
+        {cor:'COR 3',txt:'Chirurgie TV contre-indiquée si FEVD < 25%'},
+      ],
+      examens_cles:'ETT (quantification IT, taille anneau), ETO (préop), IRM (volumes VD, FEVD)',
+    },
+    arythmie:{
+      title:'Arythmie (TSV / TV / FA)',icon:'⚡',color:'var(--crimson)',
+      physio:'Principale cause de MSC dans le TOF. TV = substrat fibreux infundibulaire (LGE IRM). TSV = Flutter OD fréquent (cicatrice atriotomie). FA = surcharge OG/OD chronique.',
+      criteres:[
+        'Score PREVENTION-ACHD ≥ 4/7 = risque élevé MSC',
+        'TV soutenue = indication DAI secondaire COR I',
+        'QRS > 180 ms = facteur de risque TV indépendant',
+        'LGE VD étendu (> 5% masse) = substrat arythmique significatif',
+      ],
+      indications:[
+        {cor:'COR I',txt:'DAI secondaire : arrêt cardiaque récupéré ou TV soutenue + cardiopathie structurelle'},
+        {cor:'COR 2a',txt:'DAI primaire si PREVENTION ≥ 4/7 + FEVD < 35% ou LGE étendu'},
+        {cor:'COR 2a',txt:'Ablation par cathéter si TV monomorphe sur cicatrice + anatomie favorable'},
+        {cor:'COR 2a',txt:'Ablation FA / Flutter si récidivant + symptomatique'},
+        {cor:'COR I',txt:'Anticoagulation si FA (score CHA₂DS₂-VASc adapté ACHD)'},
+      ],
+      examens_cles:'EEP (induction TV, cartographie), Holter 48h, IRM (LGE), ETT, PREVENTION score',
+    }
+  };
+  
+  const d=lesionData[v];
+  if(!d)return;
+  c.innerHTML=`
+    <div class="result-box" style="border-color:rgba(255,255,255,.15);background:var(--bg2)">
+      <div class="rb-title">${d.icon} ${d.title}</div>
+      <div class="rb-body">${d.physio}</div>
+    </div>
+    <div class="section-head">Critères diagnostiques</div>
+    <div class="card">${d.criteres.map(cr=>`
+      <div class="exam-item">
+        <div class="exam-dot" style="background:${d.color}"></div>
+        <div class="exam-txt">${cr}</div>
+      </div>`).join('')}
+    </div>
+    <div class="section-head">Indications thérapeutiques (ACC 2025)</div>
+    <div class="card">${d.indications.map(i=>`
+      <div class="exam-item">
+        <div class="exam-dot" style="background:${d.color}"></div>
+        <div class="exam-txt"><span class="cor ${i.cor.replace(' ','').toLowerCase()}">${i.cor}</span> ${i.txt}</div>
+      </div>`).join('')}
+    </div>
+    <div class="ib ib-teal"><strong>🔬 Examens clés :</strong> ${d.examens_cles}</div>`;
+}
+
+// ─────────────────────────────────────────────────────────────
+// SECTION 4 — ÉVALUATION
+// ─────────────────────────────────────────────────────────────
+function showEval(type){
+  const c=document.getElementById('eval-content');
+  if(type==='stade') renderStadeEval(c);
+  else if(type==='prevention') renderPreventionEval(c);
+}
+
+function renderStadeEval(c){
+  c.innerHTML=`
+    <div class="section-head">Stade Physiologique — Table 4 ACC/AHA 2025</div>
+    <div class="ib ib-sky"><strong>📋 Sélectionnez les critères présents chez votre patient</strong></div>
+    <div class="card">
+      <div class="card-title">🫀 Symptômes</div>
+      ${[
+        {id:'s1',txt:'Asymptomatique (aucun symptôme cardiovasculaire)'},
+        {id:'s2',txt:'Dyspnée effort NYHA II (escaliers, marche soutenue)'},
+        {id:'s3',txt:'Dyspnée repos ou effort minimal (NYHA III–IV)'},
+        {id:'s4',txt:'Palpitations (épisodes documentés ou non)'},
+        {id:'s5',txt:'Syncope ou lipothymie récente (< 6 mois)'},
+        {id:'s6',txt:'Douleur thoracique à l\'effort'},
+      ].map(x=>`<div class="prev-item" onclick="toggleStade('${x.id}',this)">
+        <div class="prev-check" id="chk-${x.id}">✓</div>
+        <div class="prev-label">${x.txt}</div>
+      </div>`).join('')}
+    </div>
+    <div class="card">
+      <div class="card-title">🧪 Biomarqueurs & Hémodynamique</div>
+      ${[
+        {id:'b1',txt:'BNP / NT-proBNP normal (< 100 pg/mL)'},
+        {id:'b2',txt:'BNP élevé (100–400 pg/mL)'},
+        {id:'b3',txt:'BNP très élevé (> 400 pg/mL)'},
+        {id:'b4',txt:'FEVD > 50% (normale)'},
+        {id:'b5',txt:'FEVD 40–50% (légèrement réduite)'},
+        {id:'b6',txt:'FEVD < 40% (sévèrement réduite)'},
+        {id:'b7',txt:'VO₂ peak > 85% prédit (capacité normale)'},
+        {id:'b8',txt:'VO₂ peak 65–85% prédit (réduction modérée)'},
+        {id:'b9',txt:'VO₂ peak < 65% prédit (sévèrement réduit)'},
+      ].map(x=>`<div class="prev-item" onclick="toggleStade('${x.id}',this)">
+        <div class="prev-check" id="chk-${x.id}">✓</div>
+        <div class="prev-label">${x.txt}</div>
+      </div>`).join('')}
+    </div>
+    <div class="card">
+      <div class="card-title">🏥 Événements cliniques</div>
+      ${[
+        {id:'e1',txt:'Endocardite infectieuse (antécédent)'},
+        {id:'e2',txt:'Insuffisance cardiaque décompensée (hospitalisé < 12 mois)'},
+        {id:'e3',txt:'Arythmie ventriculaire documentée (TVNS ou TV)'},
+        {id:'e4',txt:'Défibrillateur (DAI) implanté'},
+      ].map(x=>`<div class="prev-item" onclick="toggleStade('${x.id}',this)">
+        <div class="prev-check" id="chk-${x.id}">✓</div>
+        <div class="prev-label">${x.txt}</div>
+      </div>`).join('')}
+    </div>
+    <button class="btn btn-sky" onclick="calcStade()" style="background:var(--sky);color:#06101E">📊 Calculer le Stade Physiologique</button>
+    <div id="stade-result"></div>`;
+  
+  window.stadeChecked={};
+}
+
+function toggleStade(id, el){
+  if(!window.stadeChecked) window.stadeChecked={};
+  window.stadeChecked[id]=!window.stadeChecked[id];
+  const chk=document.getElementById('chk-'+id);
+  if(window.stadeChecked[id]){
+    chk.classList.add('checked');el.style.background='rgba(56,189,248,.08)';el.style.borderColor='rgba(56,189,248,.3)';
+  } else {
+    chk.classList.remove('checked');el.style.background='';el.style.borderColor='';
+  }
+}
+
+function calcStade(){
+  const sc=window.stadeChecked||{};
+  const r=document.getElementById('stade-result');
+  
+  let stade='A';
+  // D: grave
+  if(sc.s3||sc.b3||(sc.b6&&sc.s2)||sc.e2) stade='D';
+  // C: symptômes avec anomalies
+  else if((sc.s2||sc.s4||sc.s5||sc.s6)&&(sc.b2||sc.b5||sc.b8||sc.e3)) stade='C';
+  // B: anomalies sans symptômes  
+  else if(!sc.s1&&(sc.b2||sc.b5||sc.b8||sc.e3||sc.e1)) stade='B';
+  else if(sc.b5||sc.b8||sc.e1||sc.e3) stade='B';
+  else stade='A';
+  
+  const stadeData={
+    A:{color:'var(--mint)',border:'rgba(52,211,153,.35)',bg:'rgba(52,211,153,.07)',
+      label:'Stade A — Favorable',
+      desc:'Patient asymptomatique avec anatomie favorable. Pas d\'anomalie hémodynamique significative.',
+      suivi:'Suivi annuel standard. ETT + ECG. IRM tous les 2–3 ans.',
+      urgence:false},
+    B:{color:'var(--sky)',border:'rgba(56,189,248,.35)',bg:'rgba(56,189,248,.07)',
+      label:'Stade B — Attention',
+      desc:'Anomalies hémodynamiques présentes sans symptômes. Surveillance rapprochée, évaluation interventionnelle à 6–12 mois.',
+      suivi:'Suivi tous les 6–12 mois. IRM obligatoire. CPET. Holter. Discussion intervention si critères atteints.',
+      urgence:false},
+    C:{color:'var(--gold)',border:'rgba(240,160,48,.35)',bg:'rgba(240,160,48,.07)',
+      label:'Stade C — Alerte',
+      desc:'Symptômes légers à modérés avec anomalies hémodynamiques. Évaluation interventionnelle urgente recommandée.',
+      suivi:'Présentation réunion multidisciplinaire ACHD. Bilan complet. Délai < 4 semaines pour décision.',
+      urgence:true},
+    D:{color:'var(--red)',border:'rgba(224,48,80,.4)',bg:'rgba(224,48,80,.08)',
+      label:'Stade D — Urgence',
+      desc:'Défaillance cardiaque sévère / symptômes invalidants. Intervention urgente ou prise en charge en IC avancée.',
+      suivi:'Hospitalisation si instable. Cathétérisme urgent. Discussion chirurgie, TPVR ou IC avancée / transplantation.',
+      urgence:true}
+  };
+  
+  const d=stadeData[stade];
+  r.innerHTML=`
+    <div class="result-box" style="border-color:${d.border};background:${d.bg}">
+      <div class="rb-title" style="color:${d.color};font-size:20px">📊 ${d.label}</div>
+      <div class="rb-body" style="margin:8px 0">${d.desc}</div>
+      <div class="rb-body"><strong>📅 Plan de suivi :</strong> ${d.suivi}</div>
+      ${d.urgence?`<div style="margin-top:10px;padding:8px 10px;background:rgba(224,48,80,.15);border-radius:8px;font-size:12px;color:var(--red);font-weight:600">⚠️ Intervention à envisager — Réunion multidisciplinaire urgente</div>`:''}
+    </div>`;
+  
+  window._currentStade=stade;
+}
+
+// ── PREVENTION SCORE
+function renderPreventionEval(c){
+  const factors=[
+    {id:'pr1',txt:'QRS ≥ 120 ms',pts:1,detail:'Durée QRS allongée sur ECG'},
+    {id:'pr2',txt:'Fragmentation QRS',pts:1,detail:'Encoches multiples sur QRS (fibrillation ECG)'},
+    {id:'pr3',txt:'Dispersion QT ≥ 70 ms',pts:1,detail:'QTc max–min entre dérivations'},
+    {id:'pr4',txt:'QRS > 180 ms',pts:2,detail:'Élargissement extrême — substrat majeur'},
+    {id:'pr5',txt:'TV non soutenue (Holter)',pts:1,detail:'Salves ≥ 3 ESV à > 100/min'},
+    {id:'pr6',txt:'FEVD < 35%',pts:1,detail:'Dysfonction systolique VD sévère (IRM)'},
+    {id:'pr7',txt:'BNP > 127 ng/L',pts:1,detail:'Surcharge volumique/pression VD'},
+  ];
+  
+  c.innerHTML=`
+    <div class="section-head">Score PREVENTION-ACHD — Risque MSC</div>
+    <div class="ib ib-red"><strong>⚡ PREVENTION</strong> = Predicting the Risk of icd Therapy and sudden cardiac dEath iN Adults WITH congenital heart disease</div>
+    <div class="card">
+      <div class="card-title">⚡ Facteurs de risque PREVENTION-ACHD (7 facteurs)</div>
+      ${factors.map(f=>`
+        <div class="prev-item" onclick="togglePrev('${f.id}',this,${f.pts})">
+          <div class="prev-check" id="pchk-${f.id}">✓</div>
+          <div class="prev-label"><strong>${f.txt}</strong><br><span style="font-size:11px;color:var(--w3)">${f.detail}</span></div>
+          <div class="prev-pts">+${f.pts}</div>
+        </div>`).join('')}
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:12px;color:var(--w3);margin-bottom:6px">Score total PREVENTION-ACHD</div>
+      <div class="score-big" id="prev-score" style="color:var(--teal)">0</div>
+      <div style="font-size:11px;color:var(--w3)">/ 9 points</div>
+    </div>
+    <button class="btn btn-red" onclick="calcPrevention()">⚡ Évaluer le Risque MSC</button>
+    <div id="prevention-result"></div>`;
+  
+  window.prevPts={};
+  window.prevTotal=0;
+}
+
+function togglePrev(id, el, pts){
+  if(!window.prevPts) window.prevPts={};
+  if(!window.prevTotal) window.prevTotal=0;
+  const chk=document.getElementById('pchk-'+id);
+  if(window.prevPts[id]){
+    window.prevTotal-=window.prevPts[id];
+    delete window.prevPts[id];
+    chk.classList.remove('checked');
+    el.style.background='';el.style.borderColor='';
+  } else {
+    window.prevPts[id]=pts;
+    window.prevTotal+=pts;
+    chk.classList.add('checked');
+    el.style.background='rgba(224,48,80,.06)';el.style.borderColor='rgba(224,48,80,.25)';
+  }
+  const sc=document.getElementById('prev-score');
+  if(sc){
+    sc.textContent=window.prevTotal;
+    sc.style.color=window.prevTotal<=2?'var(--mint)':window.prevTotal<=4?'var(--gold)':window.prevTotal<=6?'var(--orange)':'var(--red)';
+  }
+}
+
+function calcPrevention(){
+  const score=window.prevTotal||0;
+  const r=document.getElementById('prevention-result');
+  
+  let risk,color,border,bg,riskPct,actions;
+  if(score<=2){
+    risk='Faible';color='var(--mint)';border='rgba(52,211,153,.35)';bg='rgba(52,211,153,.07)';riskPct='< 2%/an';
+    actions=[
+      {cor:'COR I',txt:'Suivi annuel standard. ETT + ECG + Holter annuel.'},
+      {cor:'COR I',txt:'Pas de DAI prophylactique en l\'absence d\'autres critères.'},
+      {cor:'COR 2b',txt:'Réévaluation du score tous les 2 ans (évolutivité).'},
+    ];
+  } else if(score<=4){
+    risk='Modéré';color='var(--gold)';border='rgba(240,160,48,.35)';bg='rgba(240,160,48,.07)';riskPct='2–5%/an';
+    actions=[
+      {cor:'COR I',txt:'Holter 48h annuel + EEP si QRS > 160 ms ou TVNS.'},
+      {cor:'COR I',txt:'IRM cardiaque avec analyse LGE.'},
+      {cor:'COR 2a',txt:'Discussion DAI si score ≥ 4 + dysfonction VD sévère (FEVD < 35%).'},
+      {cor:'COR 2a',txt:'Ablation substrate arythmique si TV monomorphe sur cicatrice.'},
+    ];
+  } else if(score<=6){
+    risk='Élevé';color='var(--orange)';border='rgba(249,115,22,.35)';bg='rgba(249,115,22,.07)';riskPct='5–10%/an';
+    actions=[
+      {cor:'COR I',txt:'EEP urgente (< 4 semaines).'},
+      {cor:'COR 2a',txt:'DAI primaire fortement envisagé (COR 2a si FEVD < 35% ou LGE étendu).'},
+      {cor:'COR I',txt:'IRM cardiaque urgente — LGE substrat, FEVD.'},
+      {cor:'COR 2a',txt:'Traitement antiarythmique (sotalol) si DAI refusé.'},
+      {cor:'COR I',txt:'Présentation RCP ACHD dans les 2 semaines.'},
+    ];
+  } else {
+    risk='Très élevé';color='var(--red)';border='rgba(224,48,80,.4)';bg='rgba(224,48,80,.08)';riskPct='> 10%/an';
+    actions=[
+      {cor:'COR I',txt:'DAI secondaire / primaire indication formelle — COR I.'},
+      {cor:'COR I',txt:'Hospitalisation pour bilan et implantation rapide.'},
+      {cor:'COR I',txt:'EEP avec cartographie du substrate arythmique.'},
+      {cor:'COR I',txt:'Traitement de la cause (IP/SP/dysfonction VD) concomitant.'},
+      {cor:'COR I',txt:'Consultation multidisciplinaire rythmologie + ACHD.'},
+    ];
+  }
+  
+  r.innerHTML=`
+    <div class="result-box" style="border-color:${border};background:${bg}">
+      <div class="rb-title" style="color:${color};font-size:20px">⚡ Score ${score}/9 — Risque ${risk}</div>
+      <div class="rb-body"><strong>Risque de MSC estimé :</strong> <span style="color:${color}">${riskPct}</span></div>
+    </div>
+    <div class="section-head">Conduite à tenir (ACC 2025)</div>
+    <div class="card">${actions.map(a=>`
+      <div class="exam-item">
+        <div class="exam-dot" style="background:${color}"></div>
+        <div class="exam-txt"><span class="cor ${a.cor.replace(' ','').toLowerCase()}">${a.cor}</span> ${a.txt}</div>
+      </div>`).join('')}
+    </div>`;
+  
+  window._prevScore=score;
+  window._prevRisk=risk;
+}
+
+// ─────────────────────────────────────────────────────────────
+// SECTION 5 — AVIS & SUIVI
+// ─────────────────────────────────────────────────────────────
+function buildAvis(){
+  const nom=document.getElementById('p-nom')?.value||'—';
+  const prenom=document.getElementById('p-prenom')?.value||'—';
+  const age=document.getElementById('p-age')?.value||'—';
+  const poids=document.getElementById('p-poids')?.value||'—';
+  const taille=document.getElementById('p-taille')?.value||'—';
+  const sato2=document.getElementById('p-sato2')?.value||'—';
+  const rep=document.getElementById('p-reparation')?.value||'—';
+  const atcd=document.getElementById('p-atcd')?.value||'—';
+  const trait=document.getElementById('p-traitements')?.value||'—';
+  const stade=window._currentStade||'Non évalué';
+  const prevScore=window._prevScore!==undefined?window._prevScore:'Non calculé';
+  const prevRisk=window._prevRisk||'—';
+  
+  document.getElementById('avis-recap').innerHTML=`
+    <div style="line-height:2">
+    👤 <strong>Patient :</strong> ${prenom} ${nom} · ${age} ans · ${poids} kg · ${taille} cm<br>
+    💧 <strong>Saturation :</strong> ${sato2}%<br>
+    🔧 <strong>Réparation :</strong> ${rep}<br>
+    📊 <strong>Stade physiologique :</strong> ${stade}<br>
+    ⚡ <strong>PREVENTION-ACHD :</strong> ${prevScore}/9 — Risque ${prevRisk}<br>
+    💊 <strong>Traitements :</strong> ${trait}
+    </div>`;
+  
+  // Plan de suivi selon stade
+  const planData={
+    A:'Suivi annuel · ETT + ECG + Holter · IRM tous les 2–3 ans · CPET tous les 3 ans · Pas d\'intervention si stable',
+    B:'Suivi tous les 6–12 mois · IRM obligatoire · CPET · Holter · Discussion intervention si ≥ 2 critères ACC 2025',
+    C:'Présentation RCP ACHD < 4 semaines · Bilan complet · Décision interventionnelle urgente · Suivi mensuel',
+    D:'Hospitalisation si instable · Cathétérisme urgent · Équipe multidisciplinaire · IC avancée / Transplantation à discuter',
+    'Non évalué':'Veuillez compléter l\'évaluation du stade physiologique (Section 4)'
+  };
+  document.getElementById('avis-plan-content').innerHTML=planData[stade]||planData['Non évalué'];
+}
+
+function generateRecap(){
+  const nom=document.getElementById('p-nom')?.value||'—';
+  const prenom=document.getElementById('p-prenom')?.value||'—';
+  const age=document.getElementById('p-age')?.value||'—';
+  const poids=document.getElementById('p-poids')?.value||'—';
+  const taille=document.getElementById('p-taille')?.value||'—';
+  const sato2=document.getElementById('p-sato2')?.value||'—';
+  const sexe=document.getElementById('p-sexe')?.value||'—';
+  const rep=document.getElementById('p-reparation')?.value||'—';
+  const atcd=document.getElementById('p-atcd')?.value||'—';
+  const trait=document.getElementById('p-traitements')?.value||'—';
+  const dateChir=document.getElementById('p-date-chir')?.value||'—';
+  const stade=window._currentStade||'Non évalué';
+  const prevScore=window._prevScore!==undefined?window._prevScore:'—';
+  const prevRisk=window._prevRisk||'—';
+  const now=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  
+  showModal(`
+    <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--teal);margin-bottom:4px">COMPTE RENDU MÉDICAL</div>
+    <div style="font-size:11px;color:var(--w3);margin-bottom:16px">Tétralogie de Fallot · Complexité Classe II · Date : ${now}</div>
+    <div style="font-size:11px;color:var(--w3);margin-bottom:4px">Validé par le CORE-TEAM ACHD-Algérie · CSC · ACC/AHA 2025</div>
+    <hr style="border-color:var(--brd);margin:12px 0">
+    <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--sky);margin-bottom:8px">I. IDENTITÉ DU PATIENT</div>
+    <div style="font-size:13px;color:var(--w2);line-height:2">
+      Nom & Prénom : <strong>${prenom} ${nom}</strong><br>
+      Âge : <strong>${age} ans</strong> · Sexe : <strong>${sexe}</strong><br>
+      Poids : <strong>${poids} kg</strong> · Taille : <strong>${taille} cm</strong><br>
+      Saturation O₂ : <strong>${sato2}%</strong>
+    </div>
+    <hr style="border-color:var(--brd);margin:12px 0">
+    <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--sky);margin-bottom:8px">II. ANTÉCÉDENTS CHIRURGICAUX</div>
+    <div style="font-size:13px;color:var(--w2);line-height:1.7">
+      Chirurgie : <strong>${dateChir}</strong><br>
+      Type de réparation : <strong>${rep}</strong>
+    </div>
+    <hr style="border-color:var(--brd);margin:12px 0">
+    <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--sky);margin-bottom:8px">III. HISTOIRE DE LA MALADIE</div>
+    <div style="font-size:13px;color:var(--w2);line-height:1.7">${atcd}</div>
+    <hr style="border-color:var(--brd);margin:12px 0">
+    <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--sky);margin-bottom:8px">IV. TRAITEMENTS EN COURS</div>
+    <div style="font-size:13px;color:var(--w2);line-height:1.7">${trait}</div>
+    <hr style="border-color:var(--brd);margin:12px 0">
+    <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--sky);margin-bottom:8px">V. ÉVALUATION CLINIQUE</div>
+    <div style="font-size:13px;color:var(--w2);line-height:2">
+      Stade Physiologique (Table 4 ACC 2025) : <strong style="color:var(--teal)">${stade}</strong><br>
+      Score PREVENTION-ACHD : <strong style="color:var(--red)">${prevScore}/9</strong> · Risque : <strong>${prevRisk}</strong>
+    </div>
+    <hr style="border-color:var(--brd);margin:12px 0">
+    <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--sky);margin-bottom:8px">VI. CLASSIFICATION</div>
+    <div style="font-size:13px;color:var(--w2);line-height:1.7">
+      Cardiopathie : Tétralogie de Fallot<br>
+      Complexité anatomique : <strong>Classe II (Modérée–Élevée)</strong><br>
+      Recommandations : <strong>ACC/AHA 2025 · Section 4.3.5</strong>
+    </div>
+    <hr style="border-color:var(--brd);margin:12px 0">
+    <div style="font-size:10px;color:var(--w3);text-align:center;line-height:1.6">
+      CSC Algeria · ACHD CORE-Team · contact@csc-cardio.com<br>
+      Application validée par le CORE-TEAM ACHD-Algérie
+    </div>
+    <div style="margin-top:14px">
+      <button class="btn btn-teal" onclick="window.print()">🖨️ Imprimer le compte rendu</button>
+      <button class="btn btn-outline" onclick="closeModal()">✕ Fermer</button>
+    </div>`);
+}
+
+function sendWhatsApp(){
+  const nom=document.getElementById('p-nom')?.value||'—';
+  const prenom=document.getElementById('p-prenom')?.value||'—';
+  const age=document.getElementById('p-age')?.value||'—';
+  const sato2=document.getElementById('p-sato2')?.value||'—';
+  const rep=document.getElementById('p-reparation')?.value||'—';
+  const atcd=(document.getElementById('p-atcd')?.value||'—').substring(0,300);
+  const stade=window._currentStade||'Non évalué';
+  const prevScore=window._prevScore!==undefined?window._prevScore:'—';
+  const prevRisk=window._prevRisk||'—';
+  const now=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  
+  const msg=`🫀 *DEMANDE D'AVIS — TOF ACHD*
+📱 CSC Algeria · ACHD CORE-Team
+🗓️ ${now}
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+👤 *Patient :* ${prenom} ${nom} · ${age} ans
+💧 *Saturation :* ${sato2}%
+🔧 *Réparation :* ${rep}
+
+📊 *Stade physiologique ACC 2025 :* ${stade}
+⚡ *PREVENTION-ACHD :* ${prevScore}/9 — Risque ${prevRisk}
+
+📝 *Histoire / Motif :*
+${atcd}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+_TOF Clinical App · ACC/AHA 2025_
+_Validée CORE-TEAM ACHD-Algérie · CSC_`;
+  
+  window.open('https://wa.me/213540910869?text='+encodeURIComponent(msg),'_blank');
+}
+</script>
+</body>
+</html>
