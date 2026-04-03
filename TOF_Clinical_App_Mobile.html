@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -139,9 +140,11 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 </div>
 
 <!-- CONTENT -->
+
 <div id="content">
 
 <!-- ══ SEC 1: PATIENT ══ -->
+
 <div class="section active" id="sec-patient">
   <div class="validated-banner">
     <div class="vb-icon">✅</div>
@@ -156,6 +159,10 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   </div>
   <div class="section-head">Identité du patient</div>
   <div class="card">
+    <div style="margin-bottom:10px">
+      <label>ID Patient / N° Dossier</label>
+      <input type="text" id="p-id" placeholder="Ex: TOF-2025-001 ou numéro dossier hospitalier">
+    </div>
     <div class="row2" style="margin-bottom:10px">
       <div><label>Nom</label><input type="text" id="p-nom" placeholder="Nom de famille"></div>
       <div><label>Prénom</label><input type="text" id="p-prenom" placeholder="Prénom"></div>
@@ -203,6 +210,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 </div>
 
 <!-- ══ SEC 2: BILAN ══ -->
+
 <div class="section" id="sec-bilan">
   <div class="section-head">Type de consultation</div>
   <div class="card">
@@ -219,6 +227,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 </div>
 
 <!-- ══ SEC 3: LÉSIONS ══ -->
+
 <div class="section" id="sec-lesions">
   <div class="section-head">Lésion anatomique principale</div>
   <div class="card">
@@ -241,6 +250,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 </div>
 
 <!-- ══ SEC 4: ÉVALUATION ══ -->
+
 <div class="section" id="sec-eval">
   <div class="section-head">Choisir l'évaluation</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
@@ -259,6 +269,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 </div>
 
 <!-- ══ SEC 5: AVIS & SUIVI ══ -->
+
 <div class="section" id="sec-avis">
   <div class="section-head">Récapitulatif & Plan de suivi</div>
   <div id="avis-summary" class="card">
@@ -277,6 +288,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 </div><!-- /content -->
 
 <!-- NAVBAR -->
+
 <div id="navbar">
   <button class="nb-btn active" data-sec="sec-patient" onclick="switchSec('sec-patient',this)">
     <span class="nb-icon">👤</span><span class="nb-label">Patient</span>
@@ -297,6 +309,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 </div><!-- /app -->
 
 <!-- MODAL -->
+
 <div id="modal">
   <div id="modal-content">
     <button id="modal-close" onclick="closeModal()">✕ Fermer</button>
@@ -332,7 +345,7 @@ function renderBilan(){
   const v=document.getElementById('bilan-type').value;
   const c=document.getElementById('bilan-content');
   if(!v){c.innerHTML='';return;}
-  
+
   const bilanData={
     syst:`
 <div class="section-head">Stade Physiologique du patient</div>
@@ -407,7 +420,7 @@ function renderStadeBilan(){
   const s=document.getElementById('bilan-stade')?.value;
   const r=document.getElementById('stade-bilan-result');
   if(!s||!r)return;
-  
+
   const data={
     A:{color:'var(--mint)',border:'rgba(52,211,153,.35)',bg:'rgba(52,211,153,.06)',
       titre:'Stade A — Suivi annuel programmé',
@@ -463,7 +476,7 @@ function renderStadeBilan(){
         {cor:'COR 2a',txt:'<strong>Consultation multidisciplinaire</strong> — ACHD + IC avancée + chirurgie cardiaque + transplantation'},
       ]}
   };
-  
+
   const d=data[s];
   if(!d)return;
   r.innerHTML=`
@@ -488,7 +501,7 @@ function renderSympBilan(){
   const v=document.getElementById('bilan-symp')?.value;
   const r=document.getElementById('symp-bilan-result');
   if(!v||!r)return;
-  
+
   const sympData={
     dyspnee:{title:'Dyspnée d\'effort progressive',color:'var(--gold)',examens:[
       {cor:'COR I',txt:'<strong>CPET</strong> — VO₂ peak (seuil < 65% prédit = indication), pente VE/VCO₂, AT'},
@@ -538,7 +551,7 @@ function renderSympBilan(){
       {cor:'COR I',txt:'<strong>TSH + bilan thyroïdien</strong> — Hypothyroïdie (si amiodarone antérieure)'},
     ],note:'Fatigue isolée dans le TOF : toujours objectiver par CPET avant de minimiser.'}
   };
-  
+
   const d=sympData[v];
   r.innerHTML=`
     <div class="result-box" style="border-color:rgba(240,160,48,.35);background:rgba(240,160,48,.06)">
@@ -559,7 +572,7 @@ function renderUrgBilan(){
   const v=document.getElementById('bilan-urg')?.value;
   const r=document.getElementById('urg-bilan-result');
   if(!v||!r)return;
-  
+
   const urgData={
     ica:{title:'🚨 Décompensation IC aiguë',color:'var(--red)',examens:[
       {cor:'COR I',txt:'BNP/NT-proBNP + troponines en urgence'},
@@ -607,7 +620,7 @@ function renderUrgBilan(){
       {cor:'COR 2a',txt:'Assistance circulatoire (IABP, Impella) si instabilité'},
     ],note:'🔴 Urgence vitale maximale. Activation protocole choc cardiogénique.'}
   };
-  
+
   const d=urgData[v];
   r.innerHTML=`
     <div class="result-box" style="border-color:rgba(224,48,80,.4);background:rgba(224,48,80,.07)">
@@ -627,7 +640,7 @@ function renderPreopBilan(){
   const v=document.getElementById('bilan-preop')?.value;
   const r=document.getElementById('preop-bilan-result');
   if(!v||!r)return;
-  
+
   const preData={
     rvp_chir:{title:'Bilan pré-RVP chirurgicale',examens:[
       {cor:'COR I',txt:'IRM cardiaque — VTSI-VD, FEVD, LGE, FEVG, FR-IP (données décisionnelles)'},
@@ -689,7 +702,7 @@ function renderPreopBilan(){
       {cor:'COR 2a',txt:'IRM aortique — Si allergie iode ou enfant'},
     ]}
   };
-  
+
   const d=preData[v];
   if(!d)return;
   r.innerHTML=`
@@ -710,7 +723,7 @@ function renderLesion(){
   const v=document.getElementById('lesion-type').value;
   const c=document.getElementById('lesion-content');
   if(!v){c.innerHTML='';return;}
-  
+
   const lesionData={
     ip:{
       title:'Insuffisance Pulmonaire (IP)',icon:'🫁',color:'var(--sky)',
@@ -879,7 +892,7 @@ function renderLesion(){
       examens_cles:'EEP (induction TV, cartographie), Holter 48h, IRM (LGE), ETT, PREVENTION score',
     }
   };
-  
+
   const d=lesionData[v];
   if(!d)return;
   c.innerHTML=`
@@ -962,7 +975,7 @@ function renderStadeEval(c){
     </div>
     <button class="btn btn-sky" onclick="calcStade()" style="background:var(--sky);color:#06101E">📊 Calculer le Stade Physiologique</button>
     <div id="stade-result"></div>`;
-  
+
   window.stadeChecked={};
 }
 
@@ -980,17 +993,17 @@ function toggleStade(id, el){
 function calcStade(){
   const sc=window.stadeChecked||{};
   const r=document.getElementById('stade-result');
-  
+
   let stade='A';
   // D: grave
   if(sc.s3||sc.b3||(sc.b6&&sc.s2)||sc.e2) stade='D';
   // C: symptômes avec anomalies
   else if((sc.s2||sc.s4||sc.s5||sc.s6)&&(sc.b2||sc.b5||sc.b8||sc.e3)) stade='C';
-  // B: anomalies sans symptômes  
+  // B: anomalies sans symptômes 
   else if(!sc.s1&&(sc.b2||sc.b5||sc.b8||sc.e3||sc.e1)) stade='B';
   else if(sc.b5||sc.b8||sc.e1||sc.e3) stade='B';
   else stade='A';
-  
+
   const stadeData={
     A:{color:'var(--mint)',border:'rgba(52,211,153,.35)',bg:'rgba(52,211,153,.07)',
       label:'Stade A — Favorable',
@@ -1013,7 +1026,7 @@ function calcStade(){
       suivi:'Hospitalisation si instable. Cathétérisme urgent. Discussion chirurgie, TPVR ou IC avancée / transplantation.',
       urgence:true}
   };
-  
+
   const d=stadeData[stade];
   r.innerHTML=`
     <div class="result-box" style="border-color:${d.border};background:${d.bg}">
@@ -1022,27 +1035,27 @@ function calcStade(){
       <div class="rb-body"><strong>📅 Plan de suivi :</strong> ${d.suivi}</div>
       ${d.urgence?`<div style="margin-top:10px;padding:8px 10px;background:rgba(224,48,80,.15);border-radius:8px;font-size:12px;color:var(--red);font-weight:600">⚠️ Intervention à envisager — Réunion multidisciplinaire urgente</div>`:''}
     </div>`;
-  
+
   window._currentStade=stade;
 }
 
 // ── PREVENTION SCORE
 function renderPreventionEval(c){
   const factors=[
-    {id:'pr1',txt:'QRS ≥ 120 ms',pts:1,detail:'Durée QRS allongée sur ECG'},
-    {id:'pr2',txt:'Fragmentation QRS',pts:1,detail:'Encoches multiples sur QRS (fibrillation ECG)'},
-    {id:'pr3',txt:'Dispersion QT ≥ 70 ms',pts:1,detail:'QTc max–min entre dérivations'},
-    {id:'pr4',txt:'QRS > 180 ms',pts:2,detail:'Élargissement extrême — substrat majeur'},
-    {id:'pr5',txt:'TV non soutenue (Holter)',pts:1,detail:'Salves ≥ 3 ESV à > 100/min'},
-    {id:'pr6',txt:'FEVD < 35%',pts:1,detail:'Dysfonction systolique VD sévère (IRM)'},
-    {id:'pr7',txt:'BNP > 127 ng/L',pts:1,detail:'Surcharge volumique/pression VD'},
+    {id:'pr1',txt:'Coronary artery disease (Maladie coronarienne)',pts:1,detail:'Coronaropathie documentée (athéroscléreuse ou anomalie congénitale coronaire)'},
+    {id:'pr2',txt:'NYHA II–III symptoms (Symptômes NYHA II–III)',pts:1,detail:'Dyspnée d\'effort modérée à sévère — classe fonctionnelle NYHA II ou III'},
+    {id:'pr3',txt:'Supraventricular tachycardia (TSV)',pts:1,detail:'Tachycardie supra-ventriculaire documentée (flutter, TSV, FA)'},
+    {id:'pr4',txt:'Systemic EF < 40% (FEVG < 40%)',pts:1,detail:'Fraction d\'éjection du ventricule systémique (VG) < 40% — ETT ou IRM'},
+    {id:'pr5',txt:'Subpulmonary EF < 40% (FEVD < 40%)',pts:1,detail:'Fraction d\'éjection du ventricule sous-pulmonaire (VD) < 40% — IRM cardiaque'},
+    {id:'pr6',txt:'QRS duration ≥ 120 ms',pts:1,detail:'Durée QRS ≥ 120 ms sur ECG 12 dérivations'},
+    {id:'pr7',txt:'QT dispersion ≥ 70 ms',pts:1,detail:'Dispersion QT = QTmax – QTmin entre les dérivations ≥ 70 ms sur ECG'},
   ];
-  
+
   c.innerHTML=`
     <div class="section-head">Score PREVENTION-ACHD — Risque MSC</div>
-    <div class="ib ib-red"><strong>⚡ PREVENTION</strong> = Predicting the Risk of icd Therapy and sudden cardiac dEath iN Adults WITH congenital heart disease</div>
+    <div class="ib ib-red"><strong>⚡ PREVENTION-ACHD</strong> — Score de risque de mort subite cardiaque (MSC) dans la TOF. 7 facteurs × 1 point chacun. Référence : Khairy et al. (Case-control, 783 patients, 8 événements MSC)</div>
     <div class="card">
-      <div class="card-title">⚡ Facteurs de risque PREVENTION-ACHD (7 facteurs)</div>
+      <div class="card-title">⚡ Facteurs de risque PREVENTION-ACHD (7 facteurs, 1 pt chacun)</div>
       ${factors.map(f=>`
         <div class="prev-item" onclick="togglePrev('${f.id}',this,${f.pts})">
           <div class="prev-check" id="pchk-${f.id}">✓</div>
@@ -1053,11 +1066,11 @@ function renderPreventionEval(c){
     <div class="card" style="text-align:center">
       <div style="font-size:12px;color:var(--w3);margin-bottom:6px">Score total PREVENTION-ACHD</div>
       <div class="score-big" id="prev-score" style="color:var(--teal)">0</div>
-      <div style="font-size:11px;color:var(--w3)">/ 9 points</div>
+      <div style="font-size:11px;color:var(--w3)">/ 7 points</div>
     </div>
     <button class="btn btn-red" onclick="calcPrevention()">⚡ Évaluer le Risque MSC</button>
     <div id="prevention-result"></div>`;
-  
+
   window.prevPts={};
   window.prevTotal=0;
 }
@@ -1087,56 +1100,106 @@ function togglePrev(id, el, pts){
 function calcPrevention(){
   const score=window.prevTotal||0;
   const r=document.getElementById('prevention-result');
-  
-  let risk,color,border,bg,riskPct,actions;
+
+  // Barème exact PREVENTION-ACHD (Khairy et al.)
+  // Score 0-2 → <1%/an | 3 → 1-2% | 4 → 3-4% | 5 → 5-10% | 6 → 11-25% | 7 → >25%
+  let risk,color,border,bg,riskPct,risklevel,actions;
   if(score<=2){
-    risk='Faible';color='var(--mint)';border='rgba(52,211,153,.35)';bg='rgba(52,211,153,.07)';riskPct='< 2%/an';
+    risk='Faible';risklevel=0;color='var(--mint)';border='rgba(52,211,153,.35)';bg='rgba(52,211,153,.07)';riskPct='< 1% / an';
     actions=[
-      {cor:'COR I',txt:'Suivi annuel standard. ETT + ECG + Holter annuel.'},
-      {cor:'COR I',txt:'Pas de DAI prophylactique en l\'absence d\'autres critères.'},
-      {cor:'COR 2b',txt:'Réévaluation du score tous les 2 ans (évolutivité).'},
+      {cor:'COR I',txt:'Suivi annuel standard : ETT + ECG 12D + Holter 24h.'},
+      {cor:'COR I',txt:'Pas d\'indication au DAI prophylactique en l\'absence d\'autres critères structurels.'},
+      {cor:'COR 2a',txt:'IRM cardiaque tous les 2–3 ans (LGE substrat, FEVD, VTSI-VD).'},
+      {cor:'COR 2b',txt:'Réévaluation du score PREVENTION tous les 2 ans — score évolutif.'},
     ];
-  } else if(score<=4){
-    risk='Modéré';color='var(--gold)';border='rgba(240,160,48,.35)';bg='rgba(240,160,48,.07)';riskPct='2–5%/an';
+  } else if(score===3){
+    risk='Modéré bas';risklevel=1;color='var(--sky)';border='rgba(56,189,248,.35)';bg='rgba(56,189,248,.07)';riskPct='1% – 2% / an';
     actions=[
-      {cor:'COR I',txt:'Holter 48h annuel + EEP si QRS > 160 ms ou TVNS.'},
-      {cor:'COR I',txt:'IRM cardiaque avec analyse LGE.'},
-      {cor:'COR 2a',txt:'Discussion DAI si score ≥ 4 + dysfonction VD sévère (FEVD < 35%).'},
-      {cor:'COR 2a',txt:'Ablation substrate arythmique si TV monomorphe sur cicatrice.'},
+      {cor:'COR I',txt:'Holter 48h annuel. ECG avec mesure dispersion QT.'},
+      {cor:'COR I',txt:'IRM cardiaque avec séquences LGE — quantification fibrose VD.'},
+      {cor:'COR 2a',txt:'EEP si QRS ≥ 150 ms ou TVNS documentée sur Holter.'},
+      {cor:'COR 2a',txt:'Discussion DAI si LGE étendu + FEVD < 40% concomitants.'},
+      {cor:'COR 2b',txt:'Réévaluation annuelle du score.'},
     ];
-  } else if(score<=6){
-    risk='Élevé';color='var(--orange)';border='rgba(249,115,22,.35)';bg='rgba(249,115,22,.07)';riskPct='5–10%/an';
+  } else if(score===4){
+    risk='Modéré';risklevel=2;color='var(--gold)';border='rgba(240,160,48,.35)';bg='rgba(240,160,48,.07)';riskPct='3% – 4% / an';
     actions=[
-      {cor:'COR I',txt:'EEP urgente (< 4 semaines).'},
-      {cor:'COR 2a',txt:'DAI primaire fortement envisagé (COR 2a si FEVD < 35% ou LGE étendu).'},
-      {cor:'COR I',txt:'IRM cardiaque urgente — LGE substrat, FEVD.'},
-      {cor:'COR 2a',txt:'Traitement antiarythmique (sotalol) si DAI refusé.'},
-      {cor:'COR I',txt:'Présentation RCP ACHD dans les 2 semaines.'},
+      {cor:'COR I',txt:'EEP dans les 4 semaines — induction TV, cartographie substrate cicatriciel.'},
+      {cor:'COR I',txt:'IRM cardiaque urgente — LGE VD étendu (> 5% masse = substrat majeur), FEVD.'},
+      {cor:'COR 2a',txt:'DAI primaire fortement envisagé si score 4 + FEVD < 40% ou LGE étendu.'},
+      {cor:'COR 2a',txt:'Ablation du substrate arythmique si TV monomorphe sur cicatrice infundibulaire.'},
+      {cor:'COR I',txt:'Présentation en réunion multidisciplinaire ACHD + rythmologie.'},
+    ];
+  } else if(score===5){
+    risk='Élevé';risklevel=3;color='var(--orange)';border='rgba(249,115,22,.35)';bg='rgba(249,115,22,.07)';riskPct='5% – 10% / an';
+    actions=[
+      {cor:'COR I',txt:'EEP urgente — induction TV, mesure intervalles HV, cartographie 3D.'},
+      {cor:'COR I',txt:'DAI primaire indiqué — hospitalisation pour implantation rapide (< 2 semaines).'},
+      {cor:'COR I',txt:'IRM cardiaque — LGE, FEVD, FEVG, VTSI-VD.'},
+      {cor:'COR 2a',txt:'Ablation du substrate arythmique concomitante ou en 2ème intention.'},
+      {cor:'COR I',txt:'Traitement de la cause sous-jacente : IP → RVP, SP → résection (COR I si indiqué).'},
+      {cor:'COR I',txt:'Consultation multidisciplinaire rythmologie + ACHD dans les 7 jours.'},
+    ];
+  } else if(score===6){
+    risk='Très élevé';risklevel=4;color='var(--red)';border='rgba(224,48,80,.4)';bg='rgba(224,48,80,.08)';riskPct='11% – 25% / an';
+    actions=[
+      {cor:'COR I',txt:'DAI secondaire / primaire — indication formelle. Hospitalisation immédiate.'},
+      {cor:'COR I',txt:'EEP avec cartographie électroanatomique 3D du substrate arythmique.'},
+      {cor:'COR I',txt:'Ablation TV sur cicatrice — discutée concomitamment à l\'implantation DAI.'},
+      {cor:'COR I',txt:'Bilan complet : IRM (LGE étendu), CPET (VO₂ peak), cathétérisme si FEVD < 35%.'},
+      {cor:'COR I',txt:'Traitement de la cardiopathie sous-jacente concomitant (RVP/chirurgie VD).'},
+      {cor:'COR I',txt:'Consultation multidisciplinaire urgente ACHD + IC avancée + rythmologie.'},
     ];
   } else {
-    risk='Très élevé';color='var(--red)';border='rgba(224,48,80,.4)';bg='rgba(224,48,80,.08)';riskPct='> 10%/an';
+    risk='Critique';risklevel=5;color='var(--crimson,#FF4D6D)';border='rgba(255,77,109,.5)';bg='rgba(255,77,109,.09)';riskPct='> 25% / an';
     actions=[
-      {cor:'COR I',txt:'DAI secondaire / primaire indication formelle — COR I.'},
-      {cor:'COR I',txt:'Hospitalisation pour bilan et implantation rapide.'},
-      {cor:'COR I',txt:'EEP avec cartographie du substrate arythmique.'},
-      {cor:'COR I',txt:'Traitement de la cause (IP/SP/dysfonction VD) concomitant.'},
-      {cor:'COR I',txt:'Consultation multidisciplinaire rythmologie + ACHD.'},
+      {cor:'COR I',txt:'🚨 URGENCE — Hospitalisation immédiate en unité spécialisée ACHD.'},
+      {cor:'COR I',txt:'DAI indication absolue — implantation prioritaire.'},
+      {cor:'COR I',txt:'EEP + cartographie + ablation substrate arythmique en urgence semi-programmée.'},
+      {cor:'COR I',txt:'Monitoring cardiaque continu jusqu\'à implantation DAI.'},
+      {cor:'COR I',txt:'Bilan exhaustif : IRM urgente, cathétérisme, CPET, consultation IC avancée.'},
+      {cor:'COR I',txt:'Envisager transplantation cardiaque si FEVD < 25% + VO₂ < 12 mL/kg/min.'},
+      {cor:'COR I',txt:'Réunion multidisciplinaire urgente ACHD + rythmologie + chirurgie + IC avancée.'},
     ];
   }
-  
+
+  // Barre de risque visuelle
+  const barColors=['var(--mint)','var(--sky)','var(--gold)','var(--orange)','var(--red)','#FF4D6D'];
+  const barW=[14,28,42,57,71,100];
+
   r.innerHTML=`
     <div class="result-box" style="border-color:${border};background:${bg}">
-      <div class="rb-title" style="color:${color};font-size:20px">⚡ Score ${score}/9 — Risque ${risk}</div>
-      <div class="rb-body"><strong>Risque de MSC estimé :</strong> <span style="color:${color}">${riskPct}</span></div>
+      <div class="rb-title" style="color:${color};font-size:22px">⚡ Score ${score}/7 — Risque ${risk}</div>
+      <div style="margin:10px 0 4px">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--w3);margin-bottom:4px">
+          <span>Faible</span><span>Modéré</span><span>Élevé</span><span>Critique</span>
+        </div>
+        <div style="height:8px;border-radius:4px;background:var(--bg3);overflow:hidden">
+          <div style="height:100%;width:${barW[risklevel]}%;background:${color};border-radius:4px;transition:width 1s ease"></div>
+        </div>
+      </div>
+      <div class="rb-body" style="margin-top:10px">
+        <strong>Risque annuel MSC estimé :</strong> <span style="color:${color};font-size:14px;font-weight:700"> ${riskPct}</span><br>
+        <span style="font-size:11px;color:var(--w3)">Référence : Khairy et al. · Case-control · 783 patients TOF · 8 événements MSC</span>
+      </div>
     </div>
-    <div class="section-head">Conduite à tenir (ACC 2025)</div>
+    <div class="card" style="background:var(--bg3);border-color:rgba(255,255,255,.08);padding:10px 12px">
+      <div style="font-size:10px;color:var(--w3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;font-weight:700">Barème PREVENTION-ACHD (Score / Risque annuel MSC)</div>
+      ${[['0–2','< 1%','var(--mint)'],['3','1–2%','var(--sky)'],['4','3–4%','var(--gold)'],['5','5–10%','var(--orange)'],['6','11–25%','var(--red)'],['7','> 25%','#FF4D6D']].map(([s,r,c])=>`
+        <div style="display:flex;align-items:center;gap:10px;padding:5px 0;border-bottom:1px solid var(--brd)">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;width:28px;color:${c}">${s}</div>
+          <div style="flex:1;height:6px;border-radius:3px;background:var(--bg2);overflow:hidden"><div style="height:100%;width:${s===score.toString()||s.includes(score.toString())?'100%':'30%'};background:${c};opacity:${s===score.toString()||(s.includes('–')&&score<=2&&score>=0)||(s==='0–2'&&score<=2)?'1':'0.3'}"></div></div>
+          <div style="font-size:12px;font-weight:700;color:${c};width:70px;text-align:right">${r}</div>
+        </div>`).join('')}
+    </div>
+    <div class="section-head">Conduite à tenir — Score ${score}/7 · ACC 2025</div>
     <div class="card">${actions.map(a=>`
       <div class="exam-item">
         <div class="exam-dot" style="background:${color}"></div>
-        <div class="exam-txt"><span class="cor ${a.cor.replace(' ','').toLowerCase()}">${a.cor}</span> ${a.txt}</div>
+        <div class="exam-txt"><span class="cor ${a.cor.replace(/ /g,'').toLowerCase()}">${a.cor}</span> ${a.txt}</div>
       </div>`).join('')}
     </div>`;
-  
+
   window._prevScore=score;
   window._prevRisk=risk;
 }
@@ -1147,6 +1210,7 @@ function calcPrevention(){
 function buildAvis(){
   const nom=document.getElementById('p-nom')?.value||'—';
   const prenom=document.getElementById('p-prenom')?.value||'—';
+  const pid=document.getElementById('p-id')?.value||'—';
   const age=document.getElementById('p-age')?.value||'—';
   const poids=document.getElementById('p-poids')?.value||'—';
   const taille=document.getElementById('p-taille')?.value||'—';
@@ -1157,17 +1221,18 @@ function buildAvis(){
   const stade=window._currentStade||'Non évalué';
   const prevScore=window._prevScore!==undefined?window._prevScore:'Non calculé';
   const prevRisk=window._prevRisk||'—';
-  
+
   document.getElementById('avis-recap').innerHTML=`
     <div style="line-height:2">
+    🆔 <strong>ID Dossier :</strong> ${pid}<br>
     👤 <strong>Patient :</strong> ${prenom} ${nom} · ${age} ans · ${poids} kg · ${taille} cm<br>
     💧 <strong>Saturation :</strong> ${sato2}%<br>
     🔧 <strong>Réparation :</strong> ${rep}<br>
     📊 <strong>Stade physiologique :</strong> ${stade}<br>
-    ⚡ <strong>PREVENTION-ACHD :</strong> ${prevScore}/9 — Risque ${prevRisk}<br>
+    ⚡ <strong>PREVENTION-ACHD :</strong> ${prevScore}/7 — Risque ${prevRisk}<br>
     💊 <strong>Traitements :</strong> ${trait}
     </div>`;
-  
+
   // Plan de suivi selon stade
   const planData={
     A:'Suivi annuel · ETT + ECG + Holter · IRM tous les 2–3 ans · CPET tous les 3 ans · Pas d\'intervention si stable',
@@ -1182,6 +1247,7 @@ function buildAvis(){
 function generateRecap(){
   const nom=document.getElementById('p-nom')?.value||'—';
   const prenom=document.getElementById('p-prenom')?.value||'—';
+  const pid=document.getElementById('p-id')?.value||'—';
   const age=document.getElementById('p-age')?.value||'—';
   const poids=document.getElementById('p-poids')?.value||'—';
   const taille=document.getElementById('p-taille')?.value||'—';
@@ -1195,7 +1261,7 @@ function generateRecap(){
   const prevScore=window._prevScore!==undefined?window._prevScore:'—';
   const prevRisk=window._prevRisk||'—';
   const now=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
-  
+
   showModal(`
     <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--teal);margin-bottom:4px">COMPTE RENDU MÉDICAL</div>
     <div style="font-size:11px;color:var(--w3);margin-bottom:16px">Tétralogie de Fallot · Complexité Classe II · Date : ${now}</div>
@@ -1203,6 +1269,7 @@ function generateRecap(){
     <hr style="border-color:var(--brd);margin:12px 0">
     <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--sky);margin-bottom:8px">I. IDENTITÉ DU PATIENT</div>
     <div style="font-size:13px;color:var(--w2);line-height:2">
+      ID Dossier : <strong>${pid}</strong><br>
       Nom & Prénom : <strong>${prenom} ${nom}</strong><br>
       Âge : <strong>${age} ans</strong> · Sexe : <strong>${sexe}</strong><br>
       Poids : <strong>${poids} kg</strong> · Taille : <strong>${taille} cm</strong><br>
@@ -1224,7 +1291,7 @@ function generateRecap(){
     <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--sky);margin-bottom:8px">V. ÉVALUATION CLINIQUE</div>
     <div style="font-size:13px;color:var(--w2);line-height:2">
       Stade Physiologique (Table 4 ACC 2025) : <strong style="color:var(--teal)">${stade}</strong><br>
-      Score PREVENTION-ACHD : <strong style="color:var(--red)">${prevScore}/9</strong> · Risque : <strong>${prevRisk}</strong>
+      Score PREVENTION-ACHD : <strong style="color:var(--red)">${prevScore}/7</strong> · Risque : <strong>${prevRisk}</strong>
     </div>
     <hr style="border-color:var(--brd);margin:12px 0">
     <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--sky);margin-bottom:8px">VI. CLASSIFICATION</div>
@@ -1247,6 +1314,7 @@ function generateRecap(){
 function sendWhatsApp(){
   const nom=document.getElementById('p-nom')?.value||'—';
   const prenom=document.getElementById('p-prenom')?.value||'—';
+  const pid=document.getElementById('p-id')?.value||'—';
   const age=document.getElementById('p-age')?.value||'—';
   const sato2=document.getElementById('p-sato2')?.value||'—';
   const rep=document.getElementById('p-reparation')?.value||'—';
@@ -1255,18 +1323,19 @@ function sendWhatsApp(){
   const prevScore=window._prevScore!==undefined?window._prevScore:'—';
   const prevRisk=window._prevRisk||'—';
   const now=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
-  
+
   const msg=`🫀 *DEMANDE D'AVIS — TOF ACHD*
 📱 CSC Algeria · ACHD CORE-Team
 🗓️ ${now}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+🆔 *ID Dossier :* ${pid}
 👤 *Patient :* ${prenom} ${nom} · ${age} ans
 💧 *Saturation :* ${sato2}%
 🔧 *Réparation :* ${rep}
 
 📊 *Stade physiologique ACC 2025 :* ${stade}
-⚡ *PREVENTION-ACHD :* ${prevScore}/9 — Risque ${prevRisk}
+⚡ *PREVENTION-ACHD :* ${prevScore}/7 — Risque ${prevRisk}
 
 📝 *Histoire / Motif :*
 ${atcd}
@@ -1274,9 +1343,10 @@ ${atcd}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 _TOF Clinical App · ACC/AHA 2025_
 _Validée CORE-TEAM ACHD-Algérie · CSC_`;
-  
+
   window.open('https://wa.me/213540910869?text='+encodeURIComponent(msg),'_blank');
 }
 </script>
+
 </body>
 </html>
