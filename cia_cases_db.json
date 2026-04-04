@@ -1,1 +1,114 @@
-[]
+[
+  {
+    "id": "case_CIA_002",
+    "title": "CIA Ostium Secundum — HTAP Modérée · Treat-to-Close COR 2a",
+    "difficulty": 3,
+    "typeCIA": "ostium2",
+    "presentation": "Homme de 54 ans, adressé pour dyspnée d'effort progressive (NYHA III) évoluant depuis 18 mois. Palpitations occasionnelles. Découverte tardive d'une CIA volumineuse. Saturation au repos à 91% en air ambiant. Antécédent d'hypertension artérielle traitée. Bilan complet demandé pour décision thérapeutique.",
+    "age": "54",
+    "sexe": "M",
+    "spo2": "91",
+    "nyha": "3",
+    "fc": "88",
+    "atcd": "HTA traitée par Amlodipine 5 mg/j. Dyspnée progressive depuis 18 mois. Pas de diabète. Ex-fumeur sevré depuis 10 ans. Pas d'antécédent cardiaque connu. Pas de voyage en altitude récent.",
+    "note": "Cas difficile (3 étoiles). Illustre la zone grise décisionnelle ACC 2025 : PVR entre 5 et 8 WU. Approche Treat-to-Close. Discussion multidisciplinaire ACHD + HTAP obligatoire. Risque HTAP intermédiaire selon 3-Strata. Cas idéal pour entraîner la réflexion sur la fenêtre thérapeutique.",
+    "canvaUrl": "https://www.canva.com/design/DAFfORdwiYA/7XilFuZjWJJpvii9GLnnfg/view",
+    "canvaDesc": "ETT grand axe et petit axe : CIA ostium secundum 28 mm avec septum interventriculaire aplati (IVS flattened), témoignant d'une surcharge barométrique VD. Dilatation VD sévère. Vmax IT = 3.6 m/s — PAP systolique estimée à 62 mmHg. Qp/Qs 1.6 en Doppler. Pas de shunt droit-gauche au repos mais désaturation à l'effort à 84%.",
+    "fevg": "58",
+    "tapse": "15",
+    "it": "3.6",
+    "paps": "62",
+    "dvd": "Severe",
+    "qpqs": "1.6",
+    "bnp": "485",
+    "trop": "18",
+    "ecg": "Rythme sinusal — BBD complet — Axe droit +135° — HVD — QRS 128 ms",
+    "qrs": "128",
+    "bioNote": "BNP très élevé à 485 pg/mL : surcharge VD significative. Troponine hs légèrement élevée à 18 ng/L (cytolyse VD chronique). Hémoglobine 15.2 g/dL (polyglobulie réactionnelle modérée). Saturation effort 6MWT : désaturation à 84% à 320 mètres.",
+    "mpap": "42",
+    "pvr": "6.4",
+    "pcwp": "11",
+    "qpqs2": "1.6",
+    "dc": "4.1",
+    "tas": "130",
+    "fevd": "40",
+    "vtsi": "118",
+    "irmNote": "IRM cardiaque : CIA 28 mm. FEVD 40% (altérée). VTSI-VD 118 mL/m² (très dilatée). Qp/Qs 1.6. Septum dévié à gauche. Pas de LGE. FEVG conservée à 58%. Dilatation OD importante.",
+    "decision": "treat_close",
+    "stade": "D",
+    "strata": "int",
+    "cor": "2a",
+    "explication": "Selon ACC/AHA 2025 — Section 4.1.1 :\n\nSituation hémodynamique :\n• PVR = 6.4 WU → zone 5-8 WU = ZONE GRISE décisionnelle\n• mPAP = 42 mmHg + PCWP 11 mmHg + PVR 6.4 WU → HTAP précapillaire confirmée\n• Qp/Qs = 1.6 ≥ 1.5 + Dilatation VD sévère\n\nStratégie Treat-to-Close (COR 2a) :\nInitier traitement PAH ciblé en premier :\n→ ERA (Macitentan ou Ambrisentan) ± iPDE5 (Tadalafil)\n→ Objectif : descendre PVR < 5 WU\n→ Réévaluation hémodynamique au cathétérisme à 3-6 mois\n→ Si PVR < 5 WU atteint → fermeture percutanée COR 2a\n→ Si PVR reste 5-8 WU → fermeture fenêtrée possible COR 2b\n→ Si PVR > 8 WU → contre-indication COR 3\n\nRisque HTAP 3-Strata : INTERMEDIAIRE\n→ WHO III + TM6M 320 m + BNP 485 pg/mL + TAPSE 15 mm\n\nSuivi : Consultation multidisciplinaire ACHD + centre HTAP obligatoire.",
+    "messages": "PVR 5-8 WU = Treat-to-Close : traitement PAH d'abord, réévaluer à 3-6 mois\n3-Strata intermédiaire : WHO III + TM6M réduit + BNP élevé + TAPSE <18 mm\nObjectif : PVR < 5 WU pour accéder à la fermeture COR 2a\nSi PVR reste 5-8 WU sous traitement : fermeture fenêtrée envisageable COR 2b\nCentre expert HTAP + ACHD OBLIGATOIRE pour ce profil — Stade D ACC 2025",
+    "qcm": [
+      {
+        "q": "PVR = 6.4 WU, Qp/Qs = 1.6, mPAP = 42 mmHg, PCWP = 11 mmHg. Quelle est la stratégie recommandée selon ACC 2025 ?",
+        "opts": [
+          "Fermeture percutanée immédiate — COR I car Qp/Qs ≥1.5",
+          "Traitement PAH ciblé d'abord, puis réévaluation — Treat-to-Close COR 2a",
+          "Chirurgie d'emblée — fermeture à cœur ouvert avec CEC",
+          "Contre-indication absolue — PVR trop élevée, traitement médical seul"
+        ],
+        "ans": 1,
+        "fb": "PVR entre 5 et 8 WU = stratégie Treat-to-Close selon COR 2a ACC 2025. Initier traitement PAH (ERA ± iPDE5), objectif PVR < 5 WU. Réévaluation hémodynamique au cathé à 3-6 mois. Fermeture possible si PVR descend < 5 WU. Centre expert HTAP + ACHD obligatoire."
+      },
+      {
+        "q": "Selon le modèle 3-Strata ACC 2025 / ESC 2022, ce patient (WHO III, TM6M 320 m, BNP 485, TAPSE 15 mm) est classé :",
+        "opts": [
+          "Risque faible — mortalité < 5%/an",
+          "Risque intermédiaire — mortalité 5-10%/an",
+          "Risque élevé — mortalité > 10%/an",
+          "Le modèle 3-Strata ne s'applique pas aux CIA"
+        ],
+        "ans": 1,
+        "fb": "Risque INTERMÉDIAIRE 3-Strata : WHO III (intermédiaire), TM6M 320 m (165-440 m = intermédiaire), BNP 485 pg/mL (300-1400 = intermédiaire), TAPSE 15 mm < 18 mm (risque élevé). Prédominance critères intermédiaires → INTERMÉDIAIRE. Mortalité estimée 5-10%/an. Bithérapie PAH recommandée."
+      },
+      {
+        "q": "Quel est le seuil de PVR qui permet d'envisager la fermeture CIA après traitement PAH (treat-to-close) selon ACC 2025 ?",
+        "opts": [
+          "PVR < 8 Wood units",
+          "PVR < 5 Wood units",
+          "PVR < 2 Wood units uniquement",
+          "PVR < 10 Wood units"
+        ],
+        "ans": 1,
+        "fb": "Selon ACC 2025 Section 4.1.1 : PVR < 5 WU après traitement PAH est l'objectif pour valider la fermeture CIA (COR 2a). Si PVR reste entre 5-8 WU : fermeture fenêtrée possible (COR 2b). Si PVR > 8 WU : contre-indication formelle (COR 3)."
+      },
+      {
+        "q": "Ce patient présente une SpO₂ repos à 91% et une désaturation à l'effort à 84%. Quel stade physiologique ACHD lui attribuez-vous (Table 4 ACC 2025) ?",
+        "opts": [
+          "Stade A — Pas de symptômes, pression pulmonaire normale",
+          "Stade B — Anomalies légères sans symptômes",
+          "Stade C — HTAP faible risque",
+          "Stade D — HTAP risque intermédiaire ou élevé + hypoxémie modérée"
+        ],
+        "ans": 3,
+        "fb": "Stade D selon Table 4 ACC 2025 : HTAP risque intermédiaire (3-Strata) + NYHA III + SpO₂ repos 91% (hypoxémie modérée 86-92% = Stade C, mais HTAP intermédiaire = Stade D). BNP > 2× LSN + hospitalisation potentielle. Suivi en centre ACHD expert, consultation tous les 3-6 mois (Table 12)."
+      },
+      {
+        "q": "Si après 6 mois de traitement par ERA + iPDE5, la PVR reste à 6.8 WU, quelle option est envisageable selon ACC 2025 ?",
+        "opts": [
+          "Fermeture percutanée standard sans restriction",
+          "Fermeture fenêtrée (patch avec petite fenestration) — COR 2b",
+          "Arrêt de tout traitement et surveillance simple",
+          "Fermeture chirurgicale urgente sans cathé de réévaluation"
+        ],
+        "ans": 1,
+        "fb": "COR 2b ACC 2025 : Si PVR reste entre 5-8 WU malgré traitement PAH optimal, la fermeture fenêtrée (patch avec petite ouverture résiduelle) peut être envisagée. Elle permet de décomprimer les cavités droites tout en maintenant un shunt de sécurité si la PVR reste élevée. Données limitées, décision en centre expert HTAP + ACHD."
+      },
+      {
+        "q": "Quelle association médicamenteuse est recommandée en première ligne pour ce patient avec HTAP intermédiaire et CIA non fermée ?",
+        "opts": [
+          "Bêtabloquants + diurétiques seuls",
+          "ERA (ex: Macitentan) + inhibiteur PDE5 (ex: Tadalafil) — bithérapie",
+          "Anticoagulation seule par AVK",
+          "Digoxine + Furosémide uniquement"
+        ],
+        "ans": 1,
+        "fb": "Risque intermédiaire 3-Strata → bithérapie d'emblée recommandée selon ESC 2022 / ACC 2025 : ERA (Macitentan 10 mg/j ou Ambrisentan) + iPDE5 (Tadalafil 40 mg/j). Surveillance bilan hépatique sous ERA. Réévaluation clinique et hémodynamique à 3-4 mois. Si aggravation : ajouter prostacycline."
+      }
+    ],
+    "createdAt": "2025-06-01T09:00:00.000Z",
+    "updatedAt": "2025-06-01T09:00:00.000Z"
+  }
+]
