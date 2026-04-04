@@ -110,5 +110,95 @@
     ],
     "createdAt": "2025-06-01T09:00:00.000Z",
     "updatedAt": "2025-06-01T09:00:00.000Z"
+  },
+  {
+    "id": "case_CIA_001",
+    "title": "CIA Ostium Secundum — Fermeture Percutanée COR I",
+    "difficulty": 2,
+    "typeCIA": "ostium2",
+    "presentation": "Femme de 38 ans, adressée pour bilan d'un souffle systolique découvert lors d'un bilan de maternité. Asymptomatique au quotidien mais rapporte une dyspnée d'effort modérée à l'effort soutenu (montée rapide d'escaliers). Pas d'antécédent cardiovasculaire connu. Pas de traitement en cours.",
+    "age": "38",
+    "sexe": "F",
+    "spo2": "97",
+    "nyha": "2",
+    "fc": "72",
+    "atcd": "Souffle cardiaque connu depuis l'enfance, jamais exploré. G1P1. Pas de traitement en cours. Pas de tabac, pas de diabète, pas d'HTA.",
+    "note": "Cas de difficulté intermédiaire. Idéal pour illustrer la décision COR I selon ACC 2025 : Qp/Qs ≥1.5 + dilatation VD + PVR ≤2 WU. Fermeture percutanée préférée à la chirurgie (COR I B-NR).",
+    "canvaUrl": "https://www.canva.com/design/DAFfORdwiYA/7XilFuZjWJJpvii9GLnnfg/view",
+    "canvaDesc": "ETT parasternale petit axe : CIA ostium secundum de 22 mm avec dilatation VD évidente. Doppler couleur : shunt gauche-droite franc. Pas de retour veineux pulmonaire anormal visible. Rebords antérieur et postérieur ≥ 7 mm — éligible fermeture percutanée.",
+    "fevg": "65",
+    "tapse": "22",
+    "it": "2.6",
+    "paps": "35",
+    "dvd": "Moderee",
+    "qpqs": "2.4",
+    "bnp": "68",
+    "trop": "< 14",
+    "ecg": "Rythme sinusal régulier — BBD incomplet — Axe droit +110° — Pas d'arythmie",
+    "qrs": "108",
+    "bioNote": "BNP légèrement élevé en rapport avec la surcharge volumique VD. Bilan rénal et hépatique normaux. NFS normale, pas d'anémie.",
+    "mpap": "22",
+    "pvr": "1.6",
+    "pcwp": "8",
+    "qpqs2": "2.4",
+    "dc": "5.2",
+    "tas": "125",
+    "fevd": "52",
+    "vtsi": "88",
+    "irmNote": "IRM cardiaque : CIA ostium secundum 22 mm. FEVD 52%, VTSI-VD 88 mL/m². Qp/Qs = 2.4 en phase-contraste. Pas de LGE. Pas de retour veineux pulmonaire anormal.",
+    "decision": "close_perc",
+    "stade": "C",
+    "strata": "none",
+    "cor": "1",
+    "explication": "Selon ACC/AHA 2025 — Section 4.1.1 :\n\nCritères remplis pour COR I :\n• Qp/Qs = 2.4 ≥ 1.5 ✓\n• Dilatation VD modérée ✓\n• PVR = 1.6 WU ≤ 2 WU ✓\n• Pas de dysfonction VG significative ✓\n• Pas d'HTAP précapillaire (mPAP 22 mmHg, PCWP 8 mmHg, PVR 1.6 WU)\n\nFermeture percutanée PRÉFÉRÉE à la chirurgie (COR I B-NR) :\nAnatomie favorable — CIA secundum isolée, rebords ≥ 5 mm, diamètre 22 mm ≤ 38 mm → Amplatzer ou equivalent.\n\nBilan pré-procédure obligatoire : ETO pour confirmer rebords, taille et absence de RVPA. Test occlusion ballon si doute sur fonction VG diastolique.",
+    "messages": "COR I si Qp/Qs ≥1.5 + dilatation VD + PVR ≤2 WU — ACC 2025\nFermeture percutanée préférée à chirurgie pour ostium secundum isolé (COR I)\nETO pré-procédure OBLIGATOIRE — ETT seule insuffisante chez l'adulte\nPas d'HTAP précapillaire = pas de contre-indication à la fermeture\nSuivi post-fermeture : ETT à 1 mois, 6 mois, puis annuelle (Table 12 ACC 2025)",
+    "qcm": [
+      {
+        "q": "Selon ACC/AHA 2025, quelle est la recommandation pour cette CIA ostium secundum avec Qp/Qs = 2.4, dilatation VD et PVR = 1.6 WU ?",
+        "opts": [
+          "COR 2a — Fermeture raisonnable, discussion au cas par cas",
+          "COR I — Fermeture indiquée pour améliorer la classe fonctionnelle et les outcomes",
+          "COR 2b — Fermeture fenêtrée à envisager vu l'HTAP",
+          "COR 3 — Surveillance simple, pas d'indication"
+        ],
+        "ans": 1,
+        "fb": "COR I B-R selon ACC 2025 Section 4.1.1 : Qp/Qs ≥1.5 + dilatation VD + PVR ≤2 WU + pas de dysfonction VG significative = indication formelle de fermeture. Améliore la classe fonctionnelle et réduit la morbimortalité."
+      },
+      {
+        "q": "Quelle technique de fermeture est recommandée en priorité pour cette CIA ostium secundum de 22 mm avec rebords adéquats ?",
+        "opts": [
+          "Chirurgie à cœur ouvert — gold standard",
+          "Fermeture percutanée (Amplatzer) — COR I préférée à la chirurgie",
+          "Traitement médical seul — diurétiques et surveillance",
+          "TAVI — technique de référence pour les CIA"
+        ],
+        "ans": 1,
+        "fb": "COR I B-NR ACC 2025 : Pour CIA secundum isolée avec anatomie favorable (rebords ≥5 mm, diamètre ≤38 mm), la fermeture percutanée est PRÉFÉRÉE à la chirurgie — mortalité plus faible, séjour hospitalier plus court, récupération plus rapide."
+      },
+      {
+        "q": "Quel examen est OBLIGATOIRE selon COR I avant fermeture percutanée de cette CIA chez l'adulte ?",
+        "opts": [
+          "ETT seule suffit si fenêtre acoustique bonne",
+          "Coronarographie systématique avant toute intervention",
+          "ETO (ou IRM/scanner) pour définir taille, rebords et connexions veineuses",
+          "Test d'effort cardio-pulmonaire (CPET)"
+        ],
+        "ans": 2,
+        "fb": "COR I B-NR ACC 2025 : L'ETO, l'IRM cardiaque ou le scanner sont recommandés pour définir la taille exacte, la morphologie, les rebords et les connexions veineuses pulmonaires. L'ETT seule est insuffisante chez l'adulte pour guider la décision de fermeture percutanée."
+      },
+      {
+        "q": "Quel stade physiologique ACHD (Table 4 ACC 2025) correspond à cette patiente ?",
+        "opts": [
+          "Stade A — Asymptomatique sans séquelles",
+          "Stade B — Anomalies hémodynamiques légères sans symptômes",
+          "Stade C — Shunt hémodynamiquement significatif avec légère dyspnée",
+          "Stade D — Défaillance cardiaque avancée"
+        ],
+        "ans": 2,
+        "fb": "Stade C selon Table 4 ACC 2025 : Shunt hémodynamiquement significatif (Qp/Qs 2.4 + dilatation VD) + dyspnée NYHA II = critères de Stade C. BNP légèrement élevé confirme. Suivi recommandé : consultation ACHD tous les 6-12 mois (Table 12)."
+      }
+    ],
+    "createdAt": "2025-06-01T08:00:00.000Z",
+    "updatedAt": "2025-06-01T08:00:00.000Z"
   }
 ]
