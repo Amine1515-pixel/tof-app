@@ -200,5 +200,141 @@
     ],
     "createdAt": "2025-06-01T08:00:00.000Z",
     "updatedAt": "2025-06-01T08:00:00.000Z"
+  },
+  {
+    "id": "case_001",
+    "title": "Titre du cas — Ex: CIA Ostium Secundum avec HTAP moderee",
+    "difficulty": 2,
+    "typeCIA": "ostium2",
+    "presentation": "Decrivez ici le contexte clinique, le motif de consultation et la presentation du patient.",
+    "age": "45",
+    "sexe": "F",
+    "spo2": "94",
+    "nyha": "2",
+    "fc": "78",
+    "atcd": "Antecedents et traitements en cours...",
+    "note": "Note pedagogique interne du createur du cas.",
+    "canvaUrl": "https://www.canva.com/design/DAFfORdwiYA/7XilFuZjWJJpvii9GLnnfg/view",
+    "canvaDesc": "Description de ce que montre l'iconographie : coupes echographiques, parametres cles...",
+    "fevg": "60",
+    "tapse": "16",
+    "it": "3.2",
+    "paps": "52",
+    "dvd": "Moderee",
+    "qpqs": "2.1",
+    "bnp": "320",
+    "trop": "< 14",
+    "ecg": "Rythme sinusal, axe droit, BBD incomplet",
+    "qrs": "110",
+    "bioNote": "Commentaires biologiques et ECG supplementaires...",
+    "mpap": "32",
+    "pvr": "3.2",
+    "pcwp": "10",
+    "qpqs2": "2.0",
+    "dc": "4.8",
+    "tas": "120",
+    "fevd": "48",
+    "vtsi": "95",
+    "irmNote": "IRM : dilatation VD moderee, FEVD 48%, pas de fibrose.",
+    "decision": "close_2a",
+    "stade": "C",
+    "strata": "int",
+    "cor": "2a",
+    "explication": "Selon ACC/AHA 2025 Section 4.1.1 :\nQp/Qs >= 1.5 + dilatation VD + PVR 3.2 WU (entre 2 et 5 WU) → COR 2a.\nFermeture raisonnable. Pas de dysfonction VG significative.\nStratification HTAP : 3-Strata intermediaire → traitement PAH avant si besoin.\nObjectif : PVR < 5 WU pour valider la fermeture.",
+    "messages": "PVR 2-5 WU = COR 2a : fermeture raisonnable selon ACC 2025\nQp/Qs >= 1.5 + dilatation VD = indication formelle si PVR <= 2 WU\n3-Strata intermediaire : surveillance rapprochee apres fermeture\nPost-fermeture : ETT a 1 mois, 6 mois, puis annuelle",
+    "qcm": [
+      {
+        "q": "Quelle est la recommandation ACC 2025 pour fermeture CIA avec Qp/Qs = 2.0, dilatation VD et PVR = 3.2 WU ?",
+        "opts": [
+          "COR I — Fermeture indiquee, PVR normale",
+          "COR 2a — Fermeture raisonnable, PVR 2-5 WU",
+          "COR 2b — Fermeture fenestree a envisager",
+          "COR 3 — Fermeture contre-indiquee"
+        ],
+        "ans": 1,
+        "fb": "PVR entre 2 et 5 WU avec Qp/Qs >= 1.5 et dilatation VD → COR 2a selon Table de decision ACC 2025 Section 4.1.1. La fermeture est raisonnable mais necessite un avis specialise HTAP."
+      },
+      {
+        "q": "Quel examen est INDISPENSABLE avant fermeture percutanee CIA chez ce patient ?",
+        "opts": [
+          "Scanner thoracique seul",
+          "ETO pour evaluer rebords, taille et connexions veineuses pulmonaires",
+          "IRM cerebrale",
+          "Coronarographie systematique"
+        ],
+        "ans": 1,
+        "fb": "Selon COR I ACC 2025 : l'ETO (ou IRM/scanner) est obligatoire pour definir la taille, la morphologie, les rebords et les connexions veineuses pulmonaires avant toute fermeture percutanee. L'ETT seule est insuffisante chez l'adulte."
+      },
+      {
+        "q": "Quel seuil de PVR rend la fermeture CIA CONTRE-INDIQUEE (COR 3) selon ACC 2025 ?",
+        "opts": [
+          "PVR > 2 Wood units",
+          "PVR > 5 Wood units",
+          "PVR > 8 Wood units",
+          "PVR > 10 Wood units"
+        ],
+        "ans": 2,
+        "fb": "Selon ACC 2025 : PVR > 8 WU = COR 3 (contre-indication formelle). Entre 5 et 8 WU : approche treat-to-close possible (COR 2a/2b). Entre 2 et 5 WU : COR 2a si Qp/Qs >= 1.5 + dilatation VD."
+      }
+    ],
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "case_002",
+    "title": "CAS VIERGE — A completer",
+    "difficulty": 2,
+    "typeCIA": "",
+    "presentation": "",
+    "age": "",
+    "sexe": "",
+    "spo2": "",
+    "nyha": "",
+    "fc": "",
+    "atcd": "",
+    "note": "",
+    "canvaUrl": "",
+    "canvaDesc": "",
+    "fevg": "",
+    "tapse": "",
+    "it": "",
+    "paps": "",
+    "dvd": "",
+    "qpqs": "",
+    "bnp": "",
+    "trop": "",
+    "ecg": "",
+    "qrs": "",
+    "bioNote": "",
+    "mpap": "",
+    "pvr": "",
+    "pcwp": "",
+    "qpqs2": "",
+    "dc": "",
+    "tas": "",
+    "fevd": "",
+    "vtsi": "",
+    "irmNote": "",
+    "decision": "",
+    "stade": "",
+    "strata": "",
+    "cor": "",
+    "explication": "",
+    "messages": "",
+    "qcm": [
+      {
+        "q": "Votre question ici...",
+        "opts": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "ans": 0,
+        "fb": "Explication de la bonne reponse ici..."
+      }
+    ],
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
   }
 ]
