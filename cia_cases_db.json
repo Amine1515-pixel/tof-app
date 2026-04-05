@@ -1,19 +1,19 @@
 [
   {
     "id": "case_CIA_002",
-    "title": "CIA Ostium Secundum â HTAP ModÃ©rÃ©e Â· Treat-to-Close COR 2a",
+    "title": "CIA Ostium Secundum Ã¢ÂÂ HTAP ModÃÂ©rÃÂ©e ÃÂ· Treat-to-Close COR 2a",
     "difficulty": 3,
     "typeCIA": "ostium2",
-    "presentation": "Homme de 54 ans, adressÃ© pour dyspnÃ©e d'effort progressive (NYHA III) Ã©voluant depuis 18 mois. Palpitations occasionnelles. DÃ©couverte tardive d'une CIA volumineuse. Saturation au repos Ã  91% en air ambiant. AntÃ©cÃ©dent d'hypertension artÃ©rielle traitÃ©e. Bilan complet demandÃ© pour dÃ©cision thÃ©rapeutique.",
+    "presentation": "Homme de 54 ans, adressÃÂ© pour dyspnÃÂ©e d'effort progressive (NYHA III) ÃÂ©voluant depuis 18 mois. Palpitations occasionnelles. DÃÂ©couverte tardive d'une CIA volumineuse. Saturation au repos ÃÂ  91% en air ambiant. AntÃÂ©cÃÂ©dent d'hypertension artÃÂ©rielle traitÃÂ©e. Bilan complet demandÃÂ© pour dÃÂ©cision thÃÂ©rapeutique.",
     "age": "54",
     "sexe": "M",
     "spo2": "91",
     "nyha": "3",
     "fc": "88",
-    "atcd": "HTA traitÃ©e par Amlodipine 5 mg/j. DyspnÃ©e progressive depuis 18 mois. Pas de diabÃ¨te. Ex-fumeur sevrÃ© depuis 10 ans. Pas d'antÃ©cÃ©dent cardiaque connu. Pas de voyage en altitude rÃ©cent.",
-    "note": "Cas difficile (3 Ã©toiles). Illustre la zone grise dÃ©cisionnelle ACC 2025 : PVR entre 5 et 8 WU. Approche Treat-to-Close. Discussion multidisciplinaire ACHD + HTAP obligatoire. Risque HTAP intermÃ©diaire selon 3-Strata. Cas idÃ©al pour entraÃ®ner la rÃ©flexion sur la fenÃªtre thÃ©rapeutique.",
+    "atcd": "HTA traitÃÂ©e par Amlodipine 5 mg/j. DyspnÃÂ©e progressive depuis 18 mois. Pas de diabÃÂ¨te. Ex-fumeur sevrÃÂ© depuis 10 ans. Pas d'antÃÂ©cÃÂ©dent cardiaque connu. Pas de voyage en altitude rÃÂ©cent.",
+    "note": "Cas difficile (3 ÃÂ©toiles). Illustre la zone grise dÃÂ©cisionnelle ACC 2025 : PVR entre 5 et 8 WU. Approche Treat-to-Close. Discussion multidisciplinaire ACHD + HTAP obligatoire. Risque HTAP intermÃÂ©diaire selon 3-Strata. Cas idÃÂ©al pour entraÃÂ®ner la rÃÂ©flexion sur la fenÃÂªtre thÃÂ©rapeutique.",
     "canvaUrl": "https://www.canva.com/design/DAFfORdwiYA/7XilFuZjWJJpvii9GLnnfg/view",
-    "canvaDesc": "ETT grand axe et petit axe : CIA ostium secundum 28 mm avec septum interventriculaire aplati (IVS flattened), tÃ©moignant d'une surcharge baromÃ©trique VD. Dilatation VD sÃ©vÃ¨re. Vmax IT = 3.6 m/s â PAP systolique estimÃ©e Ã  62 mmHg. Qp/Qs 1.6 en Doppler. Pas de shunt droit-gauche au repos mais dÃ©saturation Ã  l'effort Ã  84%.",
+    "canvaDesc": "ETT grand axe et petit axe : CIA ostium secundum 28 mm avec septum interventriculaire aplati (IVS flattened), tÃÂ©moignant d'une surcharge baromÃÂ©trique VD. Dilatation VD sÃÂ©vÃÂ¨re. Vmax IT = 3.6 m/s Ã¢ÂÂ PAP systolique estimÃÂ©e ÃÂ  62 mmHg. Qp/Qs 1.6 en Doppler. Pas de shunt droit-gauche au repos mais dÃÂ©saturation ÃÂ  l'effort ÃÂ  84%.",
     "fevg": "58",
     "tapse": "15",
     "it": "3.6",
@@ -22,9 +22,9 @@
     "qpqs": "1.6",
     "bnp": "485",
     "trop": "18",
-    "ecg": "Rythme sinusal â BBD complet â Axe droit +135Â° â HVD â QRS 128 ms",
+    "ecg": "Rythme sinusal Ã¢ÂÂ BBD complet Ã¢ÂÂ Axe droit +135ÃÂ° Ã¢ÂÂ HVD Ã¢ÂÂ QRS 128 ms",
     "qrs": "128",
-    "bioNote": "BNP trÃ¨s Ã©levÃ© Ã  485 pg/mL : surcharge VD significative. Troponine hs lÃ©gÃ¨rement Ã©levÃ©e Ã  18 ng/L (cytolyse VD chronique). HÃ©moglobine 15.2 g/dL (polyglobulie rÃ©actionnelle modÃ©rÃ©e). Saturation effort 6MWT : dÃ©saturation Ã  84% Ã  320 mÃ¨tres.",
+    "bioNote": "BNP trÃÂ¨s ÃÂ©levÃÂ© ÃÂ  485 pg/mL : surcharge VD significative. Troponine hs lÃÂ©gÃÂ¨rement ÃÂ©levÃÂ©e ÃÂ  18 ng/L (cytolyse VD chronique). HÃÂ©moglobine 15.2 g/dL (polyglobulie rÃÂ©actionnelle modÃÂ©rÃÂ©e). Saturation effort 6MWT : dÃÂ©saturation ÃÂ  84% ÃÂ  320 mÃÂ¨tres.",
     "mpap": "42",
     "pvr": "6.4",
     "pcwp": "11",
@@ -33,38 +33,38 @@
     "tas": "130",
     "fevd": "40",
     "vtsi": "118",
-    "irmNote": "IRM cardiaque : CIA 28 mm. FEVD 40% (altÃ©rÃ©e). VTSI-VD 118 mL/mÂ² (trÃ¨s dilatÃ©e). Qp/Qs 1.6. Septum dÃ©viÃ© Ã  gauche. Pas de LGE. FEVG conservÃ©e Ã  58%. Dilatation OD importante.",
+    "irmNote": "IRM cardiaque : CIA 28 mm. FEVD 40% (altÃÂ©rÃÂ©e). VTSI-VD 118 mL/mÃÂ² (trÃÂ¨s dilatÃÂ©e). Qp/Qs 1.6. Septum dÃÂ©viÃÂ© ÃÂ  gauche. Pas de LGE. FEVG conservÃÂ©e ÃÂ  58%. Dilatation OD importante.",
     "decision": "treat_close",
     "stade": "D",
     "strata": "int",
     "cor": "2a",
-    "explication": "Selon ACC/AHA 2025 â Section 4.1.1 :\n\nSituation hÃ©modynamique :\nâ¢ PVR = 6.4 WU â zone 5-8 WU = ZONE GRISE dÃ©cisionnelle\nâ¢ mPAP = 42 mmHg + PCWP 11 mmHg + PVR 6.4 WU â HTAP prÃ©capillaire confirmÃ©e\nâ¢ Qp/Qs = 1.6 â¥ 1.5 + Dilatation VD sÃ©vÃ¨re\n\nStratÃ©gie Treat-to-Close (COR 2a) :\nInitier traitement PAH ciblÃ© en premier :\nâ ERA (Macitentan ou Ambrisentan) Â± iPDE5 (Tadalafil)\nâ Objectif : descendre PVR < 5 WU\nâ RÃ©Ã©valuation hÃ©modynamique au cathÃ©tÃ©risme Ã  3-6 mois\nâ Si PVR < 5 WU atteint â fermeture percutanÃ©e COR 2a\nâ Si PVR reste 5-8 WU â fermeture fenÃªtrÃ©e possible COR 2b\nâ Si PVR > 8 WU â contre-indication COR 3\n\nRisque HTAP 3-Strata : INTERMEDIAIRE\nâ WHO III + TM6M 320 m + BNP 485 pg/mL + TAPSE 15 mm\n\nSuivi : Consultation multidisciplinaire ACHD + centre HTAP obligatoire.",
-    "messages": "PVR 5-8 WU = Treat-to-Close : traitement PAH d'abord, rÃ©Ã©valuer Ã  3-6 mois\n3-Strata intermÃ©diaire : WHO III + TM6M rÃ©duit + BNP Ã©levÃ© + TAPSE <18 mm\nObjectif : PVR < 5 WU pour accÃ©der Ã  la fermeture COR 2a\nSi PVR reste 5-8 WU sous traitement : fermeture fenÃªtrÃ©e envisageable COR 2b\nCentre expert HTAP + ACHD OBLIGATOIRE pour ce profil â Stade D ACC 2025",
+    "explication": "Selon ACC/AHA 2025 Ã¢ÂÂ Section 4.1.1 :\n\nSituation hÃÂ©modynamique :\nÃ¢ÂÂ¢ PVR = 6.4 WU Ã¢ÂÂ zone 5-8 WU = ZONE GRISE dÃÂ©cisionnelle\nÃ¢ÂÂ¢ mPAP = 42 mmHg + PCWP 11 mmHg + PVR 6.4 WU Ã¢ÂÂ HTAP prÃÂ©capillaire confirmÃÂ©e\nÃ¢ÂÂ¢ Qp/Qs = 1.6 Ã¢ÂÂ¥ 1.5 + Dilatation VD sÃÂ©vÃÂ¨re\n\nStratÃÂ©gie Treat-to-Close (COR 2a) :\nInitier traitement PAH ciblÃÂ© en premier :\nÃ¢ÂÂ ERA (Macitentan ou Ambrisentan) ÃÂ± iPDE5 (Tadalafil)\nÃ¢ÂÂ Objectif : descendre PVR < 5 WU\nÃ¢ÂÂ RÃÂ©ÃÂ©valuation hÃÂ©modynamique au cathÃÂ©tÃÂ©risme ÃÂ  3-6 mois\nÃ¢ÂÂ Si PVR < 5 WU atteint Ã¢ÂÂ fermeture percutanÃÂ©e COR 2a\nÃ¢ÂÂ Si PVR reste 5-8 WU Ã¢ÂÂ fermeture fenÃÂªtrÃÂ©e possible COR 2b\nÃ¢ÂÂ Si PVR > 8 WU Ã¢ÂÂ contre-indication COR 3\n\nRisque HTAP 3-Strata : INTERMEDIAIRE\nÃ¢ÂÂ WHO III + TM6M 320 m + BNP 485 pg/mL + TAPSE 15 mm\n\nSuivi : Consultation multidisciplinaire ACHD + centre HTAP obligatoire.",
+    "messages": "PVR 5-8 WU = Treat-to-Close : traitement PAH d'abord, rÃÂ©ÃÂ©valuer ÃÂ  3-6 mois\n3-Strata intermÃÂ©diaire : WHO III + TM6M rÃÂ©duit + BNP ÃÂ©levÃÂ© + TAPSE <18 mm\nObjectif : PVR < 5 WU pour accÃÂ©der ÃÂ  la fermeture COR 2a\nSi PVR reste 5-8 WU sous traitement : fermeture fenÃÂªtrÃÂ©e envisageable COR 2b\nCentre expert HTAP + ACHD OBLIGATOIRE pour ce profil Ã¢ÂÂ Stade D ACC 2025",
     "qcm": [
       {
-        "q": "PVR = 6.4 WU, Qp/Qs = 1.6, mPAP = 42 mmHg, PCWP = 11 mmHg. Quelle est la stratÃ©gie recommandÃ©e selon ACC 2025 ?",
+        "q": "PVR = 6.4 WU, Qp/Qs = 1.6, mPAP = 42 mmHg, PCWP = 11 mmHg. Quelle est la stratÃÂ©gie recommandÃÂ©e selon ACC 2025 ?",
         "opts": [
-          "Fermeture percutanÃ©e immÃ©diate â COR I car Qp/Qs â¥1.5",
-          "Traitement PAH ciblÃ© d'abord, puis rÃ©Ã©valuation â Treat-to-Close COR 2a",
-          "Chirurgie d'emblÃ©e â fermeture Ã  cÅur ouvert avec CEC",
-          "Contre-indication absolue â PVR trop Ã©levÃ©e, traitement mÃ©dical seul"
+          "Fermeture percutanÃÂ©e immÃÂ©diate Ã¢ÂÂ COR I car Qp/Qs Ã¢ÂÂ¥1.5",
+          "Traitement PAH ciblÃÂ© d'abord, puis rÃÂ©ÃÂ©valuation Ã¢ÂÂ Treat-to-Close COR 2a",
+          "Chirurgie d'emblÃÂ©e Ã¢ÂÂ fermeture ÃÂ  cÃÂur ouvert avec CEC",
+          "Contre-indication absolue Ã¢ÂÂ PVR trop ÃÂ©levÃÂ©e, traitement mÃÂ©dical seul"
         ],
         "ans": 1,
-        "fb": "PVR entre 5 et 8 WU = stratÃ©gie Treat-to-Close selon COR 2a ACC 2025. Initier traitement PAH (ERA Â± iPDE5), objectif PVR < 5 WU. RÃ©Ã©valuation hÃ©modynamique au cathÃ© Ã  3-6 mois. Fermeture possible si PVR descend < 5 WU. Centre expert HTAP + ACHD obligatoire."
+        "fb": "PVR entre 5 et 8 WU = stratÃÂ©gie Treat-to-Close selon COR 2a ACC 2025. Initier traitement PAH (ERA ÃÂ± iPDE5), objectif PVR < 5 WU. RÃÂ©ÃÂ©valuation hÃÂ©modynamique au cathÃÂ© ÃÂ  3-6 mois. Fermeture possible si PVR descend < 5 WU. Centre expert HTAP + ACHD obligatoire."
       },
       {
-        "q": "Selon le modÃ¨le 3-Strata ACC 2025 / ESC 2022, ce patient (WHO III, TM6M 320 m, BNP 485, TAPSE 15 mm) est classÃ© :",
+        "q": "Selon le modÃÂ¨le 3-Strata ACC 2025 / ESC 2022, ce patient (WHO III, TM6M 320 m, BNP 485, TAPSE 15 mm) est classÃÂ© :",
         "opts": [
-          "Risque faible â mortalitÃ© < 5%/an",
-          "Risque intermÃ©diaire â mortalitÃ© 5-10%/an",
-          "Risque Ã©levÃ© â mortalitÃ© > 10%/an",
-          "Le modÃ¨le 3-Strata ne s'applique pas aux CIA"
+          "Risque faible Ã¢ÂÂ mortalitÃÂ© < 5%/an",
+          "Risque intermÃÂ©diaire Ã¢ÂÂ mortalitÃÂ© 5-10%/an",
+          "Risque ÃÂ©levÃÂ© Ã¢ÂÂ mortalitÃÂ© > 10%/an",
+          "Le modÃÂ¨le 3-Strata ne s'applique pas aux CIA"
         ],
         "ans": 1,
-        "fb": "Risque INTERMÃDIAIRE 3-Strata : WHO III (intermÃ©diaire), TM6M 320 m (165-440 m = intermÃ©diaire), BNP 485 pg/mL (300-1400 = intermÃ©diaire), TAPSE 15 mm < 18 mm (risque Ã©levÃ©). PrÃ©dominance critÃ¨res intermÃ©diaires â INTERMÃDIAIRE. MortalitÃ© estimÃ©e 5-10%/an. BithÃ©rapie PAH recommandÃ©e."
+        "fb": "Risque INTERMÃÂDIAIRE 3-Strata : WHO III (intermÃÂ©diaire), TM6M 320 m (165-440 m = intermÃÂ©diaire), BNP 485 pg/mL (300-1400 = intermÃÂ©diaire), TAPSE 15 mm < 18 mm (risque ÃÂ©levÃÂ©). PrÃÂ©dominance critÃÂ¨res intermÃÂ©diaires Ã¢ÂÂ INTERMÃÂDIAIRE. MortalitÃÂ© estimÃÂ©e 5-10%/an. BithÃÂ©rapie PAH recommandÃÂ©e."
       },
       {
-        "q": "Quel est le seuil de PVR qui permet d'envisager la fermeture CIA aprÃ¨s traitement PAH (treat-to-close) selon ACC 2025 ?",
+        "q": "Quel est le seuil de PVR qui permet d'envisager la fermeture CIA aprÃÂ¨s traitement PAH (treat-to-close) selon ACC 2025 ?",
         "opts": [
           "PVR < 8 Wood units",
           "PVR < 5 Wood units",
@@ -72,40 +72,40 @@
           "PVR < 10 Wood units"
         ],
         "ans": 1,
-        "fb": "Selon ACC 2025 Section 4.1.1 : PVR < 5 WU aprÃ¨s traitement PAH est l'objectif pour valider la fermeture CIA (COR 2a). Si PVR reste entre 5-8 WU : fermeture fenÃªtrÃ©e possible (COR 2b). Si PVR > 8 WU : contre-indication formelle (COR 3)."
+        "fb": "Selon ACC 2025 Section 4.1.1 : PVR < 5 WU aprÃÂ¨s traitement PAH est l'objectif pour valider la fermeture CIA (COR 2a). Si PVR reste entre 5-8 WU : fermeture fenÃÂªtrÃÂ©e possible (COR 2b). Si PVR > 8 WU : contre-indication formelle (COR 3)."
       },
       {
-        "q": "Ce patient prÃ©sente une SpOâ repos Ã  91% et une dÃ©saturation Ã  l'effort Ã  84%. Quel stade physiologique ACHD lui attribuez-vous (Table 4 ACC 2025) ?",
+        "q": "Ce patient prÃÂ©sente une SpOÃ¢ÂÂ repos ÃÂ  91% et une dÃÂ©saturation ÃÂ  l'effort ÃÂ  84%. Quel stade physiologique ACHD lui attribuez-vous (Table 4 ACC 2025) ?",
         "opts": [
-          "Stade A â Pas de symptÃ´mes, pression pulmonaire normale",
-          "Stade B â Anomalies lÃ©gÃ¨res sans symptÃ´mes",
-          "Stade C â HTAP faible risque",
-          "Stade D â HTAP risque intermÃ©diaire ou Ã©levÃ© + hypoxÃ©mie modÃ©rÃ©e"
+          "Stade A Ã¢ÂÂ Pas de symptÃÂ´mes, pression pulmonaire normale",
+          "Stade B Ã¢ÂÂ Anomalies lÃÂ©gÃÂ¨res sans symptÃÂ´mes",
+          "Stade C Ã¢ÂÂ HTAP faible risque",
+          "Stade D Ã¢ÂÂ HTAP risque intermÃÂ©diaire ou ÃÂ©levÃÂ© + hypoxÃÂ©mie modÃÂ©rÃÂ©e"
         ],
         "ans": 3,
-        "fb": "Stade D selon Table 4 ACC 2025 : HTAP risque intermÃ©diaire (3-Strata) + NYHA III + SpOâ repos 91% (hypoxÃ©mie modÃ©rÃ©e 86-92% = Stade C, mais HTAP intermÃ©diaire = Stade D). BNP > 2Ã LSN + hospitalisation potentielle. Suivi en centre ACHD expert, consultation tous les 3-6 mois (Table 12)."
+        "fb": "Stade D selon Table 4 ACC 2025 : HTAP risque intermÃÂ©diaire (3-Strata) + NYHA III + SpOÃ¢ÂÂ repos 91% (hypoxÃÂ©mie modÃÂ©rÃÂ©e 86-92% = Stade C, mais HTAP intermÃÂ©diaire = Stade D). BNP > 2ÃÂ LSN + hospitalisation potentielle. Suivi en centre ACHD expert, consultation tous les 3-6 mois (Table 12)."
       },
       {
-        "q": "Si aprÃ¨s 6 mois de traitement par ERA + iPDE5, la PVR reste Ã  6.8 WU, quelle option est envisageable selon ACC 2025 ?",
+        "q": "Si aprÃÂ¨s 6 mois de traitement par ERA + iPDE5, la PVR reste ÃÂ  6.8 WU, quelle option est envisageable selon ACC 2025 ?",
         "opts": [
-          "Fermeture percutanÃ©e standard sans restriction",
-          "Fermeture fenÃªtrÃ©e (patch avec petite fenestration) â COR 2b",
-          "ArrÃªt de tout traitement et surveillance simple",
-          "Fermeture chirurgicale urgente sans cathÃ© de rÃ©Ã©valuation"
+          "Fermeture percutanÃÂ©e standard sans restriction",
+          "Fermeture fenÃÂªtrÃÂ©e (patch avec petite fenestration) Ã¢ÂÂ COR 2b",
+          "ArrÃÂªt de tout traitement et surveillance simple",
+          "Fermeture chirurgicale urgente sans cathÃÂ© de rÃÂ©ÃÂ©valuation"
         ],
         "ans": 1,
-        "fb": "COR 2b ACC 2025 : Si PVR reste entre 5-8 WU malgrÃ© traitement PAH optimal, la fermeture fenÃªtrÃ©e (patch avec petite ouverture rÃ©siduelle) peut Ãªtre envisagÃ©e. Elle permet de dÃ©comprimer les cavitÃ©s droites tout en maintenant un shunt de sÃ©curitÃ© si la PVR reste Ã©levÃ©e. DonnÃ©es limitÃ©es, dÃ©cision en centre expert HTAP + ACHD."
+        "fb": "COR 2b ACC 2025 : Si PVR reste entre 5-8 WU malgrÃÂ© traitement PAH optimal, la fermeture fenÃÂªtrÃÂ©e (patch avec petite ouverture rÃÂ©siduelle) peut ÃÂªtre envisagÃÂ©e. Elle permet de dÃÂ©comprimer les cavitÃÂ©s droites tout en maintenant un shunt de sÃÂ©curitÃÂ© si la PVR reste ÃÂ©levÃÂ©e. DonnÃÂ©es limitÃÂ©es, dÃÂ©cision en centre expert HTAP + ACHD."
       },
       {
-        "q": "Quelle association mÃ©dicamenteuse est recommandÃ©e en premiÃ¨re ligne pour ce patient avec HTAP intermÃ©diaire et CIA non fermÃ©e ?",
+        "q": "Quelle association mÃÂ©dicamenteuse est recommandÃÂ©e en premiÃÂ¨re ligne pour ce patient avec HTAP intermÃÂ©diaire et CIA non fermÃÂ©e ?",
         "opts": [
-          "BÃªtabloquants + diurÃ©tiques seuls",
-          "ERA (ex: Macitentan) + inhibiteur PDE5 (ex: Tadalafil) â bithÃ©rapie",
+          "BÃÂªtabloquants + diurÃÂ©tiques seuls",
+          "ERA (ex: Macitentan) + inhibiteur PDE5 (ex: Tadalafil) Ã¢ÂÂ bithÃÂ©rapie",
           "Anticoagulation seule par AVK",
-          "Digoxine + FurosÃ©mide uniquement"
+          "Digoxine + FurosÃÂ©mide uniquement"
         ],
         "ans": 1,
-        "fb": "Risque intermÃ©diaire 3-Strata â bithÃ©rapie d'emblÃ©e recommandÃ©e selon ESC 2022 / ACC 2025 : ERA (Macitentan 10 mg/j ou Ambrisentan) + iPDE5 (Tadalafil 40 mg/j). Surveillance bilan hÃ©patique sous ERA. RÃ©Ã©valuation clinique et hÃ©modynamique Ã  3-4 mois. Si aggravation : ajouter prostacycline."
+        "fb": "Risque intermÃÂ©diaire 3-Strata Ã¢ÂÂ bithÃÂ©rapie d'emblÃÂ©e recommandÃÂ©e selon ESC 2022 / ACC 2025 : ERA (Macitentan 10 mg/j ou Ambrisentan) + iPDE5 (Tadalafil 40 mg/j). Surveillance bilan hÃÂ©patique sous ERA. RÃÂ©ÃÂ©valuation clinique et hÃÂ©modynamique ÃÂ  3-4 mois. Si aggravation : ajouter prostacycline."
       }
     ],
     "createdAt": "2025-06-01T09:00:00.000Z",
@@ -113,19 +113,19 @@
   },
   {
     "id": "case_CIA_001",
-    "title": "CIA Ostium Secundum â Fermeture PercutanÃ©e COR I",
+    "title": "CIA Ostium Secundum Ã¢ÂÂ Fermeture PercutanÃÂ©e COR I",
     "difficulty": 2,
     "typeCIA": "ostium2",
-    "presentation": "Femme de 38 ans, adressÃ©e pour bilan d'un souffle systolique dÃ©couvert lors d'un bilan de maternitÃ©. Asymptomatique au quotidien mais rapporte une dyspnÃ©e d'effort modÃ©rÃ©e Ã  l'effort soutenu (montÃ©e rapide d'escaliers). Pas d'antÃ©cÃ©dent cardiovasculaire connu. Pas de traitement en cours.",
+    "presentation": "Femme de 38 ans, adressÃÂ©e pour bilan d'un souffle systolique dÃÂ©couvert lors d'un bilan de maternitÃÂ©. Asymptomatique au quotidien mais rapporte une dyspnÃÂ©e d'effort modÃÂ©rÃÂ©e ÃÂ  l'effort soutenu (montÃÂ©e rapide d'escaliers). Pas d'antÃÂ©cÃÂ©dent cardiovasculaire connu. Pas de traitement en cours.",
     "age": "38",
     "sexe": "F",
     "spo2": "97",
     "nyha": "2",
     "fc": "72",
-    "atcd": "Souffle cardiaque connu depuis l'enfance, jamais explorÃ©. G1P1. Pas de traitement en cours. Pas de tabac, pas de diabÃ¨te, pas d'HTA.",
-    "note": "Cas de difficultÃ© intermÃ©diaire. IdÃ©al pour illustrer la dÃ©cision COR I selon ACC 2025 : Qp/Qs â¥1.5 + dilatation VD + PVR â¤2 WU. Fermeture percutanÃ©e prÃ©fÃ©rÃ©e Ã  la chirurgie (COR I B-NR).",
+    "atcd": "Souffle cardiaque connu depuis l'enfance, jamais explorÃÂ©. G1P1. Pas de traitement en cours. Pas de tabac, pas de diabÃÂ¨te, pas d'HTA.",
+    "note": "Cas de difficultÃÂ© intermÃÂ©diaire. IdÃÂ©al pour illustrer la dÃÂ©cision COR I selon ACC 2025 : Qp/Qs Ã¢ÂÂ¥1.5 + dilatation VD + PVR Ã¢ÂÂ¤2 WU. Fermeture percutanÃÂ©e prÃÂ©fÃÂ©rÃÂ©e ÃÂ  la chirurgie (COR I B-NR).",
     "canvaUrl": "https://www.canva.com/design/DAFfORdwiYA/7XilFuZjWJJpvii9GLnnfg/view",
-    "canvaDesc": "ETT parasternale petit axe : CIA ostium secundum de 22 mm avec dilatation VD Ã©vidente. Doppler couleur : shunt gauche-droite franc. Pas de retour veineux pulmonaire anormal visible. Rebords antÃ©rieur et postÃ©rieur â¥ 7 mm â Ã©ligible fermeture percutanÃ©e.",
+    "canvaDesc": "ETT parasternale petit axe : CIA ostium secundum de 22 mm avec dilatation VD ÃÂ©vidente. Doppler couleur : shunt gauche-droite franc. Pas de retour veineux pulmonaire anormal visible. Rebords antÃÂ©rieur et postÃÂ©rieur Ã¢ÂÂ¥ 7 mm Ã¢ÂÂ ÃÂ©ligible fermeture percutanÃÂ©e.",
     "fevg": "65",
     "tapse": "22",
     "it": "2.6",
@@ -134,9 +134,9 @@
     "qpqs": "2.4",
     "bnp": "68",
     "trop": "< 14",
-    "ecg": "Rythme sinusal rÃ©gulier â BBD incomplet â Axe droit +110Â° â Pas d'arythmie",
+    "ecg": "Rythme sinusal rÃÂ©gulier Ã¢ÂÂ BBD incomplet Ã¢ÂÂ Axe droit +110ÃÂ° Ã¢ÂÂ Pas d'arythmie",
     "qrs": "108",
-    "bioNote": "BNP lÃ©gÃ¨rement Ã©levÃ© en rapport avec la surcharge volumique VD. Bilan rÃ©nal et hÃ©patique normaux. NFS normale, pas d'anÃ©mie.",
+    "bioNote": "BNP lÃÂ©gÃÂ¨rement ÃÂ©levÃÂ© en rapport avec la surcharge volumique VD. Bilan rÃÂ©nal et hÃÂ©patique normaux. NFS normale, pas d'anÃÂ©mie.",
     "mpap": "22",
     "pvr": "1.6",
     "pcwp": "8",
@@ -145,57 +145,57 @@
     "tas": "125",
     "fevd": "52",
     "vtsi": "88",
-    "irmNote": "IRM cardiaque : CIA ostium secundum 22 mm. FEVD 52%, VTSI-VD 88 mL/mÂ². Qp/Qs = 2.4 en phase-contraste. Pas de LGE. Pas de retour veineux pulmonaire anormal.",
+    "irmNote": "IRM cardiaque : CIA ostium secundum 22 mm. FEVD 52%, VTSI-VD 88 mL/mÃÂ². Qp/Qs = 2.4 en phase-contraste. Pas de LGE. Pas de retour veineux pulmonaire anormal.",
     "decision": "close_perc",
     "stade": "C",
     "strata": "none",
     "cor": "1",
-    "explication": "Selon ACC/AHA 2025 â Section 4.1.1 :\n\nCritÃ¨res remplis pour COR I :\nâ¢ Qp/Qs = 2.4 â¥ 1.5 â\nâ¢ Dilatation VD modÃ©rÃ©e â\nâ¢ PVR = 1.6 WU â¤ 2 WU â\nâ¢ Pas de dysfonction VG significative â\nâ¢ Pas d'HTAP prÃ©capillaire (mPAP 22 mmHg, PCWP 8 mmHg, PVR 1.6 WU)\n\nFermeture percutanÃ©e PRÃFÃRÃE Ã  la chirurgie (COR I B-NR) :\nAnatomie favorable â CIA secundum isolÃ©e, rebords â¥ 5 mm, diamÃ¨tre 22 mm â¤ 38 mm â Amplatzer ou equivalent.\n\nBilan prÃ©-procÃ©dure obligatoire : ETO pour confirmer rebords, taille et absence de RVPA. Test occlusion ballon si doute sur fonction VG diastolique.",
-    "messages": "COR I si Qp/Qs â¥1.5 + dilatation VD + PVR â¤2 WU â ACC 2025\nFermeture percutanÃ©e prÃ©fÃ©rÃ©e Ã  chirurgie pour ostium secundum isolÃ© (COR I)\nETO prÃ©-procÃ©dure OBLIGATOIRE â ETT seule insuffisante chez l'adulte\nPas d'HTAP prÃ©capillaire = pas de contre-indication Ã  la fermeture\nSuivi post-fermeture : ETT Ã  1 mois, 6 mois, puis annuelle (Table 12 ACC 2025)",
+    "explication": "Selon ACC/AHA 2025 Ã¢ÂÂ Section 4.1.1 :\n\nCritÃÂ¨res remplis pour COR I :\nÃ¢ÂÂ¢ Qp/Qs = 2.4 Ã¢ÂÂ¥ 1.5 Ã¢ÂÂ\nÃ¢ÂÂ¢ Dilatation VD modÃÂ©rÃÂ©e Ã¢ÂÂ\nÃ¢ÂÂ¢ PVR = 1.6 WU Ã¢ÂÂ¤ 2 WU Ã¢ÂÂ\nÃ¢ÂÂ¢ Pas de dysfonction VG significative Ã¢ÂÂ\nÃ¢ÂÂ¢ Pas d'HTAP prÃÂ©capillaire (mPAP 22 mmHg, PCWP 8 mmHg, PVR 1.6 WU)\n\nFermeture percutanÃÂ©e PRÃÂFÃÂRÃÂE ÃÂ  la chirurgie (COR I B-NR) :\nAnatomie favorable Ã¢ÂÂ CIA secundum isolÃÂ©e, rebords Ã¢ÂÂ¥ 5 mm, diamÃÂ¨tre 22 mm Ã¢ÂÂ¤ 38 mm Ã¢ÂÂ Amplatzer ou equivalent.\n\nBilan prÃÂ©-procÃÂ©dure obligatoire : ETO pour confirmer rebords, taille et absence de RVPA. Test occlusion ballon si doute sur fonction VG diastolique.",
+    "messages": "COR I si Qp/Qs Ã¢ÂÂ¥1.5 + dilatation VD + PVR Ã¢ÂÂ¤2 WU Ã¢ÂÂ ACC 2025\nFermeture percutanÃÂ©e prÃÂ©fÃÂ©rÃÂ©e ÃÂ  chirurgie pour ostium secundum isolÃÂ© (COR I)\nETO prÃÂ©-procÃÂ©dure OBLIGATOIRE Ã¢ÂÂ ETT seule insuffisante chez l'adulte\nPas d'HTAP prÃÂ©capillaire = pas de contre-indication ÃÂ  la fermeture\nSuivi post-fermeture : ETT ÃÂ  1 mois, 6 mois, puis annuelle (Table 12 ACC 2025)",
     "qcm": [
       {
         "q": "Selon ACC/AHA 2025, quelle est la recommandation pour cette CIA ostium secundum avec Qp/Qs = 2.4, dilatation VD et PVR = 1.6 WU ?",
         "opts": [
-          "COR 2a â Fermeture raisonnable, discussion au cas par cas",
-          "COR I â Fermeture indiquÃ©e pour amÃ©liorer la classe fonctionnelle et les outcomes",
-          "COR 2b â Fermeture fenÃªtrÃ©e Ã  envisager vu l'HTAP",
-          "COR 3 â Surveillance simple, pas d'indication"
+          "COR 2a Ã¢ÂÂ Fermeture raisonnable, discussion au cas par cas",
+          "COR I Ã¢ÂÂ Fermeture indiquÃÂ©e pour amÃÂ©liorer la classe fonctionnelle et les outcomes",
+          "COR 2b Ã¢ÂÂ Fermeture fenÃÂªtrÃÂ©e ÃÂ  envisager vu l'HTAP",
+          "COR 3 Ã¢ÂÂ Surveillance simple, pas d'indication"
         ],
         "ans": 1,
-        "fb": "COR I B-R selon ACC 2025 Section 4.1.1 : Qp/Qs â¥1.5 + dilatation VD + PVR â¤2 WU + pas de dysfonction VG significative = indication formelle de fermeture. AmÃ©liore la classe fonctionnelle et rÃ©duit la morbimortalitÃ©."
+        "fb": "COR I B-R selon ACC 2025 Section 4.1.1 : Qp/Qs Ã¢ÂÂ¥1.5 + dilatation VD + PVR Ã¢ÂÂ¤2 WU + pas de dysfonction VG significative = indication formelle de fermeture. AmÃÂ©liore la classe fonctionnelle et rÃÂ©duit la morbimortalitÃÂ©."
       },
       {
-        "q": "Quelle technique de fermeture est recommandÃ©e en prioritÃ© pour cette CIA ostium secundum de 22 mm avec rebords adÃ©quats ?",
+        "q": "Quelle technique de fermeture est recommandÃÂ©e en prioritÃÂ© pour cette CIA ostium secundum de 22 mm avec rebords adÃÂ©quats ?",
         "opts": [
-          "Chirurgie Ã  cÅur ouvert â gold standard",
-          "Fermeture percutanÃ©e (Amplatzer) â COR I prÃ©fÃ©rÃ©e Ã  la chirurgie",
-          "Traitement mÃ©dical seul â diurÃ©tiques et surveillance",
-          "TAVI â technique de rÃ©fÃ©rence pour les CIA"
+          "Chirurgie ÃÂ  cÃÂur ouvert Ã¢ÂÂ gold standard",
+          "Fermeture percutanÃÂ©e (Amplatzer) Ã¢ÂÂ COR I prÃÂ©fÃÂ©rÃÂ©e ÃÂ  la chirurgie",
+          "Traitement mÃÂ©dical seul Ã¢ÂÂ diurÃÂ©tiques et surveillance",
+          "TAVI Ã¢ÂÂ technique de rÃÂ©fÃÂ©rence pour les CIA"
         ],
         "ans": 1,
-        "fb": "COR I B-NR ACC 2025 : Pour CIA secundum isolÃ©e avec anatomie favorable (rebords â¥5 mm, diamÃ¨tre â¤38 mm), la fermeture percutanÃ©e est PRÃFÃRÃE Ã  la chirurgie â mortalitÃ© plus faible, sÃ©jour hospitalier plus court, rÃ©cupÃ©ration plus rapide."
+        "fb": "COR I B-NR ACC 2025 : Pour CIA secundum isolÃÂ©e avec anatomie favorable (rebords Ã¢ÂÂ¥5 mm, diamÃÂ¨tre Ã¢ÂÂ¤38 mm), la fermeture percutanÃÂ©e est PRÃÂFÃÂRÃÂE ÃÂ  la chirurgie Ã¢ÂÂ mortalitÃÂ© plus faible, sÃÂ©jour hospitalier plus court, rÃÂ©cupÃÂ©ration plus rapide."
       },
       {
-        "q": "Quel examen est OBLIGATOIRE selon COR I avant fermeture percutanÃ©e de cette CIA chez l'adulte ?",
+        "q": "Quel examen est OBLIGATOIRE selon COR I avant fermeture percutanÃÂ©e de cette CIA chez l'adulte ?",
         "opts": [
-          "ETT seule suffit si fenÃªtre acoustique bonne",
-          "Coronarographie systÃ©matique avant toute intervention",
-          "ETO (ou IRM/scanner) pour dÃ©finir taille, rebords et connexions veineuses",
+          "ETT seule suffit si fenÃÂªtre acoustique bonne",
+          "Coronarographie systÃÂ©matique avant toute intervention",
+          "ETO (ou IRM/scanner) pour dÃÂ©finir taille, rebords et connexions veineuses",
           "Test d'effort cardio-pulmonaire (CPET)"
         ],
         "ans": 2,
-        "fb": "COR I B-NR ACC 2025 : L'ETO, l'IRM cardiaque ou le scanner sont recommandÃ©s pour dÃ©finir la taille exacte, la morphologie, les rebords et les connexions veineuses pulmonaires. L'ETT seule est insuffisante chez l'adulte pour guider la dÃ©cision de fermeture percutanÃ©e."
+        "fb": "COR I B-NR ACC 2025 : L'ETO, l'IRM cardiaque ou le scanner sont recommandÃÂ©s pour dÃÂ©finir la taille exacte, la morphologie, les rebords et les connexions veineuses pulmonaires. L'ETT seule est insuffisante chez l'adulte pour guider la dÃÂ©cision de fermeture percutanÃÂ©e."
       },
       {
-        "q": "Quel stade physiologique ACHD (Table 4 ACC 2025) correspond Ã  cette patiente ?",
+        "q": "Quel stade physiologique ACHD (Table 4 ACC 2025) correspond ÃÂ  cette patiente ?",
         "opts": [
-          "Stade A â Asymptomatique sans sÃ©quelles",
-          "Stade B â Anomalies hÃ©modynamiques lÃ©gÃ¨res sans symptÃ´mes",
-          "Stade C â Shunt hÃ©modynamiquement significatif avec lÃ©gÃ¨re dyspnÃ©e",
-          "Stade D â DÃ©faillance cardiaque avancÃ©e"
+          "Stade A Ã¢ÂÂ Asymptomatique sans sÃÂ©quelles",
+          "Stade B Ã¢ÂÂ Anomalies hÃÂ©modynamiques lÃÂ©gÃÂ¨res sans symptÃÂ´mes",
+          "Stade C Ã¢ÂÂ Shunt hÃÂ©modynamiquement significatif avec lÃÂ©gÃÂ¨re dyspnÃÂ©e",
+          "Stade D Ã¢ÂÂ DÃÂ©faillance cardiaque avancÃÂ©e"
         ],
         "ans": 2,
-        "fb": "Stade C selon Table 4 ACC 2025 : Shunt hÃ©modynamiquement significatif (Qp/Qs 2.4 + dilatation VD) + dyspnÃ©e NYHA II = critÃ¨res de Stade C. BNP lÃ©gÃ¨rement Ã©levÃ© confirme. Suivi recommandÃ© : consultation ACHD tous les 6-12 mois (Table 12)."
+        "fb": "Stade C selon Table 4 ACC 2025 : Shunt hÃÂ©modynamiquement significatif (Qp/Qs 2.4 + dilatation VD) + dyspnÃÂ©e NYHA II = critÃÂ¨res de Stade C. BNP lÃÂ©gÃÂ¨rement ÃÂ©levÃÂ© confirme. Suivi recommandÃÂ© : consultation ACHD tous les 6-12 mois (Table 12)."
       }
     ],
     "createdAt": "2025-06-01T08:00:00.000Z",
@@ -203,7 +203,7 @@
   },
   {
     "id": "case_001",
-    "title": "Titre du cas â Ex: CIA Ostium Secundum avec HTAP moderee",
+    "title": "Titre du cas Ã¢ÂÂ Ex: CIA Ostium Secundum avec HTAP moderee",
     "difficulty": 2,
     "typeCIA": "ostium2",
     "presentation": "Decrivez ici le contexte clinique, le motif de consultation et la presentation du patient.",
@@ -240,19 +240,19 @@
     "stade": "C",
     "strata": "int",
     "cor": "2a",
-    "explication": "Selon ACC/AHA 2025 Section 4.1.1 :\nQp/Qs >= 1.5 + dilatation VD + PVR 3.2 WU (entre 2 et 5 WU) â COR 2a.\nFermeture raisonnable. Pas de dysfonction VG significative.\nStratification HTAP : 3-Strata intermediaire â traitement PAH avant si besoin.\nObjectif : PVR < 5 WU pour valider la fermeture.",
+    "explication": "Selon ACC/AHA 2025 Section 4.1.1 :\nQp/Qs >= 1.5 + dilatation VD + PVR 3.2 WU (entre 2 et 5 WU) Ã¢ÂÂ COR 2a.\nFermeture raisonnable. Pas de dysfonction VG significative.\nStratification HTAP : 3-Strata intermediaire Ã¢ÂÂ traitement PAH avant si besoin.\nObjectif : PVR < 5 WU pour valider la fermeture.",
     "messages": "PVR 2-5 WU = COR 2a : fermeture raisonnable selon ACC 2025\nQp/Qs >= 1.5 + dilatation VD = indication formelle si PVR <= 2 WU\n3-Strata intermediaire : surveillance rapprochee apres fermeture\nPost-fermeture : ETT a 1 mois, 6 mois, puis annuelle",
     "qcm": [
       {
         "q": "Quelle est la recommandation ACC 2025 pour fermeture CIA avec Qp/Qs = 2.0, dilatation VD et PVR = 3.2 WU ?",
         "opts": [
-          "COR I â Fermeture indiquee, PVR normale",
-          "COR 2a â Fermeture raisonnable, PVR 2-5 WU",
-          "COR 2b â Fermeture fenestree a envisager",
-          "COR 3 â Fermeture contre-indiquee"
+          "COR I Ã¢ÂÂ Fermeture indiquee, PVR normale",
+          "COR 2a Ã¢ÂÂ Fermeture raisonnable, PVR 2-5 WU",
+          "COR 2b Ã¢ÂÂ Fermeture fenestree a envisager",
+          "COR 3 Ã¢ÂÂ Fermeture contre-indiquee"
         ],
         "ans": 1,
-        "fb": "PVR entre 2 et 5 WU avec Qp/Qs >= 1.5 et dilatation VD â COR 2a selon Table de decision ACC 2025 Section 4.1.1. La fermeture est raisonnable mais necessite un avis specialise HTAP."
+        "fb": "PVR entre 2 et 5 WU avec Qp/Qs >= 1.5 et dilatation VD Ã¢ÂÂ COR 2a selon Table de decision ACC 2025 Section 4.1.1. La fermeture est raisonnable mais necessite un avis specialise HTAP."
       },
       {
         "q": "Quel examen est INDISPENSABLE avant fermeture percutanee CIA chez ce patient ?",
@@ -275,63 +275,6 @@
         ],
         "ans": 2,
         "fb": "Selon ACC 2025 : PVR > 8 WU = COR 3 (contre-indication formelle). Entre 5 et 8 WU : approche treat-to-close possible (COR 2a/2b). Entre 2 et 5 WU : COR 2a si Qp/Qs >= 1.5 + dilatation VD."
-      }
-    ],
-    "createdAt": "2025-01-01T00:00:00.000Z",
-    "updatedAt": "2025-01-01T00:00:00.000Z"
-  },
-  {
-    "id": "case_002",
-    "title": "CAS VIERGE â A completer",
-    "difficulty": 2,
-    "typeCIA": "",
-    "presentation": "",
-    "age": "",
-    "sexe": "",
-    "spo2": "",
-    "nyha": "",
-    "fc": "",
-    "atcd": "",
-    "note": "",
-    "canvaUrl": "",
-    "canvaDesc": "",
-    "fevg": "",
-    "tapse": "",
-    "it": "",
-    "paps": "",
-    "dvd": "",
-    "qpqs": "",
-    "bnp": "",
-    "trop": "",
-    "ecg": "",
-    "qrs": "",
-    "bioNote": "",
-    "mpap": "",
-    "pvr": "",
-    "pcwp": "",
-    "qpqs2": "",
-    "dc": "",
-    "tas": "",
-    "fevd": "",
-    "vtsi": "",
-    "irmNote": "",
-    "decision": "",
-    "stade": "",
-    "strata": "",
-    "cor": "",
-    "explication": "",
-    "messages": "",
-    "qcm": [
-      {
-        "q": "Votre question ici...",
-        "opts": [
-          "Option A",
-          "Option B",
-          "Option C",
-          "Option D"
-        ],
-        "ans": 0,
-        "fb": "Explication de la bonne reponse ici..."
       }
     ],
     "createdAt": "2025-01-01T00:00:00.000Z",
