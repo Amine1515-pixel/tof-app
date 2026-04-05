@@ -1,1 +1,114 @@
-[]
+[
+  {
+    "id": "case_CIA_003",
+    "title": "CIA Ostium Secundum 26 mm — Stade B · Fermeture Percutanée COR I",
+    "difficulty": 2,
+    "typeCIA": "ostium2",
+    "presentation": "Femme de 42 ans, adressée en consultation ACHD pour bilan d'une dyspnée d'effort apparue progressivement depuis 18 mois. Elle décrit une gêne à la montée de 2 étages et à la marche rapide, sans dyspnée au repos. Souffle systolique de découverte ancienne jamais exploré. Elle n'a pas d'antécédent cardiaque connu. Bilan réalisé à l'occasion d'un bilan de santé systématique.\n\nL'ETT de débrouillage retrouve une CIA ostium secundum de 26 mm avec dilatation VD et shunt gauche-droite franc. L'ETO confirme l'anatomie favorable avec des berges larges et une éligibilité percutanée. Le bilan HTAP est complet avec un cathétérisme droit montrant une RVP < 2 WU malgré une PAPM à 45 mmHg.\n\nQuestion centrale : Quel est le stade physiologique ? L'indication est-elle COR I ou COR 2a ? Quel geste proposer et quel plan de suivi ?",
+    "age": "42",
+    "sexe": "F",
+    "spo2": "97",
+    "nyha": "2",
+    "fc": "78",
+    "atcd": "Souffle cardiaque connu depuis l'enfance, jamais exploré. Pas d'HTA, pas de diabète, pas de tabac. Pas de grossesse. Pas de traitement en cours. Pas d'antécédent thromboembolique. Pas de palpitations documentées. Pas d'AVC ni d'embolie.",
+    "note": "CAS PEDAGOGIQUE — Stade B ACC 2025 avec indication COR I parfaite. Illustre la situation classique : PAPM elevee mais RVP < 2 WU = pas d HTAP precapillaire = fermeture COR I. Attention au piege : PAPM 45 mmHg peut faire croire a une HTAP alors que c est une HTAP post-capillaire par debit = hypertension arterielle pulmonaire hyperdynamique par shunt G-D, pas une vasculopathie pulmonaire. Ce cas est ideal pour entrainer l evaluation des 3 volets de l application CIA-App.",
+    "canvaUrl": "https://www.canva.com/design/DAHGAZBANrY/oyPtNYGgtDD5782ZpL_oIw/view",
+    "canvaDesc": "ETT parasternale grand axe et petit axe : CIA ostium secundum de 26 mm bien visible au niveau de la fossette ovale. Doppler couleur : shunt gauche-droite franc sans renversement. VD dilaté en parasternale petit axe (signe de D-sign absent = pas de surcharge barométrique). TAPSE mesuré en apical 4 cavites. ETO coupe mi-oesophagienne 0 degres : CIA centrale avec berge anterieure 9 mm, berge posterieure 11 mm, berge superieure 8 mm, berge inferieure 10 mm. Toutes les berges > 5 mm = eligible fermeture percutanee. Pas de retour veineux pulmonaire anormal visible.",
+    "fevg": "62",
+    "tapse": "24",
+    "it": "3.2",
+    "paps": "52",
+    "dvd": "Moderee",
+    "qpqs": "2.3",
+    "bnp": "95",
+    "trop": "< 14",
+    "ecg": "Rythme sinusal regulier, FC 78/min, BBD incomplet (V1 rSr'), axe +90 degrees, HVD moderee, pas d arythmie",
+    "qrs": "105",
+    "bioNote": "BNP 95 pg/mL : legerement eleve en rapport avec la surcharge volumique VD chronique (seuil significance CIA : > 50 pg/mL). Bilan renal normal (creatinine 72 μmol/L, DFG 92 mL/min). Bilan hepatique normal. NFS : Hb 13.2 g/dL, plaquettes 218G/L. INR 1.0. TSH normale. CRP < 5 mg/L. Pas d anemie aggravante.",
+    "mpap": "45",
+    "pvr": "1.6",
+    "pcwp": "12",
+    "qpqs2": "2.3",
+    "dc": "6.1",
+    "tas": "128",
+    "fevd": "54",
+    "vtsi": "82",
+    "irmNote": "IRM cardiaque (optionnelle ici — realisee pour completude) : CIA ostium secundum 26 mm confirmee. FEVD 54% (conservee). VTSI-VD 82 mL/m2 (legerement eleve, seuil pathologique > 80 mL/m2). Qp/Qs = 2.3 en phase-contraste. Pas de LGE (pas de fibrose). FEVG 62% conservee. Pas de retour veineux pulmonaire anormal. Dimensions aortiques normales.",
+    "decision": "close_perc",
+    "stade": "B",
+    "strata": "none",
+    "cor": "1",
+    "explication": "ANALYSE DECISIONNELLE — ACC/AHA 2025 Section 4.1.1\n\n--- PIEGE PEDAGOGIQUE IMPORTANT ---\nPAPM = 45 mmHg MAIS PVR = 1.6 WU et PCWP = 12 mmHg\n→ Pas d HTAP precapillaire (definition : mPAP > 20 mmHg + PVR > 2 WU + PCWP ≤ 15 mmHg)\n→ La PAPM elevee est une HTAP hyperkinetique par debit (Qp/Qs 2.3) = non vasculaire\n→ La fermeture CIA va normaliser la PAPM\n\n--- CRITERES COR I REMPLIS (Recommandation #5) ---\n✅ Qp/Qs = 2.3 ≥ 1.5\n✅ Dilatation VD moderee confirmee ETT + IRM\n✅ PVR = 1.6 WU ≤ 2 WU = PAS D HTAP\n✅ Pas de dysfonction VG significative (FEVG 62%, PCWP 12 mmHg)\n✅ Anatomie favorable a la fermeture percutanee\n\n--- TECHNIQUE RECOMMANDEE ---\nCOR I B-NR : Fermeture percutanee PREFERRED vs chirurgie pour CIA secundum isolee\n→ CIA 26 mm avec berges ≥ 5 mm = ELIGIBLE Amplatzer/Figulla\n→ Diametre ballon d etirement estime 28-30 mm → Device 28-32 mm\n→ ETO guidance periprocedural obligatoire\n→ ETO peri-proc : verification post-deploy (4 positions)\n\n--- STADE PHYSIOLOGIQUE (Table 4 ACC 2025) ---\nStade B : Anomalies hemodynamiques (shunt significatif + VD dilate) SANS symptomes majeurs\nNote : NYHA II + BNP 95 = limites Stade B/C, mais pas de BNP ≥ 2× LSN (seuil ≥ 200 pg/mL) → STADE B\n\n--- PLAN POST-FERMETURE ---\n• ETT J30 + J180 : verification absence shunt residuel, regression VD\n• BNP de controle a 6 mois\n• Anticoagulation : Aspirine 100 mg/j x 6 mois + Clopidogrel 75 mg/j x 1 mois\n• Prophylaxie endocardite : 6 mois post-implant\n• Suivi annuel pendant 2 ans puis espacement (Table 12 ACC 2025)",
+    "messages": "PAPM elevee ≠ HTAP si PVR < 2 WU : c est une hypertension hypercinetique par debit — la fermeture la normalise\nCOR I si Qp/Qs ≥ 1.5 + VD dilate + PVR ≤ 2 WU — peu importe la PAPM\nFermeture percutanee preferee a la chirurgie si berges ≥ 5 mm + diametre ≤ 38 mm (COR I B-NR)\nStade B ACC 2025 : shunt significatif SANS BNP ≥ 2x LSN ni dyspnee severe\nApres fermeture : regression VD attendue en 3-6 mois — BNP se normalise en 1-3 mois",
+    "qcm": [
+      {
+        "q": "Cette patiente a une PAPM = 45 mmHg au catheterisme. Quelle est votre interpretation et quelle est la recommandation de fermeture selon ACC 2025 ?",
+        "opts": [
+          "HTAP confirmee (PVR > 2 WU) — Treat-to-Close COR 2a obligatoire avant fermeture",
+          "HTAP hypercinetique par debit (PVR 1.6 WU) — PAS d HTAP precapillaire — Fermeture COR I indiquee",
+          "HTAP severe — Fermeture contre-indiquee COR 3 — ERA + iPDE5 en urgence",
+          "HTAP moderee — Surveillance 6 mois puis reevaluation"
+        ],
+        "ans": 1,
+        "fb": "PIEGE CLASSIQUE ! PAPM elevee ≠ HTAP si PVR < 2 WU. La definition ACC 2025 de l HTAP precapillaire exige : mPAP > 20 mmHg ET PVR > 2 WU ET PCWP ≤ 15 mmHg. Ici PVR = 1.6 WU = pas d HTAP vasculaire. La PAPM elevee est hypercinetique par debit (Qp/Qs 2.3). La fermeture CIA va normaliser la PAPM. Indication COR I B-R."
+      },
+      {
+        "q": "L ETO montre une CIA 26 mm avec berge anterieure 9 mm, posterieure 11 mm, superieure 8 mm, inferieure 10 mm. Quelle est la conclusion sur l eligibilite percutanee ?",
+        "opts": [
+          "Non eligible : diametre trop grand > 25 mm, chirurgie obligatoire",
+          "Non eligible : berge inferieure insuffisante (< 12 mm requises)",
+          "Eligible : toutes les berges ≥ 5 mm + diametre ≤ 38 mm = fermeture percutanee faisable",
+          "A discuter : test ballon occlusif obligatoire avant decision"
+        ],
+        "ans": 2,
+        "fb": "ELIGIBLE a la fermeture percutanee ! Les criteres anatomiques requis : berges ≥ 5 mm (sauf berge aortique qui peut etre absente) ET diametre ≤ 38 mm. Ici toutes les berges sont ≥ 8 mm et le diametre est 26 mm → parfaitement eligible. Device estime : Amplatzer ou Figulla 28-32 mm (diametre ballon d etirement + 2-6 mm). ETO guidance periprocedural obligatoire (COR I B-NR ACC 2025)."
+      },
+      {
+        "q": "Quel est le stade physiologique ACHD de cette patiente selon la Table 4 ACC 2025 ?",
+        "opts": [
+          "Stade A : asymptomatique sans anomalie hemodynamique",
+          "Stade B : shunt hemodynamiquement significatif + VD dilate sans BNP ≥ 2× LSN ni symptomes severes",
+          "Stade C : BNP ≥ 2× LSN + shunt significatif + dyspnee moderee",
+          "Stade D : HTAP risque intermediaire ou eleve"
+        ],
+        "ans": 1,
+        "fb": "Stade B selon Table 4 ACC 2025 : shunt hemodynamiquement significatif (Qp/Qs 2.3 + VD dilate) + NYHA II mais BNP 95 pg/mL < 2× LSN (seuil ≈ 200 pg/mL) → pas de critere Stade C. Si BNP etait ≥ 200 pg/mL = Stade C. Si HTAP intermediaire/elevee = Stade D. Ici Stade B = anomalies hemodynamiques sans decompensation. Suivi recommande Table 12 : consultation ACHD 12-24 mois, ECG 12-24 mois, ETT 12-24 mois."
+      },
+      {
+        "q": "Selon ACC 2025, quel examen est OBLIGATOIRE (COR I) avant la fermeture percutanee de cette CIA secundum chez l adulte ?",
+        "opts": [
+          "ETT seule suffit si la fenetre acoustique est bonne",
+          "IRM cardiaque systematique avant tout geste interventionnel",
+          "ETO, IRM cardiaque ou scanner pour definir taille, rebords et connexions veineuses pulmonaires",
+          "Coronarographie systematique a 42 ans avant tout geste cardiaque"
+        ],
+        "ans": 2,
+        "fb": "COR I B-NR ACC 2025 : L ETO, l IRM ou le scanner sont OBLIGATOIRES avant fermeture percutanee pour definir avec precision la taille exacte, la morphologie, les rebords (anterieurs, posterieurs, superieurs, inferieurs, aortiques) et les connexions veineuses pulmonaires. L ETT seule est insuffisante chez l adulte car la resolution est limitee et le septum interatrial n est pas visualise en totalite. L ETO est la technique de reference pour guider la fermeture."
+      },
+      {
+        "q": "Le TAPSE est a 24 mm. La Vmax IT est a 3.2 m/s. La PAP systolique estimee est a 52 mmHg. Que concluez-vous sur la fonction VD et la PAP selon Table 13 ACC 2025 ?",
+        "opts": [
+          "TAPSE anormal (< 18 mm) + PAH confirme par ETT = catheterisme urgent",
+          "TAPSE normal (> 18 mm) = fonction VD conservee. Vmax IT 3.2 m/s = signe alerte PAH ETT mais PVR 1.6 WU au cathe confirme l absence d HTAP vasculaire",
+          "TAPSE normal rassure completement — pas besoin de catheterisme dans ce cas",
+          "Vmax IT 3.2 m/s < 2.9 m/s = pas de signe echographique de PAH"
+        ],
+        "ans": 1,
+        "fb": "Analyse correcte selon Table 13 ACC 2025 : TAPSE 24 mm > 18 mm = fonction VD systolique CONSERVEE (critere TAPSE < 18 mm = signe HTAP). Vmax IT 3.2 m/s > 2.9 m/s = SIGNE ALERTE pour HTAP a l ETT (Table 13). Mais le catheterisme droit confirme PVR = 1.6 WU = pas d HTAP precapillaire vraie. La PAPM elevee est hypercinetique. L ETT donne des SIGNES D ALERTE mais le catheterisme reste le gold standard pour confirmer ou infirmer l HTAP."
+      },
+      {
+        "q": "Apres fermeture percutanee reussie sans shunt residuel, quel plan de suivi proposez-vous selon Table 12 ACC 2025 ?",
+        "opts": [
+          "Sortie definitive du suivi cardiologique apres confirmation echographique a 1 mois",
+          "ETT a 1 mois + 6 mois. Aspirine 100 mg 6 mois + Clopidogrel 1 mois. Prophylaxie endocardite 6 mois. Consultation ACHD a 12 mois puis reevaluation",
+          "Anticoagulation curative AVK 6 mois systematique puis arret",
+          "IRM cardiaque mensuelle jusqu a regression complete du VD"
+        ],
+        "ans": 1,
+        "fb": "Plan de suivi post-fermeture percutanee CIA selon ACC 2025 + consensus pratique : ETT J30 (verification shunt residuel + debut regression VD) + ETT J180 (regression VD attendue 3-6 mois, normalisation BNP). Antiagregation : Aspirine 100 mg/j x 6 mois + Clopidogrel 75 mg/j x 1 mois (anti-thrombose sur device pendant endothelialisation). Prophylaxie endocardite 6 mois post-implant. Suivi ACHD Table 12 : 12-24 mois si Stade B post-fermeture, puis espacement si Stade A. La regression VD complete peut prendre jusqu a 12-18 mois chez l adulte de 42 ans."
+      }
+    ],
+    "createdAt": "2025-06-15T08:00:00.000Z",
+    "updatedAt": "2025-06-15T08:00:00.000Z"
+  }
+]
