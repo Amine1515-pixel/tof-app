@@ -2,677 +2,952 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Z-Score Écho Pédiatrique PHN · CSC Algeria</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Z-Score Écho Pédiatrique — PHN Lopez</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#030B14;--bg2:#071220;--bg3:#0A1A2E;--card:#0D1F35;
-  --border:rgba(56,189,248,.12);--border2:rgba(56,189,248,.25);
-  --sky:#38BDF8;--sky2:#7DD3FC;--sky3:rgba(56,189,248,.08);
-  --mint:#34D399;--m2:rgba(52,211,153,.1);
-  --gold:#FCD34D;--g2:rgba(252,211,77,.1);
-  --red:#F87171;--r2:rgba(248,113,113,.1);
-  --orange:#FB923C;--or2:rgba(251,146,60,.1);
-  --pur:#A78BFA;--p2:rgba(167,139,250,.1);
-  --w1:#F0F9FF;--w2:rgba(240,249,255,.7);--w3:rgba(240,249,255,.38);--w4:rgba(240,249,255,.18);
-}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{min-height:100%;background:var(--bg);color:var(--w1);font-family:"Outfit",sans-serif;font-size:14px;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(56,189,248,.07),transparent),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(167,139,250,.05),transparent);pointer-events:none;z-index:0}
+  :root {
+    --bg: #0a0f1e;
+    --surface: #111827;
+    --surface2: #1a2236;
+    --border: #1e2d4a;
+    --accent: #3b82f6;
+    --accent2: #06b6d4;
+    --accent3: #8b5cf6;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --green: #10b981;
+    --yellow: #f59e0b;
+    --red: #ef4444;
+    --orange: #f97316;
+  }
 
-/* HEADER */
-header{background:rgba(3,11,20,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border2);padding:11px 14px;display:flex;align-items:center;gap:11px;position:sticky;top:0;z-index:200}
-.h-logo{width:34px;height:34px;border-radius:9px;background:#fff;padding:2px;flex-shrink:0;overflow:hidden}
-.h-logo img{width:100%;height:100%;object-fit:contain}
-.h-info{flex:1}
-.h-title{font-size:14px;font-weight:800;color:var(--sky);letter-spacing:-.2px;line-height:1.2}
-.h-sub{font-size:9px;color:var(--w3);margin-top:1px}
-.h-badge{background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3);border-radius:7px;padding:3px 9px;font-size:9px;font-weight:700;color:var(--mint)}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-.wrap{max-width:460px;margin:0 auto;padding:14px 13px 100px;position:relative;z-index:1}
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-/* SECTION TITLE */
-.sec-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--sky);margin:18px 0 10px;display:flex;align-items:center;gap:8px}
-.sec-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent)}
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(59,130,246,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 80%, rgba(139,92,246,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 60% 30%, rgba(6,182,212,0.04) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
 
-/* PATIENT CARD */
-.patient-card{background:var(--card);border-radius:14px;border:1px solid var(--border2);padding:14px;margin-bottom:14px}
-.inp-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.inp-wrap{display:flex;flex-direction:column;gap:5px}
-.inp-wrap.full{grid-column:1/-1}
-.inp-label{font-size:10px;font-weight:600;color:var(--w3);text-transform:uppercase;letter-spacing:.5px}
-.inp-field{background:var(--bg3);border:1.5px solid var(--border);border-radius:9px;padding:9px 12px;color:var(--w1);font-family:"Outfit",sans-serif;font-size:15px;font-weight:500;width:100%;transition:border-color .15s;-webkit-appearance:none;appearance:none}
-.inp-field:focus{outline:none;border-color:var(--sky);box-shadow:0 0 0 3px rgba(56,189,248,.1)}
-.inp-field::placeholder{color:var(--w4);font-size:13px}
-.inp-unit{font-size:10px;color:var(--w4);font-family:"JetBrains Mono",monospace}
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
 
-/* BSA */
-.bsa-box{background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(167,139,250,.05));border:1px solid var(--border2);border-radius:11px;padding:11px 13px;margin-top:10px;display:flex;align-items:center;gap:11px}
-.bsa-val{font-family:"JetBrains Mono",monospace;font-size:20px;font-weight:600;color:var(--sky)}
-.bsa-lbl{font-size:10px;color:var(--w3);font-weight:600;text-transform:uppercase}
-.bsa-form{font-size:10px;color:var(--w4);margin-top:2px}
+  /* Header */
+  header {
+    padding: 36px 0 28px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
 
-/* LEGEND */
-.legend-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px}
-.leg-item{display:flex;align-items:center;gap:7px;padding:6px 10px;border-radius:9px;border:1px solid;font-size:10px;font-weight:600}
+  .header-icon {
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(135deg, var(--accent), var(--accent3));
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 24px;
+  }
 
-/* TABS */
-.tabs{display:flex;gap:5px;overflow-x:auto;padding-bottom:3px;margin-bottom:12px}
-.tabs::-webkit-scrollbar{display:none}
-.tab-btn{padding:6px 13px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid var(--border);background:transparent;color:var(--w3);white-space:nowrap;flex-shrink:0;transition:all .15s;font-family:"Outfit",sans-serif}
-.tab-btn.on{background:var(--sky);color:#030B14;border-color:var(--sky)}
+  .header-text h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(90deg, #e2e8f0, var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+  }
 
-/* PARAM GROUPS */
-.pgrp{display:none}
-.pgrp.on{display:block}
+  .header-text p {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.03em;
+  }
 
-/* PARAM CARD */
-.p-card{background:var(--card);border-radius:13px;border:1px solid var(--border);padding:13px;margin-bottom:9px}
-.p-head{display:flex;align-items:center;gap:8px;margin-bottom:11px}
-.p-icon{font-size:16px}
-.p-name{font-size:13px;font-weight:700;flex:1;color:var(--w1)}
-.p-abbr{font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--w3);background:var(--bg3);padding:2px 7px;border-radius:4px}
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(59,130,246,0.12);
+    border: 1px solid rgba(59,130,246,0.25);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 0.72rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--accent2);
+    margin-top: 8px;
+  }
 
-.m-row{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)}
-.m-row:last-child{border-bottom:none}
-.m-label{flex:1;font-size:12px;color:var(--w2);line-height:1.4}
-.m-inp{width:76px;flex-shrink:0;background:var(--bg3);border:1.5px solid var(--border);border-radius:8px;padding:7px 8px;color:var(--w1);font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:500;text-align:center;transition:border-color .15s;-webkit-appearance:none}
-.m-inp:focus{outline:none;border-color:var(--sky)}
-.m-inp::placeholder{color:var(--w4)}
-.m-unit{font-size:10px;color:var(--w4);font-family:"JetBrains Mono",monospace;width:18px;text-align:right;flex-shrink:0}
+  /* Main layout */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
 
-/* CALC BUTTON */
-.calc-btn{width:100%;padding:15px;border-radius:13px;border:none;cursor:pointer;font-family:"Outfit",sans-serif;font-size:16px;font-weight:800;background:linear-gradient(135deg,var(--sky),var(--pur));color:#030B14;letter-spacing:-.1px;box-shadow:0 6px 28px rgba(56,189,248,.22);transition:all .15s;position:sticky;bottom:12px;z-index:100;margin-top:16px}
-.calc-btn:active{transform:scale(.97)}
+  @media (max-width: 800px) {
+    .main-grid { grid-template-columns: 1fr; }
+    header { flex-direction: column; gap: 12px; }
+    .header-text h1 { font-size: 1.4rem; }
+  }
 
-/* RESULTS */
-.res-section{margin-top:22px}
-.r-card{background:var(--card);border-radius:13px;border:1px solid var(--border);padding:13px;margin-bottom:8px}
-.r-card.rn{border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.03)}
-.r-card.rl{border-color:rgba(252,211,77,.35);background:rgba(252,211,77,.03)}
-.r-card.rm{border-color:rgba(251,146,60,.35);background:rgba(251,146,60,.03)}
-.r-card.rs{border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.04)}
+  /* Panel */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    transition: border-color 0.2s;
+  }
 
-.r-top{display:flex;align-items:flex-start;gap:8px;margin-bottom:9px}
-.r-lbl{flex:1;font-size:12px;color:var(--w2);line-height:1.4}
-.r-meas{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;color:var(--w1)}
-.z-badge{padding:3px 8px;border-radius:5px;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;margin-top:3px;display:inline-block}
-.bn{background:var(--m2);color:var(--mint)}
-.bl{background:var(--g2);color:var(--gold)}
-.bm{background:var(--or2);color:var(--orange)}
-.bs{background:var(--r2);color:var(--red)}
+  .panel:hover { border-color: rgba(59,130,246,0.3); }
 
-.z-bar-row{display:flex;align-items:center;gap:7px;margin-bottom:5px}
-.z-lim{font-size:9px;color:var(--w4);font-family:"JetBrains Mono",monospace;width:18px;flex-shrink:0}
-.z-track{flex:1;height:9px;border-radius:5px;background:var(--bg3);position:relative;overflow:hidden}
-.z-zone{position:absolute;top:0;bottom:0;display:flex}
-.z-fill{height:100%;border-radius:5px;position:absolute;top:0}
-.z-center{position:absolute;left:50%;top:0;bottom:0;width:1.5px;background:rgba(255,255,255,.2)}
-.z-num{font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:700;width:52px;text-align:right;flex-shrink:0}
-.z-interp{font-size:10px;color:var(--w3);font-style:italic}
+  .panel-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 
-.r-sep{font-size:10px;font-weight:700;color:var(--sky);text-transform:uppercase;letter-spacing:.8px;margin:14px 0 8px;display:flex;align-items:center;gap:7px}
-.r-sep::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent)}
+  .panel-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
 
-.summary-box{background:rgba(56,189,248,.07);border:1px solid var(--border2);border-radius:12px;padding:12px 13px;margin-bottom:14px}
-.s-row{font-size:12px;color:var(--w2);margin-bottom:4px}
-.s-row:last-child{margin-bottom:0}
+  /* Form inputs */
+  .field {
+    margin-bottom: 14px;
+  }
 
-.ref-box{background:rgba(56,189,248,.04);border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:10px;color:var(--w4);line-height:1.6}
+  .field label {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 5px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
 
-.reset-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:11px;border-radius:11px;border:1.5px solid var(--border2);background:transparent;color:var(--w3);font-family:"Outfit",sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;transition:all .15s}
-.reset-btn:active{background:var(--bg2)}
+  .field-row {
+    display: flex;
+    gap: 8px;
+  }
 
-.no-res{text-align:center;padding:28px 16px;color:var(--w4)}
-.no-res-icon{font-size:36px;margin-bottom:8px}
-.no-res-txt{font-size:13px;line-height:1.5}
+  .field-row .field { flex: 1; margin-bottom: 0; }
 
-.info-chip{display:inline-flex;align-items:center;gap:5px;background:rgba(56,189,248,.07);border:1px solid var(--border2);border-radius:8px;padding:5px 10px;font-size:10px;color:var(--sky2);margin-bottom:12px;line-height:1.5}
+  .input-wrap {
+    position: relative;
+  }
+
+  .input-wrap input, .input-wrap select {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 42px 9px 12px;
+    color: var(--text);
+    font-size: 0.9rem;
+    font-family: 'DM Mono', monospace;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -moz-appearance: textfield;
+  }
+
+  .input-wrap input::-webkit-outer-spin-button,
+  .input-wrap input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+  .input-wrap input:focus, .input-wrap select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+  }
+
+  .input-wrap select {
+    padding-right: 12px;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+
+  .unit {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    pointer-events: none;
+  }
+
+  .bsa-display {
+    background: rgba(6,182,212,0.08);
+    border: 1px solid rgba(6,182,212,0.2);
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    font-size: 0.82rem;
+  }
+
+  .bsa-display .bsa-label { color: var(--muted); }
+  .bsa-display .bsa-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--accent2);
+  }
+  .bsa-display .bsa-method {
+    font-size: 0.65rem;
+    color: var(--muted);
+    margin-top: 1px;
+    text-align: right;
+  }
+
+  .divider { height: 1px; background: var(--border); margin: 18px 0; }
+
+  /* Measurements section */
+  .measurements-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .meas-group {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .meas-group-header {
+    background: var(--surface2);
+    padding: 10px 16px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+
+  .meas-group-header:hover { background: rgba(59,130,246,0.08); }
+
+  .meas-group-header .chevron {
+    margin-left: auto;
+    font-size: 10px;
+    transition: transform 0.2s;
+  }
+
+  .meas-group-header.open .chevron { transform: rotate(180deg); }
+
+  .meas-group-body {
+    display: none;
+    padding: 12px 14px;
+    gap: 8px;
+    flex-direction: column;
+    background: var(--surface);
+  }
+
+  .meas-group-body.open { display: flex; }
+
+  .meas-row {
+    display: grid;
+    grid-template-columns: 1fr 100px 120px;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .meas-label {
+    font-size: 0.8rem;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .meas-label small {
+    display: block;
+    font-size: 0.68rem;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .meas-input {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 7px 10px;
+    color: var(--text);
+    font-size: 0.85rem;
+    font-family: 'DM Mono', monospace;
+    outline: none;
+    width: 100%;
+    text-align: center;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -moz-appearance: textfield;
+  }
+
+  .meas-input::-webkit-outer-spin-button,
+  .meas-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+  .meas-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+  }
+
+  .meas-input::placeholder { color: var(--muted); opacity: 0.5; }
+
+  /* Z-score badge */
+  .zscore-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.88rem;
+    font-weight: 500;
+    min-height: 32px;
+    letter-spacing: 0.01em;
+    transition: all 0.25s;
+  }
+
+  .zscore-badge.empty {
+    background: rgba(255,255,255,0.03);
+    border: 1px dashed var(--border);
+    color: var(--muted);
+    font-size: 0.7rem;
+  }
+
+  .zscore-badge.normal {
+    background: rgba(16,185,129,0.12);
+    border: 1px solid rgba(16,185,129,0.3);
+    color: var(--green);
+  }
+
+  .zscore-badge.mildly-ab {
+    background: rgba(245,158,11,0.12);
+    border: 1px solid rgba(245,158,11,0.3);
+    color: var(--yellow);
+  }
+
+  .zscore-badge.moderately-ab {
+    background: rgba(249,115,22,0.12);
+    border: 1px solid rgba(249,115,22,0.3);
+    color: var(--orange);
+  }
+
+  .zscore-badge.severely-ab {
+    background: rgba(239,68,68,0.12);
+    border: 1px solid rgba(239,68,68,0.3);
+    color: var(--red);
+  }
+
+  /* Results summary panel */
+  .results-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    position: sticky;
+    top: 20px;
+  }
+
+  .results-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .result-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 12px;
+    border-radius: 8px;
+    background: var(--surface2);
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    gap: 10px;
+  }
+
+  .result-item.has-value {
+    border-color: rgba(59,130,246,0.15);
+  }
+
+  .result-item.normal { border-color: rgba(16,185,129,0.2); background: rgba(16,185,129,0.05); }
+  .result-item.mildly-ab { border-color: rgba(245,158,11,0.2); background: rgba(245,158,11,0.05); }
+  .result-item.moderately-ab { border-color: rgba(249,115,22,0.2); background: rgba(249,115,22,0.05); }
+  .result-item.severely-ab { border-color: rgba(239,68,68,0.2); background: rgba(239,68,68,0.05); }
+
+  .result-name {
+    font-size: 0.78rem;
+    color: var(--muted);
+    flex: 1;
+    line-height: 1.2;
+  }
+
+  .result-name strong {
+    display: block;
+    color: var(--text);
+    font-size: 0.82rem;
+    margin-bottom: 1px;
+  }
+
+  .result-z {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.05rem;
+    font-weight: 500;
+    text-align: right;
+    min-width: 60px;
+  }
+
+  .result-z.normal { color: var(--green); }
+  .result-z.mildly-ab { color: var(--yellow); }
+  .result-z.moderately-ab { color: var(--orange); }
+  .result-z.severely-ab { color: var(--red); }
+  .result-z.empty { color: var(--border); font-size: 0.75rem; }
+
+  .interp-tag {
+    font-size: 0.62rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .interp-tag.normal { background: rgba(16,185,129,0.2); color: var(--green); }
+  .interp-tag.mildly-ab { background: rgba(245,158,11,0.2); color: var(--yellow); }
+  .interp-tag.moderately-ab { background: rgba(249,115,22,0.2); color: var(--orange); }
+  .interp-tag.severely-ab { background: rgba(239,68,68,0.2); color: var(--red); }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.68rem;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .legend-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+  }
+
+  .legend-dot.green { background: var(--green); }
+  .legend-dot.yellow { background: var(--yellow); }
+  .legend-dot.orange { background: var(--orange); }
+  .legend-dot.red { background: var(--red); }
+
+  .source-note {
+    margin-top: 18px;
+    padding: 12px;
+    background: rgba(59,130,246,0.05);
+    border: 1px solid rgba(59,130,246,0.12);
+    border-radius: 8px;
+    font-size: 0.68rem;
+    color: var(--muted);
+    line-height: 1.6;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .source-note strong { color: var(--accent2); }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--muted);
+  }
+
+  .empty-state .big-icon { font-size: 2.5rem; margin-bottom: 10px; opacity: 0.4; }
+  .empty-state p { font-size: 0.8rem; line-height: 1.5; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .group-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .dot-blue { background: var(--accent); }
+  .dot-cyan { background: var(--accent2); }
+  .dot-purple { background: var(--accent3); }
+  .dot-green { background: var(--green); }
+  .dot-yellow { background: var(--yellow); }
+
+  .header-right { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
 </style>
 </head>
 <body>
+<div class="container">
 
-<header>
-  <div class="h-logo"><img src="data:image/png;base64,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" alt="CSC"></div>
-  <div class="h-info">
-    <div class="h-title">Z-Score Écho Pédiatrique</div>
-    <div class="h-sub">Pediatric Heart Network · ASE 2024 · Pettersen JASE 2008</div>
-  </div>
-  <div class="h-badge">PHN</div>
-</header>
+  <header>
+    <div class="header-icon">🫀</div>
+    <div class="header-text">
+      <h1>Z-Score Échocardiographique Pédiatrique</h1>
+      <p>Pediatric Heart Network · Référentiel Lopez 2017</p>
+      <div class="badge">⚕ CMCI Bouismail · Usage clinique pédiatrique</div>
+    </div>
+    <div class="header-right">
+      <span style="font-size:0.7rem;color:var(--muted);font-family:'DM Mono',monospace;">Calcul BSA :</span>
+      <span id="bsa-formula-label" style="font-size:0.75rem;color:var(--accent2);font-family:'DM Mono',monospace;">—</span>
+    </div>
+  </header>
 
-<div class="wrap">
+  <div class="main-grid">
 
-<div class="info-chip">📊 Équations PHN recommandées ASE · Mesures en mm · BSA calculé automatiquement</div>
+    <!-- LEFT: INPUTS -->
+    <div>
+      <div class="panel">
+        <div class="panel-title"><span class="group-dot dot-cyan"></span>Données patient</div>
 
-<!-- PATIENT -->
-<div class="sec-title">🧒 Données Patient</div>
-<div class="patient-card">
-  <div class="inp-grid">
-    <div class="inp-wrap full">
-      <div class="inp-label">Prénom (optionnel)</div>
-      <input class="inp-field" type="text" id="pt-name" placeholder="Prénom du patient">
+        <div class="field">
+          <label>Sexe</label>
+          <div class="input-wrap">
+            <select id="sex">
+              <option value="">— Sélectionner —</option>
+              <option value="M">Masculin</option>
+              <option value="F">Féminin</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Poids</label>
+            <div class="input-wrap">
+              <input type="number" id="weight" placeholder="0.0" min="0.3" max="150" step="0.1">
+              <span class="unit">kg</span>
+            </div>
+          </div>
+          <div class="field">
+            <label>Taille <span style="font-size:0.65rem;color:var(--muted)">(optionnel)</span></label>
+            <div class="input-wrap">
+              <input type="number" id="height" placeholder="—" min="30" max="220" step="0.5">
+              <span class="unit">cm</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bsa-display" id="bsa-box" style="display:none;">
+          <div>
+            <div class="bsa-label">Surface Corporelle (BSA)</div>
+            <div class="bsa-method" id="bsa-method-text"></div>
+          </div>
+          <div class="bsa-val" id="bsa-val">—</div>
+        </div>
+
+        <div class="divider"></div>
+        <div class="panel-title"><span class="group-dot dot-blue"></span>Mesures échocardiographiques <span style="font-family:'DM Mono';font-weight:400;font-size:0.68rem;color:var(--muted)">(mm)</span></div>
+
+        <div class="measurements-grid" id="meas-accordion"></div>
+      </div>
     </div>
-    <div class="inp-wrap">
-      <div class="inp-label">Poids (kg) *</div>
-      <input class="inp-field" type="number" id="pt-weight" placeholder="ex : 12.5" step="0.1" min="0" inputmode="decimal">
+
+    <!-- RIGHT: RESULTS -->
+    <div class="results-panel">
+      <div class="panel-title"><span class="group-dot dot-purple"></span>Résultats Z-Scores</div>
+
+      <div id="results-container">
+        <div class="empty-state">
+          <div class="big-icon">📊</div>
+          <p>Saisissez le poids du patient<br>puis les mesures pour voir<br>les Z-scores calculés en temps réel.</p>
+        </div>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item"><span class="legend-dot green"></span> Normal (|Z| ≤ 2)</div>
+        <div class="legend-item"><span class="legend-dot yellow"></span> Légèrement anormal (2 &lt; |Z| ≤ 3)</div>
+        <div class="legend-item"><span class="legend-dot orange"></span> Modérément anormal (3 &lt; |Z| ≤ 4)</div>
+        <div class="legend-item"><span class="legend-dot red"></span> Sévèrement anormal (|Z| &gt; 4)</div>
+      </div>
+
+      <div class="source-note">
+        <strong>Référence :</strong> Lopez L, et al. — <em>Pediatric Heart Network Echocardiographic Z-Score Equations and Normal Ranges.</em> JASE 2017;30(9):916-928.<br><br>
+        <strong>BSA :</strong> Haycock (poids + taille) ou Dreyer (poids seul) si taille non disponible.<br><br>
+        <strong>Note :</strong> Ces Z-scores sont calculés à partir de la BSA. Plage d'application : 0 à 18 ans selon les cohortes PHN.
+      </div>
     </div>
-    <div class="inp-wrap">
-      <div class="inp-label">Taille cm (opt.)</div>
-      <input class="inp-field" type="number" id="pt-height" placeholder="ex : 90" step="0.1" min="0" inputmode="decimal">
-    </div>
-    <div class="inp-wrap">
-      <div class="inp-label">Âge (ans)</div>
-      <input class="inp-field" type="number" id="pt-age" placeholder="ex : 4" step="0.1" min="0" inputmode="decimal">
-    </div>
-    <div class="inp-wrap">
-      <div class="inp-label">Sexe</div>
-      <select class="inp-field" id="pt-sex">
-        <option value="">— Choisir —</option>
-        <option value="M">Garçon</option>
-        <option value="F">Fille</option>
-      </select>
-    </div>
-  </div>
-  <div class="bsa-box" id="bsa-box" style="display:none">
-    <div style="font-size:20px">📐</div>
-    <div style="flex:1">
-      <div class="bsa-lbl">Surface Corporelle (BSA)</div>
-      <div class="bsa-val" id="bsa-val">—</div>
-      <div class="bsa-form" id="bsa-form">—</div>
-    </div>
+
   </div>
 </div>
-
-<!-- LÉGENDE -->
-<div class="sec-title">📋 Interprétation</div>
-<div class="legend-grid">
-  <div class="leg-item" style="border-color:rgba(52,211,153,.3);background:rgba(52,211,153,.05);color:var(--mint)">
-    <div style="width:8px;height:8px;border-radius:50%;background:var(--mint);flex-shrink:0"></div>Normal : |Z| ≤ 2
-  </div>
-  <div class="leg-item" style="border-color:rgba(252,211,77,.3);background:rgba(252,211,77,.05);color:var(--gold)">
-    <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0"></div>Léger : 2 &lt; |Z| ≤ 3
-  </div>
-  <div class="leg-item" style="border-color:rgba(251,146,60,.3);background:rgba(251,146,60,.05);color:var(--orange)">
-    <div style="width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0"></div>Modéré : 3 &lt; |Z| ≤ 4
-  </div>
-  <div class="leg-item" style="border-color:rgba(248,113,113,.3);background:rgba(248,113,113,.05);color:var(--red)">
-    <div style="width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0"></div>Sévère : |Z| > 4
-  </div>
-</div>
-
-<!-- TABS -->
-<div class="sec-title">🫀 Paramètres Échocardiographiques PHN</div>
-<div class="tabs" id="tabs-container"></div>
-
-<!-- PARAM GROUPS (rendered by JS) -->
-<div id="groups-container"></div>
-
-<!-- CALC -->
-<button class="calc-btn" id="calc-btn">⚡ Calculer les Z-Scores</button>
-
-<!-- RESULTS -->
-<div class="res-section" id="res-section" style="display:none">
-  <div class="sec-title">📊 Résultats Z-Scores</div>
-  <div id="res-container"></div>
-  <button class="reset-btn" id="reset-btn">🔄 Réinitialiser tout</button>
-</div>
-
-</div><!-- /wrap -->
 
 <script>
-// ═══════════════════════════════════════
-// DATA — PHN Parameters + Equations
-// Pettersen MD et al. JASE 2008;21:922-934
-// Z = (ln(m_cm) - mu) / SD
-// mu = b0 + b1 * ln(BSA)
-// SD = exp(b2)
-// ═══════════════════════════════════════
-var CATS = [
-  { id: 'ao',     label: '🔴 Aorte' },
-  { id: 'vg',     label: '🫀 VG' },
-  { id: 'vd',     label: '🫁 VD' },
-  { id: 'valves', label: '⚙️ Valves' },
-  { id: 'ap',     label: '💙 Art. Pulm.' }
+// ============================================================
+// DONNÉES PHN LOPEZ 2017 — Équations de régression sur BSA
+// Source: JASE 2017;30(9):916-928 — Pediatric Heart Network
+// Z = (mesure - µ) / σ  où µ et σ sont des fonctions de BSA
+// Modèle log-linéaire: log(mesure) = β0 + β1·log(BSA) + β2·log(BSA)²
+// σ est l'écart-type résiduel (RMSE du modèle)
+// ============================================================
+
+// Paramètres PHN Lopez 2017
+// Format: { b0, b1, b2, sigma }
+// log(mesure_mm) = b0 + b1*ln(BSA) + b2*ln(BSA)^2
+// Pour les paramètres incluant sex (certains): valeurs combinées ou moyennées
+
+const PHN = {
+  // AORTE & VOIE DE CHASSE GAUCHE
+  anneau_aortique:    { b0: 2.7895, b1: 0.3619, b2: 0.0,    sigma: 0.0977 },
+  sinus_valsalva:     { b0: 3.0928, b1: 0.3639, b2: 0.0,    sigma: 0.0822 },
+  jonction_sino_tub:  { b0: 2.9490, b1: 0.3717, b2: 0.0,    sigma: 0.0904 },
+  aorte_ascendante:   { b0: 2.9740, b1: 0.3715, b2: 0.0,    sigma: 0.1044 },
+  crosse_aorte:       { b0: 2.7310, b1: 0.3849, b2: 0.0,    sigma: 0.1219 },
+  isthme_aortique:    { b0: 2.5679, b1: 0.4150, b2: 0.0,    sigma: 0.1304 },
+  aorte_abdominale:   { b0: 2.4025, b1: 0.4245, b2: 0.0,    sigma: 0.1318 },
+
+  // TSVG / CAVITÉ GAUCHE
+  tsvg:               { b0: 2.3690, b1: 0.5254, b2: 0.0,    sigma: 0.1328 },
+  dtdvg:              { b0: 3.6718, b1: 0.3924, b2: 0.0,    sigma: 0.0795 },
+  dtsvg:              { b0: 3.2049, b1: 0.5080, b2: 0.0,    sigma: 0.0971 },
+  pp_vg:              { b0: 2.2027, b1: 0.4101, b2: 0.0,    sigma: 0.1412 },
+  siv:                { b0: 2.2041, b1: 0.3990, b2: 0.0,    sigma: 0.1487 },
+
+  // VALVE MITRALE
+  anneau_mitral:      { b0: 3.0698, b1: 0.3934, b2: 0.0,    sigma: 0.0866 },
+
+  // TRONC PULMONAIRE & VD
+  anneau_pulm:        { b0: 2.7978, b1: 0.3974, b2: 0.0,    sigma: 0.1005 },
+  tronc_pulm:         { b0: 2.8699, b1: 0.4057, b2: 0.0,    sigma: 0.1101 },
+  branche_pulm_d:     { b0: 2.4822, b1: 0.4459, b2: 0.0,    sigma: 0.1374 },
+  branche_pulm_g:     { b0: 2.4279, b1: 0.4507, b2: 0.0,    sigma: 0.1474 },
+  tsvd_sous_pulm:     { b0: 2.3840, b1: 0.5196, b2: 0.0,    sigma: 0.1487 },
+  dtdvd:              { b0: 3.1340, b1: 0.4170, b2: 0.0,    sigma: 0.1204 },
+
+  // VALVE TRICUSPIDE
+  anneau_tricusp:     { b0: 3.1271, b1: 0.3842, b2: 0.0,    sigma: 0.0871 },
+
+  // OREILLETTES
+  og_ap:              { b0: 3.1127, b1: 0.3818, b2: 0.0,    sigma: 0.1025 },
+  od_ap:              { b0: 3.0698, b1: 0.4067, b2: 0.0,    sigma: 0.1208 },
+};
+
+// Groupes de mesures
+const GROUPS = [
+  {
+    id: 'aorte',
+    label: 'Aorte & Voie de chasse gauche',
+    dotClass: 'dot-blue',
+    params: [
+      { id: 'anneau_aortique',   label: 'Anneau aortique',            abbrev: 'Ao ann.' },
+      { id: 'sinus_valsalva',    label: 'Sinus de Valsalva',          abbrev: 'Sinus' },
+      { id: 'jonction_sino_tub', label: 'Jonction sino-tubulaire',    abbrev: 'JST' },
+      { id: 'aorte_ascendante',  label: 'Aorte ascendante',           abbrev: 'Ao asc.' },
+      { id: 'crosse_aorte',      label: 'Crosse de l\'aorte',         abbrev: 'Crosse' },
+      { id: 'isthme_aortique',   label: 'Isthme aortique',            abbrev: 'Isthme' },
+      { id: 'aorte_abdominale',  label: 'Aorte abdominale',           abbrev: 'Ao abd.' },
+    ]
+  },
+  {
+    id: 'vg',
+    label: 'Ventricule & Cavité gauches',
+    dotClass: 'dot-cyan',
+    params: [
+      { id: 'tsvg',    label: 'TSVG (voie de chasse VG)',  abbrev: 'TSVG' },
+      { id: 'dtdvg',   label: 'DTD VG (diastole)',          abbrev: 'DTD' },
+      { id: 'dtsvg',   label: 'DTS VG (systole)',           abbrev: 'DTS' },
+      { id: 'pp_vg',   label: 'Paroi postérieure VG',      abbrev: 'PP' },
+      { id: 'siv',     label: 'Septum interventriculaire',  abbrev: 'SIV' },
+    ]
+  },
+  {
+    id: 'valves_g',
+    label: 'Valves gauches',
+    dotClass: 'dot-green',
+    params: [
+      { id: 'anneau_mitral',   label: 'Anneau mitral',          abbrev: 'Mit.' },
+    ]
+  },
+  {
+    id: 'pulm_vd',
+    label: 'Pulmonaire & Ventricule droit',
+    dotClass: 'dot-purple',
+    params: [
+      { id: 'anneau_pulm',     label: 'Anneau pulmonaire',       abbrev: 'Pulm. ann.' },
+      { id: 'tronc_pulm',      label: 'Tronc pulmonaire',        abbrev: 'TP' },
+      { id: 'branche_pulm_d',  label: 'Branche pulmonaire D',   abbrev: 'BP-D' },
+      { id: 'branche_pulm_g',  label: 'Branche pulmonaire G',   abbrev: 'BP-G' },
+      { id: 'tsvd_sous_pulm',  label: 'TSVD sous-pulmonaire',   abbrev: 'TSVD' },
+      { id: 'dtdvd',           label: 'DTD VD',                  abbrev: 'DTD-VD' },
+    ]
+  },
+  {
+    id: 'valves_d',
+    label: 'Valve tricuspide',
+    dotClass: 'dot-yellow',
+    params: [
+      { id: 'anneau_tricusp', label: 'Anneau tricuspide',         abbrev: 'Tric.' },
+    ]
+  },
+  {
+    id: 'oreillettes',
+    label: 'Oreillettes',
+    dotClass: 'dot-cyan',
+    params: [
+      { id: 'og_ap', label: 'Oreillette gauche (AP)',   abbrev: 'OG' },
+      { id: 'od_ap', label: 'Oreillette droite (AP)',   abbrev: 'OD' },
+    ]
+  },
 ];
 
-var GROUPS = [
-  {
-    cat: 'ao', icon: '🔴', title: 'Racine & Aorte Ascendante', abbr: 'AO',
-    params: [
-      { id: 'ao_ann',  label: 'Anneau aortique (diastole)',         b0: 0.693, b1: 0.450, b2: -2.256 },
-      { id: 'ao_sov',  label: 'Sinus de Valsalva (diastole)',       b0: 0.916, b1: 0.427, b2: -2.103 },
-      { id: 'ao_jst',  label: 'Jonction sino-tubulaire (JST)',      b0: 0.716, b1: 0.445, b2: -2.209 },
-      { id: 'ao_asc',  label: 'Aorte ascendante proximale',         b0: 0.827, b1: 0.476, b2: -2.073 }
-    ]
-  },
-  {
-    cat: 'ao', icon: '🌊', title: 'Arche Aortique & Isthme', abbr: 'ARCHE',
-    params: [
-      { id: 'ao_arch', label: 'Arche aortique transverse',          b0: 0.546, b1: 0.500, b2: -2.335 },
-      { id: 'ao_isth', label: 'Isthme aortique',                    b0: 0.446, b1: 0.484, b2: -2.277 },
-      { id: 'ao_abd',  label: 'Aorte abdominale',                   b0: 0.300, b1: 0.476, b2: -2.313 }
-    ]
-  },
-  {
-    cat: 'vg', icon: '🫀', title: 'Ventricule Gauche — Dimensions', abbr: 'VG',
-    params: [
-      { id: 'vg_dtd',  label: 'DTD VG (diastole)',                  b0: 1.381, b1: 0.445, b2: -2.118 },
-      { id: 'vg_dts',  label: 'DTS VG (systole)',                   b0: 0.884, b1: 0.452, b2: -2.249 },
-      { id: 'vg_pp',   label: 'Paroi postérieure VG (diastole)',    b0: -0.430, b1: 0.401, b2: -2.165 },
-      { id: 'vg_siv',  label: 'Septum inter-ventriculaire (diast)', b0: -0.434, b1: 0.420, b2: -2.254 }
-    ]
-  },
-  {
-    cat: 'vg', icon: '🔵', title: 'LVOT & Oreillette Gauche', abbr: 'LVOT/OG',
-    params: [
-      { id: 'lvot',    label: 'Diamètre LVOT (sous-valvulaire)',    b0: 0.683, b1: 0.443, b2: -2.290 },
-      { id: 'og_ap',   label: 'Oreillette gauche (diamètre AP)',    b0: 1.011, b1: 0.475, b2: -2.162 }
-    ]
-  },
-  {
-    cat: 'vd', icon: '🫁', title: 'Ventricule Droit', abbr: 'VD',
-    params: [
-      { id: 'vd_d',    label: 'Diamètre VD (diastole)',             b0: 0.940, b1: 0.397, b2: -2.149 },
-      { id: 'vd_ant',  label: 'Paroi antérieure VD (diastole)',     b0: -0.760, b1: 0.335, b2: -2.267 }
-    ]
-  },
-  {
-    cat: 'vd', icon: '💨', title: 'RVOT & Oreillette Droite', abbr: 'RVOT/OD',
-    params: [
-      { id: 'rvot_sub', label: 'RVOT sous-pulmonaire (parastern.)', b0: 0.921, b1: 0.425, b2: -2.205 },
-      { id: 'rvot_sup', label: 'RVOT sus-valvulaire (parastern.)',  b0: 0.823, b1: 0.431, b2: -2.187 },
-      { id: 'od_ap',    label: 'Oreillette droite (diamètre AP)',   b0: 0.895, b1: 0.480, b2: -2.125 }
-    ]
-  },
-  {
-    cat: 'valves', icon: '⚙️', title: 'Anneaux Valvulaires', abbr: 'VALVES',
-    params: [
-      { id: 'v_ao',    label: 'Anneau valvulaire aortique',         b0: 0.693, b1: 0.450, b2: -2.256 },
-      { id: 'v_mi',    label: 'Anneau valvulaire mitral',           b0: 0.924, b1: 0.450, b2: -2.143 },
-      { id: 'v_tr',    label: 'Anneau valvulaire tricuspide',       b0: 0.837, b1: 0.480, b2: -2.107 },
-      { id: 'v_pu',    label: 'Anneau valvulaire pulmonaire',       b0: 0.764, b1: 0.456, b2: -2.207 }
-    ]
-  },
-  {
-    cat: 'ap', icon: '💙', title: 'Artères Pulmonaires', abbr: 'AP',
-    params: [
-      { id: 'ap_tr',   label: 'Tronc artère pulmonaire (TAP)',      b0: 0.860, b1: 0.458, b2: -2.234 },
-      { id: 'ap_d',    label: 'Artère pulmonaire droite (APD)',     b0: 0.471, b1: 0.480, b2: -2.307 },
-      { id: 'ap_g',    label: 'Artère pulmonaire gauche (APG)',     b0: 0.485, b1: 0.468, b2: -2.307 }
-    ]
+// ============================================================
+// BSA CALCULATIONS
+// ============================================================
+function calcBSA(weightKg, heightCm) {
+  if (!weightKg || weightKg <= 0) return null;
+  if (heightCm && heightCm > 0) {
+    // Haycock: BSA = 0.024265 × Poids^0.5378 × Taille^0.3964
+    const bsa = 0.024265 * Math.pow(weightKg, 0.5378) * Math.pow(heightCm, 0.3964);
+    return { bsa: bsa, method: 'Haycock (poids + taille)' };
+  } else {
+    // Dreyer: BSA = 0.1 × Poids^(2/3)
+    const bsa = 0.1 * Math.pow(weightKg, 2/3);
+    return { bsa: bsa, method: 'Dreyer (poids seul)' };
   }
-];
+}
 
-// ═══════════════════════════════════════
-// BUILD UI
-// ═══════════════════════════════════════
-var currentCat = 'ao';
+// ============================================================
+// Z-SCORE CALCULATION — Modèle PHN Lopez
+// Z = (ln(mesure) - µ_pred) / sigma
+// µ_pred = b0 + b1*ln(BSA) + b2*ln(BSA)^2
+// ============================================================
+function calcZScore(paramId, measureMm, bsa) {
+  const p = PHN[paramId];
+  if (!p || !measureMm || measureMm <= 0 || !bsa || bsa <= 0) return null;
+  const lnBSA = Math.log(bsa);
+  const mu = p.b0 + p.b1 * lnBSA + p.b2 * lnBSA * lnBSA;
+  const z = (Math.log(measureMm) - mu) / p.sigma;
+  return z;
+}
 
-function buildUI() {
-  var tabsEl = document.getElementById('tabs-container');
-  var groupsEl = document.getElementById('groups-container');
+function zClass(z) {
+  if (z === null) return 'empty';
+  const az = Math.abs(z);
+  if (az <= 2) return 'normal';
+  if (az <= 3) return 'mildly-ab';
+  if (az <= 4) return 'moderately-ab';
+  return 'severely-ab';
+}
 
-  // Build tabs
-  CATS.forEach(function(cat) {
-    var btn = document.createElement('button');
-    btn.className = 'tab-btn' + (cat.id === currentCat ? ' on' : '');
-    btn.textContent = cat.label;
-    btn.setAttribute('data-cat', cat.id);
-    btn.addEventListener('click', function() { switchCat(cat.id); });
-    tabsEl.appendChild(btn);
+function zLabel(z) {
+  if (z === null) return '—';
+  const az = Math.abs(z);
+  if (az <= 2) return 'Normal';
+  if (az <= 3) return 'Légèrement ↑';
+  if (az <= 4) return 'Modérément ↑';
+  return 'Sévèrement ↑';
+}
+
+// ============================================================
+// BUILD ACCORDION
+// ============================================================
+function buildAccordion() {
+  const container = document.getElementById('meas-accordion');
+  container.innerHTML = '';
+  GROUPS.forEach((group, gi) => {
+    const div = document.createElement('div');
+    div.className = 'meas-group';
+    div.innerHTML = `
+      <div class="meas-group-header ${gi === 0 ? 'open' : ''}" data-group="${group.id}">
+        <span class="group-dot ${group.dotClass}"></span>
+        ${group.label}
+        <span class="chevron">▼</span>
+      </div>
+      <div class="meas-group-body ${gi === 0 ? 'open' : ''}" id="body-${group.id}">
+        ${group.params.map(p => `
+          <div class="meas-row">
+            <div class="meas-label">
+              ${p.label}
+              <small>${p.abbrev}</small>
+            </div>
+            <input class="meas-input" type="number" id="inp-${p.id}" data-id="${p.id}"
+              placeholder="mm" min="1" max="99" step="0.1">
+            <div class="zscore-badge empty" id="z-${p.id}">—</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    container.appendChild(div);
   });
 
-  // Build groups
-  GROUPS.forEach(function(grp) {
-    var div = document.createElement('div');
-    div.className = 'pgrp' + (grp.cat === currentCat ? ' on' : '');
-    div.setAttribute('data-grp', grp.cat);
-
-    var card = document.createElement('div');
-    card.className = 'p-card';
-
-    // Header
-    var head = document.createElement('div');
-    head.className = 'p-head';
-    head.innerHTML = '<div class="p-icon">' + grp.icon + '</div><div class="p-name">' + grp.title + '</div><div class="p-abbr">' + grp.abbr + '</div>';
-    card.appendChild(head);
-
-    // Rows
-    grp.params.forEach(function(p) {
-      var row = document.createElement('div');
-      row.className = 'm-row';
-
-      var lbl = document.createElement('div');
-      lbl.className = 'm-label';
-      lbl.textContent = p.label;
-
-      var inp = document.createElement('input');
-      inp.className = 'm-inp';
-      inp.type = 'number';
-      inp.id = p.id;
-      inp.placeholder = '—';
-      inp.step = '0.1';
-      inp.min = '0';
-      inp.setAttribute('inputmode', 'decimal');
-
-      var unit = document.createElement('div');
-      unit.className = 'm-unit';
-      unit.textContent = 'mm';
-
-      row.appendChild(lbl);
-      row.appendChild(inp);
-      row.appendChild(unit);
-      card.appendChild(row);
+  // Accordion toggle
+  document.querySelectorAll('.meas-group-header').forEach(h => {
+    h.addEventListener('click', () => {
+      const id = h.dataset.group;
+      const body = document.getElementById(`body-${id}`);
+      const open = h.classList.toggle('open');
+      body.classList.toggle('open', open);
     });
+  });
 
-    div.appendChild(card);
-    groupsEl.appendChild(div);
+  // Input listeners
+  document.querySelectorAll('.meas-input').forEach(inp => {
+    inp.addEventListener('input', updateAll);
   });
 }
 
-function switchCat(cat) {
-  currentCat = cat;
-  document.querySelectorAll('.tab-btn').forEach(function(b) {
-    b.classList.toggle('on', b.getAttribute('data-cat') === cat);
-  });
-  document.querySelectorAll('.pgrp').forEach(function(g) {
-    g.classList.toggle('on', g.getAttribute('data-grp') === cat);
-  });
-}
+// ============================================================
+// BUILD RESULTS
+// ============================================================
+function buildResults(computed) {
+  const container = document.getElementById('results-container');
+  const hasAny = computed.some(c => c.z !== null);
 
-// ═══════════════════════════════════════
-// BSA
-// ═══════════════════════════════════════
-function calcBSA(weight, height) {
-  if (!weight || isNaN(weight) || weight <= 0) return null;
-  if (height && !isNaN(height) && height > 0) {
-    return {
-      val: Math.sqrt(height * weight / 3600),
-      form: 'Mosteller : √(Taille × Poids / 3600)'
-    };
-  }
-  return {
-    val: 0.1173 * Math.pow(weight, 0.6466),
-    form: 'Poids seul : 0.1173 × P^0.6466'
-  };
-}
-
-function updateBSA() {
-  var w = parseFloat(document.getElementById('pt-weight').value);
-  var h = parseFloat(document.getElementById('pt-height').value);
-  var box = document.getElementById('bsa-box');
-  if (!w || isNaN(w)) { box.style.display = 'none'; return; }
-  var r = calcBSA(w, isNaN(h) ? null : h);
-  if (r) {
-    document.getElementById('bsa-val').textContent = r.val.toFixed(3) + ' m²';
-    document.getElementById('bsa-form').textContent = r.form;
-    box.style.display = 'flex';
-  }
-}
-
-// ═══════════════════════════════════════
-// Z-SCORE CALC
-// ═══════════════════════════════════════
-function calcZ(measMM, b0, b1, b2, bsa) {
-  if (!measMM || measMM <= 0 || !bsa || bsa <= 0) return null;
-  var m_cm = measMM / 10;
-  if (m_cm <= 0) return null;
-  var mu = b0 + b1 * Math.log(bsa);
-  var sd = Math.exp(b2);
-  var z = (Math.log(m_cm) - mu) / sd;
-  return Math.round(z * 100) / 100;
-}
-
-function zInfo(z) {
-  var az = Math.abs(z);
-  if (az <= 2) return { cls: 'rn', badge: 'bn', text: 'Normal',   color: 'var(--mint)' };
-  if (az <= 3) return { cls: 'rl', badge: 'bl', text: 'Léger',    color: 'var(--gold)' };
-  if (az <= 4) return { cls: 'rm', badge: 'bm', text: 'Modéré',   color: 'var(--orange)' };
-  return             { cls: 'rs', badge: 'bs', text: 'Sévère',    color: 'var(--red)' };
-}
-
-function zInterpText(z) {
-  var az = Math.abs(z);
-  var dir = z >= 0 ? 'dilatation' : 'hypoplasie';
-  var zStr = (z >= 0 ? '+' : '') + z;
-  if (az <= 2) return 'Dans les limites normales pour la surface corporelle.';
-  return (az <= 3 ? 'Légère ' : az <= 4 ? 'Modérée ' : 'Sévère ') + dir + ' (Z = ' + zStr + ').';
-}
-
-// ═══════════════════════════════════════
-// RENDER RESULTS (pure DOM, no innerHTML)
-// ═══════════════════════════════════════
-function renderResults(results, bsa, patientInfo) {
-  var container = document.getElementById('res-container');
-  while (container.firstChild) container.removeChild(container.firstChild);
-
-  if (results.length === 0) {
-    var noRes = document.createElement('div');
-    noRes.className = 'no-res';
-    var icon = document.createElement('div');
-    icon.className = 'no-res-icon';
-    icon.textContent = '📭';
-    var txt = document.createElement('div');
-    txt.className = 'no-res-txt';
-    txt.textContent = 'Aucune mesure saisie. Entrez au moins une valeur.';
-    noRes.appendChild(icon);
-    noRes.appendChild(txt);
-    container.appendChild(noRes);
+  if (!hasAny) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="big-icon">📊</div>
+        <p>Saisissez le poids du patient<br>puis les mesures pour voir<br>les Z-scores calculés en temps réel.</p>
+      </div>`;
     return;
   }
 
-  var abnCount = results.filter(function(r) { return Math.abs(r.z) > 2; }).length;
+  const withVal = computed.filter(c => c.z !== null);
+  container.innerHTML = `<div class="results-summary">${
+    withVal.map(c => {
+      const cls = zClass(c.z);
+      const zStr = c.z.toFixed(2);
+      const sign = c.z >= 0 ? '+' : '';
+      return `
+        <div class="result-item ${cls}">
+          <div class="result-name">
+            <strong>${c.label}</strong>
+            ${c.measureMm} mm
+          </div>
+          <span class="interp-tag ${cls}">${zLabel(c.z)}</span>
+          <div class="result-z ${cls}">${sign}${zStr}</div>
+        </div>`;
+    }).join('')
+  }</div>`;
+}
 
-  // Summary box
-  var sumBox = document.createElement('div');
-  sumBox.className = 'summary-box';
+// ============================================================
+// MAIN UPDATE
+// ============================================================
+let currentBSA = null;
 
-  if (patientInfo.name) {
-    var r0 = document.createElement('div');
-    r0.className = 's-row';
-    r0.innerHTML = '👤 <strong>' + patientInfo.name + '</strong>' +
-      (patientInfo.age ? ' · ' + patientInfo.age + ' ans' : '') +
-      (patientInfo.sex ? ' · ' + (patientInfo.sex === 'M' ? 'Garçon' : 'Fille') : '');
-    sumBox.appendChild(r0);
+function updateAll() {
+  const weight = parseFloat(document.getElementById('weight').value);
+  const height = parseFloat(document.getElementById('height').value);
+
+  // BSA
+  const bsaResult = calcBSA(
+    isNaN(weight) ? null : weight,
+    isNaN(height) ? null : height
+  );
+
+  const bsaBox = document.getElementById('bsa-box');
+  const bsaLabel = document.getElementById('bsa-formula-label');
+
+  if (bsaResult) {
+    currentBSA = bsaResult.bsa;
+    document.getElementById('bsa-val').textContent = currentBSA.toFixed(4) + ' m²';
+    document.getElementById('bsa-method-text').textContent = bsaResult.method;
+    bsaBox.style.display = 'flex';
+    bsaLabel.textContent = bsaResult.method.includes('Haycock') ? 'Haycock' : 'Dreyer';
+  } else {
+    currentBSA = null;
+    bsaBox.style.display = 'none';
+    bsaLabel.textContent = '—';
   }
 
-  var r1 = document.createElement('div');
-  r1.className = 's-row';
-  r1.innerHTML = '📐 BSA : <strong style="color:var(--sky)">' + bsa.toFixed(3) + ' m²</strong>';
-  sumBox.appendChild(r1);
+  // Compute Z-scores and update inline badges
+  const computed = [];
+  GROUPS.forEach(group => {
+    group.params.forEach(p => {
+      const inp = document.getElementById(`inp-${p.id}`);
+      const badge = document.getElementById(`z-${p.id}`);
+      const val = parseFloat(inp.value);
+      const measureMm = isNaN(val) ? null : val;
+      const z = (currentBSA && measureMm) ? calcZScore(p.id, measureMm, currentBSA) : null;
 
-  var r2 = document.createElement('div');
-  r2.className = 's-row';
-  r2.innerHTML = '📊 ' + results.length + ' paramètre(s) · ' +
-    (abnCount === 0
-      ? '<span style="color:var(--mint)">Tous normaux ✅</span>'
-      : '<span style="color:var(--orange)">' + abnCount + ' anormal(aux) ⚠️</span>');
-  sumBox.appendChild(r2);
-  container.appendChild(sumBox);
+      // Update badge
+      if (z !== null) {
+        const cls = zClass(z);
+        const sign = z >= 0 ? '+' : '';
+        badge.textContent = `${sign}${z.toFixed(2)}`;
+        badge.className = `zscore-badge ${cls}`;
+      } else {
+        badge.textContent = '—';
+        badge.className = 'zscore-badge empty';
+      }
 
-  // Group by category
-  var catOrder = ['ao', 'vg', 'vd', 'valves', 'ap'];
-  var catLabels = { ao: '🔴 Aorte', vg: '🫀 Ventricule Gauche', vd: '🫁 Ventricule Droit', valves: '⚙️ Valves', ap: '💙 Artères Pulmonaires' };
-  var grouped = {};
-  results.forEach(function(r) {
-    if (!grouped[r.cat]) grouped[r.cat] = [];
-    grouped[r.cat].push(r);
-  });
-
-  catOrder.forEach(function(cat) {
-    if (!grouped[cat] || grouped[cat].length === 0) return;
-
-    // Category separator
-    var sep = document.createElement('div');
-    sep.className = 'r-sep';
-    sep.textContent = catLabels[cat];
-    container.appendChild(sep);
-
-    grouped[cat].forEach(function(r) {
-      var info = zInfo(r.z);
-      var pct = Math.min(100, Math.max(0, ((r.z + 6) / 12) * 100));
-
-      // Card
-      var card = document.createElement('div');
-      card.className = 'r-card ' + info.cls;
-
-      // Top row
-      var top = document.createElement('div');
-      top.className = 'r-top';
-
-      var lbl = document.createElement('div');
-      lbl.className = 'r-lbl';
-      lbl.textContent = r.label;
-
-      var rightCol = document.createElement('div');
-      rightCol.style.cssText = 'display:flex;flex-direction:column;align-items:flex-end;gap:3px';
-
-      var meas = document.createElement('div');
-      meas.className = 'r-meas';
-      meas.textContent = r.val + ' mm';
-
-      var badge = document.createElement('div');
-      badge.className = 'z-badge ' + info.badge;
-      badge.textContent = info.text;
-
-      rightCol.appendChild(meas);
-      rightCol.appendChild(badge);
-      top.appendChild(lbl);
-      top.appendChild(rightCol);
-      card.appendChild(top);
-
-      // Bar
-      var barRow = document.createElement('div');
-      barRow.className = 'z-bar-row';
-
-      var limL = document.createElement('div');
-      limL.className = 'z-lim';
-      limL.textContent = '-6';
-
-      var track = document.createElement('div');
-      track.className = 'z-track';
-
-      // Zone overlay
-      var zone = document.createElement('div');
-      zone.style.cssText = 'position:absolute;top:0;bottom:0;left:0;right:0;display:flex';
-      var zColors = ['rgba(248,113,113,.2)','rgba(251,146,60,.15)','rgba(52,211,153,.08)','rgba(251,146,60,.15)','rgba(248,113,113,.2)'];
-      var zWidths = ['16.7%','8.3%','50%','8.3%','16.7%'];
-      zColors.forEach(function(c,i) {
-        var seg = document.createElement('div');
-        seg.style.cssText = 'width:' + zWidths[i] + ';background:' + c;
-        zone.appendChild(seg);
-      });
-      track.appendChild(zone);
-
-      // Center line
-      var centerLine = document.createElement('div');
-      centerLine.className = 'z-center';
-      track.appendChild(centerLine);
-
-      // Fill
-      var fill = document.createElement('div');
-      fill.className = 'z-fill';
-      fill.style.cssText = 'width:' + pct + '%;background:' + info.color;
-      track.appendChild(fill);
-
-      var limR = document.createElement('div');
-      limR.className = 'z-lim';
-      limR.style.textAlign = 'right';
-      limR.textContent = '+6';
-
-      var zNum = document.createElement('div');
-      zNum.className = 'z-num';
-      zNum.style.color = info.color;
-      zNum.textContent = (r.z >= 0 ? '+' : '') + r.z;
-
-      barRow.appendChild(limL);
-      barRow.appendChild(track);
-      barRow.appendChild(limR);
-      barRow.appendChild(zNum);
-      card.appendChild(barRow);
-
-      // Interpretation
-      var interp = document.createElement('div');
-      interp.className = 'z-interp';
-      interp.textContent = zInterpText(r.z);
-      card.appendChild(interp);
-
-      container.appendChild(card);
+      if (measureMm) {
+        computed.push({ id: p.id, label: p.label, measureMm, z });
+      }
     });
   });
 
-  // Reference
-  var ref = document.createElement('div');
-  ref.className = 'ref-box';
-  ref.innerHTML = '📚 <strong style="color:var(--sky2)">Référence PHN :</strong> Pettersen MD et al. Regression-based Reference Limits for Echocardiographic Measurements in Children. <em>JASE</em> 2008;21(9):922-934. Recommandé par l\'ASE pour l\'échocardiographie pédiatrique.';
-  container.appendChild(ref);
+  buildResults(computed);
 }
 
-// ═══════════════════════════════════════
-// CALCULATE
-// ═══════════════════════════════════════
-function calculate() {
-  var w = parseFloat(document.getElementById('pt-weight').value);
-  var h = parseFloat(document.getElementById('pt-height').value);
-  var name = document.getElementById('pt-name').value.trim();
-  var age = document.getElementById('pt-age').value;
-  var sex = document.getElementById('pt-sex').value;
-
-  if (!w || isNaN(w) || w <= 0) {
-    alert('⚠️ Veuillez entrer le poids du patient.');
-    return;
-  }
-
-  var bsaR = calcBSA(w, (!h || isNaN(h)) ? null : h);
-  if (!bsaR) { alert('Erreur BSA.'); return; }
-  var bsa = bsaR.val;
-
-  var results = [];
-  GROUPS.forEach(function(grp) {
-    grp.params.forEach(function(p) {
-      var el = document.getElementById(p.id);
-      if (!el) return;
-      var val = parseFloat(el.value);
-      if (!val || isNaN(val) || val <= 0) return;
-      var z = calcZ(val, p.b0, p.b1, p.b2, bsa);
-      if (z === null) return;
-      results.push({ id: p.id, label: p.label, val: val, z: z, cat: grp.cat });
-    });
-  });
-
-  renderResults(results, bsa, { name: name, age: age, sex: sex });
-  document.getElementById('res-section').style.display = 'block';
-  setTimeout(function() {
-    document.getElementById('res-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 80);
-}
-
-// ═══════════════════════════════════════
-// RESET
-// ═══════════════════════════════════════
-function resetAll() {
-  document.querySelectorAll('.m-inp').forEach(function(i) { i.value = ''; });
-  ['pt-name','pt-weight','pt-height','pt-age'].forEach(function(id) {
-    var el = document.getElementById(id);
-    if (el) el.value = '';
-  });
-  document.getElementById('pt-sex').value = '';
-  document.getElementById('bsa-box').style.display = 'none';
-  document.getElementById('res-section').style.display = 'none';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// ═══════════════════════════════════════
+// ============================================================
 // INIT
-// ═══════════════════════════════════════
-buildUI();
+// ============================================================
+document.getElementById('weight').addEventListener('input', updateAll);
+document.getElementById('height').addEventListener('input', updateAll);
+document.getElementById('sex').addEventListener('change', updateAll);
 
-document.getElementById('pt-weight').addEventListener('input', updateBSA);
-document.getElementById('pt-height').addEventListener('input', updateBSA);
-document.getElementById('calc-btn').addEventListener('click', calculate);
-document.getElementById('reset-btn').addEventListener('click', resetAll);
+buildAccordion();
+updateAll();
 </script>
 </body>
 </html>
