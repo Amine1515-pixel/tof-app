@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Méthode de Fick — Analyse Hémodynamique</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --bg2: #0f1628;
+    --bg3: #151d35;
+    --surface: #1a2340;
+    --surface2: #1f2a4a;
+    --border: #2a3660;
+    --accent: #3d9be9;
+    --accent2: #5bc8af;
+    --accent3: #e96c3d;
+    --accent4: #e9c23d;
+    --text: #e8edf8;
+    --text2: #8a96b8;
+    --text3: #4a5578;
+    --ok: #4ecb8a;
+    --warn: #f0b429;
+    --danger: #e85555;
+    --danger2: #c0392b;
+    --purple: #9b7fe8;
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(61,155,233,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(61,155,233,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* HEADER */
+  header {
+    padding: 40px 0 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+  }
+
+  .header-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+    box-shadow: 0 0 24px rgba(61,155,233,0.3);
+  }
+
+  .header-text h1 {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+
+  .header-text p {
+    font-size: 13px;
+    color: var(--text2);
+    font-family: var(--font-mono);
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .badge {
+    margin-left: auto;
+    background: rgba(61,155,233,0.12);
+    border: 1px solid rgba(61,155,233,0.3);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  /* LAYOUT */
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .full-width { grid-column: 1 / -1; }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .card-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* FORM */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-group.full { grid-column: 1 / -1; }
+
+  label {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: var(--text2);
+    letter-spacing: 0.5px;
+  }
+
+  label span {
+    color: var(--accent);
+    font-size: 10px;
+    margin-left: 4px;
+  }
+
+  input, select {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 9px 12px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+  }
+
+  input:focus, select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(61,155,233,0.12);
+  }
+
+  input::placeholder { color: var(--text3); }
+
+  select option { background: var(--bg3); }
+
+  /* SECTION DIVIDER */
+  .section-label {
+    grid-column: 1 / -1;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--accent2);
+    text-transform: uppercase;
+    padding: 10px 0 4px;
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+  }
+
+  /* BUTTON */
+  .btn-calc {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, var(--accent), #2575c4);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+    padding: 13px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    margin-top: 6px;
+    box-shadow: 0 4px 20px rgba(61,155,233,0.25);
+  }
+
+  .btn-calc:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 28px rgba(61,155,233,0.4);
+  }
+
+  .btn-calc:active { transform: translateY(0); }
+
+  .btn-reset {
+    grid-column: 1 / -1;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text2);
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 10px;
+    transition: all 0.2s;
+  }
+
+  .btn-reset:hover { border-color: var(--text2); color: var(--text); }
+
+  /* RESULTS PANEL */
+  #results-panel {
+    display: none;
+    animation: fadeUp 0.4s ease;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* METRIC CARDS */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .metric {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .metric::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+  }
+
+  .metric.ok::before { background: var(--ok); }
+  .metric.warn::before { background: var(--warn); }
+  .metric.danger::before { background: var(--danger); }
+  .metric.info::before { background: var(--accent); }
+  .metric.purple::before { background: var(--purple); }
+
+  .metric-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .metric-value {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .metric.ok .metric-value { color: var(--ok); }
+  .metric.warn .metric-value { color: var(--warn); }
+  .metric.danger .metric-value { color: var(--danger); }
+  .metric.info .metric-value { color: var(--accent); }
+  .metric.purple .metric-value { color: var(--purple); }
+
+  .metric-unit {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text2);
+  }
+
+  .metric-ref {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--text3);
+    margin-top: 6px;
+  }
+
+  .metric-status {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 14px;
+  }
+
+  /* INTERMEDIATE VALUES */
+  .calc-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+
+  .calc-table tr { border-bottom: 1px solid rgba(42,54,96,0.5); }
+  .calc-table tr:last-child { border-bottom: none; }
+
+  .calc-table td {
+    padding: 8px 4px;
+    color: var(--text2);
+  }
+
+  .calc-table td:first-child { color: var(--text3); font-size: 10px; letter-spacing: 0.5px; }
+  .calc-table td:last-child { color: var(--accent2); text-align: right; font-weight: 500; }
+
+  .calc-table td.formula {
+    color: var(--text3);
+    font-size: 9px;
+    font-style: italic;
+    text-align: center;
+  }
+
+  /* INTERPRETATION */
+  .interp-block {
+    background: var(--bg2);
+    border-radius: 12px;
+    padding: 20px;
+    border-left: 3px solid var(--accent);
+  }
+
+  .interp-block.warning { border-left-color: var(--warn); }
+  .interp-block.danger { border-left-color: var(--danger); }
+  .interp-block.ok { border-left-color: var(--ok); }
+
+  .interp-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .interp-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .interp-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .interp-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .interp-dot.ok { background: var(--ok); }
+  .interp-dot.warn { background: var(--warn); }
+  .interp-dot.danger { background: var(--danger); }
+
+  /* DIAGNOSTIC BANNER */
+  .diag-banner {
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 13px;
+    line-height: 1.6;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .diag-banner.ok { background: rgba(78,203,138,0.08); border: 1px solid rgba(78,203,138,0.25); }
+  .diag-banner.warn { background: rgba(240,180,41,0.08); border: 1px solid rgba(240,180,41,0.25); }
+  .diag-banner.danger { background: rgba(232,85,85,0.08); border: 1px solid rgba(232,85,85,0.25); }
+
+  .diag-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+
+  .diag-content strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+
+  /* FORMULA BOX */
+  .formula-box {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text2);
+    margin-top: 12px;
+  }
+
+  .formula-box span { color: var(--accent4); }
+
+  /* FICK SCHEMA */
+  .fick-schema {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 14px 0;
+  }
+
+  .fick-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 10px;
+    color: var(--text2);
+  }
+
+  .fick-box.highlight {
+    background: rgba(61,155,233,0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .fick-op { color: var(--text3); padding: 0 4px; font-size: 14px; }
+
+  /* QP/QS RATIO */
+  .ratio-bar {
+    height: 6px;
+    border-radius: 3px;
+    background: var(--bg);
+    overflow: hidden;
+    margin: 8px 0 4px;
+  }
+
+  .ratio-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--ok), var(--accent));
+    transition: width 0.8s ease;
+  }
+
+  .ratio-fill.warn { background: linear-gradient(90deg, var(--warn), var(--accent3)); }
+  .ratio-fill.danger { background: linear-gradient(90deg, var(--danger), var(--danger2)); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .layout { grid-template-columns: 1fr; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+    header { flex-wrap: wrap; }
+    .badge { margin-left: 0; }
+  }
+
+  @media (max-width: 480px) {
+    .metrics-grid { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+  }
+
+  /* SCROLL */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-icon">🫀</div>
+    <div class="header-text">
+      <h1>Méthode de Fick</h1>
+      <p>ANALYSE HÉMODYNAMIQUE COMPLÈTE · CARDIOPÉDIATRIE</p>
+    </div>
+    <div class="badge">CMCI BOUISMAIL</div>
+  </header>
+
+  <div class="layout">
+
+    <!-- PATIENT -->
+    <div class="card">
+      <div class="card-title">Données patient</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Poids <span>kg</span></label>
+          <input type="number" id="weight" placeholder="ex. 15" min="0.5" max="150" step="0.1">
+        </div>
+        <div class="form-group">
+          <label>Taille <span>cm</span></label>
+          <input type="number" id="height" placeholder="ex. 95" min="30" max="220" step="0.5">
+        </div>
+        <div class="form-group">
+          <label>Âge <span>ans</span></label>
+          <input type="number" id="age" placeholder="ex. 3" min="0" max="18" step="0.1">
+        </div>
+        <div class="form-group">
+          <label>Sexe</label>
+          <select id="sex">
+            <option value="M">Masculin</option>
+            <option value="F">Féminin</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>FC <span>bpm</span></label>
+          <input type="number" id="hr" placeholder="ex. 110" min="30" max="250">
+        </div>
+        <div class="form-group">
+          <label>Hémoglobine <span>g/dL</span></label>
+          <input type="number" id="hb" placeholder="ex. 12" min="4" max="25" step="0.1">
+        </div>
+      </div>
+    </div>
+
+    <!-- SATURATIONS -->
+    <div class="card">
+      <div class="card-title">Saturations & Pressions</div>
+      <div class="form-grid">
+        <div class="section-label">■ Saturations en O₂ (%)</div>
+        <div class="form-group">
+          <label>SaO₂ — Aorte/Systémique <span>%</span></label>
+          <input type="number" id="sao2" placeholder="ex. 95" min="0" max="100" step="0.1">
+        </div>
+        <div class="form-group">
+          <label>SvO₂ — Veine cave <span>%</span></label>
+          <input type="number" id="svo2" placeholder="ex. 70" min="0" max="100" step="0.1">
+        </div>
+        <div class="form-group">
+          <label>SpvO₂ — Veines pulm. <span>%</span></label>
+          <input type="number" id="spvo2" placeholder="ex. 98" min="0" max="100" step="0.1">
+        </div>
+        <div class="form-group">
+          <label>SapO₂ — Artère pulm. <span>%</span></label>
+          <input type="number" id="sapo2" placeholder="ex. 75" min="0" max="100" step="0.1">
+        </div>
+        <div class="section-label">■ Pressions moyennes (mmHg)</div>
+        <div class="form-group">
+          <label>PAP moyenne <span>mmHg</span></label>
+          <input type="number" id="mpap" placeholder="ex. 15" min="0" max="120" step="0.5">
+        </div>
+        <div class="form-group">
+          <label>POD — Pression Oreillette Droite <span>mmHg</span></label>
+          <input type="number" id="pod" placeholder="ex. 5" min="0" max="30" step="0.5">
+        </div>
+        <div class="form-group">
+          <label>POG / PCAP — Pression Capillaire <span>mmHg</span></label>
+          <input type="number" id="pcwp" placeholder="ex. 8" min="0" max="40" step="0.5">
+        </div>
+        <div class="form-group">
+          <label>Pression VD systolique <span>mmHg</span> <span style="color:var(--text3);font-size:9px">→ gradient VD/Ao</span></label>
+          <input type="number" id="rvsp" placeholder="ex. 30" min="0" max="150" step="0.5">
+        </div>
+        <div class="form-group">
+          <label>Pression Ao <strong style="color:var(--accent2)">MOYENNE</strong> <span>mmHg</span></label>
+          <input type="number" id="sap" placeholder="ex. 70" min="0" max="180" step="0.5">
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="card full-width">
+      <div class="form-grid">
+        <button class="btn-calc" onclick="calculate()">⚡ CALCULER L'HÉMODYNAMIQUE</button>
+        <button class="btn-reset" onclick="resetAll()">↺ Réinitialiser</button>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div id="results-panel" class="full-width">
+
+      <!-- DIAGNOSTIC BANNER -->
+      <div id="diag-banner" class="diag-banner" style="margin-bottom:20px"></div>
+
+      <!-- KEY METRICS -->
+      <div class="card full-width" style="margin-bottom:20px">
+        <div class="card-title">Résultats principaux</div>
+        <div class="metrics-grid" id="metrics-grid"></div>
+      </div>
+
+      <div class="layout" style="gap:20px">
+        <!-- CALCULS INTERMÉDIAIRES -->
+        <div class="card">
+          <div class="card-title">Calculs intermédiaires</div>
+          <table class="calc-table" id="calc-table"></table>
+          <div class="formula-box" style="margin-top:16px">
+            <div style="margin-bottom:6px"><span>VO₂ théorique</span> = estimé selon Lafarge–Miettinen</div>
+            <div style="margin-bottom:4px"><span>IC</span> = VO₂ / (CaO₂ − CvO₂) / BSA</div>
+            <div style="margin-bottom:4px"><span>RVP</span> = (PAPm<sub>moy</sub> − POD<sub>moy</sub>) / Qp &nbsp;·&nbsp; <span>GTP</span> = PAPm<sub>moy</sub> − PCAP<sub>moy</sub></div>
+            <div><span>RVS</span> = (PAo<sub>moy</sub> − POD<sub>moy</sub>) / Qs &nbsp;·&nbsp; <em style="color:var(--text3)">Toutes pressions = MOYENNES</em></div>
+          </div>
+        </div>
+
+        <!-- INTERPRÉTATION -->
+        <div class="card">
+          <div class="card-title">Interprétation clinique</div>
+          <div id="interpretation"></div>
+        </div>
+      </div>
+
+      <!-- QP/QS -->
+      <div class="card full-width" style="margin-top:20px" id="shunt-card"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ─── BSA ───────────────────────────────────────────────────────────────────
+function calcBSA(weight, height) {
+  // Haycock: BSA = 0.024265 × H^0.3964 × W^0.5378
+  return 0.024265 * Math.pow(height, 0.3964) * Math.pow(weight, 0.5378);
+}
+
+// ─── VO2 THÉORIQUE (Lafarge & Miettinen, adapt. pédiatrique) ─────────────
+function calcVO2Theoretical(age, hr, weight, sex) {
+  // Formule La Farge & Miettinen (1970), utilisée en cathétérisme pédiatrique
+  // VO2 (mL/min/m²) selon âge et FC
+  // Adapté pour enfants: VO2 index = (138.1 - (11.49 × ln(age)) + (0.378 × HR))
+  // Pour sexe féminin: facteur 0.9
+  const ageAdj = Math.max(age, 0.1);
+  let vo2Index = 138.1 - (11.49 * Math.log(ageAdj)) + (0.378 * hr);
+  if (sex === 'F') vo2Index *= 0.9;
+  // VO2 absolu en mL/min (non indexé, sera utilisé avec BSA)
+  return vo2Index; // en mL/min/m²
+}
+
+// ─── CONTENU EN O2 ────────────────────────────────────────────────────────
+function calcCO2(sat, hb) {
+  // CaO2 = (Hb × 1.36 × sat/100) × 10  → en mL O2/L
+  return hb * 1.36 * (sat / 100) * 10;
+}
+
+// ─── CLASSIFICATION RVP ───────────────────────────────────────────────────
+function classifyRVP(rvp, rvpIndex) {
+  if (rvpIndex < 2) return { label: 'Normale', cls: 'ok', icon: '✓' };
+  if (rvpIndex < 3) return { label: 'Légèrement élevée', cls: 'warn', icon: '⚠' };
+  if (rvpIndex < 6) return { label: 'Modérément élevée', cls: 'warn', icon: '⚠' };
+  if (rvpIndex < 8) return { label: 'Sévère', cls: 'danger', icon: '✗' };
+  return { label: 'Très sévère / irréversible?', cls: 'danger', icon: '✗' };
+}
+
+function classifyIC(ic) {
+  if (ic >= 3.5) return { label: 'Hyperkinétique', cls: 'warn', icon: '↑' };
+  if (ic >= 2.5) return { label: 'Normal', cls: 'ok', icon: '✓' };
+  if (ic >= 2.0) return { label: 'Légèrement réduit', cls: 'warn', icon: '⚠' };
+  if (ic >= 1.5) return { label: 'Insuffisance modérée', cls: 'danger', icon: '✗' };
+  return { label: 'Insuffisance sévère', cls: 'danger', icon: '✗' };
+}
+
+function classifyPAP(mpap) {
+  if (mpap < 20) return { label: 'Normale', cls: 'ok' };
+  if (mpap < 25) return { label: 'Limite supérieure', cls: 'warn' };
+  if (mpap < 35) return { label: 'HTAP légère', cls: 'warn' };
+  if (mpap < 45) return { label: 'HTAP modérée', cls: 'danger' };
+  return { label: 'HTAP sévère', cls: 'danger' };
+}
+
+function classifyQpQs(ratio) {
+  if (ratio < 0.8) return { label: 'Shunt D→G dominant', cls: 'danger' };
+  if (ratio < 1.2) return { label: 'Équilibré (pas de shunt significatif)', cls: 'ok' };
+  if (ratio < 1.5) return { label: 'Shunt G→D minime', cls: 'ok' };
+  if (ratio < 2.0) return { label: 'Shunt G→D modéré', cls: 'warn' };
+  return { label: 'Shunt G→D important', cls: 'danger' };
+}
+
+// ─── MAIN CALCULATE ───────────────────────────────────────────────────────
+function calculate() {
+  const weight = +document.getElementById('weight').value;
+  const height = +document.getElementById('height').value;
+  const age    = +document.getElementById('age').value;
+  const sex    = document.getElementById('sex').value;
+  const hr     = +document.getElementById('hr').value;
+  const hb     = +document.getElementById('hb').value;
+  const sao2   = +document.getElementById('sao2').value;
+  const svo2   = +document.getElementById('svo2').value;
+  const spvo2  = +document.getElementById('spvo2').value;
+  const sapo2  = +document.getElementById('sapo2').value;
+  const mpap   = +document.getElementById('mpap').value;
+  const pod    = +document.getElementById('pod').value;
+  const pcwp   = +document.getElementById('pcwp').value;
+  const rvsp   = +document.getElementById('rvsp').value;
+  const sap    = +document.getElementById('sap').value;
+
+  // Validation
+  if (!weight || !height || !age || !hr || !hb || !sao2 || !svo2 || !mpap) {
+    alert('Veuillez remplir au minimum : poids, taille, âge, FC, Hb, SaO₂, SvO₂, PAP moyenne.');
+    return;
+  }
+
+  // BSA
+  const bsa = calcBSA(weight, height);
+
+  // VO2 théorique
+  const vo2Index = calcVO2Theoretical(age, hr, weight, sex); // mL/min/m²
+  const vo2 = vo2Index * bsa; // mL/min absolu
+
+  // Contenus en O2 (mL/L)
+  const cao2  = calcCO2(sao2, hb);   // sang artériel systémique
+  const cvo2  = calcCO2(svo2, hb);   // sang veineux mixte
+  const cpvo2 = spvo2 ? calcCO2(spvo2, hb) : calcCO2(99, hb); // veines pulm
+  const capo2 = sapo2 ? calcCO2(sapo2, hb) : calcCO2(svo2, hb); // artère pulm
+
+  // Différences artério-veineuses
+  const davO2  = cao2 - cvo2;   // diff systémique (mL/L)
+  const davpO2 = cpvo2 - capo2; // diff pulmonaire (mL/L)
+
+  // Débits (Fick)
+  // Qs (L/min) = VO2 / (CaO2 - CvO2) — en mL/L → L/min
+  const qs = vo2 / davO2;
+  // Qp (L/min) = VO2 / (CpvO2 - CapO2)
+  const qp = davpO2 > 0 ? vo2 / davpO2 : qs;
+
+  // Index (L/min/m²)
+  const qsi = qs / bsa;
+  const qpi = qp / bsa;
+
+  // IC = Qs index (débit systémique indexé)
+  const ic = qsi;
+
+  // Résistances (unités Wood = mmHg·min/L, puis UW·m² = indexées)
+  // RVP = (PAPm − POD) / Qp  (en Wood units) — POD = pression de remplissage aval
+  const podRef = pod || 5; // POD par défaut 5 mmHg si non saisie
+  const rvpWood = (mpap - podRef) / qp;
+  const rvpIndexed = rvpWood * bsa; // UW·m²
+  // En dynes·s·cm⁻⁵ = × 80
+  const rvpDynes = rvpWood * 80;
+  const rvpDynesI = rvpIndexed * 80;
+
+  // Gradient transpulmonaire (GTP) = PAPm − PCAP (composante pré-capillaire)
+  const gtp = pcwp ? mpap - pcwp : null;
+  // Résistance vasculaire pulmonaire pré-capillaire (avec PCAP)
+  const rvpPreCapWood = pcwp ? (mpap - pcwp) / qp : null;
+
+  // RVS = (PAo systolique − POD) / Qs
+  const rvsWood = sap ? (sap - podRef) / qs : 0;
+  const rvsDynes = rvsWood * 80;
+
+  // Ratio Qp/Qs
+  const qpqs = qp / qs;
+
+  // Rapport RVP/RVS
+  const rvpRvs = rvsWood > 0 ? rvpWood / rvsWood : null;
+
+  // Volume d'éjection indexé
+  const vei = (ic * 1000) / hr; // mL/m²
+
+  // Classifications
+  const clRvp = classifyRVP(rvpWood, rvpIndexed);
+  const clIc = classifyIC(ic);
+  const clPap = classifyPAP(mpap);
+  const clQpQs = classifyQpQs(qpqs);
+
+  // ─── RENDER ──────────────────────────────────────────────────────────────
+  document.getElementById('results-panel').style.display = 'block';
+
+  // DIAGNOSTIC BANNER
+  const diagEl = document.getElementById('diag-banner');
+  let diagCls = 'ok', diagIcon = '✅', diagTitle = 'Hémodynamique équilibrée', diagText = '';
+
+  if (rvpIndexed >= 6 || ic < 2.0 || mpap >= 35) {
+    diagCls = 'danger'; diagIcon = '🔴'; diagTitle = 'Anomalies hémodynamiques sévères détectées';
+    diagText = 'Prise en charge urgente recommandée. ';
+  } else if (rvpIndexed >= 3 || ic < 2.5 || mpap >= 25 || qpqs > 1.5) {
+    diagCls = 'warn'; diagIcon = '🟡'; diagTitle = 'Anomalies hémodynamiques modérées';
+    diagText = 'Surveillance et évaluation approfondie recommandées. ';
+  } else {
+    diagText = 'Les paramètres hémodynamiques principaux sont dans les limites normales. ';
+  }
+
+  if (qpqs > 2.0) diagText += `Shunt gauche-droite important (Qp/Qs = ${qpqs.toFixed(2)}), évaluer indication chirurgicale. `;
+  if (rvpRvs && rvpRvs > 0.5) diagText += `Rapport RVP/RVS élevé (${rvpRvs.toFixed(2)}) — risque d'inopérabilité. `;
+
+  diagEl.className = `diag-banner ${diagCls}`;
+  diagEl.innerHTML = `<div class="diag-icon">${diagIcon}</div><div class="diag-content"><strong>${diagTitle}</strong>${diagText}</div>`;
+
+  // METRICS
+  const mg = document.getElementById('metrics-grid');
+  mg.innerHTML = '';
+
+  const metrics = [
+    {
+      label: 'Index Cardiaque (IC)',
+      value: ic.toFixed(2),
+      unit: 'L/min/m²',
+      ref: 'Norme: 3.0 – 5.0',
+      cls: clIc.cls,
+      icon: clIc.icon,
+      sub: clIc.label
+    },
+    {
+      label: 'RVP indexées',
+      value: rvpIndexed.toFixed(2),
+      unit: 'UW·m²',
+      ref: 'Norme: < 2.0 UW·m²',
+      cls: clRvp.cls,
+      icon: clRvp.icon,
+      sub: clRvp.label
+    },
+    {
+      label: 'PAP moyenne',
+      value: mpap.toFixed(1),
+      unit: 'mmHg',
+      ref: 'Norme: < 20 mmHg',
+      cls: clPap.cls,
+      icon: '',
+      sub: clPap.label
+    },
+    {
+      label: 'Qp / Qs',
+      value: qpqs.toFixed(2),
+      unit: '',
+      ref: 'Norme: ~1.0',
+      cls: clQpQs.cls,
+      icon: '',
+      sub: clQpQs.label
+    },
+    {
+      label: 'Débit pulm. indexé',
+      value: qpi.toFixed(2),
+      unit: 'L/min/m²',
+      ref: '',
+      cls: 'info',
+      icon: '',
+      sub: `VO₂ = ${vo2.toFixed(0)} mL/min`
+    },
+    {
+      label: 'Vol. Éjection indexé',
+      value: vei.toFixed(0),
+      unit: 'mL/m²',
+      ref: 'Norme: 30 – 65',
+      cls: (vei >= 30 && vei <= 65) ? 'ok' : 'warn',
+      icon: '',
+      sub: `BSA = ${bsa.toFixed(3)} m²`
+    }
+  ];
+
+  metrics.forEach(m => {
+    mg.innerHTML += `
+      <div class="metric ${m.cls}">
+        <div class="metric-status">${m.icon}</div>
+        <div class="metric-label">${m.label}</div>
+        <div class="metric-value">${m.value}</div>
+        <div class="metric-unit">${m.unit}</div>
+        <div class="metric-ref">${m.sub}</div>
+        <div class="metric-ref" style="margin-top:2px;opacity:0.7">${m.ref}</div>
+      </div>`;
+  });
+
+  // CALC TABLE
+  const ct = document.getElementById('calc-table');
+  ct.innerHTML = `
+    <tr><td>BSA (Haycock)</td><td class="formula">0.024265 × H^0.3964 × W^0.5378</td><td>${bsa.toFixed(4)} m²</td></tr>
+    <tr><td>VO₂ théorique (indexé)</td><td class="formula">Lafarge–Miettinen</td><td>${vo2Index.toFixed(1)} mL/min/m²</td></tr>
+    <tr><td>VO₂ absolu</td><td class="formula">VO₂i × BSA</td><td>${vo2.toFixed(1)} mL/min</td></tr>
+    <tr><td>CaO₂ (artériel)</td><td class="formula">Hb × 1.36 × SaO₂/100 × 10</td><td>${cao2.toFixed(1)} mL/L</td></tr>
+    <tr><td>CvO₂ (veineux mixte)</td><td class="formula">Hb × 1.36 × SvO₂/100 × 10</td><td>${cvo2.toFixed(1)} mL/L</td></tr>
+    <tr><td>Différence A-V systémique</td><td class="formula">CaO₂ − CvO₂</td><td>${davO2.toFixed(1)} mL/L</td></tr>
+    <tr><td>Différence A-V pulmonaire</td><td class="formula">CpvO₂ − CapO₂</td><td>${davpO2.toFixed(1)} mL/L</td></tr>
+    <tr><td>Débit systémique (Qs)</td><td class="formula">VO₂ / (CaO₂−CvO₂)</td><td>${qs.toFixed(2)} L/min</td></tr>
+    <tr><td>Débit pulmonaire (Qp)</td><td class="formula">VO₂ / (CpvO₂−CapO₂)</td><td>${qp.toFixed(2)} L/min</td></tr>
+    <tr><td>POD utilisée</td><td class="formula">${pod ? 'valeur saisie' : 'défaut 5 mmHg'}</td><td>${podRef} mmHg</td></tr>
+    <tr><td>RVP = (PAPm − POD) / Qp</td><td class="formula">Wood units</td><td>${rvpWood.toFixed(2)} UW</td></tr>
+    <tr><td>RVP indexées (× BSA)</td><td class="formula">UW·m²</td><td>${rvpIndexed.toFixed(2)} UW·m²</td></tr>
+    <tr><td>RVP en dynes·s·cm⁻⁵</td><td class="formula">RVP × 80</td><td>${rvpDynes.toFixed(0)} dyn·s·cm⁻⁵</td></tr>
+    ${gtp !== null ? `<tr><td>Gradient Transpulm. (GTP)</td><td class="formula">PAPm − PCAP</td><td style="color:${gtp > 12 ? 'var(--warn)' : 'var(--ok)'}">${gtp.toFixed(1)} mmHg</td></tr>` : ''}
+    ${rvpPreCapWood !== null ? `<tr><td>RVP pré-cap (PAPm−PCAP)/Qp</td><td class="formula">composante active</td><td>${rvpPreCapWood.toFixed(2)} UW</td></tr>` : ''}
+    ${rvsWood > 0 ? `<tr><td>RVS = (PAom − PODm) / Qs</td><td class="formula">Wood units</td><td>${rvsWood.toFixed(2)} UW</td></tr>` : ''}
+    ${rvsp && sap ? `<tr><td>Gradient VD/Ao syst.</td><td class="formula">PVD syst − PAo moy (indicatif)</td><td style="color:var(--accent4)">${(rvsp - sap).toFixed(0)} mmHg</td></tr>` : ''}
+    ${rvpRvs ? `<tr><td>Rapport RVP/RVS</td><td class="formula">—</td><td style="color:${rvpRvs > 0.5 ? 'var(--danger)' : 'var(--ok)'}">${rvpRvs.toFixed(3)}</td></tr>` : ''}
+  `;
+
+  // INTERPRETATION
+  const interpEl = document.getElementById('interpretation');
+  const items = [];
+
+  // IC
+  items.push({
+    dot: clIc.cls,
+    text: `<strong>Index Cardiaque</strong> : ${ic.toFixed(2)} L/min/m² → <em>${clIc.label}</em>. ${
+      ic < 2.5 ? 'Débit systémique insuffisant — évaluer la fonction ventriculaire et la précharge.' :
+      ic > 3.5 ? 'Débit élevé compatible avec un shunt gauche-droite ou un état hyperkinétique.' :
+      'Débit cardiaque adéquat pour la surface corporelle.'
+    }`
+  });
+
+  // RVP
+  items.push({
+    dot: clRvp.cls,
+    text: `<strong>Résistances Vasculaires Pulm.</strong> : ${rvpIndexed.toFixed(2)} UW·m² (${rvpDynes.toFixed(0)} dyn·s·cm⁻⁵) → <em>${clRvp.label}</em>. ${
+      rvpIndexed < 2 ? 'Lit vasculaire pulmonaire normal.' :
+      rvpIndexed < 4 ? 'RVP modérément élevées — test de vasoréactivité (NO/O₂) à envisager.' :
+      rvpIndexed < 6 ? 'HTAP significative — évaluation approfondie indispensable avant chirurgie.' :
+      'RVP très élevées — risque de non-opérabilité. Critères de Wood ≥ 8 UW·m² à vérifier.'
+    }`
+  });
+
+  // PAP
+  items.push({
+    dot: clPap.cls,
+    text: `<strong>PAP moyenne</strong> : ${mpap} mmHg → <em>${clPap.label}</em>. ${
+      mpap < 20 ? 'Pressions pulmonaires normales.' :
+      mpap < 25 ? 'À la limite supérieure de la normale, surveillance recommandée.' :
+      mpap < 35 ? 'HTAP légère confirmée. Évaluer la composante pré- vs post-capillaire.' :
+      'HTAP sévère. Gradient transpulmonaire et RVP indexées sont les éléments décisifs.'
+    }`
+  });
+
+  // Shunt
+  items.push({
+    dot: clQpQs.cls,
+    text: `<strong>Ratio Qp/Qs</strong> : ${qpqs.toFixed(2)} → <em>${clQpQs.label}</em>. ${
+      qpqs < 0.8 ? 'Shunt droite-gauche → cyanose attendue.' :
+      qpqs < 1.2 ? 'Pas de shunt significatif.' :
+      qpqs < 1.5 ? 'Shunt G→D minime, non significatif hémodynamiquement.' :
+      qpqs < 2.0 ? 'Shunt G→D modéré — surcharge pulmonaire à évaluer.' :
+      'Shunt G→D important — indication de fermeture à discuter.'
+    }`
+  });
+
+  // GTP
+  if (gtp !== null) {
+    items.push({
+      dot: gtp > 12 ? 'danger' : gtp > 6 ? 'warn' : 'ok',
+      text: `<strong>Gradient Transpulmonaire (GTP)</strong> : ${gtp.toFixed(1)} mmHg (PAPm − PCAP) → ${
+        gtp > 12 ? '⚠ Élevé — composante pré-capillaire (vasculaire) significative. HTAP active probable.' :
+        gtp > 6  ? 'GTP limite — distinguer composante passive (post-capillaire) vs active.' :
+        'GTP normal (≤ 6 mmHg) — HTAP à prédominance post-capillaire (passive/congestive).'
+      } <br><small style="color:var(--text3)">Norme : &lt; 6 mmHg · Composante pré-cap = (PAPm − PCAP) / Qp = ${rvpPreCapWood ? rvpPreCapWood.toFixed(2) + ' UW' : 'N/A'}</small>`
+    });
+  }
+
+  // RVP/RVS
+  if (rvpRvs) {
+    items.push({
+      dot: rvpRvs > 0.5 ? 'danger' : rvpRvs > 0.3 ? 'warn' : 'ok',
+      text: `<strong>Rapport RVP/RVS</strong> : ${rvpRvs.toFixed(3)} → ${
+        rvpRvs > 0.5 ? '⚠ Élevé — critère de non-opérabilité si > 0.5 avec résistances fixes.' :
+        rvpRvs > 0.3 ? 'Zone intermédiaire — test de vasoréactivité recommandé.' :
+        'Favorable — HTAP à composante réversible probable.'
+      }`
+    });
+  }
+
+  // VO2
+  items.push({
+    dot: 'info',
+    text: `<strong>VO₂ théorique</strong> : ${vo2.toFixed(0)} mL/min (${vo2Index.toFixed(1)} mL/min/m²) estimé par la méthode de Lafarge & Miettinen pour ${sex === 'M' ? 'garçon' : 'fille'} de ${age} ans, FC ${hr} bpm.`
+  });
+
+  interpEl.innerHTML = `<div class="interp-items">${
+    items.map(i => `<div class="interp-item"><div class="interp-dot ${i.dot}"></div><div>${i.text}</div></div>`).join('')
+  }</div>`;
+
+  // SHUNT CARD
+  const sc = document.getElementById('shunt-card');
+  const ratioPercent = Math.min((qpqs / 3) * 100, 100);
+  const ratioBarCls = qpqs > 2 ? 'danger' : qpqs > 1.5 ? 'warn' : '';
+  sc.innerHTML = `
+    <div class="card-title">Analyse du shunt — Qp/Qs = ${qpqs.toFixed(2)}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;margin-bottom:16px">
+      <div>
+        <div class="metric-label">Qs (systémique)</div>
+        <div style="font-family:var(--font-display);font-size:22px;color:var(--accent)">${qs.toFixed(2)} <span style="font-size:12px;font-family:var(--font-mono)">L/min</span></div>
+        <div class="metric-ref">QSi = ${qsi.toFixed(2)} L/min/m²</div>
+      </div>
+      <div>
+        <div class="metric-label">Qp (pulmonaire)</div>
+        <div style="font-family:var(--font-display);font-size:22px;color:var(--accent2)">${qp.toFixed(2)} <span style="font-size:12px;font-family:var(--font-mono)">L/min</span></div>
+        <div class="metric-ref">QPi = ${qpi.toFixed(2)} L/min/m²</div>
+      </div>
+      <div>
+        <div class="metric-label">RVP brutes</div>
+        <div style="font-family:var(--font-display);font-size:22px;color:var(--${clRvp.cls === 'ok' ? 'ok' : clRvp.cls === 'warn' ? 'warn' : 'danger'})">${rvpWood.toFixed(2)} <span style="font-size:12px;font-family:var(--font-mono)">UW</span></div>
+        <div class="metric-ref">${rvpDynes.toFixed(0)} dyn·s·cm⁻⁵</div>
+      </div>
+      <div>
+        <div class="metric-label">RVP indexées</div>
+        <div style="font-family:var(--font-display);font-size:22px;color:var(--${clRvp.cls === 'ok' ? 'ok' : clRvp.cls === 'warn' ? 'warn' : 'danger'})">${rvpIndexed.toFixed(2)} <span style="font-size:12px;font-family:var(--font-mono)">UW·m²</span></div>
+        <div class="metric-ref">${rvpDynesI.toFixed(0)} dyn·s·cm⁻⁵·m²</div>
+      </div>
+    </div>
+    <div style="margin-bottom:6px;font-family:var(--font-mono);font-size:10px;color:var(--text3)">RATIO Qp/Qs</div>
+    <div class="ratio-bar"><div class="ratio-fill ${ratioBarCls}" style="width:${ratioPercent}%"></div></div>
+    <div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);display:flex;justify-content:space-between">
+      <span>0</span><span>Équilibre 1.0</span><span>3.0+</span>
+    </div>
+    <div style="margin-top:14px;font-family:var(--font-mono);font-size:10px;color:var(--text2)">
+      Fick : <span style="color:var(--accent4)">Débit = VO₂ / (CaO₂ − CvO₂)</span> &nbsp;·&nbsp; VO₂ = ${vo2.toFixed(0)} mL/min &nbsp;·&nbsp; BSA = ${bsa.toFixed(3)} m²
+    </div>
+  `;
+
+  // Scroll to results
+  document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetAll() {
+  ['weight','height','age','hr','hb','sao2','svo2','spvo2','sapo2','mpap','pod','pcwp','rvsp','sap'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('results-panel').style.display = 'none';
+}
+</script>
+</body>
+</html>
